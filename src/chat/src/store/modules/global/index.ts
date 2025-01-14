@@ -30,7 +30,7 @@ export const useGlobalStore = defineStore('global-store', {
 
     updateFingerprint(str: number) {
       let id = str;
-      /* 超过mysql最大值进行截取 */
+      /* 超過mysql最大值進行截取 */
       if (id > 2147483647) {
         id = Number(id.toString().slice(-9));
         id = Number(String(Number(id)));

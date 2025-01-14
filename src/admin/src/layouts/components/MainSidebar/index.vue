@@ -17,7 +17,7 @@ const { switchTo } = useMenu()
   <Transition name="main-sidebar">
     <div v-if="settingsStore.settings.menu.menuMode === 'side' || (settingsStore.mode === 'mobile' && settingsStore.settings.menu.menuMode !== 'single')" class="main-sidebar-container">
       <Logo :show-title="false" class="sidebar-logo" />
-      <!-- 侧边栏模式（含主导航） -->
+      <!-- 側邊欄模式（含主導航） -->
       <div class="menu flex flex-col of-hidden transition-all">
         <template v-for="(item, index) in menuStore.allMenus" :key="index">
           <div
@@ -67,10 +67,10 @@ const { switchTo } = useMenu()
     overflow: hidden auto;
     overscroll-behavior: contain;
 
-    // firefox隐藏滚动条
+    // firefox隱藏滾動條
     scrollbar-width: none;
 
-    // chrome隐藏滚动条
+    // chrome隱藏滾動條
     &::-webkit-scrollbar {
       display: none;
     }
@@ -98,7 +98,7 @@ const { switchTo } = useMenu()
   }
 }
 
-// 主侧边栏动画
+// 主側邊欄動畫
 .main-sidebar-enter-active,
 .main-sidebar-leave-active {
   transition: 0.3s;

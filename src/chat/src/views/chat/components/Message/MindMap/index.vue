@@ -146,7 +146,7 @@ defineExpose({ textRef });
             @click="handleCopy"
           >
             <Copy class="flex mr-1" />
-            <span class="flex text-sm">复制</span>
+            <span class="flex text-sm">複製</span>
           </button>
 
           <button
@@ -155,7 +155,7 @@ defineExpose({ textRef });
             @click="handleDelete"
           >
             <Delete class="mr-1" />
-            <span class="flex text-sm">删除</span>
+            <span class="flex text-sm">刪除</span>
           </button>
         </div>
       </div>

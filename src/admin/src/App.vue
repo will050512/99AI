@@ -17,7 +17,7 @@ const isAuth = computed(() => {
   });
 });
 
-// 侧边栏主导航当前实际宽度
+// 側邊欄主導航當前實際寬度
 const mainSidebarActualWidth = computed(() => {
   let actualWidth = Number.parseInt(
     getComputedStyle(document.documentElement).getPropertyValue(
@@ -34,7 +34,7 @@ const mainSidebarActualWidth = computed(() => {
   return `${actualWidth}px`;
 });
 
-// 侧边栏次导航当前实际宽度
+// 側邊欄次導航當前實際寬度
 const subSidebarActualWidth = computed(() => {
   let actualWidth = Number.parseInt(
     getComputedStyle(document.documentElement).getPropertyValue(
@@ -54,7 +54,7 @@ const subSidebarActualWidth = computed(() => {
   return `${actualWidth}px`;
 });
 
-// 设置网页 title
+// 設置網頁 title
 watch(
   [
     () => settingsStore.settings.app.enableDynamicTitle,

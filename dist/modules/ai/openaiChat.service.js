@@ -44,8 +44,8 @@ let OpenAIChatService = class OpenAIChatService {
             data: data,
         };
         const sanitizedOptions = await this.sanitizeOptionsForLogging(options);
-        console.log('请求配置:', JSON.stringify(sanitizedOptions, null, 2), 'ChatService');
-        console.log('请求配置:', JSON.stringify(sanitizedOptions, null, 2), 'ChatService');
+        console.log('請求配置:', JSON.stringify(sanitizedOptions, null, 2), 'ChatService');
+        console.log('請求配置:', JSON.stringify(sanitizedOptions, null, 2), 'ChatService');
         try {
             const response = await (0, axios_1.default)(options);
             const stream = response.data;
@@ -58,7 +58,7 @@ let OpenAIChatService = class OpenAIChatService {
                     lines.forEach((line) => {
                         var _a, _b;
                         if (line.trim() === 'data: [DONE]') {
-                            console.log('处理结束信号 [DONE]');
+                            console.log('處理結束信號 [DONE]');
                             resolve(result);
                             return;
                         }
@@ -165,7 +165,7 @@ let OpenAIChatService = class OpenAIChatService {
         };
         try {
             const response = await (0, axios_1.default)(options);
-            common_1.Logger.log(`全局模型调用成功, 返回结果: ${response === null || response === void 0 ? void 0 : response.data.choices[0].message.content}`, 'ChatService');
+            common_1.Logger.log(`全局模型調用成功, 返回結果: ${response === null || response === void 0 ? void 0 : response.data.choices[0].message.content}`, 'ChatService');
             return response === null || response === void 0 ? void 0 : response.data.choices[0].message.content;
         }
         catch (error) {

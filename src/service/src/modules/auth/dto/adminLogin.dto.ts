@@ -3,16 +3,16 @@ import { ApiProperty } from '@nestjs/swagger';
 import { Type } from 'class-transformer';
 
 export class AdminLoginDto {
-  @ApiProperty({ example: 'super', description: '邮箱' })
-  @IsNotEmpty({ message: '用户名不能为空！' })
-  @MinLength(2, { message: '用户名最短是两位数！' })
-  @MaxLength(30, { message: '用户名最长不得超过30位！' })
+  @ApiProperty({ example: 'super', description: '郵箱' })
+  @IsNotEmpty({ message: '用戶名不能為空！' })
+  @MinLength(2, { message: '用戶名最短是兩位數！' })
+  @MaxLength(30, { message: '用戶名最長不得超過30位！' })
   @IsOptional()
   username?: string;
 
-  @ApiProperty({ example: '999999', description: '密码' })
-  @IsNotEmpty({ message: '用户密码不能为空！' })
-  @MinLength(6, { message: '用户密码最低需要大于6位数！' })
-  @MaxLength(30, { message: '用户密码最长不能超过30位数！' })
+  @ApiProperty({ example: '999999', description: '密碼' })
+  @IsNotEmpty({ message: '用戶密碼不能為空！' })
+  @MinLength(6, { message: '用戶密碼最低需要大於6位數！' })
+  @MaxLength(30, { message: '用戶密碼最長不能超過30位數！' })
   password: string;
 }

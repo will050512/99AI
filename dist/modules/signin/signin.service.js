@@ -36,7 +36,7 @@ let SigninService = class SigninService {
             where: { userId, signInDate: formattedDate },
         });
         if (existingSignin) {
-            throw new common_1.HttpException('今日已签到、改天再来吧!.', common_1.HttpStatus.BAD_REQUEST);
+            throw new common_1.HttpException('今日已簽到、改天再來吧!.', common_1.HttpStatus.BAD_REQUEST);
         }
         const { model3Count, model4Count, drawMjCount } = await this.globalConfigService.getSignatureGiftConfig();
         await this.signinEntity.save({
@@ -52,16 +52,16 @@ let SigninService = class SigninService {
             where: { userId: userId, signInDate: yesterday },
         });
         if (previousSignin) {
-            common_1.Logger.debug(`用户${userId}昨天签到了、今天是连续签到！`, 'SigninService');
+            common_1.Logger.debug(`用戶${userId}昨天簽到了、今天是連續簽到！`, 'SigninService');
             const userInfo = await this.userEntity.findOne({ where: { id: userId } });
             if (!userInfo) {
-                throw new common_1.HttpException('用户不存在', common_1.HttpStatus.BAD_REQUEST);
+                throw new common_1.HttpException('用戶不存在', common_1.HttpStatus.BAD_REQUEST);
             }
             const { consecutiveDays = 0 } = userInfo;
             await this.userEntity.update({ id: userId }, { consecutiveDays: consecutiveDays + 1 });
         }
         else {
-            common_1.Logger.debug(`用户${userId}昨天没签到、今天重置天数！`, 'SigninService');
+            common_1.Logger.debug(`用戶${userId}昨天沒簽到、今天重置天數！`, 'SigninService');
             await this.userEntity.update({ id: userId }, { consecutiveDays: 1 });
         }
         return 'Sign in successful.';
@@ -101,7 +101,7 @@ let SigninService = class SigninService {
         }
         catch (error) {
             console.log('error: ', error);
-            throw new common_1.HttpException('获取签到数据失败！', common_1.HttpStatus.BAD_REQUEST);
+            throw new common_1.HttpException('獲取簽到數據失敗！', common_1.HttpStatus.BAD_REQUEST);
         }
     }
 };

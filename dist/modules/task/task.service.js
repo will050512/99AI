@@ -40,7 +40,7 @@ let TaskService = class TaskService {
             this.userBalanceEntity
                 .update({ id: user.id }, { expirationTime: null, packageId: 0, memberModel3Count: 0, memberModel4Count: 0, memberDrawMjCount: 0 })
                 .then((res) => {
-                common_1.Logger.debug(`${user.id}会员已到期、清空所有余额并移除会员身份！`, 'TaskService');
+                common_1.Logger.debug(`${user.id}會員已到期、清空所有餘額並移除會員身份！`, 'TaskService');
             });
         });
     }

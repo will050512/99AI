@@ -83,12 +83,12 @@ const closeDialog = () => {
 };
 
 const submitEdit = async () => {
-  // 将编辑后的customIdData传给props.customId
+  // 將編輯後的customIdData傳給props.customId
   isDialogVisible.value = false;
 
   try {
     await onConversation({
-      msg: '使用大纲生成 PPT', // 具体的消息内容根据需要调整
+      msg: '使用大綱生成 PPT', // 具體的消息內容根據需要調整
       action: 'PPTCREATE',
       customId: customIdData.value,
       modelType: 2,
@@ -101,32 +101,32 @@ const submitEdit = async () => {
         complex: selectedComplexity.value,
       },
     });
-    console.log('PPT生成请求已发送');
+    console.log('PPT生成請求已發送');
   } catch (error) {
-    console.error('PPT生成请求失败:', error);
+    console.error('PPT生成請求失敗:', error);
   }
 };
 
 watch(
   () => props.status,
   (currentStatus) => {
-    // 清除可能已经存在的定时器
+    // 清除可能已經存在的定時器
     if (intervalId !== undefined) {
       clearInterval(intervalId);
       intervalId = undefined;
     }
 
-    // 当status为2时，启动定时器
+    // 當status為2時，啟動定時器
     if (currentStatus === 2) {
       intervalId = window.setInterval(async () => {
-        // 这里替换为你想要定期执行的操作
-        // console.log('定期执行操作');
+        // 這裡替換為你想要定期執行的操作
+        // console.log('定期執行操作');
         await chatStore.queryActiveChatLogList();
 
         if (props.customId) {
           customImageUrls.value = JSON.parse(props.customId);
         }
-      }, 5000); // 每5秒执行一次
+      }, 5000); // 每5秒執行一次
     }
   },
   { immediate: true }
@@ -150,14 +150,14 @@ onMounted(() => {
   }
 });
 
-// 组件卸载时清除定时器
+// 組件卸載時清除定時器
 onUnmounted(() => {
   if (intervalId !== undefined) {
     clearInterval(intervalId);
   }
 });
 
-// 组件卸载时清除定时器，避免内存泄露
+// 組件卸載時清除定時器，避免內存洩露
 onUnmounted(() => {
   clearInterval(intervalId);
 });
@@ -222,12 +222,12 @@ const selectedColor = ref('');
 const selectedStyle = ref('');
 const selectedCover = ref('');
 const selectedComplexity = ref('');
-// const colors = ['紫色', '红色', '橙色', '黄色', '绿色', '青色', '蓝色', '粉色'];
-// const styles = ['科技', '商务', '小清新', '极简', '中国风', '可爱卡通'];
+// const colors = ['紫色', '紅色', '橙色', '黃色', '綠色', '青色', '藍色', '粉色'];
+// const styles = ['科技', '商務', '小清新', '極簡', '中國風', '可愛卡通'];
 const complexities = [
-  { label: '简单', value: '1' },
+  { label: '簡單', value: '1' },
   { label: '中等', value: '2' },
-  { label: '复杂', value: '3' },
+  { label: '複雜', value: '3' },
 ];
 const selectColor = (color: string) => {
   selectedColor.value = color;
@@ -245,7 +245,7 @@ const selectComplexity = (complexity: { label: string; value: string }) => {
 const handleGeneratePPT = async () => {
   try {
     await onConversation({
-      msg: '生成 PPT', // 具体的消息内容根据需要调整
+      msg: '生成 PPT', // 具體的消息內容根據需要調整
       action: 'PPTCREATE',
       customId: props.customId,
       modelType: 2,
@@ -257,9 +257,9 @@ const handleGeneratePPT = async () => {
         complex: '',
       },
     });
-    console.log('PPT生成请求已发送');
+    console.log('PPT生成請求已發送');
   } catch (error) {
-    console.error('PPT生成请求失败:', error);
+    console.error('PPT生成請求失敗:', error);
   }
 };
 
@@ -269,44 +269,44 @@ const handelGeneratePPTCover = async () => {
   try {
     loading.value = true;
     selectedCover.value = '';
-    console.log('PPT封面生成请求已发送', props.customId);
+    console.log('PPT封面生成請求已發送', props.customId);
     const res = await fetchPptCoverAPIProcess({
       title: JSON.parse(props.customId).title,
       color: '',
       style: '',
     });
     PPTCover.value = res.data;
-    console.log('PPT封面生成请求已发送', res.data);
+    console.log('PPT封面生成請求已發送', res.data);
     loading.value = false;
   } catch (error) {
-    console.error('PPT封面生成请求失败:', error);
+    console.error('PPT封面生成請求失敗:', error);
     loading.value = false;
   }
 };
 
 const handleCoverClick = (cover: any) => {
   selectedCover.value = cover.cover_id;
-  console.log('点击了封面:', cover);
+  console.log('點擊了封面:', cover);
 };
 
 const addCatalog = () => {
   customIdData.value.catalogs.push({
-    catalog: '小标题',
+    catalog: '小標題',
     sub_catalog: [' ', ' '],
   });
 };
 
 const addSubCatalog = (index) => {
-  // 确保在指定的章节中添加一个新小节
+  // 確保在指定的章節中添加一個新小節
   customIdData.value.catalogs[index].sub_catalog.push(' ');
 };
 
 const removeSubCatalog = (catalogIndex, subIndex) => {
   const subCatalogs = customIdData.value.catalogs[catalogIndex].sub_catalog;
-  // 确保我们不会尝试删除不存在的小节
+  // 確保我們不會嘗試刪除不存在的小節
   if (subCatalogs.length > subIndex) {
     subCatalogs.splice(subIndex, 1);
-    // 触发 Vue 的响应式更新
+    // 觸發 Vue 的響應式更新
     customIdData.value.catalogs[catalogIndex].sub_catalog = [...subCatalogs];
   }
 };
@@ -327,13 +327,13 @@ defineExpose({ textRef });
       class="bg-white p-6 rounded-lg shadow-lg w-3/4 max-w-3xl max-h-[80vh] flex flex-col"
     >
       <div class="flex-none">
-        <h2 class="text-2xl mb-4 font-semibold">PPT大纲编辑调整</h2>
-        <p class="mb-4">您可以点击标题或章节进行大纲的编辑修改</p>
+        <h2 class="text-2xl mb-4 font-semibold">PPT大綱編輯調整</h2>
+        <p class="mb-4">您可以點擊標題或章節進行大綱的編輯修改</p>
       </div>
       <div class="flex-1 overflow-y-auto p-4 rounded-lg border">
         <div class="bg-white">
           <div class="flex items-center mb-4">
-            <label class="w-16 text-gray-500 font-semibold">主标题</label>
+            <label class="w-16 text-gray-500 font-semibold">主標題</label>
             <input
               type="text"
               v-model="customIdData.title"
@@ -347,7 +347,7 @@ defineExpose({ textRef });
           >
             <div class="flex items-center mb-2">
               <label class="w-12 font-semibold text-gray-500"
-                >章节 {{ index + 1 }}</label
+                >章節 {{ index + 1 }}</label
               >
               <input
                 type="text"
@@ -358,13 +358,13 @@ defineExpose({ textRef });
                 @click="removeCatalog(index)"
                 class="ml-2 px-3 py-1 bg-red-500 hover:bg-red-700 text-white rounded-md"
               >
-                删除
+                刪除
               </button>
               <button
                 @click="addSubCatalog(index)"
                 class="ml-2 px-3 py-1 bg-blue-500 hover:bg-blue-700 text-white rounded-md"
               >
-                添加小节
+                添加小節
               </button>
             </div>
             <div class="pl-8">
@@ -382,7 +382,7 @@ defineExpose({ textRef });
                   @click="removeSubCatalog(index, subIndex)"
                   class="ml-2 px-3 py-1 bg-red-500 hover:bg-red-700 text-white rounded-md"
                 >
-                  删除
+                  刪除
                 </button>
               </div>
             </div>
@@ -399,7 +399,7 @@ defineExpose({ textRef });
                 >
                   {{
                     complexities.find((c) => c.value === selectedComplexity)
-                      ?.label || '选择复杂度'
+                      ?.label || '選擇複雜度'
                   }}
                   <Down size="18" />
                 </MenuButton>
@@ -446,7 +446,7 @@ defineExpose({ textRef });
               @click="addCatalog"
               class="px-4 py-2 bg-primary-500 hover:bg-primary-700 text-white rounded-md mr-4"
             >
-              插入章节
+              插入章節
             </button>
             <button
               @click="submitEdit"
@@ -491,13 +491,13 @@ defineExpose({ textRef });
         @click="closePreviewDialog"
         class="px-4 py-1 mr-4 h-8 rounded-md border border-1 border-primary-500 text-primary-500"
       >
-        关闭
+        關閉
       </button>
       <button
         @click="downloadPPT"
         class="px-4 py-1 mr-2 bg-primary-500 h-8 border-1 border-primary-500 text-white rounded-md"
       >
-        下载PPT
+        下載PPT
       </button>
     </div>
   </div>
@@ -523,7 +523,7 @@ defineExpose({ textRef });
           </div>
           <!-- <div v-else class="w-full whitespace-pre-wrap" v-text="text" /> -->
         </div>
-        <!-- PPT封面展示区域 -->
+        <!-- PPT封面展示區域 -->
         <div class="flex flex-wrap mt-4">
           <div
             v-for="(cover, index) in PPTCover"
@@ -542,7 +542,7 @@ defineExpose({ textRef });
             />
           </div>
         </div>
-        <!-- 按钮和图标区域 -->
+        <!-- 按鈕和圖標區域 -->
         <div class="mb-1 mt-2 flex items-center justify-between w-full">
           <div class="flex items-center">
             <LoadingFour
@@ -555,7 +555,7 @@ defineExpose({ textRef });
               @click="handelGeneratePPTCover"
               class="ml-2 rounded-md py-2 px-3 text-primary-500"
             >
-              <div>换一组</div>
+              <div>換一組</div>
             </button>
           </div>
           <div class="flex items-center">
@@ -583,7 +583,7 @@ defineExpose({ textRef });
               @click="showPreviewDialog"
               class="shadow rounded-md py-2 px-5 text-sm bg-primary-500 text-white"
             >
-              在线预览
+              在線預覽
             </button> -->
           </div>
         </div>
@@ -642,52 +642,52 @@ defineExpose({ textRef });
     opacity: 1; /* 完全不透明 */
   }
   50% {
-    transform: scale(0.5); /* 缩小到50%的尺寸 */
+    transform: scale(0.5); /* 縮小到50%的尺寸 */
     opacity: 0.5; /* 半透明 */
   }
 }
 
 .breathing-dot {
   display: inline-block;
-  width: 10px; /* 圆点的基础宽度 */
-  height: 10px; /* 圆点的基础高度 */
-  border-radius: 50%; /* 使其成为圆形 */
-  background-color: black; /* 圆点的颜色 */
-  animation: breathe 2s infinite; /* 应用动画，无限循环 */
+  width: 10px; /* 圓點的基礎寬度 */
+  height: 10px; /* 圓點的基礎高度 */
+  border-radius: 50%; /* 使其成為圓形 */
+  background-color: black; /* 圓點的顏色 */
+  animation: breathe 2s infinite; /* 應用動畫，無限循環 */
 }
 @keyframes breathe {
   0%,
   100% {
     transform: scale(1);
     opacity: 1;
-    /* 开始和结束时完全不透明 */
+    /* 開始和結束時完全不透明 */
   }
 
   50% {
     transform: scale(0.75);
-    /* 中间缩小到75% */
+    /* 中間縮小到75% */
     opacity: 0.75;
-    /* 中间透明度降低，增加平滑感 */
+    /* 中間透明度降低，增加平滑感 */
   }
 }
 
 .loading-anchor::after {
   content: '';
-  /* 不使用文本内容 */
+  /* 不使用文本內容 */
   display: inline-block;
   width: 0.875em;
-  /* 控制原点的大小 */
+  /* 控制原點的大小 */
   height: 0.875em;
-  /* 保持原点为圆形 */
+  /* 保持原點為圓形 */
   margin-left: 2px;
   background-color: #000;
-  /* 原点颜色 */
+  /* 原點顏色 */
   border-radius: 50%;
-  /* 使其成为圆形 */
+  /* 使其成為圓形 */
   animation: breathe 2s infinite ease-in-out;
-  /* 应用呼吸效果动画 */
+  /* 應用呼吸效果動畫 */
   vertical-align: middle;
-  /* 根据需要调整垂直对齐 */
+  /* 根據需要調整垂直對齊 */
 }
 @keyframes rotateAnimation {
   from {

@@ -1,6 +1,6 @@
 <route lang="yaml">
 meta:
-  title: 对话管理
+  title: 對話管理
 </route>
 
 <script lang="ts" setup>
@@ -63,26 +63,26 @@ onMounted(() => {
   <div>
     <PageHeader>
       <template #title>
-        <div class="flex items-center gap-4">对话记录</div>
+        <div class="flex items-center gap-4">對話記錄</div>
       </template>
       <!-- <template #content>
         <div class="text-sm/6">
           <div>
-            所有工单只可审核一次，请谨慎操作，打款请人工打款，确定打款后点击审核通过即可。
+            所有工單隻可審核一次，請謹慎操作，打款請人工打款，確定打款後點擊審核通過即可。
           </div>
         </div>
       </template> -->
     </PageHeader>
     <page-main>
       <el-form ref="formRef" :inline="true" :model="formInline">
-        <el-form-item label="用户名称" prop="userId">
+        <el-form-item label="用戶名稱" prop="userId">
           <el-select
             v-model="formInline.userId"
             filterable
             clearable
             remote
             reserve-keyword
-            placeholder="用户姓名[模糊搜索]"
+            placeholder="用戶姓名[模糊搜索]"
             remote-show-suffix
             :remote-method="handlerSearchUser"
             style="width: 160px"
@@ -95,15 +95,15 @@ onMounted(() => {
             />
           </el-select>
         </el-form-item>
-        <el-form-item label="用户询问的问题" prop="prompt">
+        <el-form-item label="用戶詢問的問題" prop="prompt">
           <el-input
             v-model="formInline.prompt"
-            placeholder="提问问题[模糊搜索]"
+            placeholder="提問問題[模糊搜索]"
             @keydown.enter.prevent="queryAllChatLog"
           />
         </el-form-item>
         <el-form-item>
-          <el-button type="primary" @click="queryAllChatLog"> 查询 </el-button>
+          <el-button type="primary" @click="queryAllChatLog"> 查詢 </el-button>
           <el-button @click="handlerReset(formRef)"> 重置 </el-button>
         </el-form-item>
       </el-form>
@@ -118,14 +118,14 @@ onMounted(() => {
         size="large"
         :tooltip-options="{}"
       >
-        <el-table-column fixed prop="username" label="用户名称" width="150" />
+        <el-table-column fixed prop="username" label="用戶名稱" width="150" />
         <el-table-column prop="createdAt" label="角色" width="80">
           <template #default="scope">
-            {{ scope.row.role === 'user' ? '用户' : '电脑' }}
+            {{ scope.row.role === 'user' ? '用戶' : '電腦' }}
           </template>
         </el-table-column>
-        <el-table-column prop="email" label="用户邮箱" width="200" />
-        <!-- <el-table-column prop="prompt" label="询问问题" width="150">
+        <el-table-column prop="email" label="用戶郵箱" width="200" />
+        <!-- <el-table-column prop="prompt" label="詢問問題" width="150">
           <template #default="scope">
             <el-popover placement="top" :width="400" trigger="click">
               <template #reference>
@@ -137,7 +137,7 @@ onMounted(() => {
             </el-popover>
           </template>
         </el-table-column> -->
-        <el-table-column prop="answer" label="用户询问/AI回复" width="400">
+        <el-table-column prop="answer" label="用戶詢問/AI回覆" width="400">
           <template #default="scope">
             <el-popover placement="top" width="450" trigger="click">
               <template #reference>
@@ -162,10 +162,10 @@ onMounted(() => {
             </el-popover>
           </template>
         </el-table-column>
-        <!-- <el-table-column prop="promptTokens" label="提问Token" width="110" /> -->
+        <!-- <el-table-column prop="promptTokens" label="提問Token" width="110" /> -->
         <el-table-column
           prop="completionTokens"
-          label="提问/回答Token"
+          label="提問/回答Token"
           width="140"
           align="center"
         >
@@ -179,12 +179,12 @@ onMounted(() => {
         </el-table-column>
         <el-table-column
           prop="totalTokens"
-          label="总计Token"
+          label="總計Token"
           width="110"
           align="center"
         />
         <el-table-column prop="model" label="模型" width="200" />
-        <el-table-column prop="createdAt" label="提问时间" width="200">
+        <el-table-column prop="createdAt" label="提問時間" width="200">
           <template #default="scope">
             {{ utcToShanghaiTime(scope.row.createdAt, 'YYYY-MM-DD hh:mm:ss') }}
           </template>

@@ -42,14 +42,14 @@ watch(
             hide: !settingsStore.settings.home.enable,
           },
           {
-            label: '个人设置',
+            label: '個人設置',
             handle: () => router.push({ name: 'personalSetting' }),
           },
         ],
         // [
-        //   { label: '快捷键介绍', handle: () => eventBus.emit('global-hotkeys-intro-toggle'), hide: settingsStore.mode !== 'pc' },
+        //   { label: '快捷鍵介紹', handle: () => eventBus.emit('global-hotkeys-intro-toggle'), hide: settingsStore.mode !== 'pc' },
         // ],
-        [{ label: '退出登录', handle: () => userStore.logout() }],
+        [{ label: '退出登錄', handle: () => userStore.logout() }],
       ]"
       class="flex-center cursor-pointer px-2"
     >

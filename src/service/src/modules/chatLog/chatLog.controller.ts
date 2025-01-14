@@ -30,7 +30,7 @@ export class ChatLogController {
   constructor(private readonly chatLogService: ChatLogService) {}
 
   @Get('draw')
-  @ApiOperation({ summary: '查询我的绘制记录' })
+  @ApiOperation({ summary: '查詢我的繪製記錄' })
   @ApiBearerAuth()
   @UseGuards(JwtAuthGuard)
   querDrawLog(@Query() query: QuerMyChatLogDto, @Req() req: Request) {
@@ -38,7 +38,7 @@ export class ChatLogController {
   }
 
   @Post('recDrawImg')
-  @ApiOperation({ summary: '推荐此图片对外展示' })
+  @ApiOperation({ summary: '推薦此圖片對外展示' })
   @ApiBearerAuth()
   @UseGuards(SuperAuthGuard)
   recDrawImg(@Body() body: recDrawImgDto) {
@@ -46,13 +46,13 @@ export class ChatLogController {
   }
 
   @Get('drawAll')
-  @ApiOperation({ summary: '查询所有的绘制记录' })
+  @ApiOperation({ summary: '查詢所有的繪製記錄' })
   querAllDrawLog(@Query() params: QuerAllDrawLogDto) {
     return this.chatLogService.querAllDrawLog(params);
   }
 
   @Get('chatAll')
-  @ApiOperation({ summary: '查询所有的问答记录' })
+  @ApiOperation({ summary: '查詢所有的問答記錄' })
   @ApiBearerAuth()
   @UseGuards(AdminAuthGuard)
   queryAllChatLog(@Query() params: QuerAllChatLogDto, @Req() req: Request) {
@@ -60,14 +60,14 @@ export class ChatLogController {
   }
 
   @Post('exportExcel')
-  @ApiOperation({ summary: '导出问答记录' })
+  @ApiOperation({ summary: '導出問答記錄' })
   @ApiBearerAuth()
   exportExcel(@Body() body: ExportExcelChatlogDto, @Res() res: Response) {
     return this.chatLogService.exportExcel(body, res);
   }
 
   @Get('chatList')
-  @ApiOperation({ summary: '查询我的问答记录' })
+  @ApiOperation({ summary: '查詢我的問答記錄' })
   @ApiBearerAuth()
   @UseGuards(JwtAuthGuard)
   chatList(@Req() req: Request, @Query() params: ChatListDto) {
@@ -75,7 +75,7 @@ export class ChatLogController {
   }
 
   @Post('del')
-  @ApiOperation({ summary: '删除我的问答记录' })
+  @ApiOperation({ summary: '刪除我的問答記錄' })
   @ApiBearerAuth()
   @UseGuards(JwtAuthGuard)
   del(@Req() req: Request, @Body() body: DelDto) {
@@ -83,7 +83,7 @@ export class ChatLogController {
   }
 
   @Post('delByGroupId')
-  @ApiOperation({ summary: '清空一组对话' })
+  @ApiOperation({ summary: '清空一組對話' })
   @ApiBearerAuth()
   @UseGuards(JwtAuthGuard)
   delByGroupId(@Req() req: Request, @Body() body: DelByGroupDto) {
@@ -91,7 +91,7 @@ export class ChatLogController {
   }
 
   @Post('deleteChatsAfterId')
-  @ApiOperation({ summary: '删除对话组中某条对话及其后的所有对话' })
+  @ApiOperation({ summary: '刪除對話組中某條對話及其後的所有對話' })
   @ApiBearerAuth()
   @UseGuards(JwtAuthGuard)
   deleteChatsAfterId(@Req() req: Request, @Body() body: any) {
@@ -99,7 +99,7 @@ export class ChatLogController {
   }
 
   @Get('byAppId')
-  @ApiOperation({ summary: '查询某个应用的问答记录' })
+  @ApiOperation({ summary: '查詢某個應用的問答記錄' })
   @ApiBearerAuth()
   @UseGuards(JwtAuthGuard)
   byAppId(@Req() req: Request, @Query() params: QueryByAppIdDto) {

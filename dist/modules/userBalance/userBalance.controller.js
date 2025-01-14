@@ -40,7 +40,7 @@ let UserBalanceController = class UserBalanceController {
 };
 __decorate([
     (0, common_1.Get)('rechargeLog'),
-    (0, swagger_1.ApiOperation)({ summary: '获取个人充值记录' }),
+    (0, swagger_1.ApiOperation)({ summary: '獲取個人充值記錄' }),
     (0, common_1.UseGuards)(jwtAuth_guard_1.JwtAuthGuard),
     (0, swagger_1.ApiBearerAuth)(),
     __param(0, (0, common_1.Req)()),
@@ -51,7 +51,7 @@ __decorate([
 ], UserBalanceController.prototype, "getRechargeLog", null);
 __decorate([
     (0, common_1.Get)('accountLog'),
-    (0, swagger_1.ApiOperation)({ summary: '获取所有人账户记录' }),
+    (0, swagger_1.ApiOperation)({ summary: '獲取所有人賬戶記錄' }),
     (0, common_1.UseGuards)(adminAuth_guard_1.AdminAuthGuard),
     (0, swagger_1.ApiBearerAuth)(),
     __param(0, (0, common_1.Req)()),
@@ -62,7 +62,7 @@ __decorate([
 ], UserBalanceController.prototype, "getAccountLog", null);
 __decorate([
     (0, common_1.Get)('query'),
-    (0, swagger_1.ApiOperation)({ summary: '获取个人余额信息' }),
+    (0, swagger_1.ApiOperation)({ summary: '獲取個人餘額資訊' }),
     (0, common_1.UseGuards)(jwtAuth_guard_1.JwtAuthGuard),
     (0, swagger_1.ApiBearerAuth)(),
     __param(0, (0, common_1.Req)()),
@@ -72,7 +72,7 @@ __decorate([
 ], UserBalanceController.prototype, "getBalance", null);
 __decorate([
     (0, common_1.Post)('inheritVisitorData'),
-    (0, swagger_1.ApiOperation)({ summary: '继承当前设备数据' }),
+    (0, swagger_1.ApiOperation)({ summary: '繼承當前設備數據' }),
     (0, common_1.UseGuards)(jwtAuth_guard_1.JwtAuthGuard),
     (0, swagger_1.ApiBearerAuth)(),
     __param(0, (0, common_1.Req)()),
@@ -82,7 +82,7 @@ __decorate([
 ], UserBalanceController.prototype, "inheritVisitorData", null);
 __decorate([
     (0, common_1.Get)('getVisitorCount'),
-    (0, swagger_1.ApiOperation)({ summary: '获取本机指纹数据' }),
+    (0, swagger_1.ApiOperation)({ summary: '獲取本機指紋數據' }),
     (0, common_1.UseGuards)(jwtAuth_guard_1.JwtAuthGuard),
     (0, swagger_1.ApiBearerAuth)(),
     __param(0, (0, common_1.Req)()),

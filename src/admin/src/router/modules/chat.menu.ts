@@ -10,7 +10,7 @@ const routes: RouteRecordRaw = {
   redirect: '/chat/chat',
   name: 'chatMenu',
   meta: {
-    title: '数据管理',
+    title: '數據管理',
     icon: 'majesticons:data-line',
   },
   children: [
@@ -19,7 +19,7 @@ const routes: RouteRecordRaw = {
       name: 'dashboardMenu',
       component: () => import('@/views/users/index.vue'),
       meta: {
-        title: '用户信息',
+        title: '用戶資訊',
         icon: 'fa6-solid:list-ul',
       },
     },
@@ -28,7 +28,7 @@ const routes: RouteRecordRaw = {
       name: 'chatMenuList',
       component: () => import('@/views/chat/chat.vue'),
       meta: {
-        title: '对话记录',
+        title: '對話記錄',
         icon: 'material-symbols-light:chat-outline',
       },
     },
@@ -37,7 +37,7 @@ const routes: RouteRecordRaw = {
       name: 'drawMenuList',
       component: () => import('@/views/chat/draw.vue'),
       meta: {
-        title: '绘画记录',
+        title: '繪畫記錄',
         icon: 'material-symbols:draw-outline',
       },
     },
@@ -46,7 +46,7 @@ const routes: RouteRecordRaw = {
       name: 'ReplyMenuList',
       component: () => import('@/views/sensitive/autpReply.vue'),
       meta: {
-        title: '内容预设',
+        title: '內容預設',
         icon: 'ic:outline-question-answer',
       },
     },

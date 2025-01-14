@@ -50,7 +50,7 @@ global.fetch = fetch;
       },
       {
         rootPath: join(__dirname, '..', 'public/chat'),
-        serveRoot: '/', // 再配置根路径 '/'
+        serveRoot: '/', // 再配置根路徑 '/'
       }
     ),
     UserModule,

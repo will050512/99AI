@@ -15,29 +15,29 @@ const class_validator_1 = require("class-validator");
 class UpdateGroupDto {
 }
 __decorate([
-    (0, swagger_1.ApiProperty)({ example: 1, description: '修改的对话ID', required: false }),
+    (0, swagger_1.ApiProperty)({ example: 1, description: '修改的對話ID', required: false }),
     (0, class_validator_1.IsOptional)(),
     __metadata("design:type", Number)
 ], UpdateGroupDto.prototype, "groupId", void 0);
 __decorate([
-    (0, swagger_1.ApiProperty)({ example: 10, description: '对话组title', required: false }),
+    (0, swagger_1.ApiProperty)({ example: 10, description: '對話組title', required: false }),
     (0, class_validator_1.IsOptional)(),
     __metadata("design:type", String)
 ], UpdateGroupDto.prototype, "title", void 0);
 __decorate([
-    (0, swagger_1.ApiProperty)({ example: 10, description: '对话组是否置顶', required: false }),
+    (0, swagger_1.ApiProperty)({ example: 10, description: '對話組是否置頂', required: false }),
     (0, class_validator_1.IsOptional)(),
     __metadata("design:type", Boolean)
 ], UpdateGroupDto.prototype, "isSticky", void 0);
 __decorate([
-    (0, swagger_1.ApiProperty)({ example: '', description: '对话组文件地址', required: false }),
+    (0, swagger_1.ApiProperty)({ example: '', description: '對話組文件地址', required: false }),
     (0, class_validator_1.IsOptional)(),
     __metadata("design:type", String)
 ], UpdateGroupDto.prototype, "fileUrl", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)({
         example: '',
-        description: '对话模型配置项序列化的字符串',
+        description: '對話模型配置項序列化的字串',
         required: false,
     }),
     __metadata("design:type", String)

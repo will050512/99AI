@@ -19,9 +19,9 @@ const useUserStore = defineStore(
       return token.value;
     });
 
-    // 登录
+    // 登錄
     async function login(data: { username: string; password: string }) {
-      // 通过 mock 进行登录
+      // 通過 mock 進行登錄
       const res = await apiUser.login(data);
       // localStorage.setItem('username', res.data.username)
       localStorage.setItem('token', res.data);
@@ -54,14 +54,14 @@ const useUserStore = defineStore(
       username.value = userInfo.username;
       avatar.value = userInfo.avatar;
       if (!['admin', 'super'].includes(role)) {
-        ElMessage.error('您没有权限访问该系统!!!');
+        ElMessage.error('您沒有權限訪問該系統!!!');
         await logout();
       }
     }
 
-    // 获取我的权限
+    // 獲取我的權限
     async function getPermissions() {
-      // 通过 mock 获取权限
+      // 通過 mock 獲取權限
       const res = await apiUser.permission();
       const { userInfo } = res.data;
       const { username: name } = userInfo;
@@ -76,7 +76,7 @@ const useUserStore = defineStore(
       ];
       return permissions.value;
     }
-    // 修改密码
+    // 修改密碼
     async function editPassword(data: {
       oldPassword: string;
       password: string;

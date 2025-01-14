@@ -66,8 +66,8 @@ async function loginByWechat() {
     if (res.success) {
       authStore.setToken(res.data);
       await authStore.getUserInfo();
-      authStore.setLoginDialog(false); // 关闭登录对话框
-      // 直接导航到 /chat 页面
+      authStore.setLoginDialog(false); // 關閉登錄對話框
+      // 直接導航到 /chat 頁面
       router.replace('/chat');
     }
   }
@@ -88,7 +88,7 @@ onMounted(async () => {
 
   let htmlContent = computed(() => authStore.globalConfig?.homeHtml || '');
 
-  // 添加 goToChat 函数到 htmlContent 中
+  // 添加 goToChat 函數到 htmlContent 中
   htmlContent = computed(
     () => `
     ${authStore.globalConfig?.homeHtml || ''}
@@ -100,12 +100,12 @@ onMounted(async () => {
       iframe.value.contentDocument || iframe.value.contentWindow?.document;
     if (doc) {
       doc.open();
-      doc.write(htmlContent.value); // 访问 computed 属性的值
+      doc.write(htmlContent.value); // 訪問 computed 屬性的值
       doc.close();
     }
   }
 
-  // 页面加载完成后预加载 /chat 路由组件
+  // 頁面加載完成後預加載 /chat 路由組件
   import('@/views/chat/chat.vue');
 
   window.addEventListener('message', async (event) => {
@@ -121,7 +121,7 @@ onMounted(async () => {
   await init();
 });
 
-// 监控 isLogin 状态的变化
+// 監控 isLogin 狀態的變化
 watch(isLogin, (newVal) => {
   if (newVal) {
     router.replace('/chat');

@@ -37,7 +37,7 @@ let VerificationService = class VerificationService {
         if (historyVerify &&
             historyVerify.createdAt.getTime() + 1 * 60 * 1000 > Date.now()) {
             const diffS = Math.ceil((historyVerify.createdAt.getTime() + 1 * 60 * 1000 - Date.now()) / 1000);
-            throw new common_1.HttpException(`${diffS}S内不得重新发送`, common_1.HttpStatus.BAD_REQUEST);
+            throw new common_1.HttpException(`${diffS}S內不得重新發送`, common_1.HttpStatus.BAD_REQUEST);
         }
         const code = (0, utils_1.createRandomCode)();
         const expiresAt = new Date(Date.now() + expir * 1000);
@@ -51,20 +51,20 @@ let VerificationService = class VerificationService {
             order: { createdAt: 'DESC' },
         });
         if (!v) {
-            throw new common_1.HttpException('验证码不存在', common_1.HttpStatus.BAD_REQUEST);
+            throw new common_1.HttpException('驗證碼不存在', common_1.HttpStatus.BAD_REQUEST);
         }
         if (v.used === status_constant_1.VerificationUseStatusEnum.USED) {
-            throw new common_1.HttpException('当前验证码已被使用！', common_1.HttpStatus.BAD_REQUEST);
+            throw new common_1.HttpException('當前驗證碼已被使用！', common_1.HttpStatus.BAD_REQUEST);
         }
         else {
             v.used = status_constant_1.VerificationUseStatusEnum.USED;
             await this.verifycationEntity.update({ id }, v);
         }
         if (Number(v.code) !== Number(code)) {
-            throw new common_1.HttpException('验证码错误', common_1.HttpStatus.BAD_REQUEST);
+            throw new common_1.HttpException('驗證碼錯誤', common_1.HttpStatus.BAD_REQUEST);
         }
         if (v.expiresAt < new Date()) {
-            throw new common_1.HttpException('验证码已过期', common_1.HttpStatus.BAD_REQUEST);
+            throw new common_1.HttpException('驗證碼已過期', common_1.HttpStatus.BAD_REQUEST);
         }
         return v;
     }
@@ -74,7 +74,7 @@ let VerificationService = class VerificationService {
         console.log('Received messageInfo:', messageInfo);
         const { phone, code } = messageInfo;
         if (!phone || !code) {
-            throw new common_1.HttpException('确实必要参数错误！', common_1.HttpStatus.BAD_REQUEST);
+            throw new common_1.HttpException('確實必要參數錯誤！', common_1.HttpStatus.BAD_REQUEST);
         }
         const client = new Core({
             accessKeyId,
@@ -95,18 +95,18 @@ let VerificationService = class VerificationService {
                 return true;
             }
             else {
-                throw new common_1.HttpException(response.Message || '验证码发送失败！', common_1.HttpStatus.BAD_REQUEST);
+                throw new common_1.HttpException(response.Message || '驗證碼發送失敗！', common_1.HttpStatus.BAD_REQUEST);
             }
         }
         catch (error) {
-            throw new common_1.HttpException(((_a = error === null || error === void 0 ? void 0 : error.data) === null || _a === void 0 ? void 0 : _a.Message) || '验证码发送失败！', common_1.HttpStatus.BAD_REQUEST);
+            throw new common_1.HttpException(((_a = error === null || error === void 0 ? void 0 : error.data) === null || _a === void 0 ? void 0 : _a.Message) || '驗證碼發送失敗！', common_1.HttpStatus.BAD_REQUEST);
         }
     }
     async verifyIdentity(identityInfo) {
         const appCode = await this.globalConfigService.getConfigs(['appCode']);
         const { name, idCard } = identityInfo;
         if (!name || !idCard) {
-            throw new common_1.HttpException('缺少必要参数！', common_1.HttpStatus.BAD_REQUEST);
+            throw new common_1.HttpException('缺少必要參數！', common_1.HttpStatus.BAD_REQUEST);
         }
         common_1.Logger.debug(`Received identityInfo: ${name}, ${idCard}`);
         const apiUrl = 'https://eid.shumaidata.com/eid/check';
@@ -126,11 +126,11 @@ let VerificationService = class VerificationService {
                 case '1':
                     return true;
                 case '2':
-                    common_1.Logger.log('验证不一致', 'VerificationService');
+                    common_1.Logger.log('驗證不一致', 'VerificationService');
                 case '3':
-                    common_1.Logger.log('实名认证异常', 'VerificationService');
+                    common_1.Logger.log('實名認證異常', 'VerificationService');
                 default:
-                    common_1.Logger.log('未知的认证结果', 'VerificationService');
+                    common_1.Logger.log('未知的認證結果', 'VerificationService');
             }
             return false;
         }

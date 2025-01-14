@@ -1,6 +1,6 @@
 <route lang="yaml">
 meta:
-  title: 用户管理
+  title: 用戶管理
 </route>
 
 <script lang="ts" setup>
@@ -40,7 +40,7 @@ const formInline = reactive({
   size: 15,
 });
 
-// 定义 USER_STATUS_MAP
+// 定義 USER_STATUS_MAP
 const USER_STATUS_MAP: { [key in UserStatus]: string } = {
   0: 'Inactive',
   1: 'Active',
@@ -80,13 +80,13 @@ interface UserItem {
 
 const rules = reactive<FormRules>({
   model3Count: [
-    { required: true, message: '请填写调整的基础模型额度', trigger: 'blur' },
+    { required: true, message: '請填寫調整的基礎模型額度', trigger: 'blur' },
   ],
   model4Count: [
-    { required: true, message: '请填写调整的高级模型额度', trigger: 'blur' },
+    { required: true, message: '請填寫調整的高級模型額度', trigger: 'blur' },
   ],
   drawMjCount: [
-    { required: true, message: '请填写调整的绘画积分额度', trigger: 'blur' },
+    { required: true, message: '請填寫調整的繪畫積分額度', trigger: 'blur' },
   ],
 });
 
@@ -118,7 +118,7 @@ function handleSendCrami(row: UserItem) {
 
 async function handlerUpateUserStatus() {
   const res: any = await ApiUsre.updateUserStatus(form);
-  res.success && ElMessage({ type: 'success', message: '变更用户状态成功！' });
+  res.success && ElMessage({ type: 'success', message: '變更用戶狀態成功！' });
   visible.value = false;
   queryAllUserList();
 }
@@ -134,7 +134,7 @@ async function handlerResetUserPass(row: any) {
   res.success &&
     ElMessage({
       type: 'success',
-      message: `重置用户[${email}密码为初始密码为[123456]完成！`,
+      message: `重置用戶[${email}密碼為初始密碼為[123456]完成！`,
     });
 }
 
@@ -149,7 +149,7 @@ async function handlerSubmitSend(formEl: FormInstance | undefined) {
       return;
     }
     await ApiUsre.sendUserCrami({ ...formCrami, userId: activeUserId.value });
-    ElMessage.success('调整成功！');
+    ElMessage.success('調整成功！');
     visibleCrami.value = false;
     queryAllUserList();
   });
@@ -162,43 +162,43 @@ onMounted(() => queryAllUserList());
   <div>
     <PageHeader>
       <template #title>
-        <div class="flex items-center gap-4">用户信息列表</div>
+        <div class="flex items-center gap-4">用戶資訊列表</div>
       </template>
       <!-- <template #content>
         <div class="text-sm/6">
           <div>
-            所有工单只可审核一次，请谨慎操作，打款请人工打款，确定打款后点击审核通过即可。
+            所有工單隻可審核一次，請謹慎操作，打款請人工打款，確定打款後點擊審核通過即可。
           </div>
         </div>
       </template> -->
     </PageHeader>
     <page-main>
       <el-form ref="formRef" :inline="true" :model="formInline">
-        <el-form-item label="用户名称" prop="username">
+        <el-form-item label="用戶名稱" prop="username">
           <el-input
             v-model="formInline.username"
-            placeholder="用户姓名[模糊搜索]"
+            placeholder="用戶姓名[模糊搜索]"
             clearable
           />
         </el-form-item>
-        <el-form-item label="用户邮箱" prop="email">
+        <el-form-item label="用戶郵箱" prop="email">
           <el-input
             v-model="formInline.email"
-            placeholder="用户邮箱[模糊搜索]"
+            placeholder="用戶郵箱[模糊搜索]"
             clearable
           />
         </el-form-item>
-        <el-form-item label="手机号码" prop="phone">
+        <el-form-item label="手機號碼" prop="phone">
           <el-input
             v-model="formInline.phone"
-            placeholder="手机号码[模糊搜索]"
+            placeholder="手機號碼[模糊搜索]"
             clearable
           />
         </el-form-item>
-        <el-form-item label="用户状态" prop="status">
+        <el-form-item label="用戶狀態" prop="status">
           <el-select
             v-model="formInline.status"
-            placeholder="请选择用户状态"
+            placeholder="請選擇用戶狀態"
             style="width: 160px"
             clearable
           >
@@ -211,7 +211,7 @@ onMounted(() => queryAllUserList());
           </el-select>
         </el-form-item>
         <el-form-item>
-          <el-button type="primary" @click="queryAllUserList"> 查询 </el-button>
+          <el-button type="primary" @click="queryAllUserList"> 查詢 </el-button>
           <el-button @click="handlerReset(formRef)"> 重置 </el-button>
         </el-form-item>
       </el-form>
@@ -225,51 +225,51 @@ onMounted(() => queryAllUserList());
         style="width: 100%"
         size="large"
       >
-        <el-table-column prop="avatar" label="用户头像" fixed width="120">
+        <el-table-column prop="avatar" label="用戶頭像" fixed width="120">
           <template #default="scope">
             <el-avatar :src="scope.row.avatar" />
           </template>
         </el-table-column>
-        <el-table-column fixed prop="username" label="用户名称" width="150" />
+        <el-table-column fixed prop="username" label="用戶名稱" width="150" />
         <el-table-column
           prop="email"
-          label="用户邮箱"
+          label="用戶郵箱"
           width="250"
           align="left"
         />
         <el-table-column
           prop="phone"
-          label="用户手机号"
+          label="用戶手機號"
           width="250"
           align="left"
         >
           <template #default="scope">
-            {{ scope.row?.phone || '未绑定手机号' }}
+            {{ scope.row?.phone || '未綁定手機號' }}
           </template>
         </el-table-column>
         <el-table-column
           prop="realName"
-          label="真实姓名"
+          label="真實姓名"
           width="150"
           align="center"
         >
           <template #default="scope">
-            {{ scope.row?.realName || '未实名认证' }}
+            {{ scope.row?.realName || '未實名認證' }}
           </template>
         </el-table-column>
         <el-table-column
           prop="idCard"
-          label="身份证号"
+          label="身份證號"
           width="200"
           align="center"
         >
           <template #default="scope">
-            {{ scope.row?.idCard || '未实名认证' }}
+            {{ scope.row?.idCard || '未實名認證' }}
           </template>
         </el-table-column>
         <el-table-column
           prop="status"
-          label="用户状态"
+          label="用戶狀態"
           width="120"
           align="center"
         >
@@ -281,25 +281,25 @@ onMounted(() => queryAllUserList());
         </el-table-column>
         <el-table-column
           prop="balanceInfo.model3Count"
-          label="基础模型"
+          label="基礎模型"
           width="120"
           align="center"
         />
         <el-table-column
           prop="balanceInfo.model4Count"
-          label="高级模型"
+          label="高級模型"
           width="120"
           align="center"
         />
         <el-table-column
           prop="balanceInfo.drawMjCount"
-          label="绘画余额"
+          label="繪畫餘額"
           width="120"
           align="center"
         />expirationTime
         <el-table-column
           prop="balanceInfo.drawMjCount"
-          label="会员到期时间"
+          label="會員到期時間"
           width="170"
           align="center"
         >
@@ -312,32 +312,32 @@ onMounted(() => queryAllUserList());
                         scope.row?.balanceInfo?.expirationTime
                       ).toString()
                     )
-                  : '非会员'
+                  : '非會員'
               }}
             </el-tag>
           </template>
         </el-table-column>
         <el-table-column
           prop="balanceInfo.memberModel3Count"
-          label="基础模型[会员]"
+          label="基礎模型[會員]"
           width="120"
           align="center"
         />
         <el-table-column
           prop="balanceInfo.memberModel4Count"
-          label="高级模型[会员]"
+          label="高級模型[會員]"
           width="120"
           align="center"
         />
         <el-table-column
           prop="balanceInfo.memberDrawMjCount"
-          label="绘画余额[会员]"
+          label="繪畫餘額[會員]"
           width="120"
           align="center"
         />
         <el-table-column
           prop="balanceInfo.useModel3Count"
-          label="已用基础模型"
+          label="已用基礎模型"
           width="160"
           align="center"
         >
@@ -351,7 +351,7 @@ onMounted(() => queryAllUserList());
         </el-table-column>
         <el-table-column
           prop="balanceInfo.useModel4Count"
-          label="已用高级模型"
+          label="已用高級模型"
           width="160"
           align="center"
         >
@@ -365,7 +365,7 @@ onMounted(() => queryAllUserList());
         </el-table-column>
         <el-table-column
           prop="balanceInfo.useDrawMjToken"
-          label="已用绘画积分"
+          label="已用繪畫積分"
           width="160"
           align="center"
         >
@@ -373,10 +373,10 @@ onMounted(() => queryAllUserList());
             {{ `${scope.row.balanceInfo?.useDrawMjToken || 0} Token` }}
           </template>
         </el-table-column>
-        <!-- <el-table-column prop="lastLoginIp" label="最后登录IP" width="140" align="center" /> -->
+        <!-- <el-table-column prop="lastLoginIp" label="最後登錄IP" width="140" align="center" /> -->
         <el-table-column
           prop="createdAt"
-          label="注册时间"
+          label="註冊時間"
           width="200"
           align="center"
         >
@@ -392,15 +392,15 @@ onMounted(() => queryAllUserList());
               size="small"
               @click="handleUpdateStatus(scope.row)"
             >
-              修改状态
+              修改狀態
             </el-button>
             <el-popconfirm
-              title="确认重置此用户密码为【123456】?"
-              confirm-button-text="确认重置"
+              title="確認重置此用戶密碼為【123456】?"
+              confirm-button-text="確認重置"
               @confirm="handlerResetUserPass(scope.row)"
             >
               <template #reference>
-                <el-button link type="danger"> 重置密码 </el-button>
+                <el-button link type="danger"> 重置密碼 </el-button>
               </template>
             </el-popconfirm>
             <el-button
@@ -409,7 +409,7 @@ onMounted(() => queryAllUserList());
               size="small"
               @click="handleSendCrami(scope.row)"
             >
-              调整积分
+              調整積分
             </el-button>
           </template>
         </el-table-column>
@@ -428,12 +428,12 @@ onMounted(() => queryAllUserList());
       </el-row>
     </page-main>
 
-    <el-dialog v-model="visible" title="变更用户状态" width="500px">
+    <el-dialog v-model="visible" title="變更用戶狀態" width="500px">
       <el-form :model="form" :inline="true">
-        <el-form-item label="用户状态" label-width="90px">
+        <el-form-item label="用戶狀態" label-width="90px">
           <el-select
             v-model="form.status"
-            placeholder="请选择用户状态"
+            placeholder="請選擇用戶狀態"
             style="width: 160px"
             clearable
           >
@@ -447,7 +447,7 @@ onMounted(() => queryAllUserList());
         </el-form-item>
         <el-form-item>
           <el-button type="primary" @click="handlerUpateUserStatus">
-            确认变更
+            確認變更
           </el-button>
         </el-form-item>
       </el-form>
@@ -455,7 +455,7 @@ onMounted(() => queryAllUserList());
 
     <el-dialog
       v-model="visibleCrami"
-      title="调整用户积分（赠送/扣除）"
+      title="調整用戶積分（贈送/扣除）"
       width="450px"
       @close="handlerCloseDialog(cramiRef)"
     >
@@ -465,7 +465,7 @@ onMounted(() => queryAllUserList());
         :rules="rules"
         label-width="100px"
       >
-        <el-form-item label="基础积分" prop="modelLimits">
+        <el-form-item label="基礎積分" prop="modelLimits">
           <div class="input-with-text">
             <el-input-number
               v-model="formCrami.model3Count"
@@ -478,7 +478,7 @@ onMounted(() => queryAllUserList());
             />
           </div>
         </el-form-item>
-        <el-form-item label="高级积分" prop="modelLimits">
+        <el-form-item label="高級積分" prop="modelLimits">
           <div class="input-with-text">
             <el-input-number
               v-model="formCrami.model4Count"
@@ -491,7 +491,7 @@ onMounted(() => queryAllUserList());
             />
           </div>
         </el-form-item>
-        <el-form-item label="绘画积分" prop="modelLimits">
+        <el-form-item label="繪畫積分" prop="modelLimits">
           <div class="input-with-text">
             <el-input-number
               v-model="formCrami.drawMjCount"
@@ -510,7 +510,7 @@ onMounted(() => queryAllUserList());
       <template #footer>
         <el-button @click="visibleCrami = false"> 取消 </el-button>
         <el-button type="primary" @click="handlerSubmitSend(cramiRef)">
-          确认调整
+          確認調整
         </el-button>
       </template>
     </el-dialog>

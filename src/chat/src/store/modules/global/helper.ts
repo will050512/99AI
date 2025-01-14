@@ -47,7 +47,7 @@ export function defaultSetting(): UserState {
     userInfo: {
       avatar:
         'https://public-1300678944.cos.ap-shanghai.myqcloud.com/blog/1681310872890image.png',
-      name: '未登录',
+      name: '未登錄',
     },
   };
 }

@@ -46,7 +46,7 @@ const useSettingsStore = defineStore(
       immediate: true,
     })
 
-    // 操作系统
+    // 操作系統
     const os = ref<'mac' | 'windows' | 'linux' | 'other'>('other')
     const agent = navigator.userAgent.toLowerCase()
     switch (true) {
@@ -61,24 +61,24 @@ const useSettingsStore = defineStore(
         break
     }
 
-    // 页面标题
+    // 頁面標題
     const title = ref<RouteMeta['title']>()
-    // 记录页面标题
+    // 記錄頁面標題
     function setTitle(_title: RouteMeta['title']) {
       title.value = _title
     }
 
-    // 显示模式
+    // 顯示模式
     const mode = ref<'pc' | 'mobile'>('pc')
-    // 设置显示模式
+    // 設置顯示模式
     function setMode(width: number) {
       if (settings.value.layout.enableMobileAdaptation) {
-        // 先判断 UA 是否为移动端设备（手机&平板）
+        // 先判斷 UA 是否為移動端設備（手機&平板）
         if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
           mode.value = 'mobile'
         }
         else {
-          // 如果是桌面设备，则根据页面宽度判断是否需要切换为移动端展示
+          // 如果是桌面設備，則根據頁面寬度判斷是否需要切換為移動端展示
           mode.value = width < 1024 ? 'mobile' : 'pc'
         }
       }
@@ -87,11 +87,11 @@ const useSettingsStore = defineStore(
       }
     }
 
-    // 切换侧边栏导航展开/收起
+    // 切換側邊欄導航展開/收起
     function toggleSidebarCollapse() {
       settings.value.menu.subMenuCollapse = !settings.value.menu.subMenuCollapse
     }
-    // 次导航是否收起（用于记录 pc 模式下最后的状态）
+    // 次導航是否收起（用於記錄 pc 模式下最後的狀態）
     const subMenuCollapseLastStatus = ref(settingsDefault.menu.subMenuCollapse)
     watch(() => settings.value.menu.subMenuCollapse, (val) => {
       if (mode.value === 'pc') {
@@ -112,12 +112,12 @@ const useSettingsStore = defineStore(
       immediate: true,
     })
 
-    // 设置主题颜色模式
+    // 設置主題顏色模式
     function setColorScheme(color: Required<Settings.app>['colorScheme']) {
       settings.value.app.colorScheme = color
     }
 
-    // 更新应用配置
+    // 更新應用配置
     function updateSettings(data: Settings.all, fromBase = false) {
       settings.value = defaultsDeep(data, fromBase ? settingsDefault : settings.value)
     }

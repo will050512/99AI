@@ -14,7 +14,7 @@ const swagger_1 = require("@nestjs/swagger");
 class AddBadWordDto {
 }
 __decorate([
-    (0, swagger_1.ApiProperty)({ example: 'test', description: '敏感词', required: true }),
+    (0, swagger_1.ApiProperty)({ example: 'test', description: '敏感詞', required: true }),
     __metadata("design:type", String)
 ], AddBadWordDto.prototype, "word", void 0);
 exports.AddBadWordDto = AddBadWordDto;

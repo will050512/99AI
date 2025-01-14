@@ -36,7 +36,7 @@ let PluginController = class PluginController {
 };
 __decorate([
     (0, common_1.Get)('pluginList'),
-    (0, swagger_1.ApiOperation)({ summary: '获取Plugin' }),
+    (0, swagger_1.ApiOperation)({ summary: '獲取Plugin' }),
     __param(0, (0, common_1.Req)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Object]),
@@ -44,7 +44,7 @@ __decorate([
 ], PluginController.prototype, "pluginList", null);
 __decorate([
     (0, common_1.Post)('createPlugin'),
-    (0, swagger_1.ApiOperation)({ summary: '创建Plugin' }),
+    (0, swagger_1.ApiOperation)({ summary: '創建Plugin' }),
     (0, common_1.UseGuards)(superAuth_guard_1.SuperAuthGuard),
     (0, swagger_1.ApiBearerAuth)(),
     __param(0, (0, common_1.Body)()),
@@ -54,7 +54,7 @@ __decorate([
 ], PluginController.prototype, "createPlugin", null);
 __decorate([
     (0, common_1.Post)('updatePlugin'),
-    (0, swagger_1.ApiOperation)({ summary: '修改插件' }),
+    (0, swagger_1.ApiOperation)({ summary: '修改外掛' }),
     (0, common_1.UseGuards)(superAuth_guard_1.SuperAuthGuard),
     (0, swagger_1.ApiBearerAuth)(),
     __param(0, (0, common_1.Body)()),
@@ -64,7 +64,7 @@ __decorate([
 ], PluginController.prototype, "updatePlugin", null);
 __decorate([
     (0, common_1.Post)('delPlugin'),
-    (0, swagger_1.ApiOperation)({ summary: '删除插件' }),
+    (0, swagger_1.ApiOperation)({ summary: '刪除外掛' }),
     (0, common_1.UseGuards)(superAuth_guard_1.SuperAuthGuard),
     (0, swagger_1.ApiBearerAuth)(),
     __param(0, (0, common_1.Body)()),

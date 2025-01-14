@@ -31,11 +31,11 @@ export default defineConfig<Theme>({
     {
       getCSS: () => {
         const returnCss: any = []
-        // 明亮主题
+        // 明亮主題
         const lightCss = entriesToCss(Object.entries(lightTheme))
         const lightRoots = toArray([`*,::before,::after`, `::backdrop`])
         returnCss.push(lightRoots.map(root => `${root}{${lightCss}}`).join(''))
-        // 暗黑主题
+        // 暗黑主題
         const darkCss = entriesToCss(Object.entries(darkTheme))
         const darkRoots = toArray([`html.dark,html.dark *,html.dark ::before,html.dark ::after`, `html.dark ::backdrop`])
         returnCss.push(darkRoots.map(root => `${root}{${darkCss}}`).join(''))

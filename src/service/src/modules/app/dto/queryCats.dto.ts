@@ -4,19 +4,19 @@ import { Type } from 'class-transformer';
 import { BaseEntity } from 'typeorm';
 
 export class QuerCatsDto {
-  @ApiProperty({ example: 1, description: '查询页数', required: false })
+  @ApiProperty({ example: 1, description: '查詢頁數', required: false })
   @IsOptional()
   page: number;
 
-  @ApiProperty({ example: 10, description: '每页数量', required: false })
+  @ApiProperty({ example: 10, description: '每頁數量', required: false })
   @IsOptional()
   size: number;
 
-  @ApiProperty({ example: 'name', description: '分类名称', required: false })
+  @ApiProperty({ example: 'name', description: '分類名稱', required: false })
   @IsOptional()
   name: string;
 
-  @ApiProperty({ example: 1, description: '分类状态 0：禁用 1：启用', required: false })
+  @ApiProperty({ example: 1, description: '分類狀態 0：禁用 1：啟用', required: false })
   @IsOptional()
   status: number;
 }

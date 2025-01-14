@@ -15,15 +15,15 @@ const baseEntity_1 = require("../../common/entity/baseEntity");
 let SigninEntity = class SigninEntity extends baseEntity_1.BaseEntity {
 };
 __decorate([
-    (0, typeorm_1.Column)({ comment: '用户ID' }),
+    (0, typeorm_1.Column)({ comment: '用戶ID' }),
     __metadata("design:type", Number)
 ], SigninEntity.prototype, "userId", void 0);
 __decorate([
-    (0, typeorm_1.Column)({ comment: '签到日期' }),
+    (0, typeorm_1.Column)({ comment: '簽到日期' }),
     __metadata("design:type", String)
 ], SigninEntity.prototype, "signInDate", void 0);
 __decorate([
-    (0, typeorm_1.Column)({ comment: '签到时间' }),
+    (0, typeorm_1.Column)({ comment: '簽到時間' }),
     __metadata("design:type", Date)
 ], SigninEntity.prototype, "signInTime", void 0);
 __decorate([

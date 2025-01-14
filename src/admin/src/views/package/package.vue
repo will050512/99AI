@@ -40,7 +40,7 @@ interface Package {
   coverImg?: string | null;
   price?: number | null;
   order?: number | null;
-  status?: number | null;
+  status: number; // 修改為必填的 number 型別
   weight?: number | null;
   days?: number | null;
   model3Count: number | null;
@@ -51,13 +51,13 @@ interface Package {
   deletedAt?: Date | null;
 }
 
-const formPackage: Package = reactive({
+const formPackage = reactive<Package>({
   name: null,
   des: null,
   coverImg: null,
   price: null,
   order: null,
-  status: null,
+  status: 0, // 確保初始值為數字
   weight: null,
   days: null,
   model3Count: null,
@@ -66,36 +66,36 @@ const formPackage: Package = reactive({
 });
 
 const rules = reactive<FormRules>({
-  name: [{ required: true, message: '请填写套餐名称', trigger: 'blur' }],
-  des: [{ required: true, message: '请填写套餐的详细描述', trigger: 'blur' }],
+  name: [{ required: true, message: '請填寫套餐名稱', trigger: 'blur' }],
+  des: [{ required: true, message: '請填寫套餐的詳細描述', trigger: 'blur' }],
   deductionType: [
-    { required: true, message: '请选择扣费形式', trigger: 'change' },
+    { required: true, message: '請選擇扣費形式', trigger: 'change' },
   ],
   coverImg: [
-    { required: true, message: '请填写或上传封面图地址', trigger: 'blur' },
+    { required: true, message: '請填寫或上傳封面圖地址', trigger: 'blur' },
   ],
-  price: [{ required: true, message: '请填写套餐价格', trigger: 'blur' }],
-  order: [{ required: true, message: '请填写套餐排序', trigger: 'blur' }],
+  price: [{ required: true, message: '請填寫套餐價格', trigger: 'blur' }],
+  order: [{ required: true, message: '請填寫套餐排序', trigger: 'blur' }],
   status: [
-    { required: true, message: '请选择套餐开启状态', trigger: 'change' },
+    { required: true, message: '請選擇套餐開啟狀態', trigger: 'change' },
   ],
-  days: [{ required: true, message: '请填写套餐有效期天数', trigger: 'blur' }],
+  days: [{ required: true, message: '請填寫套餐有效期天數', trigger: 'blur' }],
   model3Count: [
     {
       required: true,
-      message: '请填写套餐中基础模型可使用次数',
+      message: '請填寫套餐中基礎模型可使用次數',
       trigger: 'blur',
     },
   ],
   model4Count: [
     {
       required: true,
-      message: '请填写套餐中高级模型可使用次数',
+      message: '請填寫套餐中高級模型可使用次數',
       trigger: 'blur',
     },
   ],
   drawMjCount: [
-    { required: true, message: '请填写套餐中抽奖次数', trigger: 'blur' },
+    { required: true, message: '請填寫套餐中抽獎次數', trigger: 'blur' },
   ],
 });
 
@@ -127,10 +127,10 @@ const beforeAvatarUpload: UploadProps['beforeUpload'] = (rawFile) => {
   const allowedTypes = ['image/png', 'image/jpeg', 'image/gif', 'image/webp'];
 
   if (!allowedTypes.includes(rawFile.type)) {
-    ElMessage.error('当前系统仅支持 PNG、JPEG、GIF、和 WebP 格式的图片!');
+    ElMessage.error('當前系統僅支持 PNG、JPEG、GIF、和 WebP 格式的圖片!');
     return false;
   } else if (rawFile.size / 1024 > 2000) {
-    ElMessage.error('当前限制文件最大不超过 2000KB!');
+    ElMessage.error('當前限制文件最大不超過 2000KB!');
     return false;
   }
   return true;
@@ -145,7 +145,7 @@ const handleAvatarSuccess: UploadProps['onSuccess'] = (
 
 async function handleDeletePackage(id: any) {
   await ApiPackage.delPackage({ id });
-  ElMessage({ type: 'success', message: '删除套餐成功！' });
+  ElMessage({ type: 'success', message: '刪除套餐成功！' });
   queryAllUserList();
 }
 
@@ -166,7 +166,7 @@ const dialogTitle = computed(() => {
 });
 
 const dialogButton = computed(() => {
-  return activePackageId.value ? '确认更新' : '确认新增';
+  return activePackageId.value ? '確認更新' : '確認新增';
 });
 
 function handleCreatePkg() {
@@ -191,7 +191,7 @@ async function handlerSubmit(formEl: FormInstance | undefined) {
         ElMessage({ type: 'success', message: '更新套餐成功！' });
       } else {
         await ApiPackage.createPackage(formPackage);
-        ElMessage({ type: 'success', message: '创建新的套餐成功！' });
+        ElMessage({ type: 'success', message: '創建新的套餐成功！' });
       }
       visible.value = false;
       queryAllUserList();
@@ -208,33 +208,33 @@ onMounted(() => {
   <div>
     <PageHeader>
       <template #title>
-        <div class="flex items-center gap-4">套餐设置</div>
+        <div class="flex items-center gap-4">套餐設置</div>
       </template>
       <template #content>
         <div class="text-sm/6">
           <div>
-            套餐分为不限时套餐和限时套餐。不限时充值积分永不过期，限时套餐在规定时间未使用完毕将清空剩余积分。
+            套餐分為不限時套餐和限時套餐。不限時充值積分永不過期，限時套餐在規定時間未使用完畢將清空剩餘積分。
           </div>
           <div>
-            如果充值的套餐等级高于或等于当前套餐等级，则叠加充值额度并延长会员到期时间。
+            如果充值的套餐等級高於或等於當前套餐等級，則疊加充值額度並延長會員到期時間。
           </div>
           <div>
-            如果充值的套餐等级低于当前套餐等级，则只叠加充值额度，不延长会员到期时间也不改变会员等级。
+            如果充值的套餐等級低於當前套餐等級，則只疊加充值額度，不延長會員到期時間也不改變會員等級。
           </div>
-          请仔细阅读以上内容并合理配置，套餐有效时间设为-1即为不限时套餐。
+          請仔細閱讀以上內容併合理配置，套餐有效時間設為-1即為不限時套餐。
         </div>
       </template>
       <HButton outline @click="handleCreatePkg">
         <SvgIcon name="ic:baseline-plus" />
-        创建套餐
+        創建套餐
       </HButton>
     </PageHeader>
     <page-main>
       <el-form ref="formRef" :inline="true" :model="formInline">
-        <el-form-item label="套餐状态" prop="status">
+        <el-form-item label="套餐狀態" prop="status">
           <el-select
             v-model="formInline.status"
-            placeholder="请选择套餐状态"
+            placeholder="請選擇套餐狀態"
             clearable
             style="width: 160px"
           >
@@ -248,7 +248,7 @@ onMounted(() => {
         </el-form-item>
 
         <el-form-item>
-          <el-button type="primary" @click="queryAllUserList"> 查询 </el-button>
+          <el-button type="primary" @click="queryAllUserList"> 查詢 </el-button>
           <el-button @click="handlerReset(formRef)"> 重置 </el-button>
         </el-form-item>
       </el-form>
@@ -262,7 +262,7 @@ onMounted(() => {
         style="width: 100%"
         size="large"
       >
-        <el-table-column fixed prop="name" label="套餐名称" width="150" />
+        <el-table-column fixed prop="name" label="套餐名稱" width="150" />
         <el-table-column
           prop="order"
           label="排序ID"
@@ -285,17 +285,17 @@ onMounted(() => {
         </el-table-column>
         <el-table-column
           prop="price"
-          label="套餐价格"
+          label="套餐價格"
           width="100"
           align="center"
         />
         <el-table-column
           prop="weight"
-          label="套餐等级"
+          label="套餐等級"
           width="100"
           align="center"
         />
-        <el-table-column prop="status" label="套餐状态" width="100">
+        <el-table-column prop="status" label="套餐狀態" width="100">
           <template #default="scope">
             <el-tag type="info">
               {{ IS_OPTIONS[scope.row.status as Status] }}
@@ -307,11 +307,11 @@ onMounted(() => {
             {{ scope.row.days > 0 ? `${scope.row.days}天` : '永久' }}
           </template>
         </el-table-column>
-        <el-table-column prop="model3Count" label="基础模型额度" width="100" />
-        <el-table-column prop="model4Count" label="高级模型额度" width="100" />
-        <el-table-column prop="drawMjCount" label="绘画额度" width="100" />
+        <el-table-column prop="model3Count" label="基礎模型額度" width="100" />
+        <el-table-column prop="model4Count" label="高級模型額度" width="100" />
+        <el-table-column prop="drawMjCount" label="繪畫額度" width="100" />
         <el-table-column prop="des" label="套餐描述" width="300" />
-        <el-table-column prop="createdAt" label="创建时间" width="200">
+        <el-table-column prop="createdAt" label="創建時間" width="200">
           <template #default="scope">
             {{ utcToShanghaiTime(scope.row.createdAt, 'YYYY-MM-DD hh:mm:ss') }}
           </template>
@@ -327,14 +327,14 @@ onMounted(() => {
               修改套餐
             </el-button>
             <el-popconfirm
-              title="确认删除此套餐么?"
+              title="確認刪除此套餐麼?"
               width="200"
               icon-color="red"
               @confirm="handleDeletePackage(scope.row)"
             >
               <template #reference>
                 <el-button link type="danger" size="small">
-                  删除套餐
+                  刪除套餐
                 </el-button>
               </template>
             </el-popconfirm>
@@ -371,15 +371,15 @@ onMounted(() => {
       >
         <el-row>
           <el-col :span="11">
-            <el-form-item label="套餐详细名称" prop="name">
+            <el-form-item label="套餐詳細名稱" prop="name">
               <el-input
                 v-model="formPackage.name"
-                placeholder="请填写套餐名称"
+                placeholder="請填寫套餐名稱"
               />
             </el-form-item>
           </el-col>
           <el-col :span="3" :offset="2">
-            <el-form-item label="套餐开启状态" prop="status">
+            <el-form-item label="套餐開啟狀態" prop="status">
               <el-switch
                 v-model="formPackage.status"
                 :active-value="1"
@@ -388,38 +388,38 @@ onMounted(() => {
             </el-form-item>
           </el-col>
           <el-col :span="7" :offset="1">
-            <el-form-item label="套餐等级" prop="status">
+            <el-form-item label="套餐等級" prop="status">
               <el-input
                 v-model.number="formPackage.weight"
                 type="number"
-                placeholder="设置套餐等级"
+                placeholder="設置套餐等級"
               />
             </el-form-item>
           </el-col>
           <el-col :span="11">
-            <el-form-item label="设置套餐价格" prop="price">
+            <el-form-item label="設置套餐價格" prop="price">
               <el-input
                 v-model.number="formPackage.price"
-                placeholder="请填写套餐价格(￥)最多两位小数"
+                placeholder="請填寫套餐價格(NT$)"
                 type="number"
               />
             </el-form-item>
           </el-col>
           <el-col :span="11" :offset="2">
-            <el-form-item label="套餐有效时间" prop="days">
+            <el-form-item label="套餐有效時間" prop="days">
               <el-input
                 v-model.number="formPackage.days"
                 type="number"
-                placeholder="自卡密生成之日有效天数、-1为永久"
+                placeholder="自序號生成之日有效天數、-1為永久"
               />
             </el-form-item>
           </el-col>
           <el-col :span="9">
-            <el-form-item label="设置套餐封面" prop="coverImg">
+            <el-form-item label="設置套餐封面" prop="coverImg">
               <el-input
                 v-model="formPackage.coverImg"
                 class="flex-1"
-                placeholder="填写封面地址或点击上传"
+                placeholder="填寫封面地址或點擊上傳"
               />
             </el-form-item>
           </el-col>
@@ -439,46 +439,46 @@ onMounted(() => {
             </el-upload>
           </el-col>
           <el-col :span="11" :offset="2">
-            <el-form-item label="设置套餐排序" prop="order">
+            <el-form-item label="設置套餐排序" prop="order">
               <el-input
                 v-model.number="formPackage.order"
                 type="number"
-                placeholder="排序数字越大越靠前|套餐权重等级则反之"
+                placeholder="排序數字越大越靠前|套餐權重等級則反之"
               />
             </el-form-item>
           </el-col>
 
           <el-col :span="11">
-            <el-form-item label="设置套餐描述" prop="des">
+            <el-form-item label="設置套餐描述" prop="des">
               <el-input
                 v-model="formPackage.des"
                 type="textarea"
-                placeholder="请填写套餐详细介绍信息、用于对外展示、建议控制套餐价格字数以便于用户端对齐格式..."
+                placeholder="請填寫套餐詳細介紹資訊、用於對外展示、建議控制套餐價格字數以便於用戶端對齊格式..."
                 :rows="6"
               />
             </el-form-item>
           </el-col>
 
           <el-col :span="11" :offset="2">
-            <el-form-item label="基础模型积分" prop="model3Count">
+            <el-form-item label="基礎模型積分" prop="model3Count">
               <el-input
                 v-model.number="formPackage.model3Count"
                 type="number"
-                placeholder="基础模型积分"
+                placeholder="基礎模型積分"
               />
             </el-form-item>
-            <el-form-item label="高级模型积分" prop="model4Count">
+            <el-form-item label="高級模型積分" prop="model4Count">
               <el-input
                 v-model.number="formPackage.model4Count"
                 type="number"
-                placeholder="高级模型积分"
+                placeholder="高級模型積分"
               />
             </el-form-item>
-            <el-form-item label="绘画模型积分" prop="drawMjCount">
+            <el-form-item label="繪畫模型積分" prop="drawMjCount">
               <el-input
                 v-model.number="formPackage.drawMjCount"
                 type="number"
-                placeholder="绘画模型积分"
+                placeholder="繪畫模型積分"
               />
             </el-form-item>
           </el-col>

@@ -39,26 +39,26 @@ let intervalId: number | undefined;
 watch(
   () => props.status,
   (currentStatus) => {
-    // 清除可能已经存在的定时器
+    // 清除可能已經存在的定時器
     if (intervalId !== undefined) {
       clearInterval(intervalId);
       intervalId = undefined;
     }
 
-    // 当status为2时，启动定时器
+    // 當status為2時，啟動定時器
     if (currentStatus === 2) {
       intervalId = window.setInterval(async () => {
-        // 这里替换为你想要定期执行的操作
-        // console.log('定期执行操作');
+        // 這裡替換為你想要定期執行的操作
+        // console.log('定期執行操作');
         await chatStore.queryActiveChatLogList();
-        // 例如，可以在这里调用 chatStore.queryActiveChatLogList();
-      }, 5000); // 每5秒执行一次
+        // 例如，可以在這裡調用 chatStore.queryActiveChatLogList();
+      }, 5000); // 每5秒執行一次
     }
   },
   { immediate: true }
 );
 
-// 组件卸载时清除定时器
+// 組件卸載時清除定時器
 onUnmounted(() => {
   if (intervalId !== undefined) {
     clearInterval(intervalId);
@@ -121,9 +121,9 @@ function handleDelete() {
 
 defineExpose({ textRef });
 
-const playbackState = ref('paused'); // 默认状态为'paused'
+const playbackState = ref('paused'); // 默認狀態為'paused'
 
-// 创建一个响应式引用来存储音频URL
+// 創建一個響應式引用來儲存音頻URL
 
 const buttonGroupClass = computed(() => {
   // console.log(props.isLastMessage);
@@ -158,7 +158,7 @@ const buttonGroupClass = computed(() => {
                 maxHeight: isMobile ? '' : '30vh',
               }"
             >
-              您的浏览器不支持视频标签。
+              您的瀏覽器不支持視頻標籤。
             </video>
           </div>
         </div>

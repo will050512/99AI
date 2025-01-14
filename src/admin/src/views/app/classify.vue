@@ -1,6 +1,6 @@
 <route lang="yaml">
 meta:
-  title: App分类管理
+  title: App分類管理
 </route>
 
 <script lang="ts" setup>
@@ -36,23 +36,23 @@ const formPackage = reactive({
 });
 
 const rules = reactive<FormRules>({
-  name: [{ required: true, message: '请填写分类名称', trigger: 'blur' }],
-  des: [{ required: false, message: '请填写分类描述', trigger: 'blur' }],
+  name: [{ required: true, message: '請填寫分類名稱', trigger: 'blur' }],
+  des: [{ required: false, message: '請填寫分類描述', trigger: 'blur' }],
   coverImg: [
-    { required: false, message: '请填写分类封面图片地址', trigger: 'blur' },
+    { required: false, message: '請填寫分類封面圖片地址', trigger: 'blur' },
   ],
-  order: [{ required: false, message: '请填写排序ID', trigger: 'blur' }],
-  status: [{ required: true, message: '请选择分类状态', trigger: 'change' }],
+  order: [{ required: false, message: '請填寫排序ID', trigger: 'blur' }],
+  status: [{ required: true, message: '請選擇分類狀態', trigger: 'change' }],
 });
 
 const tableData = ref([]);
 
 const dialogTitle = computed(() => {
-  return activeAppCatId.value ? '更新分类' : '新增分类';
+  return activeAppCatId.value ? '更新分類' : '新增分類';
 });
 
 const dialogButton = computed(() => {
-  return activeAppCatId.value ? '确认更新' : '确认新增';
+  return activeAppCatId.value ? '確認更新' : '確認新增';
 });
 
 async function queryCatList() {
@@ -85,7 +85,7 @@ function handlerCloseDialog(formEl: FormInstance | undefined) {
 
 async function handleDeletePackage(row: any) {
   await ApiApp.deleteCats({ id: row.id });
-  ElMessage.success('删除分类成功');
+  ElMessage.success('刪除分類成功');
   queryCatList();
 }
 
@@ -105,10 +105,10 @@ const beforeAvatarUpload: UploadProps['beforeUpload'] = (rawFile) => {
   const allowedTypes = ['image/png', 'image/jpeg', 'image/gif', 'image/webp'];
 
   if (!allowedTypes.includes(rawFile.type)) {
-    ElMessage.error('当前系统仅支持 PNG、JPEG、GIF、和 WebP 格式的图片!');
+    ElMessage.error('當前系統僅支持 PNG、JPEG、GIF、和 WebP 格式的圖片!');
     return false;
   } else if (rawFile.size / 1024 > 300) {
-    ElMessage.error('当前限制文件最大不超过 300KB!');
+    ElMessage.error('當前限制文件最大不超過 300KB!');
     return false;
   }
   return true;
@@ -119,10 +119,10 @@ function handlerSubmit(formEl: FormInstance | undefined) {
     if (valid) {
       if (activeAppCatId.value) {
         await ApiApp.updateCats({ id: activeAppCatId.value, ...formPackage });
-        ElMessage({ type: 'success', message: '更新分类成功！' });
+        ElMessage({ type: 'success', message: '更新分類成功！' });
       } else {
         await ApiApp.createCats(formPackage);
-        ElMessage({ type: 'success', message: '创建新的分类成功！' });
+        ElMessage({ type: 'success', message: '創建新的分類成功！' });
       }
       visible.value = false;
       queryCatList();
@@ -138,32 +138,32 @@ onMounted(() => {
   <div>
     <PageHeader>
       <template #title>
-        <div class="flex items-center gap-4">应用分类配置</div>
+        <div class="flex items-center gap-4">應用分類配置</div>
       </template>
       <template #content>
         <div class="text-sm/6">
-          <div>应用分类可能会被多个用户收藏，一旦创建，不建议删除。</div>
+          <div>應用分類可能會被多個用戶收藏，一旦創建，不建議刪除。</div>
         </div>
       </template>
       <HButton outline @click="visible = true">
         <SvgIcon name="ic:baseline-plus" />
-        新增分类
+        新增分類
       </HButton>
     </PageHeader>
 
     <page-main>
       <el-form ref="formRef" :inline="true" :model="formInline">
-        <el-form-item label="分类名称" prop="name">
+        <el-form-item label="分類名稱" prop="name">
           <el-input
             v-model="formInline.name"
-            placeholder="分类名称[模糊搜索]"
+            placeholder="分類名稱[模糊搜索]"
             @keydown.enter.prevent="queryCatList"
           />
         </el-form-item>
-        <el-form-item label="分类状态" prop="status">
+        <el-form-item label="分類狀態" prop="status">
           <el-select
             v-model="formInline.status"
-            placeholder="请选择分类状态"
+            placeholder="請選擇分類狀態"
             clearable
             style="width: 160px"
           >
@@ -176,7 +176,7 @@ onMounted(() => {
           </el-select>
         </el-form-item>
         <el-form-item>
-          <el-button type="primary" @click="queryCatList"> 查询 </el-button>
+          <el-button type="primary" @click="queryCatList"> 查詢 </el-button>
           <el-button @click="handlerReset(formRef)"> 重置 </el-button>
         </el-form-item>
       </el-form>
@@ -190,7 +190,7 @@ onMounted(() => {
         style="width: 100%"
         size="large"
       >
-        <!-- <el-table-column prop="coverImg" label="分类封面" width="120">
+        <!-- <el-table-column prop="coverImg" label="分類封面" width="120">
           <template #default="scope">
             <el-image
               style="height: 50px"
@@ -199,18 +199,18 @@ onMounted(() => {
             />
           </template>
         </el-table-column> -->
-        <el-table-column prop="name" label="分类名称" />
-        <el-table-column prop="appCount" label="应用数量" />
+        <el-table-column prop="name" label="分類名稱" />
+        <el-table-column prop="appCount" label="應用數量" />
         <el-table-column prop="order" label="排序ID" />
-        <el-table-column prop="status" label="分类状态">
+        <el-table-column prop="status" label="分類狀態">
           <template #default="scope">
             <el-tag :type="scope.row.status === 1 ? 'success' : 'danger'">
               {{ QUESTION_STATUS_MAP[scope.row.status] }}
             </el-tag>
           </template>
         </el-table-column>
-        <!-- <el-table-column prop="des" label="描述信息" width="300" /> -->
-        <el-table-column prop="createdAt" label="创建时间" width="200">
+        <!-- <el-table-column prop="des" label="描述資訊" width="300" /> -->
+        <el-table-column prop="createdAt" label="創建時間" width="200">
           <template #default="scope">
             {{ utcToShanghaiTime(scope.row.createdAt, 'YYYY-MM-DD hh:mm:ss') }}
           </template>
@@ -223,17 +223,17 @@ onMounted(() => {
               size="small"
               @click="handleUpdatePackage(scope.row)"
             >
-              编辑
+              編輯
             </el-button>
             <el-popconfirm
-              title="确认删除此分类么?"
+              title="確認刪除此分類麼?"
               width="200"
               icon-color="red"
               @confirm="handleDeletePackage(scope.row)"
             >
               <template #reference>
                 <el-button link type="danger" size="small">
-                  删除分类
+                  刪除分類
                 </el-button>
               </template>
             </el-popconfirm>
@@ -267,10 +267,10 @@ onMounted(() => {
         :model="formPackage"
         :rules="rules"
       >
-        <el-form-item label="分类名称" prop="name">
-          <el-input v-model="formPackage.name" placeholder="请填写分类名称" />
+        <el-form-item label="分類名稱" prop="name">
+          <el-input v-model="formPackage.name" placeholder="請填寫分類名稱" />
         </el-form-item>
-        <el-form-item label="分类状态" prop="status">
+        <el-form-item label="分類狀態" prop="status">
           <el-switch
             v-model="formPackage.status"
             :active-value="1"
@@ -280,7 +280,7 @@ onMounted(() => {
         <el-form-item label="排序ID" prop="order">
           <el-input
             v-model.number="formPackage.order"
-            placeholder="请填写排序ID[数字越大越靠前]"
+            placeholder="請填寫排序ID[數字越大越靠前]"
           />
         </el-form-item>
       </el-form>

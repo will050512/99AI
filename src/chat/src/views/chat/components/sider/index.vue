@@ -94,7 +94,7 @@ const configObj = computed(() => {
   try {
     return JSON.parse(activeGroupInfo.value?.config || '{}');
   } catch (e) {
-    return {}; // 解析失败时返回一个空对象
+    return {}; // 解析失敗時返回一個空對象
   }
 });
 
@@ -127,23 +127,23 @@ const displayInfo = computed(() => {
       buttonText = t('chat.points');
   }
 
-  // 如果 remainingPoints 大于 99999，设置为 "不限" 并将 buttonText 设置为 "次数"
+  // 如果 remainingPoints 大於 99999，設置為 "不限" 並將 buttonText 設置為 "次數"
   if (remainingPoints > 99999) {
     remainingPoints = '不限';
-    buttonText = '次数';
+    buttonText = '次數';
   }
 
   return { remainingPoints, buttonText };
 });
 
 async function goToUserCenter() {
-  // 假设需要检查登录状态或等待某些数据加载
+  // 假設需要檢查登錄狀態或等待某些數據加載
   await checkLogin();
   router.replace({ path: 'user-center' });
 }
 
 async function checkLogin() {
-  // 检查登录状态的逻辑
+  // 檢查登錄狀態的邏輯
   return new Promise<void>((resolve) => {
     setTimeout(() => {
       if (!authStore.isLogin) {
@@ -159,7 +159,7 @@ function checkMode() {
   appStore.setTheme(mode);
 }
 
-/* 删除全部非置顶聊天 */
+/* 刪除全部非置頂聊天 */
 async function handleDelGroup() {
   dialog.warning({
     title: t('chat.clearConversation'),
@@ -298,7 +298,7 @@ watch(
                 }"
                 class="block w-full rounded-full focus:outline-none py-1"
               >
-                插件
+                外掛
               </button>
               <button
                 @click="activeSideOption = 'chat'"
@@ -309,7 +309,7 @@ watch(
                 }"
                 class="block w-full rounded-full focus:outline-none py-1"
               >
-                对话
+                對話
               </button>
               <button
                 v-if="!pluginFirst"
@@ -321,7 +321,7 @@ watch(
                 }"
                 class="block w-full rounded-full focus:outline-none py-1"
               >
-                插件
+                外掛
               </button>
             </div>
           </div>
@@ -332,11 +332,11 @@ watch(
             <button
               class="w-full py-1 text-primary-600 dark:text-gray-100 text-lg font-bold flex justify-between"
             >
-              <!-- 左边的图标 -->
+              <!-- 左邊的圖標 -->
               <img :src="logoPath" alt="Logo" class="h-7 w-7" />
-              <!-- 中间的文字 -->
+              <!-- 中間的文字 -->
               <span class="mx-auto">{{ siteName }}</span>
-              <!-- 右边占位，使得文字在中间 -->
+              <!-- 右邊佔位，使得文字在中間 -->
               <span class="h-7 w-7"></span>
             </button>
           </div>
@@ -459,7 +459,7 @@ watch(
                         ]"
                         @click="goToUserCenter()"
                         ><User theme="outline" size="16" class="mr-2" />
-                        个人中心
+                        個人中心
                       </a>
                     </MenuItem>
                     <MenuItem v-slot="{ active }">
@@ -471,7 +471,7 @@ watch(
                         ]"
                         @click="logOut()"
                         ><Logout theme="outline" size="16" class="mr-2" />
-                        退出登录
+                        退出登錄
                       </a>
                     </MenuItem>
                   </div>
@@ -488,7 +488,7 @@ watch(
                 type="button"
                 class="inline-flex mb-2 justify-center items-center rounded-md bg-white dark:bg-gray-900 px-3 py-2 text-sm text-gray-500 shadow-sm ring-1 ring-inset ring-gray-200 dark:ring-gray-800 hover:bg-opacity dark:hover:bg-gray-800 w-full"
               >
-                <span>登录 / 注册</span>
+                <span>登錄 / 註冊</span>
               </button>
             </div>
 
@@ -512,7 +512,7 @@ watch(
             v-if="isSetBeian && isMobile"
             class="w-full flex justify-center items-center pb-3 text-xs text-gray-500"
           >
-            版权所有 © {{ globaelConfig?.companyName }}
+            版權所有 © {{ globaelConfig?.companyName }}
             <a
               class="ml-2 transition-all text-gray-500 hover:text-gray-600 dark:hover:text-gray-400"
               href="https://beian.miit.gov.cn"

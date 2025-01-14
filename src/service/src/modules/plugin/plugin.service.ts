@@ -12,10 +12,10 @@ export class PluginService {
     private readonly modelsService: ModelsService
   ) {}
 
-  // 获取插件列表
+  // 獲取外掛列表
   // async pluginList(query: any) {
   //   const { page = 1, size = 100 } = query;
-  //   // 查询所有插件
+  //   // 查詢所有外掛
   //   const rows = await this.PluginEntity.find({
   //     order: { sortOrder: 'ASC', id: 'DESC' },
   //     skip: (page - 1) * size,
@@ -23,19 +23,19 @@ export class PluginService {
   //   });
   //   // console.log(rows);
 
-  //   // 返回结果
+  //   // 返回結果
   //   return { rows, count: rows.length };
   // }
 
   async pluginList(query: any) {
     const { page = 1, size = 100 } = query;
-    // 查询所有插件
+    // 查詢所有外掛
     const rows = await this.PluginEntity.find({
       order: { sortOrder: 'ASC', id: 'DESC' },
       skip: (page - 1) * size,
       take: size,
     });
-    // 处理插件列表
+    // 處理外掛列表
     const processedRows = await Promise.all(
       rows.map(async (plugin) => {
         if (plugin.isSystemPlugin === 1) {
@@ -45,20 +45,20 @@ export class PluginService {
             );
             const deductType = parameters.deductType;
 
-            // 将 parameters 和 deductType 作为附加参数返回
+            // 將 parameters 和 deductType 作為附加參數返回
             return {
               ...plugin,
               deductType,
             };
           } catch (error) {
-            // 出现异常时返回 deductType 为 0
+            // 出現異常時返回 deductType 為 0
             return {
               ...plugin,
               deductType: 0,
             };
           }
         } else {
-          // 非系统插件，直接返回 deductType 为 0
+          // 非系統外掛，直接返回 deductType 為 0
 
           return {
             ...plugin,
@@ -68,14 +68,14 @@ export class PluginService {
       })
     );
 
-    // 过滤掉为 null 的插件
+    // 過濾掉為 null 的外掛
     const filteredRows = processedRows.filter((plugin) => plugin !== null);
 
-    // 返回结果
+    // 返回結果
     return { rows: filteredRows, count: filteredRows.length };
   }
 
-  // 创建插件
+  // 創建外掛
   async createPlugin(body: any) {
     const {
       name,
@@ -88,31 +88,31 @@ export class PluginService {
       sortOrder,
     } = body;
 
-    // 检查插件名称是否存在
+    // 檢查外掛名稱是否存在
     const existingPlugin = await this.PluginEntity.findOne({
       where: { name },
     });
     if (existingPlugin) {
-      throw new HttpException('该插件名称已存在！', HttpStatus.BAD_REQUEST);
+      throw new HttpException('該外掛名稱已存在！', HttpStatus.BAD_REQUEST);
     }
 
-    // 创建新的插件实体
+    // 創建新的外掛實體
     const newPlugin = this.PluginEntity.create({
       name,
       pluginImg,
       description,
 
-      isEnabled: isEnabled !== undefined ? isEnabled : 1, // 默认启用
-      isSystemPlugin: isSystemPlugin !== undefined ? isSystemPlugin : 0, // 默认非系统插件
+      isEnabled: isEnabled !== undefined ? isEnabled : 1, // 默認啟用
+      isSystemPlugin: isSystemPlugin !== undefined ? isSystemPlugin : 0, // 默認非系統外掛
       parameters,
-      sortOrder: sortOrder !== undefined ? sortOrder : 0, // 默认排序值
+      sortOrder: sortOrder !== undefined ? sortOrder : 0, // 默認排序值
     });
 
-    // 保存新插件
+    // 保存新外掛
     return await this.PluginEntity.save(newPlugin);
   }
 
-  // 修改插件
+  // 修改外掛
   async updatePlugin(body: any) {
     const {
       id,
@@ -125,23 +125,23 @@ export class PluginService {
       sortOrder,
     } = body;
 
-    // 检查插件ID是否存在
+    // 檢查外掛ID是否存在
     const existingPlugin = await this.PluginEntity.findOne({
       where: { id },
     });
     if (!existingPlugin) {
-      throw new HttpException('插件不存在！', HttpStatus.BAD_REQUEST);
+      throw new HttpException('外掛不存在！', HttpStatus.BAD_REQUEST);
     }
 
-    // 检查插件名称是否存在，排除当前插件ID
+    // 檢查外掛名稱是否存在，排除當前外掛ID
     const duplicatePlugin = await this.PluginEntity.findOne({
       where: { name, id: Not(id) },
     });
     if (duplicatePlugin) {
-      throw new HttpException('该插件名称已存在！', HttpStatus.BAD_REQUEST);
+      throw new HttpException('該外掛名稱已存在！', HttpStatus.BAD_REQUEST);
     }
 
-    // 更新插件实体
+    // 更新外掛實體
     existingPlugin.name = name;
     existingPlugin.pluginImg = pluginImg;
     existingPlugin.description = description;
@@ -155,32 +155,32 @@ export class PluginService {
     existingPlugin.sortOrder =
       sortOrder !== undefined ? sortOrder : existingPlugin.sortOrder;
 
-    // 保存修改后的插件
+    // 保存修改後的外掛
     await this.PluginEntity.save(existingPlugin);
 
-    return '修改插件信息成功';
+    return '修改外掛資訊成功';
   }
 
-  // 删除插件
+  // 刪除外掛
   async delPlugin(body: PluginEntity) {
     const { id } = body;
 
-    // 检查插件是否存在
+    // 檢查外掛是否存在
     const existingPlugin = await this.PluginEntity.findOne({
       where: { id },
     });
     if (!existingPlugin) {
-      throw new HttpException('该插件不存在！', HttpStatus.BAD_REQUEST);
+      throw new HttpException('該外掛不存在！', HttpStatus.BAD_REQUEST);
     }
 
-    // 删除插件
+    // 刪除外掛
     const deleteResult = await this.PluginEntity.delete(id);
 
-    // 检查是否成功删除插件
+    // 檢查是否成功刪除外掛
     if (deleteResult.affected > 0) {
-      return '删除插件成功';
+      return '刪除外掛成功';
     } else {
-      throw new HttpException('删除插件失败！', HttpStatus.BAD_REQUEST);
+      throw new HttpException('刪除外掛失敗！', HttpStatus.BAD_REQUEST);
     }
   }
 }

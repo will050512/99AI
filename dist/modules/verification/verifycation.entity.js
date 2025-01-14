@@ -15,27 +15,27 @@ const baseEntity_1 = require("../../common/entity/baseEntity");
 let VerifycationEntity = class VerifycationEntity extends baseEntity_1.BaseEntity {
 };
 __decorate([
-    (0, typeorm_1.Column)({ comment: '用户id' }),
+    (0, typeorm_1.Column)({ comment: '用戶id' }),
     __metadata("design:type", Number)
 ], VerifycationEntity.prototype, "userId", void 0);
 __decorate([
-    (0, typeorm_1.Column)({ nullable: false, comment: '验证类型' }),
+    (0, typeorm_1.Column)({ nullable: false, comment: '驗證類型' }),
     __metadata("design:type", Number)
 ], VerifycationEntity.prototype, "type", void 0);
 __decorate([
-    (0, typeorm_1.Column)({ nullable: false, comment: '验证码' }),
+    (0, typeorm_1.Column)({ nullable: false, comment: '驗證碼' }),
     __metadata("design:type", Number)
 ], VerifycationEntity.prototype, "code", void 0);
 __decorate([
-    (0, typeorm_1.Column)({ comment: '过期时间' }),
+    (0, typeorm_1.Column)({ comment: '過期時間' }),
     __metadata("design:type", Date)
 ], VerifycationEntity.prototype, "expiresAt", void 0);
 __decorate([
-    (0, typeorm_1.Column)({ length: 64, nullable: false, comment: '发送的邮箱' }),
+    (0, typeorm_1.Column)({ length: 64, nullable: false, comment: '發送的郵箱' }),
     __metadata("design:type", String)
 ], VerifycationEntity.prototype, "email", void 0);
 __decorate([
-    (0, typeorm_1.Column)({ default: 0, nullable: false, comment: '是否已经使用了' }),
+    (0, typeorm_1.Column)({ default: 0, nullable: false, comment: '是否已經使用了' }),
     __metadata("design:type", Number)
 ], VerifycationEntity.prototype, "used", void 0);
 VerifycationEntity = __decorate([

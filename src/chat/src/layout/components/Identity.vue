@@ -23,16 +23,16 @@ const identityForm = ref({
 });
 
 const rules = {
-  name: [{ required: true, message: '请输入姓名', trigger: 'blur' }],
-  idCard: [{ required: true, message: '请输入身份证号', trigger: 'blur' }],
+  name: [{ required: true, message: '請輸入姓名', trigger: 'blur' }],
+  idCard: [{ required: true, message: '請輸入身份證號', trigger: 'blur' }],
 };
 
-// 使用 ref 来管理全局参数的状态
-const agreedToUserAgreement = ref(true); // 读取初始状态并转换为布尔类型
+// 使用 ref 來管理全局參數的狀態
+const agreedToUserAgreement = ref(true); // 讀取初始狀態並轉換為布爾類型
 
-// 点击“用户协议及隐私政策”时，自动同意
+// 點擊“用戶協議及隱私政策”時，自動同意
 function handleClick() {
-  agreedToUserAgreement.value = true; // 设置为同意
+  agreedToUserAgreement.value = true; // 設置為同意
 }
 
 function handlerSubmit() {
@@ -41,16 +41,16 @@ function handlerSubmit() {
     globalConfig.value.isAutoOpenAgreement === '1'
   ) {
     return Nmessage.error(
-      `请阅读并同意《${globalConfig.value.agreementTitle}》`
+      `請閱讀並同意《${globalConfig.value.agreementTitle}》`
     );
   }
   isShow.value = false;
   fetchVerifyIdentityAPI(identityForm.value).then((res) => {
     if (res.code === 200) {
-      Nmessage.success('认证成功');
+      Nmessage.success('認證成功');
       useGlobalStore.updateIdentityDialog(false);
     } else {
-      Nmessage.error('认证失败');
+      Nmessage.error('認證失敗');
     }
   });
 }
@@ -93,7 +93,7 @@ interface Props {
               <h2
                 class="mb-8 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900 dark:text-gray-300"
               >
-                实名认证
+                實名認證
               </h2>
             </div>
 
@@ -108,7 +108,7 @@ interface Props {
                   id="username"
                   type="text"
                   v-model="identityForm.name"
-                  placeholder="请输入姓名"
+                  placeholder="請輸入姓名"
                   class="block w-full rounded-md border-0 py-2 px-3 text-gray-900 shadow-sm dark:text-gray-300 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-gray-300 sm:text-sm sm:leading-6 dark:bg-gray-800 dark:focus:ring-gray-400"
                 />
               </div>
@@ -117,14 +117,14 @@ interface Props {
               <label
                 for="username"
                 class="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-300"
-                >身份证号
+                >身份證號
               </label>
               <div class="mt-2">
                 <input
                   id="username"
                   type="text"
                   v-model="identityForm.idCard"
-                  placeholder="请输入身份证号"
+                  placeholder="請輸入身份證號"
                   class="block w-full rounded-md border-0 py-2 px-3 text-gray-900 shadow-sm dark:text-gray-300 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-gray-300 sm:text-sm sm:leading-6 dark:bg-gray-800 dark:focus:ring-gray-400"
                 />
               </div>
@@ -143,7 +143,7 @@ interface Props {
                 <p
                   class="ml-1 text-center text-sm text-gray-500 dark:text-gray-400"
                 >
-                  已阅读并同意
+                  已閱讀並同意
                   <a
                     href="#"
                     class="font-semibold leading-6 text-primary-600 hover:text-primary-500 dark:text-primary-500 dark:hover:text-primary-600"
@@ -160,7 +160,7 @@ interface Props {
                 type="submit"
                 class="flex w-full my-5 justify-center rounded-md bg-primary-500 px-3 py-2 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-primary-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
               >
-                提交认证
+                遞交認證
               </button>
             </div>
           </NForm>

@@ -1,13 +1,13 @@
 export default {
-  description: '创建全局状态',
+  description: '創建全局狀態',
   prompts: [
     {
       type: 'input',
       name: 'name',
-      message: '请输入模块名称',
+      message: '請輸入模塊名稱',
       validate: (v) => {
         if (!v || v.trim === '') {
-          return '模块名称不能为空'
+          return '模塊名稱不能為空'
         }
         else {
           return true

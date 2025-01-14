@@ -1,5 +1,5 @@
 /**
- * 任务状态枚举 1: 等待中 2: 绘制中 3: 绘制完成 4: 绘制失败 5: 绘制超时
+ * 任務狀態枚舉 1: 等待中 2: 繪製中 3: 繪製完成 4: 繪製失敗 5: 繪製超時
  */
 export enum MidjourneyStatusEnum {
   WAITING = 1,
@@ -10,7 +10,7 @@ export enum MidjourneyStatusEnum {
 }
 
 /**
- * 绘画动作枚举 1: 绘画 2: 放大 3: 变换 4: 图生图 5: 重新生成 6： 无线缩放  7: 单张变化【很大|微小】
+ * 繪畫動作枚舉 1: 繪畫 2: 放大 3: 變換 4: 圖生圖 5: 重新生成 6： 無線縮放  7: 單張變化【很大|微小】
  */
 export enum MidjourneyActionEnum {
   DRAW = 1,

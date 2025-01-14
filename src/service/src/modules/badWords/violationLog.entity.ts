@@ -3,18 +3,18 @@ import { BaseEntity } from 'src/common/entity/baseEntity';
 
 @Entity({ name: 'violation_log' })
 export class ViolationLogEntity extends BaseEntity {
-  @Column({ comment: '用户id' })
+  @Column({ comment: '用戶id' })
   userId: number;
 
-  @Column({ comment: '违规内容', type: 'text' })
+  @Column({ comment: '違規內容', type: 'text' })
   content: string;
 
-  @Column({ comment: '敏感词', type: 'text' })
+  @Column({ comment: '敏感詞', type: 'text' })
   words: string;
 
-  @Column({ comment: '违规类型' })
+  @Column({ comment: '違規類型' })
   typeCn: string;
 
-  @Column({ comment: '违规检测失败于哪个平台' })
+  @Column({ comment: '違規檢測失敗於哪個平臺' })
   typeOriginCn: string;
 }

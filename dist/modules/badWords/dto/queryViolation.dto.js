@@ -15,22 +15,22 @@ const swagger_1 = require("@nestjs/swagger");
 class QueryViolationDto {
 }
 __decorate([
-    (0, swagger_1.ApiProperty)({ example: 1, description: '查询页数', required: false }),
+    (0, swagger_1.ApiProperty)({ example: 1, description: '查詢頁數', required: false }),
     (0, class_validator_1.IsOptional)(),
     __metadata("design:type", Number)
 ], QueryViolationDto.prototype, "page", void 0);
 __decorate([
-    (0, swagger_1.ApiProperty)({ example: 10, description: '每页数量', required: false }),
+    (0, swagger_1.ApiProperty)({ example: 10, description: '每頁數量', required: false }),
     (0, class_validator_1.IsOptional)(),
     __metadata("design:type", Number)
 ], QueryViolationDto.prototype, "size", void 0);
 __decorate([
-    (0, swagger_1.ApiProperty)({ example: 1, description: '用户ID', required: false }),
+    (0, swagger_1.ApiProperty)({ example: 1, description: '用戶ID', required: false }),
     (0, class_validator_1.IsOptional)(),
     __metadata("design:type", Number)
 ], QueryViolationDto.prototype, "userId", void 0);
 __decorate([
-    (0, swagger_1.ApiProperty)({ example: '百度云检测', description: '检测平台来源', required: false }),
+    (0, swagger_1.ApiProperty)({ example: '百度雲檢測', description: '檢測平臺來源', required: false }),
     (0, class_validator_1.IsOptional)(),
     __metadata("design:type", String)
 ], QueryViolationDto.prototype, "typeOriginCn", void 0);

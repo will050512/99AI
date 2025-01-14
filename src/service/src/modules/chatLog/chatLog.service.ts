@@ -33,13 +33,13 @@ export class ChatLogService {
     private readonly modelsService: ModelsService
   ) {}
 
-  /* 记录问答日志 */
+  /* 記錄問答日誌 */
   async saveChatLog(logInfo): Promise<any> {
     const savedLog = await this.chatLogEntity.save(logInfo);
-    return savedLog; // 这里返回保存后的实体，包括其 ID
+    return savedLog; // 這裡返回保存後的實體，包括其 ID
   }
 
-  /* 更新问答日志 */
+  /* 更新問答日誌 */
   async updateChatLog(id, logInfo) {
     return await this.chatLogEntity.update({ id }, logInfo);
   }
@@ -48,7 +48,7 @@ export class ChatLogService {
     return await this.chatLogEntity.findOne({ where: { id } });
   }
 
-  /* 查询我的绘制记录 */
+  /* 查詢我的繪製記錄 */
   async querDrawLog(req: Request, query: QuerMyChatLogDto) {
     const { id } = req.user;
     const { model } = query;
@@ -83,7 +83,7 @@ export class ChatLogService {
     return data;
   }
 
-  /* 查询所有绘制记录 */
+  /* 查詢所有繪製記錄 */
   async querAllDrawLog(params: QuerAllDrawLogDto) {
     const { page = 1, size = 20, rec, userId, model } = params;
     const where: any = {
@@ -118,8 +118,8 @@ export class ChatLogService {
     });
 
     rows.forEach((r: any) => {
-      const w = r.model === 'midjourney' ? 310 : 160; // mj压缩到310  dall-e压缩到160 宽度
-      /* 需要区分图片是阿里云oss还是腾讯云cos  压缩方式不同  */
+      const w = r.model === 'midjourney' ? 310 : 160; // mj壓縮到310  dall-e壓縮到160 寬度
+      /* 需要區分圖片是阿里雲oss還是騰訊雲cos  壓縮方式不同  */
       const imgType = r.answer.includes('cos') ? 'tencent' : 'ali';
       const compress =
         imgType === 'tencent'
@@ -143,19 +143,19 @@ export class ChatLogService {
     return { rows, count };
   }
 
-  // 查询单条绘制记录
+  // 查詢單條繪製記錄
   async findOneDrawLog(params: { id?: number; drawId?: number }) {
-    // 构建查询条件
+    // 構建查詢條件
     const { id } = params;
     // const where: any = {};
     // if (params.id) where.id = params.id;
     // if (params.drawId) where.drawId = params.drawId;
-    // 查询单条记录
+    // 查詢單條記錄
     const record = await this.chatLogEntity.findOne({ where: { id } });
     return record;
   }
 
-  /* 推荐图片到对外展示 */
+  /* 推薦圖片到對外展示 */
   async recDrawImg(body: recDrawImgDto) {
     const { id } = body;
     const l = await this.chatLogEntity.findOne({
@@ -163,22 +163,22 @@ export class ChatLogService {
     });
     if (!l) {
       throw new HttpException(
-        '你推荐的图片不存在、请检查！',
+        '你推薦的圖片不存在、請檢查！',
         HttpStatus.BAD_REQUEST
       );
     }
     const rec = l.rec === 1 ? 0 : 1;
     const res = await this.chatLogEntity.update({ id }, { rec });
     if (res.affected > 0) {
-      return `${rec ? '推荐' : '取消推荐'}图片成功！`;
+      return `${rec ? '推薦' : '取消推薦'}圖片成功！`;
     }
     throw new HttpException(
-      '你操作的图片不存在、请检查！',
+      '你操作的圖片不存在、請檢查！',
       HttpStatus.BAD_REQUEST
     );
   }
 
-  /* 导出为excel对话记录 */
+  /* 導出為excel對話記錄 */
   async exportExcel(body: ExportExcelChatlogDto, res: Response) {
     const where = { type: ChatType.NORMAL_CHAT };
     const { page = 1, size = 30, prompt, email } = body;
@@ -214,10 +214,10 @@ export class ChatLogService {
     const worksheet = workbook.addWorksheet('chatlog');
 
     worksheet.columns = [
-      { header: '用户名', key: 'username', width: 20 },
-      { header: '用户邮箱', key: 'email', width: 20 },
-      { header: '提问时间', key: 'createdAt', width: 20 },
-      { header: '提问问题', key: 'prompt', width: 80 },
+      { header: '用戶名', key: 'username', width: 20 },
+      { header: '用戶郵箱', key: 'email', width: 20 },
+      { header: '提問時間', key: 'createdAt', width: 20 },
+      { header: '提問問題', key: 'prompt', width: 80 },
       { header: '回答答案', key: 'answer', width: 150 },
     ];
 
@@ -232,7 +232,7 @@ export class ChatLogService {
     res.end();
   }
 
-  /* 查询所有对话记录 */
+  /* 查詢所有對話記錄 */
   async querAllChatLog(params: QuerAllChatLogDto, req: Request) {
     const { page = 1, size = 20, userId, prompt } = params;
     const where = { type: ChatType.NORMAL_CHAT, prompt: Not('') };
@@ -259,12 +259,12 @@ export class ChatLogService {
       rows.forEach((t: any) => (t.email = maskEmail(t.email)));
     rows.forEach((item: any) => {
       !item.email && (item.email = `${item?.userId}@aiweb.com`);
-      !item.username && (item.username = `游客${item?.userId}`);
+      !item.username && (item.username = `遊客${item?.userId}`);
     });
     return { rows, count };
   }
 
-  /* 查询当前对话的列表 */
+  /* 查詢當前對話的列表 */
   async chatList(req: Request, params: ChatListDto) {
     const { id } = req.user;
     const { groupId } = params;
@@ -325,27 +325,27 @@ export class ChatLogService {
     });
   }
 
-  /* 查询历史对话的列表 */
+  /* 查詢歷史對話的列表 */
   async chatHistory(groupId: number, rounds: number) {
-    // Logger.debug(`查询历史对话的列表, groupId: ${groupId}, rounds: ${rounds}`);
+    // Logger.debug(`查詢歷史對話的列表, groupId: ${groupId}, rounds: ${rounds}`);
 
     if (rounds === 0) {
-      // Logger.debug('轮次为0，返回空数组');
+      // Logger.debug('輪次為0，返回空數組');
       return [];
     }
 
     const where = { isDelete: false, groupId: groupId };
-    // Logger.debug('查询条件:', JSON.stringify(where, null, 2));
+    // Logger.debug('查詢條件:', JSON.stringify(where, null, 2));
 
     const list = await this.chatLogEntity.find({
       where,
       order: {
         createdAt: 'DESC',
       },
-      take: rounds * 2, // 只取最新的rounds条记录
+      take: rounds * 2, // 只取最新的rounds條記錄
     });
 
-    // Logger.debug('查询结果:', JSON.stringify(list, null, 2));
+    // Logger.debug('查詢結果:', JSON.stringify(list, null, 2));
 
     const result = list
       .map((item) => {
@@ -355,39 +355,39 @@ export class ChatLogService {
           text: role === 'user' ? prompt : answer,
           fileInfo: fileInfo,
         };
-        // Logger.debug('处理记录:', JSON.stringify(record, null, 2));
+        // Logger.debug('處理記錄:', JSON.stringify(record, null, 2));
         return record;
       })
-      .reverse(); // 添加.reverse()来反转数组，使结果按时间从旧到新排列
+      .reverse(); // 添加.reverse()來反轉數組，使結果按時間從舊到新排列
 
-    // Logger.debug('处理后的结果:', JSON.stringify(result, null, 2));
+    // Logger.debug('處理後的結果:', JSON.stringify(result, null, 2));
 
     return result;
   }
 
-  /* 删除单条对话记录 */
+  /* 刪除單條對話記錄 */
   async deleteChatLog(req: Request, body: DelDto) {
     const { id: userId } = req.user;
     const { id } = body;
     const c = await this.chatLogEntity.findOne({ where: { id, userId } });
     if (!c) {
       throw new HttpException(
-        '你删除的对话记录不存在、请检查！',
+        '你刪除的對話記錄不存在、請檢查！',
         HttpStatus.BAD_REQUEST
       );
     }
     const r = await this.chatLogEntity.update({ id }, { isDelete: true });
     if (r.affected > 0) {
-      return '删除对话记录成功！';
+      return '刪除對話記錄成功！';
     } else {
       throw new HttpException(
-        '你删除的对话记录不存在、请检查！',
+        '你刪除的對話記錄不存在、請檢查！',
         HttpStatus.BAD_REQUEST
       );
     }
   }
 
-  /* 清空一组对话记录 */
+  /* 清空一組對話記錄 */
   async delByGroupId(req: Request, body: DelByGroupDto) {
     const { groupId } = body;
     const { id } = req.user;
@@ -397,7 +397,7 @@ export class ChatLogService {
 
     if (!g) {
       throw new HttpException(
-        '你删除的对话记录不存在、请检查！',
+        '你刪除的對話記錄不存在、請檢查！',
         HttpStatus.BAD_REQUEST
       );
     }
@@ -405,35 +405,35 @@ export class ChatLogService {
     const r = await this.chatLogEntity.update({ groupId }, { isDelete: true });
 
     if (r.affected > 0) {
-      return '删除对话记录成功！';
+      return '刪除對話記錄成功！';
     }
 
     if (r.affected === 0) {
       throw new HttpException(
-        '当前页面已经没有东西可以删除了！',
+        '當前頁面已經沒有東西可以刪除了！',
         HttpStatus.BAD_REQUEST
       );
     }
   }
 
-  /* 删除对话组中某条对话及其后的所有对话 */
+  /* 刪除對話組中某條對話及其後的所有對話 */
   async deleteChatsAfterId(req: Request, body: any) {
-    const { id } = body; // 从请求体中获取对话记录 id
-    const { id: userId } = req.user; // 从请求中获取用户ID
+    const { id } = body; // 從請求體中獲取對話記錄 id
+    const { id: userId } = req.user; // 從請求中獲取用戶ID
 
-    // 查找该对话记录，确保其存在且属于当前用户
+    // 查找該對話記錄，確保其存在且屬於當前用戶
     const chatLog = await this.chatLogEntity.findOne({ where: { id, userId } });
     if (!chatLog) {
-      // 如果对话记录不存在，抛出异常
+      // 如果對話記錄不存在，拋出異常
       throw new HttpException(
-        '你删除的对话记录不存在、请检查！',
+        '你刪除的對話記錄不存在、請檢查！',
         HttpStatus.BAD_REQUEST
       );
     }
 
-    const { groupId } = chatLog; // 获取该对话记录所在的对话组ID
+    const { groupId } = chatLog; // 獲取該對話記錄所在的對話組ID
 
-    // 删除该对话组中所有 ID 大于等于当前 id 的对话记录
+    // 刪除該對話組中所有 ID 大於等於當前 id 的對話記錄
     const result = await this.chatLogEntity.update(
       { groupId, id: MoreThanOrEqual(id) },
       { isDelete: true }
@@ -441,17 +441,17 @@ export class ChatLogService {
 
     if (result.affected > 0) {
       // 如果更新成功，返回成功消息
-      return '删除对话记录成功！';
+      return '刪除對話記錄成功！';
     } else {
-      // 如果没有任何记录被更新，抛出异常
+      // 如果沒有任何記錄被更新，拋出異常
       throw new HttpException(
-        '当前页面已经没有东西可以删除了！',
+        '當前頁面已經沒有東西可以刪除了！',
         HttpStatus.BAD_REQUEST
       );
     }
   }
 
-  /* 查询单个应用的使用记录 */
+  /* 查詢單個應用的使用記錄 */
   async byAppId(req: Request, body: QueryByAppIdDto) {
     const { id } = req.user;
     const { appId, page = 1, size = 10 } = body;
@@ -469,7 +469,7 @@ export class ChatLogService {
     const oneHourAgo = new Date(Date.now() - ONE_HOUR_IN_MS);
 
     try {
-      // 计算一小时内模型的使用次数
+      // 計算一小時內模型的使用次數
       const usageCount = await this.chatLogEntity.count({
         where: {
           userId: userId.id,
@@ -481,13 +481,13 @@ export class ChatLogService {
       const adjustedUsageCount = Math.ceil(usageCount / 2);
 
       Logger.log(
-        `用户ID: ${userId.id} 一小时内调用 ${model} 模型 ${
+        `用戶ID: ${userId.id} 一小時內調用 ${model} 模型 ${
           adjustedUsageCount + 1
         } 次`,
         'ChatLogService'
       );
 
-      // 获取模型的使用限制
+      // 獲取模型的使用限制
 
       let modelInfo;
       if (model.startsWith('gpt-4-gizmo')) {
@@ -498,18 +498,18 @@ export class ChatLogService {
       const modelLimits = Number(modelInfo.modelLimits);
 
       Logger.log(
-        `模型 ${model} 的使用次数限制为 ${modelLimits}`,
+        `模型 ${model} 的使用次數限制為 ${modelLimits}`,
         'ChatLogService'
       );
 
-      // 检查是否超过使用限制
+      // 檢查是否超過使用限制
       if (adjustedUsageCount > modelLimits) {
         return true;
       }
       return false;
     } catch (error) {
       Logger.error(
-        `查询数据库出错 - 用户ID: ${userId.id}, 模型: ${model}, 错误信息: ${error.message}`,
+        `查詢數據庫出錯 - 用戶ID: ${userId.id}, 模型: ${model}, 錯誤資訊: ${error.message}`,
         error.stack,
         'ChatLogService'
       );

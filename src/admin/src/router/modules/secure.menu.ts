@@ -10,7 +10,7 @@ const routes: RouteRecordRaw = {
   redirect: '/secure/sensitive-baidu',
   name: 'SecureMenu',
   meta: {
-    title: '风控管理',
+    title: '風控管理',
     icon: 'ri:secure-payment-line',
   },
   children: [
@@ -19,7 +19,7 @@ const routes: RouteRecordRaw = {
       name: 'IdentityVerification',
       component: () => import('@/views/sensitive/identityVerification.vue'),
       meta: {
-        title: '风控安全配置',
+        title: '風控安全配置',
         icon: 'hugeicons:identification',
       },
     },
@@ -28,7 +28,7 @@ const routes: RouteRecordRaw = {
       name: 'SensitiveViolationLog',
       component: () => import('@/views/sensitive/violation.vue'),
       meta: {
-        title: '违规检测记录',
+        title: '違規檢測記錄',
         icon: 'tabler:ban',
       },
     },
@@ -37,7 +37,7 @@ const routes: RouteRecordRaw = {
       name: 'SensitiveBaiduyun',
       component: () => import('@/views/sensitive/baiduSensitive.vue'),
       meta: {
-        title: '百度云敏感词',
+        title: '百度雲敏感詞',
         icon: 'ri:baidu-line',
       },
     },
@@ -46,7 +46,7 @@ const routes: RouteRecordRaw = {
       name: 'SensitiveCuston',
       component: () => import('@/views/sensitive/custom.vue'),
       meta: {
-        title: '自定义敏感词',
+        title: '自定義敏感詞',
         icon: 'carbon:word-cloud',
       },
     },

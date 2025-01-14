@@ -55,10 +55,10 @@ export class ChatService {
     private readonly aiPptService: AiPptService
   ) {}
 
-  /* 有res流回复 没有同步回复 */
+  /* 有res流回復 沒有同步回覆 */
   async chatProcess(body: any, req?: Request, res?: Response) {
     await this.userBalanceService.checkUserCertification(req.user.id);
-    /* 获取对话参数 */
+    /* 獲取對話參數 */
     const {
       options = {},
       usingPluginId,
@@ -75,7 +75,7 @@ export class ChatService {
       modelAvatar,
     } = body;
 
-    // 获取应用信息
+    // 獲取應用資訊
     let appInfo;
     if (specialModel) {
       appInfo = await this.appEntity.findOne({
@@ -89,7 +89,7 @@ export class ChatService {
       // Logger.debug(`appId: ${JSON.stringify(appInfo, null, 2)}`);
       if (!appInfo) {
         throw new HttpException(
-          '你当前使用的应用已被下架、请删除当前对话开启新的对话吧！',
+          '你當前使用的應用已被下架、請刪除當前對話開啟新的對話吧！',
           HttpStatus.BAD_REQUEST
         );
       }
@@ -122,34 +122,34 @@ export class ChatService {
       'isSensitiveWordFilter',
     ]);
 
-    /* 检测用户状态 */
+    /* 檢測用戶狀態 */
     await this.userService.checkUserStatus(req.user);
 
-    /* 敏感词检测 */
+    /* 敏感詞檢測 */
     res &&
       res.setHeader('Content-type', 'application/octet-stream; charset=utf-8');
-    // 检查敏感词汇
+    // 檢查敏感詞彙
     if (isSensitiveWordFilter === '1') {
       const triggeredWords = await this.badWordsService.checkBadWords(
         prompt,
         req.user.id
       );
       if (triggeredWords.length > 0) {
-        // 如果返回的数组不为空
-        const tips = `您提交的信息中包含违规的内容，我们已对您的账户进行标记，请合规使用！`;
+        // 如果返回的數組不為空
+        const tips = `您遞交的資訊中包含違規的內容，我們已對您的賬戶進行標記，請合規使用！`;
         throw new HttpException(tips, HttpStatus.BAD_REQUEST);
       }
     }
 
-    /* 自动回复 */
+    /* 自動回覆 */
     const autoReplyRes = await this.autoreplyService.checkAutoReply(prompt);
     // Logger.debug(
-    //   `自动回复结果: ${JSON.stringify(autoReplyRes)}`,
+    //   `自動回覆結果: ${JSON.stringify(autoReplyRes)}`,
     //   'ChatService'
     // );
     // return;
 
-    /* 设置对话变量 */
+    /* 設置對話變量 */
     let currentRequestModelKey = null;
     let appName = '';
     let setSystemMessage = '';
@@ -164,10 +164,10 @@ export class ChatService {
       usingPlugin = await this.pluginEntity.findOne({
         where: { id: usingPluginId },
       });
-      // Logger.debug(`插件信息: ${JSON.stringify(usingPlugin, null, 2)}`);
+      // Logger.debug(`外掛資訊: ${JSON.stringify(usingPlugin, null, 2)}`);
     }
 
-    /* 获取模型配置及预设设置 */
+    /* 獲取模型配置及預設設置 */
     if (appInfo) {
       const { isGPTs, gizmoID, name, isFixedModel, appModel, coverImg } =
         appInfo;
@@ -186,24 +186,24 @@ export class ChatService {
         // await this.chatLogService.checkModelLimits(req.user, appModel);
         currentRequestModelKey.model = appModel;
         if (fileParsing) {
-          setSystemMessage = `${setSystemMessage}以下是我提供给你的知识库：【${fileParsing}】，在回答问题之前，先检索知识库内有没有相关的内容，尽量使用知识库中获取到的信息来回答我的问题，以知识库中的为准。`;
+          setSystemMessage = `${setSystemMessage}以下是我提供給你的知識庫：【${fileParsing}】，在回答問題之前，先檢索知識庫內有沒有相關的內容，儘量使用知識庫中獲取到的資訊來回答我的問題，以知識庫中的為準。`;
         }
 
         Logger.log(
-          `固定模型、使用应用预设: ${setSystemMessage}`,
+          `固定模型、使用應用預設: ${setSystemMessage}`,
           'ChatService'
         );
       } else {
-        // 使用应用预设
+        // 使用應用預設
         appInfo.preset && (setSystemMessage = appInfo.preset);
         currentRequestModelKey =
           await this.modelsService.getCurrentModelKeyInfo(model);
         // await this.chatLogService.checkModelLimits(req.user, model);
         if (fileParsing) {
-          setSystemMessage = `${setSystemMessage}以下是我提供给你的知识库：【${fileParsing}】，在回答问题之前，先检索知识库内有没有相关的内容，尽量使用知识库中获取到的信息来回答我的问题，以知识库中的为准。`;
+          setSystemMessage = `${setSystemMessage}以下是我提供給你的知識庫：【${fileParsing}】，在回答問題之前，先檢索知識庫內有沒有相關的內容，儘量使用知識庫中獲取到的資訊來回答我的問題，以知識庫中的為準。`;
         }
 
-        Logger.log(`使用应用预设: ${setSystemMessage}`, 'ChatService');
+        Logger.log(`使用應用預設: ${setSystemMessage}`, 'ChatService');
       }
     } else {
       const groupInfo = await this.chatGroupService.getGroupInfoFromId(groupId);
@@ -211,52 +211,52 @@ export class ChatService {
         let pluginPrompt = '';
         try {
           pluginPrompt = await this.usePlugin(prompt, usingPlugin.parameters);
-          Logger.log(`插件返回结果: ${pluginPrompt}`, 'ChatService');
+          Logger.log(`外掛返回結果: ${pluginPrompt}`, 'ChatService');
         } catch (error) {
-          pluginPrompt = prompt; // 或者其他错误处理逻辑
-          Logger.error(`插件调用错误: ${error}`);
+          pluginPrompt = prompt; // 或者其他錯誤處理邏輯
+          Logger.error(`外掛調用錯誤: ${error}`);
         }
         setSystemMessage = pluginPrompt;
         currentRequestModelKey =
           await this.modelsService.getCurrentModelKeyInfo(model);
         // await this.chatLogService.checkModelLimits(req.user, model);
-        Logger.log(`使用插件预设: ${setSystemMessage}`, 'ChatService');
+        Logger.log(`使用外掛預設: ${setSystemMessage}`, 'ChatService');
       } else if (fileParsing) {
-        setSystemMessage = `以下是我提供给你的知识库：【${fileParsing}】，在回答问题之前，先检索知识库内有没有相关的内容，尽量使用知识库中获取到的信息来回答我的问题，以知识库中的为准。`;
+        setSystemMessage = `以下是我提供給你的知識庫：【${fileParsing}】，在回答問題之前，先檢索知識庫內有沒有相關的內容，儘量使用知識庫中獲取到的資訊來回答我的問題，以知識庫中的為準。`;
         currentRequestModelKey =
           await this.modelsService.getCurrentModelKeyInfo(model);
         // await this.chatLogService.checkModelLimits(req.user, model);
         Logger.log(`使用文件解析: ${setSystemMessage}`, 'ChatService');
       } else {
-        // 使用全局预设
+        // 使用全局預設
         const currentDate = new Date().toISOString().split('T')[0];
         setSystemMessage = systemPreMessage + `\n Current date: ${currentDate}`;
         currentRequestModelKey =
           await this.modelsService.getCurrentModelKeyInfo(model);
 
-        Logger.log(`使用全局预设: ${setSystemMessage}`, 'ChatService');
+        Logger.log(`使用全局預設: ${setSystemMessage}`, 'ChatService');
       }
     }
 
     if (!currentRequestModelKey) {
-      Logger.debug('未找到当前模型key，切换至全局模型', 'ChatService');
+      Logger.debug('未找到當前模型key，切換至全局模型', 'ChatService');
       currentRequestModelKey = await this.modelsService.getCurrentModelKeyInfo(
         openaiBaseModel
       );
       const groupInfo = await this.chatGroupService.getGroupInfoFromId(groupId);
 
-      // 假设 groupInfo.config 是 JSON 字符串，并且你需要替换其中的 modelName 和 model
+      // 假設 groupInfo.config 是 JSON 字串，並且你需要替換其中的 modelName 和 model
       let updatedConfig = groupInfo.config;
       try {
         const parsedConfig = JSON.parse(groupInfo.config);
         if (parsedConfig.modelInfo) {
-          parsedConfig.modelInfo.modelName = currentRequestModelKey.modelName; // 替换为你需要的模型名称
-          parsedConfig.modelInfo.model = currentRequestModelKey.model; // 替换为你需要的模型
+          parsedConfig.modelInfo.modelName = currentRequestModelKey.modelName; // 替換為你需要的模型名稱
+          parsedConfig.modelInfo.model = currentRequestModelKey.model; // 替換為你需要的模型
           updatedConfig = JSON.stringify(parsedConfig);
         }
       } catch (error) {
-        Logger.debug('模型切换错误，请检查全局模型配置！', 'ChatService');
-        throw new HttpException('配置解析错误！', HttpStatus.BAD_REQUEST);
+        Logger.debug('模型切換錯誤，請檢查全局模型配置！', 'ChatService');
+        throw new HttpException('配置解析錯誤！', HttpStatus.BAD_REQUEST);
       }
 
       await this.chatGroupService.update(
@@ -289,7 +289,7 @@ export class ChatService {
 
     if (await this.chatLogService.checkModelLimits(req.user, useModel)) {
       throw new HttpException(
-        '1 小时内对话次数过多，请切换模型或稍后再试！',
+        '1 小時內對話次數過多，請切換模型或稍後再試！',
         HttpStatus.TOO_MANY_REQUESTS
       );
     }
@@ -299,45 +299,45 @@ export class ChatService {
       action === 'IMAGINE' &&
       model === 'midjourney'
     ) {
-      // 将 prompt 按 "--" 分割成两部分
+      // 將 prompt 按 "--" 分割成兩部分
       const [beforeArgs, afterArgs] = prompt.split(/(?= --)/);
 
-      // 使用正则表达式识别并提取链接
+      // 使用正則表達式識別並提取鏈接
       const urlPattern = /(https?:\/\/[^\s]+)/g;
       const urls = beforeArgs.match(urlPattern) || [];
 
-      // 提取链接后剩余的部分
+      // 提取鏈接後剩餘的部分
       let textToTranslate = beforeArgs.replace(urlPattern, '').trim();
 
-      // 调用翻译服务翻译中文部分
+      // 調用翻譯服務翻譯中文部分
       const translatedText = await this.openAIChatService.chatFree(
         textToTranslate,
         mjTranslatePrompt ||
-          "Translate any given phrase from any language into English. For instance, when I input '{可爱的熊猫}', you should output '{cute panda}', with no period at the end."
+          "Translate any given phrase from any language into English. For instance, when I input '{可愛的熊貓}', you should output '{cute panda}', with no period at the end."
       );
 
-      // 重新拼接链接、翻译后的文本和附加参数
+      // 重新拼接鏈接、翻譯後的文本和附加參數
       const finalTranslatedPrompt = [...urls, translatedText].join(' ').trim();
       usePrompt = afterArgs
         ? `${finalTranslatedPrompt}${afterArgs}`
         : finalTranslatedPrompt;
 
-      // 如果是文件上传，保留 fileInfo 逻辑
+      // 如果是文件上傳，保留 fileInfo 邏輯
       if (isFileUpload === '1' && fileInfo) {
         usePrompt = `${fileInfo} ${usePrompt}`;
       }
 
-      // Logger.debug(`翻译后的用户提问: ${translatedText}, 最终使用的提示: ${usePrompt}`);
+      // Logger.debug(`翻譯後的用戶提問: ${translatedText}, 最終使用的提示: ${usePrompt}`);
     } else {
       usePrompt =
         isFileUpload === '1' && fileInfo ? fileInfo + ' ' + prompt : prompt;
-      // Logger.debug(`未进行翻译，最终使用的提示: ${usePrompt}`);
+      // Logger.debug(`未進行翻譯，最終使用的提示: ${usePrompt}`);
     }
 
-    // 检测用户余额
+    // 檢測用戶餘額
     await this.userBalanceService.validateBalance(req, deductType, deduct);
 
-    // 整理对话参数
+    // 整理對話參數
     const useModeName = modelName;
     const proxyResUrl = formatUrl(
       proxyUrl || openaiBaseUrl || 'https://api.openai.com'
@@ -348,9 +348,9 @@ export class ChatService {
     const temperature = Number(openaiTemperature) || 1;
     // Logger.log(
     //   `\n` +
-    //     `超时设置: ${modelTimeout / 1000} s\n` +
-    //     `请求地址: ${proxyResUrl}\n` +
-    //     `使用的模型名称: ${useModeName}\n` +
+    //     `超時設置: ${modelTimeout / 1000} s\n` +
+    //     `請求地址: ${proxyResUrl}\n` +
+    //     `使用的模型名稱: ${useModeName}\n` +
     //     `使用的模型: ${useModel}`,
     //   'ChatService'
     // );
@@ -411,18 +411,18 @@ export class ChatService {
       if (autoReplyRes.isAIReplyEnabled === 0) {
         const chars = autoReplyRes.answer.split('');
 
-        // 使用一个递归函数来逐个字符发送响应
+        // 使用一個遞歸函數來逐個字符發送響應
         const sendCharByChar = (index) => {
           if (index < chars.length) {
-            const msg = { text: chars[index] }; // 封装当前字符为对象
-            res.write(`${JSON.stringify(msg)}\n`); // 发送当前字符
-            setTimeout(() => sendCharByChar(index + 1), 10); // 设置定时器递归调用
+            const msg = { text: chars[index] }; // 封裝當前字符為對象
+            res.write(`${JSON.stringify(msg)}\n`); // 發送當前字符
+            setTimeout(() => sendCharByChar(index + 1), 10); // 設置定時器遞歸調用
           } else {
-            res.end(); // 所有字符发送完毕，结束响应
+            res.end(); // 所有字符發送完畢，結束響應
           }
         };
 
-        // 从第一个字符开始发送
+        // 從第一個字符開始發送
         sendCharByChar(0);
         await this.chatLogService.updateChatLog(assistantLogId, {
           answer: autoReplyRes.answer,
@@ -433,8 +433,8 @@ export class ChatService {
       }
     }
 
-    // Logger.debug(`当前使用的模型key: ${setSystemMessage}`);
-    /* 获取历史消息 */
+    // Logger.debug(`當前使用的模型key: ${setSystemMessage}`);
+    /* 獲取歷史消息 */
     const { messagesHistory } = await this.buildMessageFromParentMessageId(
       prompt,
       {
@@ -455,12 +455,12 @@ export class ChatService {
       this.chatLogService
     );
 
-    /* 单独处理 MJ 积分的扣费 */
+    /* 單獨處理 MJ 積分的扣費 */
     let charge =
       action !== 'UPSCALE' && useModel === 'midjourney' ? deduct * 4 : deduct;
 
     const abortController = new AbortController();
-    /* 处理对话  */
+    /* 處理對話  */
     try {
       if (res) {
         res.on('close', () => {
@@ -471,7 +471,7 @@ export class ChatService {
         // const { key, maxToken, maxTokenRes, proxyResUrl } = await this.formatModelToken(currentRequestModelKey);
         let firstChunk = true;
         try {
-          /* 绘画 */
+          /* 繪畫 */
           if (
             (useModel === 'dall-e-3' ||
               useModel === 'midjourney' ||
@@ -495,7 +495,7 @@ export class ChatService {
                   modelName: useModeName,
                   groupId: groupId,
                   onSuccess: async (data) => {
-                    // 处理成功获取绘图结果的逻辑
+                    // 處理成功獲取繪圖結果的邏輯
                     await this.chatLogService.updateChatLog(assistantLogId, {
                       fileInfo: data?.fileInfo,
                       answer: data?.answer || prompt,
@@ -504,9 +504,9 @@ export class ChatService {
                     });
                   },
                   onFailure: async (data) => {
-                    // 处理失败逻辑
+                    // 處理失敗邏輯
                     await this.chatLogService.updateChatLog(assistantLogId, {
-                      answer: '绘图失败',
+                      answer: '繪圖失敗',
                       status: data.status,
                     });
                   },
@@ -514,10 +514,10 @@ export class ChatService {
                 this.buildMessageFromParentMessageId
               );
               await this.chatLogService.updateChatLog(assistantLogId, {
-                answer: '绘制中',
+                answer: '繪製中',
               });
             } else if (useModel === 'ai-ppt') {
-              Logger.log('开始生成PPT', 'DrawService');
+              Logger.log('開始生成PPT', 'DrawService');
               response = this.aiPptService.aiPPT({
                 usePrompt: usePrompt,
                 prompt: prompt,
@@ -548,7 +548,7 @@ export class ChatService {
                   modelName: useModeName,
                   groupId: groupId,
                   onSuccess: async (data) => {
-                    // 处理成功获取绘图结果的逻辑
+                    // 處理成功獲取繪圖結果的邏輯
                     await this.chatLogService.updateChatLog(assistantLogId, {
                       fileInfo: data?.fileInfo,
                       answer: data?.answer || prompt,
@@ -557,9 +557,9 @@ export class ChatService {
                     });
                   },
                   onFailure: async (data) => {
-                    // 处理失败逻辑
+                    // 處理失敗邏輯
                     await this.chatLogService.updateChatLog(assistantLogId, {
-                      answer: '绘图失败',
+                      answer: '繪圖失敗',
                       status: data.status,
                     });
                   },
@@ -567,7 +567,7 @@ export class ChatService {
                 this.buildMessageFromParentMessageId
               );
               await this.chatLogService.updateChatLog(assistantLogId, {
-                answer: '绘制中',
+                answer: '繪製中',
               });
             } else if (useModel.includes('suno-music')) {
               response = this.sunoService.suno({
@@ -580,7 +580,7 @@ export class ChatService {
                 taskData: customId,
               });
               await this.chatLogService.updateChatLog(assistantLogId, {
-                answer: '提交成功，歌曲生成中',
+                answer: '遞交成功，歌曲生成中',
               });
             } else if (useModel.includes('luma-video')) {
               // Logger.debug('luma-video');
@@ -596,7 +596,7 @@ export class ChatService {
                 proxyUrl: proxyResUrl,
                 taskData: customId,
                 onGenerate: async (data) => {
-                  // 处理成功获取绘图结果的逻辑
+                  // 處理成功獲取繪圖結果的邏輯
                   await this.chatLogService.updateChatLog(assistantLogId, {
                     fileInfo: data?.fileInfo,
                     answer: data?.answer || prompt,
@@ -605,7 +605,7 @@ export class ChatService {
                   });
                 },
                 onSuccess: async (data) => {
-                  // 处理成功获取绘图结果的逻辑
+                  // 處理成功獲取繪圖結果的邏輯
                   await this.chatLogService.updateChatLog(assistantLogId, {
                     fileInfo: data?.fileInfo,
                     answer: data?.answer || prompt,
@@ -614,7 +614,7 @@ export class ChatService {
                   });
                 },
                 onFailure: async (data) => {
-                  // 处理失败逻辑
+                  // 處理失敗邏輯
                   await this.chatLogService.updateChatLog(assistantLogId, {
                     answer: data.errMsg,
                     status: 4,
@@ -622,7 +622,7 @@ export class ChatService {
                 },
               });
               await this.chatLogService.updateChatLog(assistantLogId, {
-                answer: '提交成功，视频生成中',
+                answer: '遞交成功，視頻生成中',
               });
             } else if (useModel.includes('cog-video')) {
               // Logger.debug('luma-video');
@@ -638,7 +638,7 @@ export class ChatService {
                 proxyUrl: proxyResUrl,
                 taskData: customId,
                 onGenerate: async (data) => {
-                  // 处理成功获取绘图结果的逻辑
+                  // 處理成功獲取繪圖結果的邏輯
                   await this.chatLogService.updateChatLog(assistantLogId, {
                     fileInfo: data?.fileInfo,
                     answer: data?.answer || prompt,
@@ -647,7 +647,7 @@ export class ChatService {
                   });
                 },
                 onSuccess: async (data) => {
-                  // 处理成功获取绘图结果的逻辑
+                  // 處理成功獲取繪圖結果的邏輯
                   await this.chatLogService.updateChatLog(assistantLogId, {
                     fileInfo: data?.fileInfo,
                     answer: data?.answer || prompt,
@@ -656,7 +656,7 @@ export class ChatService {
                   });
                 },
                 onFailure: async (data) => {
-                  // 处理失败逻辑
+                  // 處理失敗邏輯
                   await this.chatLogService.updateChatLog(assistantLogId, {
                     answer: data.errMsg,
                     status: 4,
@@ -664,7 +664,7 @@ export class ChatService {
                 },
               });
               await this.chatLogService.updateChatLog(assistantLogId, {
-                answer: '提交成功，视频生成中',
+                answer: '遞交成功，視頻生成中',
               });
             } else if (useModel.includes('stable-diffusion')) {
               response = this.stableDiffusionService.sdxl({
@@ -680,7 +680,7 @@ export class ChatService {
                 timeout: modelTimeout,
                 proxyUrl: proxyResUrl,
                 onSuccess: async (data) => {
-                  // 处理成功获取绘图结果的逻辑
+                  // 處理成功獲取繪圖結果的邏輯
                   await this.chatLogService.updateChatLog(assistantLogId, {
                     fileInfo: data?.fileInfo,
                     answer: data?.answer || prompt,
@@ -689,15 +689,15 @@ export class ChatService {
                   });
                 },
                 onFailure: async (data) => {
-                  // 处理失败逻辑
+                  // 處理失敗邏輯
                   await this.chatLogService.updateChatLog(assistantLogId, {
-                    answer: '生成失败',
+                    answer: '生成失敗',
                     status: 4,
                   });
                 },
               });
               await this.chatLogService.updateChatLog(assistantLogId, {
-                answer: '绘制中',
+                answer: '繪製中',
               });
             } else {
               response = await this.midjourneyService.midjourneyDraw({
@@ -720,7 +720,7 @@ export class ChatService {
               });
             }
 
-            //执行扣费
+            //執行扣費
             if (response.status !== 5) {
               await this.modelsService.saveUseLog(keyId, 1);
               await this.userBalanceService.deductFromBalance(
@@ -729,10 +729,10 @@ export class ChatService {
                 charge
               );
             } else {
-              Logger.log('任务提交失败，不执行扣费', 'ChatService');
+              Logger.log('任務遞交失敗，不執行扣費', 'ChatService');
             }
 
-            //查询用户现在的余额
+            //查詢用戶現在的餘額
             const userBalance = await this.userBalanceService.queryUserBalance(
               req.user.id
             );
@@ -744,9 +744,9 @@ export class ChatService {
 
             return res.write(`\n${JSON.stringify(response)}`);
 
-            /* 记录key的使用次数 和使用token */
+            /* 記錄key的使用次數 和使用token */
           } else {
-            /* 普通对话 */
+            /* 普通對話 */
             response = await this.openAIChatService.openAIChat(
               messagesHistory,
               {
@@ -783,7 +783,7 @@ export class ChatService {
 
             if (response.errMsg) {
               Logger.error(
-                `用户ID: ${req.user.id} 模型名称: ${useModeName} 模型: ${model} 回复出错，本次不扣除积分`,
+                `用戶ID: ${req.user.id} 模型名稱: ${useModeName} 模型: ${model} 回覆出錯，本次不扣除積分`,
                 'ChatService'
               );
               return res.write(`\n${JSON.stringify(response)}`);
@@ -809,21 +809,21 @@ export class ChatService {
               );
 
               if (triggeredWords.length > 0) {
-                // 构造一个正则表达式来匹配所有敏感词
-                const regex = new RegExp(triggeredWords.join('|'), 'gi'); // 忽略大小写替换
+                // 構造一個正則表達式來匹配所有敏感詞
+                const regex = new RegExp(triggeredWords.join('|'), 'gi'); // 忽略大小寫替換
 
-                // 使用回调函数替换敏感词，每个敏感词替换为相应长度的 *
+                // 使用回調函數替換敏感詞，每個敏感詞替換為相應長度的 *
                 sanitizedAnswer = sanitizedAnswer.replace(regex, (matched) =>
                   '*'.repeat(matched.length)
                 );
               }
             }
 
-            // 如果检测到敏感词，替换为 ***
-            // gpt回答 - 使用替换后的内容存入数据库
+            // 如果檢測到敏感詞，替換為 ***
+            // gpt回答 - 使用替換後的內容存入數據庫
             await this.chatLogService.updateChatLog(assistantLogId, {
               fileInfo: response?.fileInfo,
-              answer: sanitizedAnswer, // 使用替换后的内容
+              answer: sanitizedAnswer, // 使用替換後的內容
               promptTokens: promptTokens,
               completionTokens: completionTokens,
               totalTokens: promptTokens + completionTokens,
@@ -833,14 +833,14 @@ export class ChatService {
             try {
               if (isGeneratePromptReference === '1') {
                 const promptReference = await this.openAIChatService.chatFree(
-                  `根据用户提问{${prompt}}以及 AI 的回答{${response.answer}}，生成三个更进入一步的提问，用{}包裹每个问题，不需要分行，不需要其他任何内容，单个提问不超过30个字`
+                  `根據用戶提問{${prompt}}以及 AI 的回答{${response.answer}}，生成三個更進入一步的提問，用{}包裹每個問題，不需要分行，不需要其他任何內容，單個提問不超過30個字`
                 );
                 await this.chatLogService.updateChatLog(assistantLogId, {
                   promptReference: promptReference,
                 });
               }
             } catch (error) {
-              Logger.error(`调用 chatFree 出错: ${error}`);
+              Logger.error(`調用 chatFree 出錯: ${error}`);
             }
 
             if (isTokenBased === true) {
@@ -855,18 +855,18 @@ export class ChatService {
               charge,
               promptTokens + completionTokens
             );
-            /* 记录key的使用次数 和使用token */
+            /* 記錄key的使用次數 和使用token */
             await this.modelsService.saveUseLog(
               keyId,
               promptTokens + completionTokens
             );
 
             Logger.log(
-              `用户ID: ${
+              `用戶ID: ${
                 req.user.id
-              } 模型名称: ${useModeName} 模型: ${model} 消耗token: ${
+              } 模型名稱: ${useModeName} 模型: ${model} 消耗token: ${
                 promptTokens + completionTokens
-              }, 消耗积分： ${charge}`,
+              }, 消耗積分： ${charge}`,
               'ChatService'
             );
             const userBalance = await this.userBalanceService.queryUserBalance(
@@ -876,13 +876,13 @@ export class ChatService {
             return res.write(`\n${JSON.stringify(response)}`);
           }
         } catch (error) {
-          // 在这里处理错误，例如打印错误消息到控制台或向用户发送错误响应
-          Logger.error('发生错误:', error);
-          // 根据你的应用需求，你可能想要在这里设置response为一个错误消息或执行其他错误处理逻辑
+          // 在這裡處理錯誤，例如打印錯誤消息到控制檯或向用戶發送錯誤響應
+          Logger.error('發生錯誤:', error);
+          // 根據你的應用需求，你可能想要在這裡設置response為一個錯誤消息或執行其他錯誤處理邏輯
           await this.chatLogService.updateChatLog(assistantLogId, {
             status: 5,
           });
-          response = { error: '处理请求时发生错误' };
+          response = { error: '處理請求時發生錯誤' };
         }
       } else {
         response = await this.openAIChatService.openAIChat(messagesHistory, {
@@ -914,10 +914,10 @@ export class ChatService {
         error
       );
       if (res) {
-        return res.write('发生未知错误，请稍后再试');
+        return res.write('發生未知錯誤，請稍後再試');
       } else {
         throw new HttpException(
-          '发生未知错误，请稍后再试',
+          '發生未知錯誤，請稍後再試',
           HttpStatus.BAD_REQUEST
         );
       }
@@ -949,7 +949,7 @@ export class ChatService {
     try {
       const response: any = await axios(options);
       Logger.log(
-        `插件调用成功 返回结果: ${JSON.stringify(response.data, null, 2)}`,
+        `外掛調用成功 返回結果: ${JSON.stringify(response.data, null, 2)}`,
         'PluginService'
       );
       return response.data.text;
@@ -959,23 +959,23 @@ export class ChatService {
   }
 
   async updateChatTitle(groupId, groupInfo, modelType, prompt, req) {
-    if (groupInfo?.title === '新对话') {
-      // '新对话' can be replaced with 'New chat' if needed
+    if (groupInfo?.title === '新對話') {
+      // '新對話' can be replaced with 'New chat' if needed
       let chatTitle: string;
       if (modelType === 1) {
         try {
           chatTitle = await this.openAIChatService.chatFree(
-            `根据用户提问{${prompt}}，给这个对话取一个名字，不超过10个字`
+            `根據用戶提問{${prompt}}，給這個對話取一個名字，不超過10個字`
           );
           if (chatTitle.length > 15) {
             chatTitle = chatTitle.slice(0, 15);
           }
         } catch (error) {
-          Logger.error(`调用 chatFree 出错: ${error}`);
+          Logger.error(`調用 chatFree 出錯: ${error}`);
           chatTitle = prompt.slice(0, 10);
         }
       } else {
-        chatTitle = '创意 AI';
+        chatTitle = '創意 AI';
       }
 
       this.chatGroupService
@@ -989,8 +989,8 @@ export class ChatService {
           },
           req
         )
-        .then(() => Logger.log(`更新标题名称为: ${chatTitle}`, 'ChatService'))
-        .catch((error) => Logger.error(`更新对话组标题失败: ${error}`));
+        .then(() => Logger.log(`更新標題名稱為: ${chatTitle}`, 'ChatService'))
+        .catch((error) => Logger.error(`更新對話組標題失敗: ${error}`));
     }
   }
 
@@ -1006,27 +1006,27 @@ export class ChatService {
       maxRounds = 5,
       maxModelTokens = 8000,
       isFileUpload = 0,
-      isConvertToBase64, // 新增选项，是否转换为Base64
+      isConvertToBase64, // 新增選項，是否轉換為Base64
     } = options;
 
-    // 确保 systemMessage 不超过 maxModelTokens
+    // 確保 systemMessage 不超過 maxModelTokens
     if (systemMessage.length > maxModelTokens) {
-      Logger.log('系统消息超过最大长度，将被截断', 'ChatService');
+      Logger.log('系統消息超過最大長度，將被截斷', 'ChatService');
       systemMessage = systemMessage.slice(0, maxModelTokens);
     }
 
     let messages = [];
-    // 添加系统消息（如果有）
+    // 添加系統消息（如果有）
     if (systemMessage) {
       messages.push({ role: 'system', content: systemMessage });
     }
 
-    // 查询历史对话列表
+    // 查詢歷史對話列表
     if (groupId) {
       const history = await chatLogService.chatHistory(groupId, maxRounds);
-      let tempUserMessage = null; // 用于暂存user消息，确保和assistant消息成对出现
+      let tempUserMessage = null; // 用於暫存user消息，確保和assistant消息成對出現
 
-      // 使用 for...of 结合 async/await，确保等待每个异步操作完成
+      // 使用 for...of 結合 async/await，確保等待每個異步操作完成
       for (const record of history) {
         try {
           let content;
@@ -1036,7 +1036,7 @@ export class ChatService {
             record.fileInfo &&
             record.role === 'user'
           ) {
-            // 特殊处理gpt-4-vision-preview模型
+            // 特殊處理gpt-4-vision-preview模型
             const imageUrls = await Promise.all(
               record.fileInfo.split(',').map(async (url) => ({
                 type: 'image_url',
@@ -1054,7 +1054,7 @@ export class ChatService {
             record.fileInfo &&
             record.role === 'user'
           ) {
-            // 特殊处理gpt-4-all模型
+            // 特殊處理gpt-4-all模型
             // const urls = await Promise.all(
             //   record.fileInfo.split(',').map(async (url) => url.trim())
             // );
@@ -1062,39 +1062,39 @@ export class ChatService {
 
             content = record.fileInfo + '\n' + record.text;
           } else {
-            // 默认处理
+            // 默認處理
             content = record.text;
           }
 
-          // 确保user和assistant消息成对且不为空
+          // 確保user和assistant消息成對且不為空
           if (record.role === 'user') {
-            tempUserMessage = { role: record.role, content }; // 暂存user消息
+            tempUserMessage = { role: record.role, content }; // 暫存user消息
           } else if (record.role === 'assistant') {
-            // 确保 content 是字符串
+            // 確保 content 是字串
             const contentStr = Array.isArray(content)
               ? JSON.stringify(content)
               : content;
             if (tempUserMessage && contentStr.trim() !== '') {
-              messages.push(tempUserMessage); // 添加之前暂存的user消息
+              messages.push(tempUserMessage); // 添加之前暫存的user消息
               messages.push({ role: record.role, content }); // 添加assistant消息
-              tempUserMessage = null; // 重置暂存的user消息
+              tempUserMessage = null; // 重置暫存的user消息
             }
           }
         } catch (error) {
           Logger.error(
-            '处理历史记录时出错:',
+            '處理歷史記錄時出錯:',
             error,
-            '记录:',
+            '記錄:',
             JSON.stringify(record, null, 2)
           );
         }
       }
     }
 
-    // 添加当前用户消息
+    // 添加當前用戶消息
     let currentMessageContent;
     if ((isFileUpload === 2 || isFileUpload === 3) && fileInfo) {
-      // 处理 fileInfo 为单个文件或多个文件的情况
+      // 處理 fileInfo 為單個文件或多個文件的情況
       const imageUrls = await Promise.all(
         fileInfo.split(',').map(async (url) => ({
           type: 'image_url',
@@ -1129,13 +1129,13 @@ export class ChatService {
     }
 
     while (totalTokens > tokenLimit) {
-      // 检查是否只剩下一条system消息和一条user消息
+      // 檢查是否只剩下一條system消息和一條user消息
       if (
         messages.length === 2 &&
         messages[0].role === 'system' &&
         messages[1].role === 'user'
       ) {
-        // 如果是，那么不再尝试删除消息，直接跳出循环
+        // 如果是，那麼不再嘗試刪除消息，直接跳出循環
         break;
       }
 
@@ -1146,14 +1146,14 @@ export class ChatService {
           messages[i + 1] &&
           messages[i + 1].role === 'assistant'
         ) {
-          // 从前往后逐对删除非系统消息，确保成对删除
+          // 從前往後逐對刪除非系統消息，確保成對刪除
           messages.splice(i, 2);
           foundPairToDelete = true;
           break;
         }
       }
 
-      // 如果没有找到可以删除的成对消息，则尝试删除单个user消息（如果存在）
+      // 如果沒有找到可以刪除的成對消息，則嘗試刪除單個user消息（如果存在）
       if (!foundPairToDelete) {
         for (let i = 0; i < messages.length; i++) {
           if (messages[i].role === 'user') {
@@ -1163,10 +1163,10 @@ export class ChatService {
         }
       }
 
-      totalTokens = await getTokenCount(messages); // 重新计算总token数
-      // 再次检查是否只剩下一条system消息和一条user消息
+      totalTokens = await getTokenCount(messages); // 重新計算總token數
+      // 再次檢查是否只剩下一條system消息和一條user消息
       if (messages.length <= 2) {
-        break; // 如果是，提前跳出循环
+        break; // 如果是，提前跳出循環
       }
     }
     return {
@@ -1175,25 +1175,25 @@ export class ChatService {
     };
   }
 
-  // 新增：转换URL到Base64的辅助函数
+  // 新增：轉換URL到Base64的輔助函數
   async convertUrlToBase64(url: string): Promise<string> {
     try {
-      console.log(`正在尝试转换URL为Base64: ${url}`);
+      console.log(`正在嘗試轉換URL為Base64: ${url}`);
 
       const response = await axios.get(url, { responseType: 'arraybuffer' });
-      const buffer = Buffer.from(response.data, 'binary'); // 获取图片的二进制数据
+      const buffer = Buffer.from(response.data, 'binary'); // 獲取圖片的二進制數據
 
-      console.log(`成功获取图片，正在转换为Base64: ${url}`);
+      console.log(`成功獲取圖片，正在轉換為Base64: ${url}`);
 
       const base64Data = `data:${
         response.headers['content-type']
       };base64,${buffer.toString('base64')}`;
-      console.log(`成功转换URL为Base64: ${url}`);
+      console.log(`成功轉換URL為Base64: ${url}`);
       return base64Data;
     } catch (error) {
-      console.error('转换URL为Base64时发生错误:', error);
-      console.warn(`返回原始链接: ${url}`);
-      return url; // 返回原始URL作为回退
+      console.error('轉換URL為Base64時發生錯誤:', error);
+      console.warn(`返回原始鏈接: ${url}`);
+      return url; // 返回原始URL作為回退
     }
   }
 
@@ -1211,16 +1211,16 @@ export class ChatService {
         'openaiVoice',
       ]);
 
-    // 从 detailKeyInfo 对象中解构赋值并设置默认值
+    // 從 detailKeyInfo 對象中解構賦值並設置默認值
     const { key, proxyUrl, deduct, deductType, timeout } = detailKeyInfo;
     const useKey = key || openaiBaseKey;
     const useUrl = formatUrl(proxyUrl || openaiBaseUrl);
     const useTimeout = (timeout || openaiTimeout) * 1000;
 
-    // 用户余额检测
+    // 用戶餘額檢測
     await this.userBalanceService.validateBalance(req, deductType, deduct);
 
-    Logger.log('开始 TTS 请求:', prompt, 'TTSService');
+    Logger.log('開始 TTS 請求:', prompt, 'TTSService');
 
     const options: AxiosRequestConfig = {
       method: 'POST',
@@ -1240,13 +1240,13 @@ export class ChatService {
 
     try {
       const response = await axios(options);
-      Logger.log('TTS 请求获取成功', 'TTSService');
+      Logger.log('TTS 請求獲取成功', 'TTSService');
 
       const buffer = Buffer.from(response.data);
       // const filename = `${uuid.v4().slice(0, 10)}.mp3`;
       const now = new Date();
       const year = now.getFullYear();
-      const month = String(now.getMonth() + 1).padStart(2, '0'); // 月份从0开始，所以+1
+      const month = String(now.getMonth() + 1).padStart(2, '0'); // 月份從0開始，所以+1
       const day = String(now.getDate()).padStart(2, '0');
       const currentDate = `${year}${month}/${day}`;
 
@@ -1255,7 +1255,7 @@ export class ChatService {
         `audio/openai/${currentDate}`
       );
 
-      // 更新聊天记录并扣除余额
+      // 更新聊天記錄並扣除餘額
       await Promise.all([
         this.chatLogService.updateChatLog(chatId, { ttsUrl }),
         this.userBalanceService.deductFromBalance(
@@ -1267,7 +1267,7 @@ export class ChatService {
 
       res.status(200).send({ ttsUrl });
     } catch (error) {
-      Logger.error('TTS 请求或上传过程失败:', error, 'TTSService');
+      Logger.error('TTS 請求或上傳過程失敗:', error, 'TTSService');
       res.status(500).send({ error: 'Failed to process TTS request' });
     }
   }

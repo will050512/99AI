@@ -4,23 +4,23 @@ import { Type } from 'class-transformer';
 import { BaseEntity } from 'typeorm';
 
 export class QuerAllOrderDto {
-  @ApiProperty({ example: 1, description: '查询页数', required: false })
+  @ApiProperty({ example: 1, description: '查詢頁數', required: false })
   @IsOptional()
   page: number;
 
-  @ApiProperty({ example: 10, description: '每页数量', required: false })
+  @ApiProperty({ example: 10, description: '每頁數量', required: false })
   @IsOptional()
   size: number;
 
-  @ApiProperty({ example: 99, description: '支付的用户id', required: false })
+  @ApiProperty({ example: 99, description: '支付的用戶id', required: false })
   @IsOptional()
   userId: number;
 
-  @ApiProperty({ example: 'epay', description: '支付的平台', required: false })
+  @ApiProperty({ example: 'epay', description: '支付的平臺', required: false })
   @IsOptional()
   platform: string;
 
-  @ApiProperty({ example: 1, description: '订单状态', required: false })
+  @ApiProperty({ example: 1, description: '訂單狀態', required: false })
   @IsOptional()
   status: number;
 }

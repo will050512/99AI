@@ -14,15 +14,15 @@ const swagger_1 = require("@nestjs/swagger");
 class QueryModelDto {
 }
 __decorate([
-    (0, swagger_1.ApiProperty)({ example: 1, description: '页码', required: true }),
+    (0, swagger_1.ApiProperty)({ example: 1, description: '頁碼', required: true }),
     __metadata("design:type", Number)
 ], QueryModelDto.prototype, "page", void 0);
 __decorate([
-    (0, swagger_1.ApiProperty)({ example: 10, description: '数量', required: true }),
+    (0, swagger_1.ApiProperty)({ example: 10, description: '數量', required: true }),
     __metadata("design:type", Number)
 ], QueryModelDto.prototype, "size", void 0);
 __decorate([
-    (0, swagger_1.ApiProperty)({ example: 1, description: '模型类型', required: true }),
+    (0, swagger_1.ApiProperty)({ example: 1, description: '模型類型', required: true }),
     __metadata("design:type", Number)
 ], QueryModelDto.prototype, "keyType", void 0);
 __decorate([
@@ -36,7 +36,7 @@ __decorate([
 __decorate([
     (0, swagger_1.ApiProperty)({
         example: true,
-        description: '是否开启当前key对应的模型',
+        description: '是否開啟當前key對應的模型',
         required: true,
     }),
     __metadata("design:type", Boolean)
@@ -44,7 +44,7 @@ __decorate([
 __decorate([
     (0, swagger_1.ApiProperty)({
         example: 'gpt-3.5',
-        description: '当前key绑定的模型是多少 需要调用的模型',
+        description: '當前key綁定的模型是多少 需要調用的模型',
         required: true,
     }),
     __metadata("design:type", String)

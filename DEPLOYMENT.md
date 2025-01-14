@@ -2,42 +2,42 @@
 
 ## Node.js 部署
 
-### 1. 安装 Node.js 环境
+### 1. 安裝 Node.js 環境
 
-推荐使用 `nvm` (Node Version Manager) 来安装 Node.js。
+推薦使用 `nvm` (Node Version Manager) 來安裝 Node.js。
 
-- 首先，安装 `nvm`，你可以从 [nvm GitHub 仓库](https://github.com/nvm-sh/nvm) 找到安装指南。
+- 首先，安裝 `nvm`，你可以從 [nvm GitHub 倉庫](https://github.com/nvm-sh/nvm) 找到安裝指南。
 
-- 按照仓库中的安装说明进行操作，安装完成后，可能需要添加环境变量或重启终端。
+- 按照倉庫中的安裝說明進行操作，安裝完成後，可能需要添加環境變量或重啟終端。
 
-- 安装 Node.js 版本 18 或更高版本:
+- 安裝 Node.js 版本 18 或更高版本:
 
   ```shell
   nvm install 18
   nvm use 18
   ```
 
-- 验证 Node.js 是否安装成功:
+- 驗證 Node.js 是否安裝成功:
 
   ```shell
   node -v
   ```
 
-### 2. 安装 PM2 / PNPM（YARN）
+### 2. 安裝 PM2 / PNPM（YARN）
 
-- 使用 npm 安装 PM2：
+- 使用 npm 安裝 PM2：
 
   ```shell
   npm install pm2 -g
   ```
 
-- 使用 npm 安装 pnpm：
+- 使用 npm 安裝 pnpm：
 
   ```shell
   npm install -g pnpm
   ```
 
-- 确认 `PM2` 和 `pnpm` 都已正确安装并且可以运行：
+- 確認 `PM2` 和 `pnpm` 都已正確安裝並且可以運行：
 
   ```shell
   pm2 -v
@@ -46,49 +46,49 @@
 
 ### 3. 其他配置
 
-- 需配置 Redis 数据库以及新建一个 MySQL 数据库。
-- 配置环境变量：
-  - 复制 `.env.example` 文件为 `.env`。
-  - 根据需要修改 `.env` 文件中的配置项。
+- 需配置 Redis 數據庫以及新建一個 MySQL 數據庫。
+- 配置環境變量：
+  - 複製 `.env.example` 文件為 `.env`。
+  - 根據需要修改 `.env` 文件中的配置項。
 
-完成配置并启动后，项目会自动在指定的 MySQL 数据库中创建所需的表结构和初始数据，无需手动导入 SQL 文件。确保 `.env` 文件中的数据库连接信息正确即可。
+完成配置並啟動後，項目會自動在指定的 MySQL 數據庫中創建所需的表結構和初始數據，無需手動導入 SQL 文件。確保 `.env` 文件中的數據庫連接資訊正確即可。
 
-### 4. 安装启动
+### 4. 安裝啟動
 
-- 安装依赖：(若安装缓慢可尝试使用国内源)
+- 安裝依賴：(若安裝緩慢可嘗試使用國內源)
 
   ```shell
   pnpm install
   ```
 
-- 启动进程：（默认使用 PM2 后台运行）
+- 啟動進程：（默認使用 PM2 後臺運行）
 
   ```shell
   pnpm start
   ```
 
-- 查看运行日志：
+- 查看運行日誌：
 
   ```shell
   pnpm logs
   ```
 
-- 项目默认在 `9520` 端口运行，也可在环境变量中自行修改。成功运行后可通过 `IP:端口` 访问，或者配置 Nginx 反向代理，通过域名访问。
+- 項目默認在 `9520` 端口運行，也可在環境變量中自行修改。成功運行後可通過 `IP:端口` 訪問，或者配置 Nginx 反向代理，通過網域名稱訪問。
 
-## 脚本部署
+## 腳本部署
 
 ### 功能支持
 
 - **Node.js 全新部署**  
-  自动安装环境、生成配置、安装依赖并启动服务。
-- **Node.js 升级**  
-  拉取最新代码，更新依赖并重启服务。
+  自動安裝環境、生成配置、安裝依賴並啟動服務。
+- **Node.js 升級**  
+  拉取最新代碼，更新依賴並重啟服務。
 - **Docker-compose 部署**  
-  创建 MySQL、Redis 容器及 99AI 服务，支持自定义端口。
-- **Docker-compose 升级**  
-  停止旧版本容器，重新构建镜像并启动。
+  創建 MySQL、Redis 容器及 99AI 服務，支持自定義端口。
+- **Docker-compose 升級**  
+  停止舊版本容器，重新構建鏡像並啟動。
 
-请在项目的根目录下执行以下命令：
+請在項目的根目錄下執行以下命令：
 
 ```bash
 ./deploy.sh
@@ -96,50 +96,50 @@
 
 ## Docker 部署
 
-### 1. 安装 Docker 及 Docker-compose
+### 1. 安裝 Docker 及 Docker-compose
 
-- 使用 [Docker 官网](https://www.docker.com/) 提供的一键安装链接安装 Docker 及 Docker-compose。
+- 使用 [Docker 官網](https://www.docker.com/) 提供的一鍵安裝鏈接安裝 Docker 及 Docker-compose。
 
 ```bash
 curl -fsSL https://get.docker.com | bash -s docker
 ```
 
-- 也可以使用其他方式自行安装 Docker 及 Docker-compose。
+- 也可以使用其他方式自行安裝 Docker 及 Docker-compose。
 
-### 2. 服务管理
+### 2. 服務管理
 
-- **后台启动服务**
+- **後臺啟動服務**
 
   ```shell
   docker-compose up -d
   ```
 
-- **查看日志**
+- **查看日誌**
 
   ```shell
   docker-compose logs
   ```
 
-- **停止服务**
+- **停止服務**
 
   ```shell
   docker-compose down
   ```
 
-- **重新构建并启动服务**
+- **重新構建並啟動服務**
 
   ```shell
   docker-compose up -d --build
   ```
 
-## 项目管理
+## 項目管理
 
-普通管理员，可以预览后台非敏感信息，默认不激活。请使用超级管理员账号登入后台，并及时修改密码。
+普通管理員，可以預覽後臺非敏感資訊，默認不激活。請使用超級管理員賬號登入後臺，並及時修改密碼。
 
-- **管理端地址**：`项目链接/admin`
+- **管理端地址**：`項目鏈接/admin`
 
-- **普通管理员账号**：`admin`（默认不激活）
+- **普通管理員賬號**：`admin`（默認不激活）
 
-- **超级管理员账号**：`super`
+- **超級管理員賬號**：`super`
 
-- **密码**：`123456`
+- **密碼**：`123456`

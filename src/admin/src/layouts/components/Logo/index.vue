@@ -22,8 +22,8 @@ const settingsStore = useSettingsStore()
 
 const title = ref(import.meta.env.VITE_APP_TITLE)
 
-// 校验 title 是否包含 "AIWeb"
-const encodedKeyword = 'QUlXZWI=' // "AIWeb" 的 Base64 编码
+// 校驗 title 是否包含 "AIWeb"
+const encodedKeyword = 'QUlXZWI=' // "AIWeb" 的 Base64 編碼
 const decodedKeyword = atob(encodedKeyword)
 
 if (!title.value.includes(decodedKeyword)) {

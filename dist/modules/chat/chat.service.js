@@ -77,7 +77,7 @@ let ChatService = class ChatService {
                 where: { id: appId, status: (0, typeorm_2.In)([1, 3, 4, 5]) },
             });
             if (!appInfo) {
-                throw new common_1.HttpException('你当前使用的应用已被下架、请删除当前对话开启新的对话吧！', common_1.HttpStatus.BAD_REQUEST);
+                throw new common_1.HttpException('你當前使用的應用已被下架、請刪除當前對話開啟新的對話吧！', common_1.HttpStatus.BAD_REQUEST);
             }
         }
         const { groupId, fileParsing } = options;
@@ -100,7 +100,7 @@ let ChatService = class ChatService {
         if (isSensitiveWordFilter === '1') {
             const triggeredWords = await this.badWordsService.checkBadWords(prompt, req.user.id);
             if (triggeredWords.length > 0) {
-                const tips = `您提交的信息中包含违规的内容，我们已对您的账户进行标记，请合规使用！`;
+                const tips = `您遞交的資訊中包含違規的內容，我們已對您的賬戶進行標記，請合規使用！`;
                 throw new common_1.HttpException(tips, common_1.HttpStatus.BAD_REQUEST);
             }
         }
@@ -134,18 +134,18 @@ let ChatService = class ChatService {
                     await this.modelsService.getCurrentModelKeyInfo(appModel);
                 currentRequestModelKey.model = appModel;
                 if (fileParsing) {
-                    setSystemMessage = `${setSystemMessage}以下是我提供给你的知识库：【${fileParsing}】，在回答问题之前，先检索知识库内有没有相关的内容，尽量使用知识库中获取到的信息来回答我的问题，以知识库中的为准。`;
+                    setSystemMessage = `${setSystemMessage}以下是我提供給你的知識庫：【${fileParsing}】，在回答問題之前，先檢索知識庫內有沒有相關的內容，儘量使用知識庫中獲取到的資訊來回答我的問題，以知識庫中的為準。`;
                 }
-                common_1.Logger.log(`固定模型、使用应用预设: ${setSystemMessage}`, 'ChatService');
+                common_1.Logger.log(`固定模型、使用應用預設: ${setSystemMessage}`, 'ChatService');
             }
             else {
                 appInfo.preset && (setSystemMessage = appInfo.preset);
                 currentRequestModelKey =
                     await this.modelsService.getCurrentModelKeyInfo(model);
                 if (fileParsing) {
-                    setSystemMessage = `${setSystemMessage}以下是我提供给你的知识库：【${fileParsing}】，在回答问题之前，先检索知识库内有没有相关的内容，尽量使用知识库中获取到的信息来回答我的问题，以知识库中的为准。`;
+                    setSystemMessage = `${setSystemMessage}以下是我提供給你的知識庫：【${fileParsing}】，在回答問題之前，先檢索知識庫內有沒有相關的內容，儘量使用知識庫中獲取到的資訊來回答我的問題，以知識庫中的為準。`;
                 }
-                common_1.Logger.log(`使用应用预设: ${setSystemMessage}`, 'ChatService');
+                common_1.Logger.log(`使用應用預設: ${setSystemMessage}`, 'ChatService');
             }
         }
         else {
@@ -154,19 +154,19 @@ let ChatService = class ChatService {
                 let pluginPrompt = '';
                 try {
                     pluginPrompt = await this.usePlugin(prompt, usingPlugin.parameters);
-                    common_1.Logger.log(`插件返回结果: ${pluginPrompt}`, 'ChatService');
+                    common_1.Logger.log(`外掛返回結果: ${pluginPrompt}`, 'ChatService');
                 }
                 catch (error) {
                     pluginPrompt = prompt;
-                    common_1.Logger.error(`插件调用错误: ${error}`);
+                    common_1.Logger.error(`外掛調用錯誤: ${error}`);
                 }
                 setSystemMessage = pluginPrompt;
                 currentRequestModelKey =
                     await this.modelsService.getCurrentModelKeyInfo(model);
-                common_1.Logger.log(`使用插件预设: ${setSystemMessage}`, 'ChatService');
+                common_1.Logger.log(`使用外掛預設: ${setSystemMessage}`, 'ChatService');
             }
             else if (fileParsing) {
-                setSystemMessage = `以下是我提供给你的知识库：【${fileParsing}】，在回答问题之前，先检索知识库内有没有相关的内容，尽量使用知识库中获取到的信息来回答我的问题，以知识库中的为准。`;
+                setSystemMessage = `以下是我提供給你的知識庫：【${fileParsing}】，在回答問題之前，先檢索知識庫內有沒有相關的內容，儘量使用知識庫中獲取到的資訊來回答我的問題，以知識庫中的為準。`;
                 currentRequestModelKey =
                     await this.modelsService.getCurrentModelKeyInfo(model);
                 common_1.Logger.log(`使用文件解析: ${setSystemMessage}`, 'ChatService');
@@ -176,11 +176,11 @@ let ChatService = class ChatService {
                 setSystemMessage = systemPreMessage + `\n Current date: ${currentDate}`;
                 currentRequestModelKey =
                     await this.modelsService.getCurrentModelKeyInfo(model);
-                common_1.Logger.log(`使用全局预设: ${setSystemMessage}`, 'ChatService');
+                common_1.Logger.log(`使用全局預設: ${setSystemMessage}`, 'ChatService');
             }
         }
         if (!currentRequestModelKey) {
-            common_1.Logger.debug('未找到当前模型key，切换至全局模型', 'ChatService');
+            common_1.Logger.debug('未找到當前模型key，切換至全局模型', 'ChatService');
             currentRequestModelKey = await this.modelsService.getCurrentModelKeyInfo(openaiBaseModel);
             const groupInfo = await this.chatGroupService.getGroupInfoFromId(groupId);
             let updatedConfig = groupInfo.config;
@@ -193,8 +193,8 @@ let ChatService = class ChatService {
                 }
             }
             catch (error) {
-                common_1.Logger.debug('模型切换错误，请检查全局模型配置！', 'ChatService');
-                throw new common_1.HttpException('配置解析错误！', common_1.HttpStatus.BAD_REQUEST);
+                common_1.Logger.debug('模型切換錯誤，請檢查全局模型配置！', 'ChatService');
+                throw new common_1.HttpException('配置解析錯誤！', common_1.HttpStatus.BAD_REQUEST);
             }
             await this.chatGroupService.update({
                 groupId,
@@ -206,7 +206,7 @@ let ChatService = class ChatService {
         }
         const { deduct, isTokenBased, tokenFeeRatio, deductType, key, id: keyId, maxRounds, proxyUrl, maxModelTokens, timeout, model: useModel, isFileUpload, keyType: modelType, } = currentRequestModelKey;
         if (await this.chatLogService.checkModelLimits(req.user, useModel)) {
-            throw new common_1.HttpException('1 小时内对话次数过多，请切换模型或稍后再试！', common_1.HttpStatus.TOO_MANY_REQUESTS);
+            throw new common_1.HttpException('1 小時內對話次數過多，請切換模型或稍後再試！', common_1.HttpStatus.TOO_MANY_REQUESTS);
         }
         if (isMjTranslate === '1' &&
             action === 'IMAGINE' &&
@@ -216,7 +216,7 @@ let ChatService = class ChatService {
             const urls = beforeArgs.match(urlPattern) || [];
             let textToTranslate = beforeArgs.replace(urlPattern, '').trim();
             const translatedText = await this.openAIChatService.chatFree(textToTranslate, mjTranslatePrompt ||
-                "Translate any given phrase from any language into English. For instance, when I input '{可爱的熊猫}', you should output '{cute panda}', with no period at the end.");
+                "Translate any given phrase from any language into English. For instance, when I input '{可愛的熊貓}', you should output '{cute panda}', with no period at the end.");
             const finalTranslatedPrompt = [...urls, translatedText].join(' ').trim();
             usePrompt = afterArgs
                 ? `${finalTranslatedPrompt}${afterArgs}`
@@ -355,17 +355,17 @@ let ChatService = class ChatService {
                                 },
                                 onFailure: async (data) => {
                                     await this.chatLogService.updateChatLog(assistantLogId, {
-                                        answer: '绘图失败',
+                                        answer: '繪圖失敗',
                                         status: data.status,
                                     });
                                 },
                             }, this.buildMessageFromParentMessageId);
                             await this.chatLogService.updateChatLog(assistantLogId, {
-                                answer: '绘制中',
+                                answer: '繪製中',
                             });
                         }
                         else if (useModel === 'ai-ppt') {
-                            common_1.Logger.log('开始生成PPT', 'DrawService');
+                            common_1.Logger.log('開始生成PPT', 'DrawService');
                             response = this.aiPptService.aiPPT({
                                 usePrompt: usePrompt,
                                 prompt: prompt,
@@ -405,13 +405,13 @@ let ChatService = class ChatService {
                                 },
                                 onFailure: async (data) => {
                                     await this.chatLogService.updateChatLog(assistantLogId, {
-                                        answer: '绘图失败',
+                                        answer: '繪圖失敗',
                                         status: data.status,
                                     });
                                 },
                             }, this.buildMessageFromParentMessageId);
                             await this.chatLogService.updateChatLog(assistantLogId, {
-                                answer: '绘制中',
+                                answer: '繪製中',
                             });
                         }
                         else if (useModel.includes('suno-music')) {
@@ -425,7 +425,7 @@ let ChatService = class ChatService {
                                 taskData: customId,
                             });
                             await this.chatLogService.updateChatLog(assistantLogId, {
-                                answer: '提交成功，歌曲生成中',
+                                answer: '遞交成功，歌曲生成中',
                             });
                         }
                         else if (useModel.includes('luma-video')) {
@@ -463,7 +463,7 @@ let ChatService = class ChatService {
                                 },
                             });
                             await this.chatLogService.updateChatLog(assistantLogId, {
-                                answer: '提交成功，视频生成中',
+                                answer: '遞交成功，視頻生成中',
                             });
                         }
                         else if (useModel.includes('cog-video')) {
@@ -501,7 +501,7 @@ let ChatService = class ChatService {
                                 },
                             });
                             await this.chatLogService.updateChatLog(assistantLogId, {
-                                answer: '提交成功，视频生成中',
+                                answer: '遞交成功，視頻生成中',
                             });
                         }
                         else if (useModel.includes('stable-diffusion')) {
@@ -527,13 +527,13 @@ let ChatService = class ChatService {
                                 },
                                 onFailure: async (data) => {
                                     await this.chatLogService.updateChatLog(assistantLogId, {
-                                        answer: '生成失败',
+                                        answer: '生成失敗',
                                         status: 4,
                                     });
                                 },
                             });
                             await this.chatLogService.updateChatLog(assistantLogId, {
-                                answer: '绘制中',
+                                answer: '繪製中',
                             });
                         }
                         else {
@@ -561,7 +561,7 @@ let ChatService = class ChatService {
                             await this.userBalanceService.deductFromBalance(req.user.id, deductType, charge);
                         }
                         else {
-                            common_1.Logger.log('任务提交失败，不执行扣费', 'ChatService');
+                            common_1.Logger.log('任務遞交失敗，不執行扣費', 'ChatService');
                         }
                         const userBalance = await this.userBalanceService.queryUserBalance(req.user.id);
                         response.userBalance = Object.assign({}, userBalance);
@@ -601,7 +601,7 @@ let ChatService = class ChatService {
                             abortController,
                         });
                         if (response.errMsg) {
-                            common_1.Logger.error(`用户ID: ${req.user.id} 模型名称: ${useModeName} 模型: ${model} 回复出错，本次不扣除积分`, 'ChatService');
+                            common_1.Logger.error(`用戶ID: ${req.user.id} 模型名稱: ${useModeName} 模型: ${model} 回覆出錯，本次不扣除積分`, 'ChatService');
                             return res.write(`\n${JSON.stringify(response)}`);
                         }
                         let totalText = '';
@@ -633,14 +633,14 @@ let ChatService = class ChatService {
                         });
                         try {
                             if (isGeneratePromptReference === '1') {
-                                const promptReference = await this.openAIChatService.chatFree(`根据用户提问{${prompt}}以及 AI 的回答{${response.answer}}，生成三个更进入一步的提问，用{}包裹每个问题，不需要分行，不需要其他任何内容，单个提问不超过30个字`);
+                                const promptReference = await this.openAIChatService.chatFree(`根據用戶提問{${prompt}}以及 AI 的回答{${response.answer}}，生成三個更進入一步的提問，用{}包裹每個問題，不需要分行，不需要其他任何內容，單個提問不超過30個字`);
                                 await this.chatLogService.updateChatLog(assistantLogId, {
                                     promptReference: promptReference,
                                 });
                             }
                         }
                         catch (error) {
-                            common_1.Logger.error(`调用 chatFree 出错: ${error}`);
+                            common_1.Logger.error(`調用 chatFree 出錯: ${error}`);
                         }
                         if (isTokenBased === true) {
                             charge =
@@ -649,18 +649,18 @@ let ChatService = class ChatService {
                         }
                         await this.userBalanceService.deductFromBalance(req.user.id, deductType, charge, promptTokens + completionTokens);
                         await this.modelsService.saveUseLog(keyId, promptTokens + completionTokens);
-                        common_1.Logger.log(`用户ID: ${req.user.id} 模型名称: ${useModeName} 模型: ${model} 消耗token: ${promptTokens + completionTokens}, 消耗积分： ${charge}`, 'ChatService');
+                        common_1.Logger.log(`用戶ID: ${req.user.id} 模型名稱: ${useModeName} 模型: ${model} 消耗token: ${promptTokens + completionTokens}, 消耗積分： ${charge}`, 'ChatService');
                         const userBalance = await this.userBalanceService.queryUserBalance(req.user.id);
                         response.userBalance = Object.assign({}, userBalance);
                         return res.write(`\n${JSON.stringify(response)}`);
                     }
                 }
                 catch (error) {
-                    common_1.Logger.error('发生错误:', error);
+                    common_1.Logger.error('發生錯誤:', error);
                     await this.chatLogService.updateChatLog(assistantLogId, {
                         status: 5,
                     });
-                    response = { error: '处理请求时发生错误' };
+                    response = { error: '處理請求時發生錯誤' };
                 }
             }
             else {
@@ -686,10 +686,10 @@ let ChatService = class ChatService {
         catch (error) {
             common_1.Logger.error('chat-error <----------------------------------------->', modelKey, error);
             if (res) {
-                return res.write('发生未知错误，请稍后再试');
+                return res.write('發生未知錯誤，請稍後再試');
             }
             else {
-                throw new common_1.HttpException('发生未知错误，请稍后再试', common_1.HttpStatus.BAD_REQUEST);
+                throw new common_1.HttpException('發生未知錯誤，請稍後再試', common_1.HttpStatus.BAD_REQUEST);
             }
         }
         finally {
@@ -716,7 +716,7 @@ let ChatService = class ChatService {
         };
         try {
             const response = await (0, axios_1.default)(options);
-            common_1.Logger.log(`插件调用成功 返回结果: ${JSON.stringify(response.data, null, 2)}`, 'PluginService');
+            common_1.Logger.log(`外掛調用成功 返回結果: ${JSON.stringify(response.data, null, 2)}`, 'PluginService');
             return response.data.text;
         }
         catch (error) {
@@ -724,22 +724,22 @@ let ChatService = class ChatService {
         }
     }
     async updateChatTitle(groupId, groupInfo, modelType, prompt, req) {
-        if ((groupInfo === null || groupInfo === void 0 ? void 0 : groupInfo.title) === '新对话') {
+        if ((groupInfo === null || groupInfo === void 0 ? void 0 : groupInfo.title) === '新對話') {
             let chatTitle;
             if (modelType === 1) {
                 try {
-                    chatTitle = await this.openAIChatService.chatFree(`根据用户提问{${prompt}}，给这个对话取一个名字，不超过10个字`);
+                    chatTitle = await this.openAIChatService.chatFree(`根據用戶提問{${prompt}}，給這個對話取一個名字，不超過10個字`);
                     if (chatTitle.length > 15) {
                         chatTitle = chatTitle.slice(0, 15);
                     }
                 }
                 catch (error) {
-                    common_1.Logger.error(`调用 chatFree 出错: ${error}`);
+                    common_1.Logger.error(`調用 chatFree 出錯: ${error}`);
                     chatTitle = prompt.slice(0, 10);
                 }
             }
             else {
-                chatTitle = '创意 AI';
+                chatTitle = '創意 AI';
             }
             this.chatGroupService
                 .update({
@@ -749,14 +749,14 @@ let ChatService = class ChatService {
                 config: '',
                 fileUrl: '',
             }, req)
-                .then(() => common_1.Logger.log(`更新标题名称为: ${chatTitle}`, 'ChatService'))
-                .catch((error) => common_1.Logger.error(`更新对话组标题失败: ${error}`));
+                .then(() => common_1.Logger.log(`更新標題名稱為: ${chatTitle}`, 'ChatService'))
+                .catch((error) => common_1.Logger.error(`更新對話組標題失敗: ${error}`));
         }
     }
     async buildMessageFromParentMessageId(text, options, chatLogService) {
         let { systemMessage = '', fileInfo, groupId, maxRounds = 5, maxModelTokens = 8000, isFileUpload = 0, isConvertToBase64, } = options;
         if (systemMessage.length > maxModelTokens) {
-            common_1.Logger.log('系统消息超过最大长度，将被截断', 'ChatService');
+            common_1.Logger.log('系統消息超過最大長度，將被截斷', 'ChatService');
             systemMessage = systemMessage.slice(0, maxModelTokens);
         }
         let messages = [];
@@ -805,7 +805,7 @@ let ChatService = class ChatService {
                     }
                 }
                 catch (error) {
-                    common_1.Logger.error('处理历史记录时出错:', error, '记录:', JSON.stringify(record, null, 2));
+                    common_1.Logger.error('處理歷史記錄時出錯:', error, '記錄:', JSON.stringify(record, null, 2));
                 }
             }
         }
@@ -872,17 +872,17 @@ let ChatService = class ChatService {
     }
     async convertUrlToBase64(url) {
         try {
-            console.log(`正在尝试转换URL为Base64: ${url}`);
+            console.log(`正在嘗試轉換URL為Base64: ${url}`);
             const response = await axios_1.default.get(url, { responseType: 'arraybuffer' });
             const buffer = Buffer.from(response.data, 'binary');
-            console.log(`成功获取图片，正在转换为Base64: ${url}`);
+            console.log(`成功獲取圖片，正在轉換為Base64: ${url}`);
             const base64Data = `data:${response.headers['content-type']};base64,${buffer.toString('base64')}`;
-            console.log(`成功转换URL为Base64: ${url}`);
+            console.log(`成功轉換URL為Base64: ${url}`);
             return base64Data;
         }
         catch (error) {
-            console.error('转换URL为Base64时发生错误:', error);
-            console.warn(`返回原始链接: ${url}`);
+            console.error('轉換URL為Base64時發生錯誤:', error);
+            console.warn(`返回原始鏈接: ${url}`);
             return url;
         }
     }
@@ -900,7 +900,7 @@ let ChatService = class ChatService {
         const useUrl = (0, utils_1.formatUrl)(proxyUrl || openaiBaseUrl);
         const useTimeout = (timeout || openaiTimeout) * 1000;
         await this.userBalanceService.validateBalance(req, deductType, deduct);
-        common_1.Logger.log('开始 TTS 请求:', prompt, 'TTSService');
+        common_1.Logger.log('開始 TTS 請求:', prompt, 'TTSService');
         const options = {
             method: 'POST',
             url: `${useUrl}/v1/audio/speech`,
@@ -918,7 +918,7 @@ let ChatService = class ChatService {
         };
         try {
             const response = await (0, axios_1.default)(options);
-            common_1.Logger.log('TTS 请求获取成功', 'TTSService');
+            common_1.Logger.log('TTS 請求獲取成功', 'TTSService');
             const buffer = Buffer.from(response.data);
             const now = new Date();
             const year = now.getFullYear();
@@ -933,7 +933,7 @@ let ChatService = class ChatService {
             res.status(200).send({ ttsUrl });
         }
         catch (error) {
-            common_1.Logger.error('TTS 请求或上传过程失败:', error, 'TTSService');
+            common_1.Logger.error('TTS 請求或上傳過程失敗:', error, 'TTSService');
             res.status(500).send({ error: 'Failed to process TTS request' });
         }
     }

@@ -3,7 +3,7 @@
     <div
       class="bg-gray-50 mb-5 p-2 rounded-md border border-gray-200 dark:border-gray-700 dark:bg-gray-700"
     >
-      每日签到赠送：
+      每日簽到贈送：
       <span v-if="signInModel3Count > 0 && !isHideModel3Point"
         ><b class="mx-2 text-primary-500">{{ signInModel3Count }}</b
         >{{ model3Name }}</span
@@ -17,7 +17,7 @@
         >{{ drawMjName }}</span
       >
       <span
-        >（已连续签到<b class="text-[red]">{{ consecutiveDays }}</b
+        >（已連續簽到<b class="text-[red]">{{ consecutiveDays }}</b
         >天）</span
       >
     </div>
@@ -70,7 +70,7 @@
         :disabled="hasSignedInToday"
         @click="handleSignIn"
       >
-        签到
+        簽到
       </button>
     </div>
   </div>
@@ -174,7 +174,7 @@ async function handleSignIn() {
     const res: ResData = await fetchSignInAPI();
     console.log('fetchSignInAPI response:', res);
     if (res.success) {
-      ms.success('签到成功！');
+      ms.success('簽到成功！');
       await getSigninLog();
       authStore.getUserInfo();
     }

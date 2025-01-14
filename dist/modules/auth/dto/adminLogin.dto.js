@@ -15,18 +15,18 @@ const swagger_1 = require("@nestjs/swagger");
 class AdminLoginDto {
 }
 __decorate([
-    (0, swagger_1.ApiProperty)({ example: 'super', description: '邮箱' }),
-    (0, class_validator_1.IsNotEmpty)({ message: '用户名不能为空！' }),
-    (0, class_validator_1.MinLength)(2, { message: '用户名最短是两位数！' }),
-    (0, class_validator_1.MaxLength)(30, { message: '用户名最长不得超过30位！' }),
+    (0, swagger_1.ApiProperty)({ example: 'super', description: '郵箱' }),
+    (0, class_validator_1.IsNotEmpty)({ message: '用戶名不能為空！' }),
+    (0, class_validator_1.MinLength)(2, { message: '用戶名最短是兩位數！' }),
+    (0, class_validator_1.MaxLength)(30, { message: '用戶名最長不得超過30位！' }),
     (0, class_validator_1.IsOptional)(),
     __metadata("design:type", String)
 ], AdminLoginDto.prototype, "username", void 0);
 __decorate([
-    (0, swagger_1.ApiProperty)({ example: '999999', description: '密码' }),
-    (0, class_validator_1.IsNotEmpty)({ message: '用户密码不能为空！' }),
-    (0, class_validator_1.MinLength)(6, { message: '用户密码最低需要大于6位数！' }),
-    (0, class_validator_1.MaxLength)(30, { message: '用户密码最长不能超过30位数！' }),
+    (0, swagger_1.ApiProperty)({ example: '999999', description: '密碼' }),
+    (0, class_validator_1.IsNotEmpty)({ message: '用戶密碼不能為空！' }),
+    (0, class_validator_1.MinLength)(6, { message: '用戶密碼最低需要大於6位數！' }),
+    (0, class_validator_1.MaxLength)(30, { message: '用戶密碼最長不能超過30位數！' }),
     __metadata("design:type", String)
 ], AdminLoginDto.prototype, "password", void 0);
 exports.AdminLoginDto = AdminLoginDto;

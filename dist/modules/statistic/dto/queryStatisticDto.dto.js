@@ -14,7 +14,7 @@ const swagger_1 = require("@nestjs/swagger");
 class QueryStatisticDto {
 }
 __decorate([
-    (0, swagger_1.ApiProperty)({ example: 7, description: '查询最近N天的数据', required: true }),
+    (0, swagger_1.ApiProperty)({ example: 7, description: '查詢最近N天的數據', required: true }),
     __metadata("design:type", Number)
 ], QueryStatisticDto.prototype, "days", void 0);
 exports.QueryStatisticDto = QueryStatisticDto;

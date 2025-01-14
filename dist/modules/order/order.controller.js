@@ -45,7 +45,7 @@ let OrderController = class OrderController {
 };
 __decorate([
     (0, common_1.Post)('buy'),
-    (0, swagger_1.ApiOperation)({ summary: '购买商品' }),
+    (0, swagger_1.ApiOperation)({ summary: '購買商品' }),
     (0, common_1.UseGuards)(jwtAuth_guard_1.JwtAuthGuard),
     (0, swagger_1.ApiBearerAuth)(),
     __param(0, (0, common_1.Body)()),
@@ -56,7 +56,7 @@ __decorate([
 ], OrderController.prototype, "buy", null);
 __decorate([
     (0, common_1.Get)('queryByOrderId'),
-    (0, swagger_1.ApiOperation)({ summary: '查询订单' }),
+    (0, swagger_1.ApiOperation)({ summary: '查詢訂單' }),
     (0, common_1.UseGuards)(jwtAuth_guard_1.JwtAuthGuard),
     (0, swagger_1.ApiBearerAuth)(),
     __param(0, (0, common_1.Req)()),
@@ -67,7 +67,7 @@ __decorate([
 ], OrderController.prototype, "queryByOrderId", null);
 __decorate([
     (0, common_1.Get)('queryAll'),
-    (0, swagger_1.ApiOperation)({ summary: '查询所有订单' }),
+    (0, swagger_1.ApiOperation)({ summary: '查詢所有訂單' }),
     (0, common_1.UseGuards)(adminAuth_guard_1.AdminAuthGuard),
     __param(0, (0, common_1.Query)()),
     __metadata("design:type", Function),
@@ -76,7 +76,7 @@ __decorate([
 ], OrderController.prototype, "queryAllOrder", null);
 __decorate([
     (0, common_1.Post)('delete'),
-    (0, swagger_1.ApiOperation)({ summary: '删除订单' }),
+    (0, swagger_1.ApiOperation)({ summary: '刪除訂單' }),
     (0, common_1.UseGuards)(superAuth_guard_1.SuperAuthGuard),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
@@ -85,7 +85,7 @@ __decorate([
 ], OrderController.prototype, "deleteOrder", null);
 __decorate([
     (0, common_1.Post)('deleteNotPay'),
-    (0, swagger_1.ApiOperation)({ summary: '删除未支付订单' }),
+    (0, swagger_1.ApiOperation)({ summary: '刪除未支付訂單' }),
     (0, common_1.UseGuards)(superAuth_guard_1.SuperAuthGuard),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),

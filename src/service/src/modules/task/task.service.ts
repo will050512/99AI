@@ -15,14 +15,14 @@ export class TaskService {
     private readonly modelsService: ModelsService,
   ) { }
 
-  /* 每小时刷新一次微信的token */
+  /* 每小時刷新一次微信的token */
   @Cron(CronExpression.EVERY_HOUR)
   handleCron() {
     Logger.debug('Automatically refresh WeChat access every hour Token', 'TaskService');
     this.globalConfigService.getWechatAccessToken();
   }
 
-  /* 每两钟执行一次检测会员过期任务 */
+  /* 每兩鍾執行一次檢測會員過期任務 */
   // @Cron(CronExpression.EVERY_2_SECONDS)
   @Cron(CronExpression.EVERY_5_MINUTES)
   async checkUserMemerExpire() {
@@ -34,12 +34,12 @@ export class TaskService {
       this.userBalanceEntity
         .update({ id: user.id }, { expirationTime: null, packageId: 0, memberModel3Count: 0, memberModel4Count: 0, memberDrawMjCount: 0 })
         .then((res) => {
-          Logger.debug(`${user.id}会员已到期、清空所有余额并移除会员身份！`, 'TaskService');
+          Logger.debug(`${user.id}會員已到期、清空所有餘額並移除會員身份！`, 'TaskService');
         });
     });
   }
 
-  /* 每小时检测一次授权 */
+  /* 每小時檢測一次授權 */
   // @Cron('0 0 */5 * *')
   // refreshBaiduAccesstoken() {
   //   this.modelsService.refreshBaiduAccesstoken();

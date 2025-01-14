@@ -1,7 +1,7 @@
 <route lang="yaml">
 name: notFound
 meta:
-  title: 找不到页面
+  title: 找不到頁面
   constant: true
   layout: false
 </route>
@@ -45,11 +45,11 @@ function goBack() {
         404
       </h1>
       <div class="mx-0 text-xl text-stone-5">
-        抱歉，你访问的页面不存在
+        抱歉，你訪問的頁面不存在
       </div>
       <div>
         <HButton @click="goBack">
-          {{ data.countdown }} 秒后，返回首页
+          {{ data.countdown }} 秒後，返回首頁
         </HButton>
       </div>
     </div>

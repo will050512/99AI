@@ -30,7 +30,7 @@ let SigninController = class SigninController {
 };
 __decorate([
     (0, common_1.Post)('sign'),
-    (0, swagger_1.ApiOperation)({ summary: '用户签到' }),
+    (0, swagger_1.ApiOperation)({ summary: '用戶簽到' }),
     (0, common_1.UseGuards)(jwtAuth_guard_1.JwtAuthGuard),
     (0, swagger_1.ApiBearerAuth)(),
     __param(0, (0, common_1.Req)()),
@@ -40,7 +40,7 @@ __decorate([
 ], SigninController.prototype, "sign", null);
 __decorate([
     (0, common_1.Get)('signinLog'),
-    (0, swagger_1.ApiOperation)({ summary: '获取用户签到信息' }),
+    (0, swagger_1.ApiOperation)({ summary: '獲取用戶簽到資訊' }),
     (0, common_1.UseGuards)(jwtAuth_guard_1.JwtAuthGuard),
     (0, swagger_1.ApiBearerAuth)(),
     __param(0, (0, common_1.Req)()),

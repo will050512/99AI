@@ -1,7 +1,7 @@
 <route lang="yaml">
 name: personalEditPassword
 meta:
-  title: 修改密码
+  title: 修改密碼
 </route>
 
 <script lang="ts" setup name="PersonalEditPassword">
@@ -26,17 +26,17 @@ const form = ref({
 const mainPage = useMainPage();
 
 const rules = ref<FormRules>({
-  password: [{ required: true, message: '请输入原密码', trigger: 'blur' }],
+  password: [{ required: true, message: '請輸入原密碼', trigger: 'blur' }],
   newpassword: [
-    { required: true, message: '请输入新密码', trigger: 'blur' },
-    { min: 6, max: 18, trigger: 'blur', message: '密码长度为6到18位' },
+    { required: true, message: '請輸入新密碼', trigger: 'blur' },
+    { min: 6, max: 18, trigger: 'blur', message: '密碼長度為6到18位' },
   ],
   checkpassword: [
-    { required: true, message: '请输入新密码', trigger: 'blur' },
+    { required: true, message: '請輸入新密碼', trigger: 'blur' },
     {
       validator: (rule: any, value: any, callback: any) => {
         if (value !== form.value.newpassword) {
-          callback(new Error('两次密码不一致！'));
+          callback(new Error('兩次密碼不一致！'));
         } else {
           callback();
         }
@@ -56,7 +56,7 @@ function onSubmit() {
         }).then(() => {
           ElMessage({
             type: 'success',
-            message: '修改密码成功，请重新登录',
+            message: '修改密碼成功，請重新登錄',
           });
           userStore.logout().then(() => {
             router.push({
@@ -78,7 +78,7 @@ function reload() {
 
 <template>
   <div>
-    <page-header title="修改密码" content="定期修改密码可以提高帐号安全性噢~" />
+    <page-header title="修改密碼" content="定期修改密碼可以提高帳號安全性噢~" />
     <page-main>
       <el-row>
         <el-col :md="24" :lg="12">
@@ -88,27 +88,27 @@ function reload() {
             :rules="rules"
             label-width="120px"
           >
-            <el-form-item label="原密码" prop="password">
+            <el-form-item label="原密碼" prop="password">
               <el-input
                 v-model="form.password"
                 type="password"
-                placeholder="请输入原密码"
+                placeholder="請輸入原密碼"
                 show-password
               />
             </el-form-item>
-            <el-form-item label="新密码" prop="newpassword">
+            <el-form-item label="新密碼" prop="newpassword">
               <el-input
                 v-model="form.newpassword"
                 type="password"
-                placeholder="请输入原密码"
+                placeholder="請輸入原密碼"
                 show-password
               />
             </el-form-item>
-            <el-form-item label="确认新密码" prop="checkpassword">
+            <el-form-item label="確認新密碼" prop="checkpassword">
               <el-input
                 v-model="form.checkpassword"
                 type="password"
-                placeholder="请输入原密码"
+                placeholder="請輸入原密碼"
                 show-password
               />
             </el-form-item>
@@ -118,7 +118,7 @@ function reload() {
     </page-main>
     <fixed-action-bar>
       <el-button type="primary" size="large" @click="onSubmit">
-        提交
+        遞交
       </el-button>
       <el-button type="default" size="large" @click="reload"> 取消 </el-button>
     </fixed-action-bar>

@@ -14,18 +14,18 @@ function getFolder(path) {
 }
 
 export default {
-  description: '创建组件',
+  description: '創建組件',
   prompts: [
     {
       type: 'confirm',
       name: 'isGlobal',
-      message: '是否为全局组件',
+      message: '是否為全局組件',
       default: false,
     },
     {
       type: 'list',
       name: 'path',
-      message: '请选择组件创建目录',
+      message: '請選擇組件創建目錄',
       choices: getFolder('src/views'),
       when: (answers) => {
         return !answers.isGlobal
@@ -34,10 +34,10 @@ export default {
     {
       type: 'input',
       name: 'name',
-      message: '请输入组件名称',
+      message: '請輸入組件名稱',
       validate: (v) => {
         if (!v || v.trim === '') {
-          return '组件名称不能为空'
+          return '組件名稱不能為空'
         }
         else {
           return true

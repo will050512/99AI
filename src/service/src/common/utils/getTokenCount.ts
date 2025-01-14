@@ -4,7 +4,7 @@ export const getTokenCount = async (input: any): Promise<number> => {
   let text = '';
 
   if (Array.isArray(input)) {
-    // 如果输入是数组，处理消息数组
+    // 如果輸入是數組，處理消息數組
     text = input.reduce((pre: string, cur: any) => {
       if (Array.isArray(cur.content)) {
         const contentText = cur.content
@@ -17,10 +17,10 @@ export const getTokenCount = async (input: any): Promise<number> => {
       }
     }, '');
   } else if (typeof input === 'string') {
-    // 如果输入是字符串，直接处理
+    // 如果輸入是字串，直接處理
     text = input;
   } else if (input) {
-    // 如果输入是其他类型，将其转换为字符串处理
+    // 如果輸入是其他類型，將其轉換為字串處理
     text = String(input);
   }
 

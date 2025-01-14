@@ -22,7 +22,7 @@ async function bootstrap() {
     db: Number(process.env.REDIS_DB || 0),
   });
 
-  // 尝试获取现有的 JWT_SECRET
+  // 嘗試獲取現有的 JWT_SECRET
   const existingSecret = await redis.get('JWT_SECRET');
 
   if (!existingSecret) {
@@ -35,15 +35,15 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   await initDatabase();
 
-  // 根据环境变量设置全局 Logger
+  // 根據環境變量設置全局 Logger
   app.useLogger(app.get(CustomLoggerService));
 
   app.use(compression());
   app.use(xmlBodyParser());
 
-  // 启用并配置 CORS
+  // 啟用並配置 CORS
   app.enableCors({
-    origin: '*', // 或者配置允许的具体域名
+    origin: '*', // 或者配置允許的具體網域名稱
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
     preflightContinue: false,
     optionsSuccessStatus: 204,
@@ -62,8 +62,8 @@ async function bootstrap() {
 
   // createSwagger(app);
   const server = await app.listen(PORT, () => {
-    // Logger.log(`服务启动成功: http://localhost:${PORT}/wagger/docs`, 'Main');
-    Logger.log(`服务启动成功: http://localhost:${PORT}`, 'Main');
+    // Logger.log(`服務啟動成功: http://localhost:${PORT}/wagger/docs`, 'Main');
+    Logger.log(`服務啟動成功: http://localhost:${PORT}`, 'Main');
   });
   server.timeout = 5 * 60 * 1000;
 }

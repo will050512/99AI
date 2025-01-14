@@ -8,10 +8,10 @@ class Result {
         this.success = success;
         this.message = message;
     }
-    static success(data, message = '请求成功') {
+    static success(data, message = '請求成功') {
         return new Result(200, true, data, message);
     }
-    static fail(code, message = '请求失败', data) {
+    static fail(code, message = '請求失敗', data) {
         return new Result(code, false, data, message);
     }
 }

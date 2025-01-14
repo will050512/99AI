@@ -49,8 +49,8 @@ watch(() => route, (val) => {
 function tabbarScrollTip() {
   if (tabContainerRef.value.$el.clientWidth > tabsRef.value.clientWidth && localStorage.getItem('tabbarScrollTip') === undefined) {
     localStorage.setItem('tabbarScrollTip', '')
-    Message.info('标签栏数量超过展示区域范围，可以将鼠标移到标签栏上，通过鼠标滚轮滑动浏览', {
-      title: '温馨提示',
+    Message.info('標籤欄數量超過展示區域範圍，可以將鼠標移到標籤欄上，通過鼠標滾輪滑動瀏覽', {
+      title: '溫馨提示',
       duration: 5000,
       closable: true,
       zIndex: 2000,
@@ -78,13 +78,13 @@ function onTabbarContextmenu(event: MouseEvent, routeItem: Tabbar.recordRaw) {
     customClass: 'tabbar-contextmenu',
     items: [
       {
-        label: '重新加载',
+        label: '重新加載',
         icon: 'i-ri:refresh-line',
         disabled: routeItem.tabId !== activedTabId.value,
         onClick: () => mainPage.reload(),
       },
       {
-        label: '关闭标签页',
+        label: '關閉標籤頁',
         icon: 'i-ri:close-line',
         disabled: tabbarStore.list.length <= 1,
         divided: true,
@@ -93,21 +93,21 @@ function onTabbarContextmenu(event: MouseEvent, routeItem: Tabbar.recordRaw) {
         },
       },
       {
-        label: '关闭其他标签页',
+        label: '關閉其他標籤頁',
         disabled: !tabbar.checkCloseOtherSide(routeItem.tabId),
         onClick: () => {
           tabbar.closeOtherSide(routeItem.tabId)
         },
       },
       {
-        label: '关闭左侧标签页',
+        label: '關閉左側標籤頁',
         disabled: !tabbar.checkCloseLeftSide(routeItem.tabId),
         onClick: () => {
           tabbar.closeLeftSide(routeItem.tabId)
         },
       },
       {
-        label: '关闭右侧标签页',
+        label: '關閉右側標籤頁',
         disabled: !tabbar.checkCloseRightSide(routeItem.tabId),
         onClick: () => {
           tabbar.closeRightSide(routeItem.tabId)
@@ -122,25 +122,25 @@ onMounted(() => {
     if (settingsStore.settings.tabbar.enable && settingsStore.settings.tabbar.enableHotkeys) {
       e.preventDefault()
       switch (handle.key) {
-        // 切换到当前标签页紧邻的上一个标签页
+        // 切換到當前標籤頁緊鄰的上一個標籤頁
         case 'alt+left':
           if (tabbarStore.list[0].tabId !== activedTabId.value) {
             const index = tabbarStore.list.findIndex(item => item.tabId === activedTabId.value)
             router.push(tabbarStore.list[index - 1].fullPath)
           }
           break
-        // 切换到当前标签页紧邻的下一个标签页
+        // 切換到當前標籤頁緊鄰的下一個標籤頁
         case 'alt+right':
           if (tabbarStore.list.at(-1)?.tabId !== activedTabId.value) {
             const index = tabbarStore.list.findIndex(item => item.tabId === activedTabId.value)
             router.push(tabbarStore.list[index + 1].fullPath)
           }
           break
-        // 关闭当前标签页
+        // 關閉當前標籤頁
         case 'alt+w':
           tabbar.closeById(activedTabId.value)
           break
-        // 切换到第 n 个标签页
+        // 切換到第 n 個標籤頁
         case 'alt+1':
         case 'alt+2':
         case 'alt+3':
@@ -155,7 +155,7 @@ onMounted(() => {
           tabbarStore.list[number - 1]?.fullPath && router.push(tabbarStore.list[number - 1].fullPath)
           break
         }
-        // 切换到最后一个标签页
+        // 切換到最後一個標籤頁
         case 'alt+0':
           router.push(tabbarStore.list[tabbarStore.list.length - 1].fullPath)
           break
@@ -253,10 +253,10 @@ onUnmounted(() => {
     overflow-y: hidden;
     white-space: nowrap;
 
-    // firefox隐藏滚动条
+    // firefox隱藏滾動條
     scrollbar-width: none;
 
-    // chrome隐藏滚动条
+    // chrome隱藏滾動條
     &::-webkit-scrollbar {
       display: none;
     }
@@ -440,7 +440,7 @@ onUnmounted(() => {
   }
 }
 
-// 标签栏动画
+// 標籤欄動畫
 .tabs {
   .tabbar-move,
   .tabbar-enter-active,

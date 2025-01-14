@@ -1,4 +1,4 @@
-// 该文件为系统默认配置，请勿修改！！！
+// 該文件為系統默認配置，請勿修改！！！
 
 import type { RecursiveRequired, Settings } from '#/global'
 
@@ -12,7 +12,7 @@ const globalSettingsDefault: RecursiveRequired<Settings.all> = {
   },
   home: {
     enable: true,
-    title: '主页',
+    title: '主頁',
     fullPath: '/',
   },
   layout: {

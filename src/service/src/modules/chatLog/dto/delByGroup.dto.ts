@@ -4,6 +4,6 @@ import { Type } from 'class-transformer';
 import { BaseEntity } from 'typeorm';
 
 export class DelByGroupDto {
-  @ApiProperty({ example: 1, description: '对话组Id', required: true })
+  @ApiProperty({ example: 1, description: '對話組Id', required: true })
   groupId: number;
 }

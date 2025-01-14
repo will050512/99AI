@@ -31,7 +31,7 @@ let StableDiffusionService = StableDiffusionService_1 = class StableDiffusionSer
             fileInfo: '',
             status: 2,
         };
-        console.log('开始处理', { model, modelName, prompt });
+        console.log('開始處理', { model, modelName, prompt });
         const options = {
             method: 'POST',
             url: `${proxyUrl}/v1/chat/completions`,
@@ -47,11 +47,11 @@ let StableDiffusionService = StableDiffusionService_1 = class StableDiffusionSer
         };
         try {
             const response = await (0, axios_1.default)(options);
-            console.log('API响应接收', response.data);
+            console.log('API響應接收', response.data);
             if (response.data.choices && response.data.choices.length > 0) {
                 const choice = response.data.choices[0];
                 const content = choice.message.content;
-                console.log('处理内容', content);
+                console.log('處理內容', content);
                 const regex = /\]\((https?:\/\/[^\)]+)\)/;
                 const match = content.match(regex);
                 if (match && match[1]) {
@@ -71,14 +71,14 @@ let StableDiffusionService = StableDiffusionService_1 = class StableDiffusionSer
                         }
                     }
                     catch (error) {
-                        common_1.Logger.error(`上传文件失败: ${error.message}`, 'StableDiffusionService');
+                        common_1.Logger.error(`上傳文件失敗: ${error.message}`, 'StableDiffusionService');
                     }
-                    console.log('找到链接', match[1]);
+                    console.log('找到鏈接', match[1]);
                 }
                 else {
-                    console.log('没有找到链接');
+                    console.log('沒有找到鏈接');
                 }
-                result.answer = `${prompt} 绘制成功`;
+                result.answer = `${prompt} 繪製成功`;
                 if (result.fileInfo) {
                     onSuccess(result);
                     return;
@@ -92,7 +92,7 @@ let StableDiffusionService = StableDiffusionService_1 = class StableDiffusionSer
             }
         }
         catch (error) {
-            common_1.Logger.error('服务器错误，请求失败：', error);
+            common_1.Logger.error('服務器錯誤，請求失敗：', error);
         }
     }
 };

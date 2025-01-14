@@ -76,7 +76,8 @@
     "stream-to-buffer": "^0.1.0",
     "typeorm": "^0.3.20",
     "uuid": "^9.0.1",
-    "wechatpay-node-v3": "^2.2.0"
+    "wechatpay-node-v3": "^2.2.0",
+    "ecpay_aio_nodejs": "^1.2.2"
   },
   "devDependencies": {
     "@nestjs/cli": "^9.5.0",

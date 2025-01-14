@@ -3,19 +3,19 @@ import { ApiProperty } from '@nestjs/swagger';
 import { Type } from 'class-transformer';
 
 export class UserRechargeDto {
-  @ApiProperty({ example: 1, description: '用户id', required: true })
-  @IsDefined({ message: '用户id是必传参数' })
+  @ApiProperty({ example: 1, description: '用戶id', required: true })
+  @IsDefined({ message: '用戶id是必傳參數' })
   userId: number;
 
-  @ApiProperty({ example: 100, description: '用户对话模型3次数', required: false })
+  @ApiProperty({ example: 100, description: '用戶對話模型3次數', required: false })
   @IsOptional()
   model3Count?: number;
 
-  @ApiProperty({ example: 5, description: '用户对话模型4次数', required: false })
+  @ApiProperty({ example: 5, description: '用戶對話模型4次數', required: false })
   @IsOptional()
   model4Count?: number;
 
-  @ApiProperty({ example: 0, description: '用户MJ额度', required: false })
+  @ApiProperty({ example: 0, description: '用戶MJ額度', required: false })
   @IsOptional()
   drawMjCount?: number;
 }

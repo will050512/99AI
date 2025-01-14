@@ -1,6 +1,6 @@
 <route lang="yaml">
 meta:
-  title: 对话管理
+  title: 對話管理
 </route>
 
 <script lang="ts" setup>
@@ -93,7 +93,7 @@ function handlerReset(formEl: FormInstance | undefined) {
 async function handleDeleteOrder(row: OrderItem) {
   const { orderId } = row;
   await ApiOrder.deleteOrder({ orderId });
-  ElMessage.success('删除订单完成!');
+  ElMessage.success('刪除訂單完成!');
   queryAllOrder();
 }
 
@@ -101,11 +101,11 @@ async function handleDelNotPayOrder() {
   delLoading.value = true;
   try {
     await ApiOrder.deleteNotPay();
-    ElMessage.success('删除未支付订单完成!');
+    ElMessage.success('刪除未支付訂單完成!');
     await queryAllOrder();
     delLoading.value = false;
   } catch (error) {
-    ElMessage.error('删除未支付订单失败!');
+    ElMessage.error('刪除未支付訂單失敗!');
     delLoading.value = false;
   }
 }
@@ -119,19 +119,19 @@ onMounted(() => {
   <div>
     <PageHeader>
       <template #title>
-        <div class="flex items-center gap-4">订单列表</div>
+        <div class="flex items-center gap-4">訂單列表</div>
       </template>
     </PageHeader>
     <page-main class="flex items-start justify-between">
       <el-form ref="formRef" :inline="true" :model="formInline">
-        <el-form-item label="用户名称" prop="userId">
+        <el-form-item label="用戶名稱" prop="userId">
           <el-select
             v-model="formInline.userId"
             filterable
             clearable
             remote
             reserve-keyword
-            placeholder="用户姓名[模糊搜索]"
+            placeholder="用戶姓名[模糊搜索]"
             remote-show-suffix
             :remote-method="handlerSearchUser"
             style="width: 180px"
@@ -144,11 +144,11 @@ onMounted(() => {
             />
           </el-select>
         </el-form-item>
-        <el-form-item label="支付平台" prop="platform">
+        <el-form-item label="支付平臺" prop="platform">
           <el-select
             v-model="formInline.platform"
             clearable
-            placeholder="请选择支付平台"
+            placeholder="請選擇支付平臺"
             remote-show-suffix
             style="width: 160px"
           >
@@ -160,11 +160,11 @@ onMounted(() => {
             />
           </el-select>
         </el-form-item>
-        <el-form-item label="支付状态" prop="status">
+        <el-form-item label="支付狀態" prop="status">
           <el-select
             v-model="formInline.status"
             clearable
-            placeholder="请选择支付状态"
+            placeholder="請選擇支付狀態"
             remote-show-suffix
             style="width: 160px"
           >
@@ -177,19 +177,19 @@ onMounted(() => {
           </el-select>
         </el-form-item>
         <el-form-item>
-          <el-button type="primary" @click="queryAllOrder"> 查询 </el-button>
+          <el-button type="primary" @click="queryAllOrder"> 查詢 </el-button>
           <el-button @click="handlerReset(formRef)"> 重置 </el-button>
           <el-popconfirm
-            title="确认删除所有未支付订单么?"
+            title="確認刪除所有未支付訂單麼?"
             @confirm="handleDelNotPayOrder"
           >
             <template #reference>
-              <el-button type="danger"> 删除所有未支付订单 </el-button>
+              <el-button type="danger"> 刪除所有未支付訂單 </el-button>
             </template>
           </el-popconfirm>
         </el-form-item>
       </el-form>
-      <el-statistic title="累计已支付订单金额" :value="totalPrice" />
+      <el-statistic title="累計已支付訂單金額" :value="totalPrice" />
     </page-main>
 
     <page-main style="width: 100%">
@@ -201,30 +201,30 @@ onMounted(() => {
         size="large"
         :tooltip-options="{}"
       >
-        <el-table-column fixed prop="orderId" label="订单ID" width="315" />
+        <el-table-column fixed prop="orderId" label="訂單ID" width="315" />
         <el-table-column
           prop="userInfo.username"
-          label="用户名称"
+          label="用戶名稱"
           width="180"
         />
-        <el-table-column prop="userInfo.email" label="用户邮箱" width="200" />
-        <el-table-column prop="goodsInfo.name" label="套餐名称" width="140" />
-        <el-table-column prop="price" label="商品单价" width="110" />
+        <el-table-column prop="userInfo.email" label="用戶郵箱" width="200" />
+        <el-table-column prop="goodsInfo.name" label="套餐名稱" width="140" />
+        <el-table-column prop="price" label="商品單價" width="110" />
         <el-table-column
           prop="count"
-          label="购买数量"
+          label="購買數量"
           width="90"
           align="center"
         />
         <el-table-column
           prop="total"
-          label="订单总价"
+          label="訂單總價"
           width="90"
           align="center"
         />
         <el-table-column
           prop="total"
-          label="支付平台"
+          label="支付平臺"
           width="90"
           align="center"
         >
@@ -234,7 +234,7 @@ onMounted(() => {
         </el-table-column>
         <el-table-column
           prop="status"
-          label="支付状态"
+          label="支付狀態"
           width="90"
           align="center"
         >
@@ -246,7 +246,7 @@ onMounted(() => {
         </el-table-column>
         <el-table-column
           prop="createdAt"
-          label="订单时间"
+          label="訂單時間"
           width="200"
           fixed="right"
         >
@@ -257,7 +257,7 @@ onMounted(() => {
         <el-table-column fixed="right" label="操作">
           <template #default="scope">
             <el-popconfirm
-              title="确认删除此订单么、删除订单不可恢复?"
+              title="確認刪除此訂單麼、刪除訂單不可恢復?"
               width="400"
               icon-color="red"
               @confirm="handleDeleteOrder(scope.row)"
@@ -269,7 +269,7 @@ onMounted(() => {
                   size="small"
                   :loading="delLoading"
                 >
-                  删除订单
+                  刪除訂單
                 </el-button>
               </template>
             </el-popconfirm>

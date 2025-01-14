@@ -13,10 +13,10 @@ function goHome() {
   <div class="flex h-full bg-white dark:bg-gray-900">
     <div class="px-4 m-auto space-y-4 text-center max-[400px]">
       <h1 class="text-4xl text-slate-800 dark:text-neutral-200">
-        404 - 页面迷路了！
+        404 - 頁面迷路了！
       </h1>
       <p class="text-base text-slate-500 dark:text-neutral-400">
-        哎呀！页面好像迷路了，找不到了。
+        哎呀！頁面好像迷路了，找不到了。
       </p>
       <div class="flex items-center justify-center text-center">
         <div class="w-[300px]">

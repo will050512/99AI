@@ -14,12 +14,12 @@ const swagger_1 = require("@nestjs/swagger");
 class AddAutoReplyDto {
 }
 __decorate([
-    (0, swagger_1.ApiProperty)({ example: '你是谁', description: '提问的问题', required: true }),
+    (0, swagger_1.ApiProperty)({ example: '你是誰', description: '提問的問題', required: true }),
     __metadata("design:type", String)
 ], AddAutoReplyDto.prototype, "prompt", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)({
-        example: '我是AIWeb提供的Ai服务机器人',
+        example: '我是AIWeb提供的Ai服務機器人',
         description: '回答的答案',
         required: true,
     }),

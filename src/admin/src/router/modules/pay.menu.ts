@@ -37,7 +37,7 @@ const routes: RouteRecordRaw = {
       name: 'MpayConfig',
       component: () => import('@/views/pay/mpay.vue'),
       meta: {
-        title: '码支付',
+        title: '碼支付',
         icon: 'ant-design:pay-circle-outlined',
       },
     },
@@ -55,8 +55,17 @@ const routes: RouteRecordRaw = {
       name: 'LtzfConfig',
       component: () => import('@/views/pay/ltzf.vue'),
       meta: {
-        title: '蓝兔支付',
+        title: '藍兔支付',
         icon: 'ph:rabbit',
+      },
+    },
+    {
+      path: 'ecpay',
+      name: 'EcpayConfig',
+      component: () => import('@/views/pay/ecpay.vue'),
+      meta: {
+        title: '綠界支付',
+        icon: 'ph:currency-dollar',
       },
     },
   ],

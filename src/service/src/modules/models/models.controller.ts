@@ -15,7 +15,7 @@ export class ModelsController {
   ) { }
 
   @Post('setModel')
-  @ApiOperation({ summary: '设置模型' })
+  @ApiOperation({ summary: '設置模型' })
   @UseGuards(SuperAuthGuard)
   @ApiBearerAuth()
   setModel(@Body() params: SetModelDto) {
@@ -23,7 +23,7 @@ export class ModelsController {
   }
 
   @Post('delModel')
-  @ApiOperation({ summary: '删除模型' })
+  @ApiOperation({ summary: '刪除模型' })
   @UseGuards(SuperAuthGuard)
   @ApiBearerAuth()
   delModel(@Body() params: { id: number }) {
@@ -31,7 +31,7 @@ export class ModelsController {
   }
 
   @Get('query')
-  @ApiOperation({ summary: '管理端查询模型列表' })
+  @ApiOperation({ summary: '管理端查詢模型列表' })
   @UseGuards(AdminAuthGuard)
   @ApiBearerAuth()
   queryModels(@Req() req: Request, @Query() params: QueryModelDto) {
@@ -39,31 +39,31 @@ export class ModelsController {
   }
 
   @Get('list')
-  @ApiOperation({ summary: '客户端查询当前所有可以使用的模型' })
+  @ApiOperation({ summary: '客戶端查詢當前所有可以使用的模型' })
   modelsList() {
     return this.modelsService.modelsList()
   }
 
   @Get('mjInfo')
-  @ApiOperation({ summary: '客户端查询当前所有可以使用的模型' })
+  @ApiOperation({ summary: '客戶端查詢當前所有可以使用的模型' })
   getMjInfo() {
     return this.modelsService.getMjInfo()
   }
 
   @Get('baseConfig')
-  @ApiOperation({ summary: '客户端查询当前已经配置模型的基础配置' })
+  @ApiOperation({ summary: '客戶端查詢當前已經配置模型的基礎配置' })
   baseConfig() {
     return this.modelsService.getBaseConfig()
   }
 
   @Get('queryModelType')
-  @ApiOperation({ summary: '查询模型类型' })
+  @ApiOperation({ summary: '查詢模型類型' })
   queryModelType(@Query() params: QueryModelTypeDto) {
     return this.modelsService.queryModelType(params)
   }
 
   @Post('setModelType')
-  @ApiOperation({ summary: '创建修改模型类型' })
+  @ApiOperation({ summary: '創建修改模型類型' })
   @UseGuards(SuperAuthGuard)
   @ApiBearerAuth()
   setModelType(@Body() params: SetModelTypeDto) {
@@ -71,7 +71,7 @@ export class ModelsController {
   }
 
   @Post('delModelType')
-  @ApiOperation({ summary: '删除模型类型' })
+  @ApiOperation({ summary: '刪除模型類型' })
   @UseGuards(SuperAuthGuard)
   @ApiBearerAuth()
   delModelType(@Body() params: { id: number }) {

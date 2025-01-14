@@ -4,7 +4,7 @@ import { GlobalConfigService } from '../globalConfig/globalConfig.service';
 import { ModelsService } from '../models/models.service';
 import { UploadService } from '../upload/upload.service';
 import { OpenAIChatService } from './openaiChat.service';
-// 引入其他需要的模块或服务
+// 引入其他需要的模塊或服務
 
 @Injectable()
 export class AiPptService {

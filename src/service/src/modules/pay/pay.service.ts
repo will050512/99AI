@@ -9,6 +9,7 @@ import { GlobalConfigService } from '../globalConfig/globalConfig.service';
 import { OrderEntity } from '../order/order.entity';
 import { UserService } from '../user/user.service';
 import { UserBalanceService } from '../userBalance/userBalance.service';
+import ecpay_payment from 'ecpay_aio_nodejs';
 
 @Injectable()
 export class PayService {
@@ -40,25 +41,28 @@ export class PayService {
     if (params['attach'] == 'ltzf') {
       return this.notifyLtzf(params);
     }
+    if (params['param'] == 'ecpay') {
+      return this.notifyEcpay(params);
+    }
     if (typeof params['resource'] == 'object') {
       return this.notifyWeChat(params);
     }
     return this.notifyMpay(params);
   }
 
-  /* 分平台支付请求 */
+  /* 分平臺支付請求 */
   async pay(userId: number, orderId: string, payType = 'wxpay') {
     // query order
     const order = await this.orderEntity.findOne({
       where: { userId, orderId },
     });
-    if (!order) throw new HttpException('订单不存在!', HttpStatus.BAD_REQUEST);
+    if (!order) throw new HttpException('訂單不存在!', HttpStatus.BAD_REQUEST);
     // query goods
     const goods = await this.cramiPackageEntity.findOne({
       where: { id: order.goodsId },
     });
     if (!goods) throw new HttpException('套餐不存在!', HttpStatus.BAD_REQUEST);
-    Logger.log('本次支付类型: ', order.payPlatform);
+    Logger.log('本次支付類型: ', order.payPlatform);
     try {
       if (order.payPlatform == 'wechat') {
         return this.payWeChat(userId, orderId, payType);
@@ -75,16 +79,19 @@ export class PayService {
       if (order.payPlatform == 'ltzf') {
         return this.payLtzf(userId, orderId, payType);
       }
+      if (order.payPlatform == 'ecpay') {
+        return this.payEcpay(userId, orderId);
+      }
     } catch (error) {
-      Logger.log('支付请求失败: ', error);
-      throw new HttpException('支付请求失败!', HttpStatus.BAD_REQUEST);
+      Logger.log('支付請求失敗: ', error);
+      throw new HttpException('支付請求失敗!', HttpStatus.BAD_REQUEST);
     }
   }
 
-  /* 支付订单状态查询 */
+  /* 支付訂單狀態查詢 */
   async query(orderId: string) {
     const order = await this.orderEntity.findOne({ where: { orderId } });
-    if (!order) throw new HttpException('订单不存在!', HttpStatus.BAD_REQUEST);
+    if (!order) throw new HttpException('訂單不存在!', HttpStatus.BAD_REQUEST);
     return order;
   }
 
@@ -115,7 +122,7 @@ export class PayService {
     const order = await this.orderEntity.findOne({
       where: { userId, orderId },
     });
-    if (!order) throw new HttpException('订单不存在!', HttpStatus.BAD_REQUEST);
+    if (!order) throw new HttpException('訂單不存在!', HttpStatus.BAD_REQUEST);
     const goods = await this.cramiPackageEntity.findOne({
       where: { id: order.goodsId },
     });
@@ -155,7 +162,7 @@ export class PayService {
     return { url_qrcode, url };
   }
 
-  /* 虎皮椒商户查询 */
+  /* 虎皮椒商戶查詢 */
   async queryHupi(orderId: string) {
     const { payHupiAppId, payHupiSecret } =
       await this.globalConfigService.getConfigs([
@@ -176,7 +183,7 @@ export class PayService {
     return result;
   }
 
-  /* 易支付支付结果通知 */
+  /* 易支付支付結果通知 */
   async notifyEpay(params: object) {
     const sign = params['sign'];
     delete params['sign'];
@@ -185,7 +192,7 @@ export class PayService {
       'payEpaySecret',
     ]);
     if (this.sign(params, payEpaySecret) != sign) return 'failed';
-    Logger.log('校验签名通过');
+    Logger.log('校驗簽名通過');
     const order = await this.orderEntity.findOne({
       where: { orderId: params['out_trade_no'], status: 0 },
     });
@@ -209,7 +216,7 @@ export class PayService {
     const order = await this.orderEntity.findOne({
       where: { userId, orderId },
     });
-    if (!order) throw new HttpException('订单不存在!', HttpStatus.BAD_REQUEST);
+    if (!order) throw new HttpException('訂單不存在!', HttpStatus.BAD_REQUEST);
     // query goods
     const goods = await this.cramiPackageEntity.findOne({
       where: { id: order.goodsId },
@@ -282,7 +289,7 @@ export class PayService {
     }
   }
 
-  /* 易支付商户信息查询 */
+  /* 易支付商戶資訊查詢 */
   async queryEpay(orderId: string) {
     const { payEpayPid, payEpaySecret, payEpayApiQueryUrl } =
       await this.globalConfigService.getConfigs([
@@ -302,7 +309,7 @@ export class PayService {
     return result;
   }
 
-  /* 码支付支付结果通知 */
+  /* 碼支付支付結果通知 */
   async notifyMpay(params: object) {
     const sign = params['sign'];
     delete params['sign'];
@@ -310,9 +317,9 @@ export class PayService {
     const payMpaySecret = await this.globalConfigService.getConfigs([
       'payMpaySecret',
     ]);
-    Logger.log('校验签名');
+    Logger.log('校驗簽名');
     if (this.sign(params, payMpaySecret) != sign) return 'failed';
-    Logger.log('校验签名通过');
+    Logger.log('校驗簽名通過');
     const order = await this.orderEntity.findOne({
       where: { orderId: params['out_trade_no'], status: 0 },
     });
@@ -331,13 +338,13 @@ export class PayService {
     return 'success';
   }
 
-  /* 码支付支付 */
+  /* 碼支付支付 */
   async payMpay(userId: number, orderId: string, payType = 'wxpay') {
     // query order
     const order = await this.orderEntity.findOne({
       where: { userId, orderId },
     });
-    if (!order) throw new HttpException('订单不存在!', HttpStatus.BAD_REQUEST);
+    if (!order) throw new HttpException('訂單不存在!', HttpStatus.BAD_REQUEST);
     // query goods
     const goods = await this.cramiPackageEntity.findOne({
       where: { id: order.goodsId },
@@ -379,7 +386,7 @@ export class PayService {
     const res = await axios.get(payMpayApiPayUrl, { params });
   }
 
-  /* 码支付商户信息查询 */
+  /* 碼支付商戶資訊查詢 */
   async queryMpay(orderId: string) {
     const { payMpayApiQueryUrl } = await this.globalConfigService.getConfigs([
       'payMpayPid',
@@ -396,7 +403,7 @@ export class PayService {
     return result;
   }
 
-  /* 微信支付结果通知 */
+  /* 微信支付結果通知 */
   async notifyWeChat(params: object) {
     Logger.log('微信支付通知params: ', params);
     // assemble params
@@ -446,7 +453,7 @@ export class PayService {
       return 'success';
     } catch (error) {
       Logger.log('error: ', error);
-      Logger.log('支付通知验证失败: ', error);
+      Logger.log('支付通知驗證失敗: ', error);
       return 'failed';
     }
   }
@@ -457,7 +464,7 @@ export class PayService {
     const order = await this.orderEntity.findOne({
       where: { userId, orderId },
     });
-    if (!order) throw new HttpException('订单不存在!', HttpStatus.BAD_REQUEST);
+    if (!order) throw new HttpException('訂單不存在!', HttpStatus.BAD_REQUEST);
     const goods = await this.cramiPackageEntity.findOne({
       where: { id: order.goodsId },
     });
@@ -492,7 +499,7 @@ export class PayService {
       // },
       amount: {
         total: Math.round(order.total * 100),
-        // total: round(Number(order.total * 100)), // 确保总金额是一个整数
+        // total: round(Number(order.total * 100)), // 確保總金額是一個整數
       },
       // payer: null,
       // scene_info: {
@@ -516,7 +523,7 @@ export class PayService {
     //   const res = await pay.transactions_h5(params);
     //   if (res.status === 403) {
     //     const errmsg = res?.errRaw?.response?.text?.message;
-    //     throw new HttpException(res?.message || '微信H5支付失败！', HttpStatus.BAD_REQUEST);
+    //     throw new HttpException(res?.message || '微信H5支付失敗！', HttpStatus.BAD_REQUEST);
     //   }
     //   const { h5_url } = res;
     //   return { url: h5_url };
@@ -524,42 +531,42 @@ export class PayService {
     // if (payType == 'jsapi') {
     //   // query openid
     //   const openid = await this.userService.getOpenIdByUserId(userId);
-    //   Logger.log('用户openId: ', openid);
+    //   Logger.log('用戶openId: ', openid);
     //   params['payer'] = {
     //     openid: openid,
     //   };
     //   const result = await pay.transactions_jsapi(params);
-    //   Logger.log('jsapi支付结果返回值: ', result);
+    //   Logger.log('jsapi支付結果返回值: ', result);
     //   return result;
     // }
     if (payType == 'jsapi') {
       Logger.log(
-        `[WeChat Pay JSAPI] 开始JSAPI支付流程，用户ID: ${userId}, 订单ID: ${orderId}`
+        `[WeChat Pay JSAPI] 開始JSAPI支付流程，用戶ID: ${userId}, 訂單ID: ${orderId}`
       );
-      // 查询用户的openid
+      // 查詢用戶的openid
       const openid = await this.userService.getOpenIdByUserId(userId);
-      Logger.log(`[WeChat Pay JSAPI] 用户OpenID: ${openid}`);
+      Logger.log(`[WeChat Pay JSAPI] 用戶OpenID: ${openid}`);
 
-      // 构建支付请求参数
+      // 構建支付請求參數
       params['payer'] = { openid: openid };
       Logger.log(
-        `[WeChat Pay JSAPI] 发送支付请求参数: `,
+        `[WeChat Pay JSAPI] 發送支付請求參數: `,
         JSON.stringify(params, null, 2)
       );
 
       try {
-        // 发送支付请求
+        // 發送支付請求
         const response = await pay.transactions_jsapi(params);
-        // 检查响应结构中是否有 data 字段，如果有，则直接使用 data 字段的内容；否则，使用整个响应内容
+        // 檢查響應結構中是否有 data 字段，如果有，則直接使用 data 字段的內容；否則，使用整個響應內容
         const result = response.data ? response.data : response;
         Logger.log(
-          `[WeChat Pay JSAPI] 支付请求成功，返回结果: `,
+          `[WeChat Pay JSAPI] 支付請求成功，返回結果: `,
           JSON.stringify(result, null, 2)
         );
 
-        // 直接返回 result，确保不含 data 字段，并包含 status
+        // 直接返回 result，確保不含 data 字段，幷包含 status
         return {
-          status: response.status || 'unknown', // 如果原始响应中有 status 字段，使用之；否则默认为 'unknown'
+          status: response.status || 'unknown', // 如果原始響應中有 status 字段，使用之；否則默認為 'unknown'
           appId: result.appId || result.data?.appId,
           timeStamp: result.timeStamp || result.data?.timeStamp,
           nonceStr: result.nonceStr || result.data?.nonceStr,
@@ -569,46 +576,46 @@ export class PayService {
         };
       } catch (error) {
         console.error(
-          `[WeChat Pay JSAPI] 支付请求过程中发生错误: ${error.message}`,
+          `[WeChat Pay JSAPI] 支付請求過程中發生錯誤: ${error.message}`,
           error
         );
-        // 记录完整的错误对象
-        console.error('[WeChat Pay JSAPI] 完整的错误对象：', error);
-        throw new HttpException('JSAPI支付失败', HttpStatus.BAD_REQUEST);
+        // 記錄完整的錯誤對象
+        console.error('[WeChat Pay JSAPI] 完整的錯誤對象：', error);
+        throw new HttpException('JSAPI支付失敗', HttpStatus.BAD_REQUEST);
       }
     }
 
     if (payType == 'native') {
       Logger.log(
-        `开始进行微信Native支付流程，订单ID: ${orderId}, 用户ID: ${userId}`
+        `開始進行微信Native支付流程，訂單ID: ${orderId}, 用戶ID: ${userId}`
       );
 
       try {
         const res = await pay.transactions_native(params);
-        Logger.log(`微信Native支付响应数据: `, JSON.stringify(res, null, 2));
+        Logger.log(`微信Native支付響應數據: `, JSON.stringify(res, null, 2));
 
         let url_qrcode = res.code_url || res.data?.code_url;
 
         if (!url_qrcode) {
           console.error(
-            `微信Native支付请求成功，但未返回code_url，响应数据: `,
+            `微信Native支付請求成功，但未返回code_url，響應數據: `,
             JSON.stringify(res, null, 2)
           );
         } else {
-          Logger.log(`微信Native支付请求成功，code_url: ${url_qrcode}`);
+          Logger.log(`微信Native支付請求成功，code_url: ${url_qrcode}`);
         }
 
         return { url_qrcode, isRedirect: false };
       } catch (error) {
         console.error(
-          `微信Native支付过程中发生错误，错误信息: ${error.message}`,
+          `微信Native支付過程中發生錯誤，錯誤資訊: ${error.message}`,
           error
         );
-        console.error('完整的错误对象：', error);
-        throw new HttpException('微信Native支付失败', HttpStatus.BAD_REQUEST);
+        console.error('完整的錯誤對象：', error);
+        throw new HttpException('微信Native支付失敗', HttpStatus.BAD_REQUEST);
       }
     } else {
-      console.warn(`支付请求使用了不支持的支付类型: ${payType}`);
+      console.warn(`支付請求使用了不支持的支付類型: ${payType}`);
       throw new HttpException('unsupported pay type', HttpStatus.BAD_REQUEST);
     }
   }
@@ -625,7 +632,7 @@ export class PayService {
   //   throw new HttpException('unsupported pay type', HttpStatus.BAD_REQUEST);
   // }
 
-  /* 微信支付商户信息查询 */
+  /* 微信支付商戶資訊查詢 */
   async queryWeChat(orderId: string) {
     // assemble params
     const {
@@ -650,7 +657,7 @@ export class PayService {
     return result;
   }
 
-  /* 加密签名 */
+  /* 加密簽名 */
   sign(params: object, secret: string) {
     const str =
       Object.keys(params)
@@ -660,7 +667,7 @@ export class PayService {
     return crypto.createHash('md5').update(str).digest('hex');
   }
 
-  /* 蓝兔支付签名 */
+  /* 藍兔支付簽名 */
   ltzfSign(params: object, secret: string) {
     const paramsArr = Object.keys(params);
     paramsArr.sort();
@@ -668,18 +675,18 @@ export class PayService {
     paramsArr.map((key) => {
       stringArr.push(key + '=' + params[key]);
     });
-    // 最后加上商户Key
+    // 最後加上商戶Key
     stringArr.push('key=' + secret);
     const str = stringArr.join('&');
     return crypto.createHash('md5').update(str).digest('hex').toUpperCase();
   }
 
-  /* 蓝兔支付 */
+  /* 藍兔支付 */
   async payLtzf(userId: number, orderId: string, payType = 'wxpay') {
     const order = await this.orderEntity.findOne({
       where: { userId, orderId },
     });
-    if (!order) throw new HttpException('订单不存在!', HttpStatus.BAD_REQUEST);
+    if (!order) throw new HttpException('訂單不存在!', HttpStatus.BAD_REQUEST);
     const goods = await this.cramiPackageEntity.findOne({
       where: { id: order.goodsId },
     });
@@ -692,15 +699,15 @@ export class PayService {
         'payLtzfReturnUrl',
       ]);
     const params = {};
-    params['mch_id'] = payLtzfMchId; //商户号
-    params['timestamp'] = (Date.now() / 1000).toFixed(0); //时间
-    params['out_trade_no'] = orderId; //商户订单号
-    params['body'] = goods.name; //订单标题
-    params['total_fee'] = order.total; //订单金额
-    params['notify_url'] = payLtzfNotifyUrl; //通知回调地址
-    params['sign'] = this.ltzfSign(params, payLtzfSecret); //签名
-    params['attach'] = 'ltzf'; //备注
-    params['return_url'] = payLtzfReturnUrl; //回调
+    params['mch_id'] = payLtzfMchId; //商戶號
+    params['timestamp'] = (Date.now() / 1000).toFixed(0); //時間
+    params['out_trade_no'] = orderId; //商戶訂單號
+    params['body'] = goods.name; //訂單標題
+    params['total_fee'] = order.total; //訂單金額
+    params['notify_url'] = payLtzfNotifyUrl; //通知回調地址
+    params['sign'] = this.ltzfSign(params, payLtzfSecret); //簽名
+    params['attach'] = 'ltzf'; //備註
+    params['return_url'] = payLtzfReturnUrl; //回調
     const formBody = Object.keys(params)
       .map(
         (key) => encodeURIComponent(key) + '=' + encodeURIComponent(params[key])
@@ -724,7 +731,7 @@ export class PayService {
     return { url_qrcode, url };
   }
 
-  /* 蓝兔支付商户查询 */
+  /* 藍兔支付商戶查詢 */
   async queryLtzf(orderId: string) {
     const { payLtzfMchId, payLtzfSecret } =
       await this.globalConfigService.getConfigs([
@@ -761,7 +768,7 @@ export class PayService {
     return result;
   }
 
-  /* 蓝兔支付通知 */
+  /* 藍兔支付通知 */
   async notifyLtzf(params: object) {
     const payLtzfSecret = await this.globalConfigService.getConfigs([
       'payLtzfSecret',
@@ -786,5 +793,114 @@ export class PayService {
     );
     if (result.affected != 1) return 'FAIL';
     return 'SUCCESS';
+  }
+
+  /* 綠界支付 */
+  async payEcpay(userId: number, orderId: string) {
+    try {
+      const order = await this.orderEntity.findOne({ where: { userId, orderId } });
+      if (!order) throw new HttpException('訂單不存在!', HttpStatus.BAD_REQUEST);
+
+      const goods = await this.cramiPackageEntity.findOne({
+        where: { id: order.goodsId }
+      });
+      if (!goods) throw new HttpException('套餐不存在!', HttpStatus.BAD_REQUEST);
+
+      const configs = await this.globalConfigService.getConfigs([
+        'payEcpayMerchantId',
+        'payEcpayHashKey',
+        'payEcpayHashIV',
+        'payEcpayNotifyUrl',
+        'payEcpayReturnUrl',
+        'payEcpayTestMode'
+      ]);
+
+      if (!configs.payEcpayMerchantId || !configs.payEcpayHashKey || !configs.payEcpayHashIV) {
+        throw new HttpException('綠界支付配置不完整', HttpStatus.BAD_REQUEST);
+      }
+
+      const now = new Date();
+      const merchantTradeDate = `${now.getFullYear()}/${String(now.getMonth() + 1).padStart(2, '0')}/${String(now.getDate()).padStart(2, '0')} ${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}:${String(now.getSeconds()).padStart(2, '0')}`;
+
+      const baseParam = {
+        MerchantID: configs.payEcpayMerchantId,
+        MerchantTradeNo: orderId,
+        MerchantTradeDate: merchantTradeDate,
+        PaymentType: 'aio',
+        TotalAmount: Math.round(order.total),
+        TradeDesc: 'AI Chat Credits Purchase',
+        ItemName: goods.name,
+        ReturnURL: configs.payEcpayNotifyUrl,
+        OrderResultURL: configs.payEcpayReturnUrl,
+        ClientBackURL: configs.payEcpayReturnUrl,
+        ChoosePayment: 'ALL',
+        EncryptType: 1
+      };
+
+      Logger.log(`ECPay Environment: ${configs.payEcpayTestMode === '1' ? 'Test' : 'Production'}`);
+
+      const payment = new ecpay_payment({
+        OperationMode: configs.payEcpayTestMode === '1' ? 'Test' : 'Production',
+        MerchantID: configs.payEcpayMerchantId,
+        HashKey: configs.payEcpayHashKey,
+        HashIV: configs.payEcpayHashIV,
+        PaymentGateWay: configs.payEcpayTestMode === '1'
+          ? 'https://payment-stage.ecpay.com.tw/Cashier/AioCheckOut/V5'
+          : 'https://payment.ecpay.com.tw/Cashier/AioCheckOut/V5'
+      });
+
+      const html = payment.payment_client.aio_check_out_all(baseParam);
+
+      return {
+        orderId,
+        formHtml: html,
+        isRedirect: true,
+        isForm: true
+      };
+
+    } catch (error) {
+      Logger.error('ECPay payment error:', error);
+      throw new HttpException(error.message || '支付請求失敗!', HttpStatus.BAD_REQUEST);
+    }
+  }
+
+  /* 綠界支付通知處理 */
+  async notifyEcpay(params: object) {
+    const configs = await this.globalConfigService.getConfigs([
+      'payEcpayHashKey',
+      'payEcpayHashIV'
+    ]);
+
+    try {
+      // 驗證 CheckMacValue
+      const payment = new ecpay_payment({
+        HashKey: configs.payEcpayHashKey,
+        HashIV: configs.payEcpayHashIV
+      });
+      const checkValue = payment.CheckMacValue(params);
+
+      if (params['CheckMacValue'] !== checkValue) {
+        return '0|ERROR';
+      }
+
+      // 處理訂單
+      if (params['RtnCode'] === '1') {
+        const order = await this.orderEntity.findOne({
+          where: { orderId: params['MerchantTradeNo'] }
+        });
+        if (!order) return '0|ERROR';
+
+        await this.userBalanceService.addBalanceToOrder(order);
+        await this.orderEntity.update(
+          { orderId: params['MerchantTradeNo'] },
+          { status: 1, paydAt: new Date() }
+        );
+      }
+      return '1|OK';
+
+    } catch (error) {
+      Logger.error('ECPay notify error:', error);
+      return '0|ERROR';
+    }
   }
 }

@@ -11,7 +11,7 @@ export class UserBalanceController {
   constructor(private userBalanceService: UserBalanceService) {}
 
   @Get('rechargeLog')
-  @ApiOperation({ summary: '获取个人充值记录' })
+  @ApiOperation({ summary: '獲取個人充值記錄' })
   @UseGuards(JwtAuthGuard)
   @ApiBearerAuth()
   async getRechargeLog(@Req() req: Request, @Query() params: any) {
@@ -19,7 +19,7 @@ export class UserBalanceController {
   }
 
   @Get('accountLog')
-  @ApiOperation({ summary: '获取所有人账户记录' })
+  @ApiOperation({ summary: '獲取所有人賬戶記錄' })
   @UseGuards(AdminAuthGuard)
   @ApiBearerAuth()
   async getAccountLog(@Req() req: Request, @Query() params: any) {
@@ -27,7 +27,7 @@ export class UserBalanceController {
   }
 
   @Get('query')
-  @ApiOperation({ summary: '获取个人余额信息' })
+  @ApiOperation({ summary: '獲取個人餘額資訊' })
   @UseGuards(JwtAuthGuard)
   @ApiBearerAuth()
   async getBalance(@Req() req: Request) {
@@ -35,7 +35,7 @@ export class UserBalanceController {
   }
 
   @Post('inheritVisitorData')
-  @ApiOperation({ summary: '继承当前设备数据' })
+  @ApiOperation({ summary: '繼承當前設備數據' })
   @UseGuards(JwtAuthGuard)
   @ApiBearerAuth()
   async inheritVisitorData(@Req() req: Request) {
@@ -43,7 +43,7 @@ export class UserBalanceController {
   }
 
   @Get('getVisitorCount')
-  @ApiOperation({ summary: '获取本机指纹数据' })
+  @ApiOperation({ summary: '獲取本機指紋數據' })
   @UseGuards(JwtAuthGuard)
   @ApiBearerAuth()
   async getVisitorCount(@Req() req: Request) {

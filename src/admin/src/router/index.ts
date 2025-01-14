@@ -3,7 +3,7 @@ import { useNProgress } from '@vueuse/integrations/useNProgress';
 import type { RouteRecordRaw } from 'vue-router';
 import { createRouter, createWebHashHistory } from 'vue-router';
 
-// 路由相关数据
+// 路由相關數據
 import pinia from '@/store';
 import useKeepAliveStore from '@/store/modules/keepAlive';
 import useMenuStore from '@/store/modules/menu';
@@ -33,21 +33,21 @@ router.beforeEach(async (to, from, next) => {
   const routeStore = useRouteStore();
   const menuStore = useMenuStore();
   settingsStore.settings.app.enableProgress && (isLoading.value = true);
-  // 是否已登录
+  // 是否已登錄
   if (userStore.isLogin) {
-    // 是否已根据权限动态生成并注册路由
+    // 是否已根據權限動態生成並註冊路由
     if (routeStore.isGenerate) {
-      // 导航栏如果不是 single 模式，则需要根据 path 定位主导航的选中状态
+      // 導航欄如果不是 single 模式，則需要根據 path 定位主導航的選中狀態
       settingsStore.settings.menu.menuMode !== 'single' &&
         menuStore.setActived(to.path);
-      // 如果已登录状态下，进入登录页会强制跳转到主页
+      // 如果已登錄狀態下，進入登錄頁會強制跳轉到主頁
       if (to.name === 'login') {
         next({
           path: settingsStore.settings.home.fullPath,
           replace: true,
         });
       }
-      // 如果未开启主页，但进入的是主页，则会进入侧边栏导航第一个模块
+      // 如果未開啟主頁，但進入的是主頁，則會進入側邊欄導航第一個模塊
       else if (
         !settingsStore.settings.home.enable &&
         to.fullPath === settingsStore.settings.home.fullPath
@@ -58,20 +58,20 @@ router.beforeEach(async (to, from, next) => {
             replace: true,
           });
         }
-        // 如果侧边栏导航第一个模块均无法命中，则还是进入主页
+        // 如果側邊欄導航第一個模塊均無法命中，則還是進入主頁
         else {
           next();
         }
       }
-      // 正常访问页面
+      // 正常訪問頁面
       else {
         next();
       }
     } else {
-      // 获取用户权限
+      // 獲取用戶權限
       settingsStore.settings.app.enablePermission &&
         (await userStore.getPermissions());
-      // 生成动态路由
+      // 生成動態路由
       switch (settingsStore.settings.app.routeBaseOn) {
         case 'frontend':
           routeStore.generateRoutesAtFront(asyncRoutes);
@@ -81,7 +81,7 @@ router.beforeEach(async (to, from, next) => {
         //   break
         case 'filesystem':
           routeStore.generateRoutesAtFilesystem(asyncRoutesByFilesystem);
-          // 文件系统生成的路由，需要手动生成导航数据
+          // 文件系統生成的路由，需要手動生成導航數據
           switch (settingsStore.settings.menu.baseOn) {
             case 'frontend':
               menuStore.generateMenusAtFront();
@@ -92,8 +92,8 @@ router.beforeEach(async (to, from, next) => {
           }
           break;
       }
-      // 注册并记录路由数据
-      // 记录的数据会在登出时会使用到，不使用 router.removeRoute 是考虑配置的路由可能不一定有设置 name ，则通过调用 router.addRoute() 返回的回调进行删除
+      // 註冊並記錄路由數據
+      // 記錄的數據會在登出時會使用到，不使用 router.removeRoute 是考慮配置的路由可能不一定有設置 name ，則通過調用 router.addRoute() 返回的回調進行刪除
       const removeRoutes: (() => void)[] = [];
       routeStore.flatRoutes.forEach((route) => {
         if (!/^(?:https?:|mailto:|tel:)/.test(route.path)) {
@@ -106,7 +106,7 @@ router.beforeEach(async (to, from, next) => {
         });
       }
       routeStore.setCurrentRemoveRoutes(removeRoutes);
-      // 动态路由生成并注册后，重新进入当前路由
+      // 動態路由生成並註冊後，重新進入當前路由
       next({
         path: to.path,
         query: to.query,
@@ -134,7 +134,7 @@ router.afterEach((to, from) => {
   const settingsStore = useSettingsStore();
   const keepAliveStore = useKeepAliveStore();
   settingsStore.settings.app.enableProgress && (isLoading.value = false);
-  // 设置页面 title
+  // 設置頁面 title
   if (settingsStore.settings.app.routeBaseOn !== 'filesystem') {
     settingsStore.setTitle(
       to.meta.breadcrumbNeste?.at(-1)?.title ?? to.meta.title
@@ -143,9 +143,9 @@ router.afterEach((to, from) => {
     settingsStore.setTitle(to.meta.title);
   }
   /**
-   * 处理普通页面的缓存
+   * 處理普通頁面的緩存
    */
-  // 判断当前页面是否开启缓存，如果开启，则将当前页面的 name 信息存入 keep-alive 全局状态
+  // 判斷當前頁面是否開啟緩存，如果開啟，則將當前頁面的 name 資訊存入 keep-alive 全局狀態
   if (to.meta.cache) {
     const componentName = to.matched.at(-1)?.components?.default.name;
     if (componentName) {
@@ -153,15 +153,15 @@ router.afterEach((to, from) => {
     } else {
       // turbo-console-disable-next-line
       console.warn(
-        '[Fantastic-admin] 该页面组件未设置组件名，会导致缓存失效，请检查'
+        '[Fantastic-admin] 該頁面組件未設置組件名，會導致緩存失效，請檢查'
       );
     }
   }
-  // 判断离开页面是否开启缓存，如果开启，则根据缓存规则判断是否需要清空 keep-alive 全局状态里离开页面的 name 信息
+  // 判斷離開頁面是否開啟緩存，如果開啟，則根據緩存規則判斷是否需要清空 keep-alive 全局狀態裡離開頁面的 name 資訊
   if (from.meta.cache) {
     const componentName = from.matched.at(-1)?.components?.default.name;
     if (componentName) {
-      // 通过 meta.cache 判断针对哪些页面进行缓存
+      // 通過 meta.cache 判斷針對哪些頁面進行緩存
       switch (typeof from.meta.cache) {
         case 'string':
           if (from.meta.cache !== to.name) {
@@ -174,7 +174,7 @@ router.afterEach((to, from) => {
           }
           break;
       }
-      // 通过 meta.noCache 判断针对哪些页面不需要进行缓存
+      // 通過 meta.noCache 判斷針對哪些頁面不需要進行緩存
       if (from.meta.noCache) {
         switch (typeof from.meta.noCache) {
           case 'string':
@@ -189,7 +189,7 @@ router.afterEach((to, from) => {
             break;
         }
       }
-      // 如果进入的是 reload 页面，则也将离开页面的缓存清空
+      // 如果進入的是 reload 頁面，則也將離開頁面的緩存清空
       if (to.name === 'reload') {
         keepAliveStore.remove(componentName);
       }
@@ -197,5 +197,25 @@ router.afterEach((to, from) => {
   }
   document.documentElement.scrollTop = 0;
 });
+
+export const menus = [
+  {
+    path: '/pay',
+    meta: {
+      title: '支付管理',
+      icon: 'i-ep:money',
+    },
+    children: [
+      {
+        path: '/pay/ecpay',
+        name: 'PayEcpay',
+        component: () => import('@/views/pay/ecpay.vue'),
+        meta: {
+          title: '綠界支付設置',
+        },
+      },
+    ],
+  },
+];
 
 export default router;

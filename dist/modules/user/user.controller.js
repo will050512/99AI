@@ -50,7 +50,7 @@ let UserController = class UserController {
 };
 __decorate([
     (0, common_1.Post)('update'),
-    (0, swagger_1.ApiOperation)({ summary: '更新用户信息' }),
+    (0, swagger_1.ApiOperation)({ summary: '更新用戶資訊' }),
     (0, common_1.UseGuards)(jwtAuth_guard_1.JwtAuthGuard),
     (0, swagger_1.ApiBearerAuth)(),
     __param(0, (0, common_1.Body)()),
@@ -61,7 +61,7 @@ __decorate([
 ], UserController.prototype, "update", null);
 __decorate([
     (0, common_1.Post)('recharge'),
-    (0, swagger_1.ApiOperation)({ summary: '用户充值' }),
+    (0, swagger_1.ApiOperation)({ summary: '用戶充值' }),
     (0, common_1.UseGuards)(superAuth_guard_1.SuperAuthGuard),
     (0, swagger_1.ApiBearerAuth)(),
     __param(0, (0, common_1.Body)()),
@@ -71,7 +71,7 @@ __decorate([
 ], UserController.prototype, "userRecharge", null);
 __decorate([
     (0, common_1.Get)('queryAll'),
-    (0, swagger_1.ApiOperation)({ summary: '查询所有用户' }),
+    (0, swagger_1.ApiOperation)({ summary: '查詢所有用戶' }),
     (0, common_1.UseGuards)(adminAuth_guard_1.AdminAuthGuard),
     (0, swagger_1.ApiBearerAuth)(),
     __param(0, (0, common_1.Query)()),
@@ -82,7 +82,7 @@ __decorate([
 ], UserController.prototype, "queryAll", null);
 __decorate([
     (0, common_1.Get)('queryOne'),
-    (0, swagger_1.ApiOperation)({ summary: '查询单个用户' }),
+    (0, swagger_1.ApiOperation)({ summary: '查詢單個用戶' }),
     (0, common_1.UseGuards)(adminAuth_guard_1.AdminAuthGuard),
     (0, swagger_1.ApiBearerAuth)(),
     __param(0, (0, common_1.Query)()),
@@ -92,7 +92,7 @@ __decorate([
 ], UserController.prototype, "queryOne", null);
 __decorate([
     (0, common_1.Post)('updateStatus'),
-    (0, swagger_1.ApiOperation)({ summary: '更新用户状态' }),
+    (0, swagger_1.ApiOperation)({ summary: '更新用戶狀態' }),
     (0, common_1.UseGuards)(superAuth_guard_1.SuperAuthGuard),
     (0, swagger_1.ApiBearerAuth)(),
     __param(0, (0, common_1.Body)()),
@@ -102,7 +102,7 @@ __decorate([
 ], UserController.prototype, "updateStatus", null);
 __decorate([
     (0, common_1.Post)('resetUserPass'),
-    (0, swagger_1.ApiOperation)({ summary: '重置用户密码' }),
+    (0, swagger_1.ApiOperation)({ summary: '重置用戶密碼' }),
     (0, common_1.UseGuards)(superAuth_guard_1.SuperAuthGuard),
     (0, swagger_1.ApiBearerAuth)(),
     __param(0, (0, common_1.Body)()),

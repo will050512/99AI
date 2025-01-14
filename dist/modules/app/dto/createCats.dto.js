@@ -16,17 +16,17 @@ class CreateCatsDto {
 }
 __decorate([
     (0, swagger_1.ApiProperty)({
-        example: '编程助手',
-        description: 'app分类名称',
+        example: '編程助手',
+        description: 'app分類名稱',
         required: true,
     }),
-    (0, class_validator_1.IsDefined)({ message: 'app分类名称是必传参数' }),
+    (0, class_validator_1.IsDefined)({ message: 'app分類名稱是必傳參數' }),
     __metadata("design:type", String)
 ], CreateCatsDto.prototype, "name", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)({
         example: 100,
-        description: '分类排序、数字越大越靠前',
+        description: '分類排序、數字越大越靠前',
         required: false,
     }),
     (0, class_validator_1.IsOptional)(),
@@ -35,11 +35,11 @@ __decorate([
 __decorate([
     (0, swagger_1.ApiProperty)({
         example: 1,
-        description: '分类状态 0：禁用 1：启用',
+        description: '分類狀態 0：禁用 1：啟用',
         required: true,
     }),
-    (0, class_validator_1.IsNumber)({}, { message: '状态必须是Number' }),
-    (0, class_validator_1.IsIn)([0, 1, 3, 4, 5], { message: '套餐状态错误' }),
+    (0, class_validator_1.IsNumber)({}, { message: '狀態必須是Number' }),
+    (0, class_validator_1.IsIn)([0, 1, 3, 4, 5], { message: '套餐狀態錯誤' }),
     __metadata("design:type", Number)
 ], CreateCatsDto.prototype, "status", void 0);
 exports.CreateCatsDto = CreateCatsDto;

@@ -30,7 +30,7 @@ export class JwtAuthGuard extends AuthGuard('jwt') {
       });
     }
     const request = context.switchToHttp().getRequest();
-    // TODO 域名检测
+    // TODO 網域名稱檢測
     const domain = request.headers['x-website-domain'];
     const token = this.extractToken(request);
     request.user = await this.validateToken(token);
@@ -42,7 +42,7 @@ export class JwtAuthGuard extends AuthGuard('jwt') {
     if (!request.headers.authorization) {
       if (request.headers.fingerprint) {
         let id = request.headers.fingerprint;
-        /* 超过mysql最大值进行截取 */
+        /* 超過mysql最大值進行截取 */
         if (id > 2147483647) {
           id = id.toString().slice(-9);
           id = Number(String(Number(id)));
@@ -66,7 +66,7 @@ export class JwtAuthGuard extends AuthGuard('jwt') {
       return decoded;
     } catch (error) {
       throw new HttpException(
-        '亲爱的用户,请登录后继续操作,我们正在等您的到来！',
+        '親愛的用戶,請登錄後繼續操作,我們正在等您的到來！',
         HttpStatus.UNAUTHORIZED
       );
     }

@@ -15,22 +15,22 @@ const swagger_1 = require("@nestjs/swagger");
 class ExportExcelChatlogDto {
 }
 __decorate([
-    (0, swagger_1.ApiProperty)({ example: 1, description: '查询页数', required: false }),
+    (0, swagger_1.ApiProperty)({ example: 1, description: '查詢頁數', required: false }),
     (0, class_validator_1.IsOptional)(),
     __metadata("design:type", Number)
 ], ExportExcelChatlogDto.prototype, "page", void 0);
 __decorate([
-    (0, swagger_1.ApiProperty)({ example: 10, description: '每页数量', required: false }),
+    (0, swagger_1.ApiProperty)({ example: 10, description: '每頁數量', required: false }),
     (0, class_validator_1.IsOptional)(),
     __metadata("design:type", Number)
 ], ExportExcelChatlogDto.prototype, "size", void 0);
 __decorate([
-    (0, swagger_1.ApiProperty)({ example: '您好', description: '用户询问的问题', required: false }),
+    (0, swagger_1.ApiProperty)({ example: '您好', description: '用戶詢問的問題', required: false }),
     (0, class_validator_1.IsOptional)(),
     __metadata("design:type", String)
 ], ExportExcelChatlogDto.prototype, "prompt", void 0);
 __decorate([
-    (0, swagger_1.ApiProperty)({ example: 'J_longyan@163.com', description: '用户邮箱', required: false }),
+    (0, swagger_1.ApiProperty)({ example: 'J_longyan@163.com', description: '用戶郵箱', required: false }),
     (0, class_validator_1.IsOptional)(),
     __metadata("design:type", String)
 ], ExportExcelChatlogDto.prototype, "email", void 0);

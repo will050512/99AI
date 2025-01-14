@@ -14,26 +14,26 @@ export class AuthController {
   constructor(private authService: AuthService) {}
 
   @Post('register')
-  @ApiOperation({ summary: '用户注册' })
+  @ApiOperation({ summary: '用戶註冊' })
   async register(@Body() body: UserRegisterDto, @Req() req: Request) {
     return await this.authService.register(body, req);
   }
 
   @Post('login')
-  @ApiOperation({ summary: '用户登录' })
+  @ApiOperation({ summary: '用戶登錄' })
   async login(@Body() body: UserLoginDto, @Req() req: Request) {
     return this.authService.login(body, req);
   }
 
-  // Todo 类型待优化
+  // Todo 類型待優化
   @Post('loginWithCaptcha')
-  @ApiOperation({ summary: '用户使用验证码登录' })
+  @ApiOperation({ summary: '用戶使用驗證碼登錄' })
   async loginWithCaptcha(@Body() body: any, @Req() req: Request) {
     return this.authService.loginWithCaptcha(body, req);
   }
 
   @Post('updatePassword')
-  @ApiOperation({ summary: '用户更改密码' })
+  @ApiOperation({ summary: '用戶更改密碼' })
   @UseGuards(JwtAuthGuard)
   @ApiBearerAuth()
   async updatePassword(@Req() req: Request, @Body() body: UpdatePasswordDto) {
@@ -41,7 +41,7 @@ export class AuthController {
   }
 
   @Post('updatePassByOther')
-  @ApiOperation({ summary: '用户更改密码' })
+  @ApiOperation({ summary: '用戶更改密碼' })
   @UseGuards(JwtAuthGuard)
   @ApiBearerAuth()
   async updatePassByOther(
@@ -52,7 +52,7 @@ export class AuthController {
   }
 
   @Get('getInfo')
-  @ApiOperation({ summary: '获取用户个人信息' })
+  @ApiOperation({ summary: '獲取用戶個人資訊' })
   @UseGuards(JwtAuthGuard)
   @ApiBearerAuth()
   async getInfo(@Req() req: Request) {
@@ -60,19 +60,19 @@ export class AuthController {
   }
 
   @Post('sendCode')
-  @ApiOperation({ summary: '发送验证码' })
+  @ApiOperation({ summary: '發送驗證碼' })
   async sendCode(@Body() parmas: any) {
     return this.authService.sendCode(parmas);
   }
 
   @Post('sendPhoneCode')
-  @ApiOperation({ summary: '发送手机验证码' })
+  @ApiOperation({ summary: '發送手機驗證碼' })
   async sendPhoneCode(@Body() parmas: any) {
     return this.authService.sendPhoneCode(parmas);
   }
 
   @Post('verifyIdentity')
-  @ApiOperation({ summary: '验证身份' })
+  @ApiOperation({ summary: '驗證身份' })
   @UseGuards(JwtAuthGuard)
   @ApiBearerAuth()
   async verifyIdentity(@Req() req: Request, @Body() body: any) {
@@ -80,7 +80,7 @@ export class AuthController {
   }
 
   @Post('verifyPhoneIdentity')
-  @ApiOperation({ summary: '验证手机号' })
+  @ApiOperation({ summary: '驗證手機號' })
   @UseGuards(JwtAuthGuard)
   @ApiBearerAuth()
   async verifyPhoneIdentity(@Req() req: Request, @Body() body: any) {

@@ -111,7 +111,7 @@ onBeforeUnmount(() => {
   loading.value = true;
 });
 
-/* 微信环境jsapi注册 */
+/* 微信環境jsapi註冊 */
 async function jsapiInitConfig() {
   const url = window.location.href.replace(/#.*$/, '');
   const res: ResData = await fetchGetJsapiTicketAPI({ url });
@@ -119,12 +119,12 @@ async function jsapiInitConfig() {
   if (!appId) return;
 
   wx.config({
-    debug: false, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
-    appId, // 必填，公众号的唯一标识
-    timestamp, // 必填，生成签名的时间戳
-    nonceStr, // 必填，生成签名的随机串
-    signature, // 必填，签名
-    jsApiList: ['chooseWXPay'], // 必填，需要使用的JS接口列表
+    debug: false, // 開啟調試模式,調用的所有api的返回值會在客戶端alert出來，若要查看傳入的參數，可以在pc端打開，參數資訊會通過log打出，僅在pc端時才會打印。
+    appId, // 必填，公眾號的唯一標識
+    timestamp, // 必填，生成簽名的時間戳
+    nonceStr, // 必填，生成簽名的隨機串
+    signature, // 必填，簽名
+    jsApiList: ['chooseWXPay'], // 必填，需要使用的JS介面列表
   });
   wx.ready(() => {});
   wx.error(() => {});
@@ -142,12 +142,12 @@ function onBridgeReady(data: {
   WeixinJSBridge.invoke(
     'getBrandWCPayRequest',
     {
-      appId, // 公众号ID，由商户传入
-      timeStamp, // 时间戳，自1970年以来的秒数
-      nonceStr, // 随机串
+      appId, // 公眾號ID，由商戶傳入
+      timeStamp, // 時間戳，自1970年以來的秒數
+      nonceStr, // 隨機串
       package: pkg,
-      signType, // 微信签名方式：
-      paySign, // 微信签名
+      signType, // 微信簽名方式：
+      paySign, // 微信簽名
     },
     (res: any) => {
       if (res.err_msg === 'get_brand_wcpay_request:ok') {
@@ -163,119 +163,46 @@ function onBridgeReady(data: {
   );
 }
 
-// async function handleBuyGoods(pkg: Pkg) {
-//   if (dialogLoading.value) return;
-
-//   // 如果是微信环境判断有没有开启微信支付,开启了则直接调用jsapi支付即可
-//   if (
-//     isWxEnv.value &&
-//     payPlatform.value === 'wechat' &&
-//     Number(authStore.globalConfig.payWechatStatus) === 1
-//   ) {
-//     if (typeof WeixinJSBridge == 'undefined') {
-//       if (document.addEventListener) {
-//         document.addEventListener('WeixinJSBridgeReady', onBridgeReady, false);
-//       } else if (document.attachEvent) {
-//         document.attachEvent('WeixinJSBridgeReady', onBridgeReady);
-//         document.attachEvent('onWeixinJSBridgeReady', onBridgeReady);
-//       }
-//     } else {
-//       const res: ResData = await fetchOrderBuyAPI({
-//         goodsId: pkg.id,
-//         payType: 'jsapi',
-//       });
-//       const { success, data } = res;
-//       success && onBridgeReady(data);
-//     }
-//     return;
-//   }
-
-//   /* 其他场景打开支付窗口 */
-//   useGlobalStore.updateOrderInfo({ pkgInfo: pkg });
-//   useGlobalStore.updateGoodsDialog(false);
-//   useGlobalStore.updatePayDialog(true);
-//   // dialogLoading.value = true
-//   // const { id: goodsId, name, des } = pkg
-//   // try {
-//   //   /* 如果在微信环境 则微信官方支付渠道为jsapi支付 */
-//   //   if (payPlatform.value === 'wechat')
-//   //     payType = isWxEnv.value ? 'jsapi' : 'native'
-
-//   //   const res: ResData = await fetchOrderBuyAPI({ goodsId, payType })
-//   //   dialogLoading.value = false
-//   //   const { success, data } = res
-//   //   if (success) {
-//   //     /* 如果是微信环境并且开启了微信登录则调用jsapi支付 */
-//   //     if (isWxEnv.value && payPlatform.value === 'wechat') {
-//   //       if (typeof WeixinJSBridge == 'undefined') {
-//   //         if (document.addEventListener) {
-//   //           document.addEventListener('WeixinJSBridgeReady', onBridgeReady, false)
-//   //         }
-//   //         else if (document.attachEvent) {
-//   //           document.attachEvent('WeixinJSBridgeReady', onBridgeReady)
-//   //           document.attachEvent('onWeixinJSBridgeReady', onBridgeReady)
-//   //         }
-//   //       }
-//   //       else {
-//   //         onBridgeReady(data)
-//   //       }
-//   //       return
-//   //     }
-
-//   //     useGlobalStore.updateOrderInfo({ ...data, pkgInfo: pkg })
-//   //     useGlobalStore.updateGoodsDialog(false)
-//   //     const { isRedirect, redirectUrl } = data
-//   //     if (isRedirect)
-//   //       window.open(redirectUrl)
-
-//   //     else
-//   //       useGlobalStore.updatePayDialog(true)
-//   //   }
-//   // }
-//   // catch (error) {
-//   //   dialogLoading.value = false
-//   // }
-// }
-
 async function handleBuyGoods(pkg: Pkg) {
   if (dialogLoading.value) return;
 
-  // 判断是否是微信移动端环境
-  function isWxMobileEnv() {
+  // 檢查是否是微信移動端環境
+  const isWxMobileEnv = () => {
     const ua = window.navigator.userAgent.toLowerCase();
-    // 微信环境
     const isWxEnv = ua.indexOf('micromessenger') !== -1;
-    // 非PC端
-    const isMobile =
-      ua.indexOf('windows') === -1 && ua.indexOf('macintosh') === -1;
+    const isMobile = ua.indexOf('windows') === -1 && ua.indexOf('macintosh') === -1;
     return isWxEnv && isMobile;
-  }
+  };
 
-  // 如果是微信环境判断有没有开启微信支付，开启了则直接调用jsapi支付即可
+  // 如果是微信環境並且開啟了微信支付，使用jsapi支付
   if (
-    isWxMobileEnv() && // 使用新函数来判断微信移动端环境
-    payPlatform.value === 'wechat' &&
+    isWxMobileEnv() &&
     Number(authStore.globalConfig.payWechatStatus) === 1
   ) {
-    if (typeof WeixinJSBridge == 'undefined') {
-      if (document.addEventListener) {
-        document.addEventListener('WeixinJSBridgeReady', onBridgeReady, false);
-      } else if (document.attachEvent) {
-        document.attachEvent('WeixinJSBridgeReady', onBridgeReady);
-        document.attachEvent('onWeixinJSBridgeReady', onBridgeReady);
+    try {
+      if (typeof WeixinJSBridge == 'undefined') {
+        if (document.addEventListener) {
+          document.addEventListener('WeixinJSBridgeReady', onBridgeReady, false);
+        } else if (document.attachEvent) {
+          document.attachEvent('WeixinJSBridgeReady', onBridgeReady);
+          document.attachEvent('onWeixinJSBridgeReady', onBridgeReady);
+        }
+      } else {
+        const res: ResData = await fetchOrderBuyAPI({
+          goodsId: pkg.id,
+          payType: 'jsapi',
+        });
+        const { success, data } = res;
+        success && onBridgeReady(data);
       }
-    } else {
-      const res: ResData = await fetchOrderBuyAPI({
-        goodsId: pkg.id,
-        payType: 'jsapi',
-      });
-      const { success, data } = res;
-      success && onBridgeReady(data);
+      return;
+    } catch (error) {
+      console.error('微信支付請求失敗:', error);
+      dialogLoading.value = false;
     }
-    return;
   }
 
-  /* 其他场景打开支付窗口 */
+  /* 其他場景或支付方式 */
   useGlobalStore.updateOrderInfo({ pkgInfo: pkg });
   useGlobalStore.updateGoodsDialog(false);
   useGlobalStore.updatePayDialog(true);
@@ -297,30 +224,17 @@ const handleSelect = (item) => {
   selectName.value = item.name;
 };
 
-// function handleSuccess(pkg: Pkg) {
-//   const { name } = pkg;
-//   dialog.success({
-//     title: t('goods.orderConfirmationTitle'),
-//     content: t('goods.orderConfirmationContent') + name,
-//     negativeText: t('goods.thinkAgain'),
-//     positiveText: t('goods.confirmPurchase'),
-//     onPositiveClick: () => {
-//       if (!payChannel.value.length)
-//         message.warning(t('goods.paymentNotEnabled'));
+async function handleSuccess(pkg: Pkg) {
+  // 檢查是否有任何支付渠道啟用
+  const { payWechatStatus, payEcpayStatus } = authStore.globalConfig;
+  const hasEnabledPayment = Number(payWechatStatus) === 1 || Number(payEcpayStatus) === 1;
 
-//       handleBuyGoods(pkg);
-//     },
-//   });
-// }
-
-function handleSuccess(pkg: Pkg) {
-  // 检查支付渠道是否启用
-  if (!payChannel.value.length) {
+  if (!hasEnabledPayment) {
     message.warning(t('goods.paymentNotEnabled'));
     return;
   }
 
-  // 直接处理购买逻辑
+  // 直接處理購買邏輯
   handleBuyGoods(pkg);
 }
 
@@ -376,8 +290,8 @@ function splitDescription(description: string) {
                 model3Name
               }}</span>
               <span class="font-bold">
-                <!-- 条件判断：当 model3Count > 99999 时显示 "无限额度"，否则显示实际值 -->
-                {{ item.model3Count > 99999 ? '无限额度' : item.model3Count }}
+                <!-- 條件判斷：當 model3Count > 99999 時顯示 "無限額度"，否則顯示實際值 -->
+                {{ item.model3Count > 99999 ? '無限額度' : item.model3Count }}
               </span>
             </div>
             <div
@@ -388,8 +302,8 @@ function splitDescription(description: string) {
                 model4Name
               }}</span>
               <span class="font-bold">
-                <!-- 条件判断：当 model4Count > 99999 时显示 "无限额度"，否则显示实际值 -->
-                {{ item.model4Count > 99999 ? '无限额度' : item.model4Count }}
+                <!-- 條件判斷：當 model4Count > 99999 時顯示 "無限額度"，否則顯示實際值 -->
+                {{ item.model4Count > 99999 ? '無限額度' : item.model4Count }}
               </span>
             </div>
             <div
@@ -400,13 +314,13 @@ function splitDescription(description: string) {
                 drawMjName
               }}</span>
               <span class="font-bold">
-                <!-- 条件判断：当 drawMjCount > 99999 时显示 "无限额度"，否则显示实际值 -->
-                {{ item.drawMjCount > 99999 ? '无限额度' : item.drawMjCount }}
+                <!-- 條件判斷：當 drawMjCount > 99999 時顯示 "無限額度"，否則顯示實際值 -->
+                {{ item.drawMjCount > 99999 ? '無限額度' : item.drawMjCount }}
               </span>
             </div>
             <div class="mt-6 flex items-baseline gap-x-1">
               <span class="text-4xl font-bold tracking-tight">{{
-                `￥${item.price}`
+                `NT$${item.price}`
               }}</span>
             </div>
             <div class="mt-6 flex flex-col gap-4">

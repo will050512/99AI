@@ -15,15 +15,15 @@ const baseEntity_1 = require("../../common/entity/baseEntity");
 let AccountLogEntity = class AccountLogEntity extends baseEntity_1.BaseEntity {
 };
 __decorate([
-    (0, typeorm_1.Column)({ comment: '用户ID' }),
+    (0, typeorm_1.Column)({ comment: '用戶ID' }),
     __metadata("design:type", Number)
 ], AccountLogEntity.prototype, "userId", void 0);
 __decorate([
-    (0, typeorm_1.Column)({ comment: '会员套餐名称', nullable: true }),
+    (0, typeorm_1.Column)({ comment: '會員套餐名稱', nullable: true }),
     __metadata("design:type", String)
 ], AccountLogEntity.prototype, "pkgName", void 0);
 __decorate([
-    (0, typeorm_1.Column)({ comment: '推荐人ID、返佣用户ID', nullable: true }),
+    (0, typeorm_1.Column)({ comment: '推薦人ID、返傭用戶ID', nullable: true }),
     __metadata("design:type", Number)
 ], AccountLogEntity.prototype, "rebateUserId", void 0);
 __decorate([
@@ -31,23 +31,23 @@ __decorate([
     __metadata("design:type", Number)
 ], AccountLogEntity.prototype, "packageId", void 0);
 __decorate([
-    (0, typeorm_1.Column)({ comment: '会员有效天数', nullable: true }),
+    (0, typeorm_1.Column)({ comment: '會員有效天數', nullable: true }),
     __metadata("design:type", Number)
 ], AccountLogEntity.prototype, "memberDays", void 0);
 __decorate([
-    (0, typeorm_1.Column)({ comment: '账户充值类型' }),
+    (0, typeorm_1.Column)({ comment: '賬戶充值類型' }),
     __metadata("design:type", Number)
 ], AccountLogEntity.prototype, "rechargeType", void 0);
 __decorate([
-    (0, typeorm_1.Column)({ comment: '模型3对话次数' }),
+    (0, typeorm_1.Column)({ comment: '模型3對話次數' }),
     __metadata("design:type", Number)
 ], AccountLogEntity.prototype, "model3Count", void 0);
 __decorate([
-    (0, typeorm_1.Column)({ comment: '模型4对话次数' }),
+    (0, typeorm_1.Column)({ comment: '模型4對話次數' }),
     __metadata("design:type", Number)
 ], AccountLogEntity.prototype, "model4Count", void 0);
 __decorate([
-    (0, typeorm_1.Column)({ comment: 'MJ绘画次数' }),
+    (0, typeorm_1.Column)({ comment: 'MJ繪畫次數' }),
     __metadata("design:type", Number)
 ], AccountLogEntity.prototype, "drawMjCount", void 0);
 __decorate([
@@ -55,11 +55,11 @@ __decorate([
     __metadata("design:type", Number)
 ], AccountLogEntity.prototype, "days", void 0);
 __decorate([
-    (0, typeorm_1.Column)({ comment: '随机订单uid' }),
+    (0, typeorm_1.Column)({ comment: '隨機訂單uid' }),
     __metadata("design:type", String)
 ], AccountLogEntity.prototype, "uid", void 0);
 __decorate([
-    (0, typeorm_1.Column)({ comment: '扩展字段', nullable: true }),
+    (0, typeorm_1.Column)({ comment: '擴展字段', nullable: true }),
     __metadata("design:type", String)
 ], AccountLogEntity.prototype, "extent", void 0);
 AccountLogEntity = __decorate([

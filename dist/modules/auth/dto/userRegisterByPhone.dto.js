@@ -15,28 +15,28 @@ const class_validator_1 = require("class-validator");
 class UserRegisterByPhoneDto {
 }
 __decorate([
-    (0, swagger_1.ApiProperty)({ example: 'cooper', description: '用户名称' }),
-    (0, class_validator_1.IsNotEmpty)({ message: '用户名不能为空！' }),
-    (0, class_validator_1.MinLength)(2, { message: '用户名最低需要大于2位数！' }),
-    (0, class_validator_1.MaxLength)(12, { message: '用户名不得超过12位！' }),
+    (0, swagger_1.ApiProperty)({ example: 'cooper', description: '用戶名稱' }),
+    (0, class_validator_1.IsNotEmpty)({ message: '用戶名不能為空！' }),
+    (0, class_validator_1.MinLength)(2, { message: '用戶名最低需要大於2位數！' }),
+    (0, class_validator_1.MaxLength)(12, { message: '用戶名不得超過12位！' }),
     __metadata("design:type", String)
 ], UserRegisterByPhoneDto.prototype, "username", void 0);
 __decorate([
-    (0, swagger_1.ApiProperty)({ example: '123456', description: '用户密码' }),
-    (0, class_validator_1.IsNotEmpty)({ message: '用户密码不能为空' }),
-    (0, class_validator_1.MinLength)(6, { message: '用户密码最低需要大于6位数！' }),
-    (0, class_validator_1.MaxLength)(30, { message: '用户密码最长不能超过30位数！' }),
+    (0, swagger_1.ApiProperty)({ example: '123456', description: '用戶密碼' }),
+    (0, class_validator_1.IsNotEmpty)({ message: '用戶密碼不能為空' }),
+    (0, class_validator_1.MinLength)(6, { message: '用戶密碼最低需要大於6位數！' }),
+    (0, class_validator_1.MaxLength)(30, { message: '用戶密碼最長不能超過30位數！' }),
     __metadata("design:type", String)
 ], UserRegisterByPhoneDto.prototype, "password", void 0);
 __decorate([
-    (0, swagger_1.ApiProperty)({ example: '19999999999', description: '用户手机号码' }),
-    (0, class_validator_1.IsPhoneNumber)('CN', { message: '手机号码格式不正确！' }),
-    (0, class_validator_1.IsNotEmpty)({ message: '手机号码不能为空！' }),
+    (0, swagger_1.ApiProperty)({ example: '19999999999', description: '用戶手機號碼' }),
+    (0, class_validator_1.IsPhoneNumber)('CN', { message: '手機號碼格式不正確！' }),
+    (0, class_validator_1.IsNotEmpty)({ message: '手機號碼不能為空！' }),
     __metadata("design:type", String)
 ], UserRegisterByPhoneDto.prototype, "phone", void 0);
 __decorate([
-    (0, swagger_1.ApiProperty)({ example: '152546', description: '手机验证码' }),
-    (0, class_validator_1.IsNotEmpty)({ message: '手机验证码不能为空！' }),
+    (0, swagger_1.ApiProperty)({ example: '152546', description: '手機驗證碼' }),
+    (0, class_validator_1.IsNotEmpty)({ message: '手機驗證碼不能為空！' }),
     __metadata("design:type", String)
 ], UserRegisterByPhoneDto.prototype, "phoneCode", void 0);
 exports.UserRegisterByPhoneDto = UserRegisterByPhoneDto;

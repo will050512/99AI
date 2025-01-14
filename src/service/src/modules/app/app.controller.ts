@@ -29,7 +29,7 @@ export class AppController {
   constructor(private readonly appService: AppService) {}
 
   @Get('queryAppCats')
-  @ApiOperation({ summary: '获取App分类列表' })
+  @ApiOperation({ summary: '獲取App分類列表' })
   @UseGuards(AdminAuthGuard)
   @ApiBearerAuth()
   appCatsList(@Query() query: QuerCatsDto) {
@@ -37,20 +37,20 @@ export class AppController {
   }
 
   @Get('queryCats')
-  @ApiOperation({ summary: '用户端获取App分类列表' })
+  @ApiOperation({ summary: '用戶端獲取App分類列表' })
   catsList() {
     const params: QuerCatsDto = { status: 1, page: 1, size: 1000, name: '' };
     return this.appService.appCatsList(params);
   }
 
   @Get('queryOneCat')
-  @ApiOperation({ summary: '用户端获取App分类列表' })
+  @ApiOperation({ summary: '用戶端獲取App分類列表' })
   queryOneCats(@Query() query) {
     return this.appService.queryOneCat(query);
   }
 
   @Post('createAppCats')
-  @ApiOperation({ summary: '添加App分类' })
+  @ApiOperation({ summary: '添加App分類' })
   @UseGuards(SuperAuthGuard)
   @ApiBearerAuth()
   createAppCat(@Body() body: CreateCatsDto) {
@@ -58,7 +58,7 @@ export class AppController {
   }
 
   @Post('updateAppCats')
-  @ApiOperation({ summary: '修改App分类' })
+  @ApiOperation({ summary: '修改App分類' })
   @UseGuards(SuperAuthGuard)
   @ApiBearerAuth()
   updateAppCats(@Body() body: UpdateCatsDto) {
@@ -66,7 +66,7 @@ export class AppController {
   }
 
   @Post('delAppCats')
-  @ApiOperation({ summary: '删除App分类' })
+  @ApiOperation({ summary: '刪除App分類' })
   @UseGuards(SuperAuthGuard)
   @ApiBearerAuth()
   delAppCat(@Body() body: DeleteCatsDto) {
@@ -74,7 +74,7 @@ export class AppController {
   }
 
   @Get('queryApp')
-  @ApiOperation({ summary: '获取App列表' })
+  @ApiOperation({ summary: '獲取App列表' })
   @UseGuards(AdminAuthGuard)
   @ApiBearerAuth()
   appList(@Req() req: Request, @Query() query: QuerAppDto) {
@@ -82,13 +82,13 @@ export class AppController {
   }
 
   @Get('list')
-  @ApiOperation({ summary: '客户端获取App' })
+  @ApiOperation({ summary: '客戶端獲取App' })
   list(@Req() req: Request, @Query() query: QuerAppDto) {
     return this.appService.frontAppList(req, query);
   }
 
   @Post('searchList')
-  @ApiOperation({ summary: '客户端获取App' })
+  @ApiOperation({ summary: '客戶端獲取App' })
   async searchList(@Body() body: any) {
     return this.appService.searchAppList(body);
   }
@@ -110,7 +110,7 @@ export class AppController {
   }
 
   @Post('delApp')
-  @ApiOperation({ summary: '删除App' })
+  @ApiOperation({ summary: '刪除App' })
   @UseGuards(SuperAuthGuard)
   @ApiBearerAuth()
   delApp(@Body() body: OperateAppDto) {

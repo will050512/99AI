@@ -8,24 +8,24 @@ const customKeyId = ref(100);
 const dataSources = computed(() => chatStore.groupList);
 const groupKeyWord = computed(() => chatStore.groupKeyWord);
 
-// 默认插件列表
+// 默認外掛列表
 const defaultPlugins: any[] = [
   // {
   //   pluginId: '1',
-  //   pluginName: '思维导图',
-  //   description: '支持思维导图的创建、编辑、分享、查看等功能',
+  //   pluginName: '思維導圖',
+  //   description: '支持思維導圖的創建、編輯、分享、查看等功能',
   //   pluginImg: mindmap,
   //   parameters: 'usingMindMap',
   // },
   // {
   //   pluginName: 'Midjourney',
-  //   description: '使用 Midjourney 绘图, 为你的创意添加更多可能性',
+  //   description: '使用 Midjourney 繪圖, 為你的創意添加更多可能性',
   //   pluginImg: midjourney,
   //   parameters: 'midjourney',
   // },
 ];
 
-// 计算属性插件列表
+// 計算屬性外掛列表
 const pluginList = computed(() =>
   chatStore.pluginList?.length ? chatStore.pluginList : defaultPlugins
 );
@@ -68,7 +68,7 @@ onMounted(() => {
     >
       <div class="flex items-center justify-between w-full my-1">
         <div class="flex items-center space-x-2">
-          <!-- 头像部分 -->
+          <!-- 頭像部分 -->
           <div
             class="w-8 h-8 rounded-full bg-gray-200 dark:bg-gray-500 flex items-center justify-center overflow-hidden shadow-sm border border-gray-300"
           >
@@ -84,7 +84,7 @@ onMounted(() => {
             </span>
           </div>
 
-          <!-- 名称部分 -->
+          <!-- 名稱部分 -->
           <span
             class="line-clamp-1 overflow-hidden text-ellipsis w-32 block whitespace-nowrap font-medium text-base text-gray-700 dark:text-gray-100"
           >
@@ -92,7 +92,7 @@ onMounted(() => {
           </span>
         </div>
 
-        <!-- 开关控件部分，已应用 Tailwind 类以正确布局 -->
+        <!-- 開關控件部分，已應用 Tailwind 類以正確佈局 -->
         <Switch
           :class="[
             'group relative inline-flex h-5 w-10 flex-shrink-0 cursor-pointer items-center justify-center rounded-full focus:outline-none',

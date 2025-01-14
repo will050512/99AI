@@ -15,31 +15,31 @@ const baseEntity_1 = require("../../common/entity/baseEntity");
 let UserAppsEntity = class UserAppsEntity extends baseEntity_1.BaseEntity {
 };
 __decorate([
-    (0, typeorm_1.Column)({ comment: '用户ID' }),
+    (0, typeorm_1.Column)({ comment: '用戶ID' }),
     __metadata("design:type", Number)
 ], UserAppsEntity.prototype, "userId", void 0);
 __decorate([
-    (0, typeorm_1.Column)({ comment: '应用ID' }),
+    (0, typeorm_1.Column)({ comment: '應用ID' }),
     __metadata("design:type", Number)
 ], UserAppsEntity.prototype, "appId", void 0);
 __decorate([
-    (0, typeorm_1.Column)({ comment: '应用分类ID' }),
+    (0, typeorm_1.Column)({ comment: '應用分類ID' }),
     __metadata("design:type", Number)
 ], UserAppsEntity.prototype, "catId", void 0);
 __decorate([
-    (0, typeorm_1.Column)({ comment: 'app类型 system/user', default: 'user' }),
+    (0, typeorm_1.Column)({ comment: 'app類型 system/user', default: 'user' }),
     __metadata("design:type", String)
 ], UserAppsEntity.prototype, "appType", void 0);
 __decorate([
-    (0, typeorm_1.Column)({ comment: '是否公开到公告菜单', default: false }),
+    (0, typeorm_1.Column)({ comment: '是否公開到公告菜單', default: false }),
     __metadata("design:type", Boolean)
 ], UserAppsEntity.prototype, "public", void 0);
 __decorate([
-    (0, typeorm_1.Column)({ comment: 'app状态 1正常 2审核 3违规', default: 1 }),
+    (0, typeorm_1.Column)({ comment: 'app狀態 1正常 2審核 3違規', default: 1 }),
     __metadata("design:type", Number)
 ], UserAppsEntity.prototype, "status", void 0);
 __decorate([
-    (0, typeorm_1.Column)({ comment: 'App应用排序、数字越大越靠前', default: 100 }),
+    (0, typeorm_1.Column)({ comment: 'App應用排序、數字越大越靠前', default: 100 }),
     __metadata("design:type", Number)
 ], UserAppsEntity.prototype, "order", void 0);
 UserAppsEntity = __decorate([

@@ -30,21 +30,21 @@ const identityForm = ref({
 
 const rules = {
   phone: [
-    { required: true, message: '请输入手机号' },
+    { required: true, message: '請輸入手機號' },
     {
       pattern: /^1[3456789]\d{9}$/,
-      message: '手机号格式错误',
+      message: '手機號格式錯誤',
     },
   ],
-  code: [{ required: true, message: '请输入验证码' }],
-  username: [{ required: true, message: '请输入用户名' }],
-  password: [{ required: true, message: '请输入密码' }],
+  code: [{ required: true, message: '請輸入驗證碼' }],
+  username: [{ required: true, message: '請輸入用戶名' }],
+  password: [{ required: true, message: '請輸入密碼' }],
   confirmPassword: [
-    { required: true, message: '请再次输入密码' },
+    { required: true, message: '請再次輸入密碼' },
     {
       validator(rule: any, value: string) {
         if (value !== identityForm.value.password) {
-          return new Error('两次输入的密码不一致');
+          return new Error('兩次輸入的密碼不一致');
         }
         return true;
       },
@@ -53,12 +53,12 @@ const rules = {
   ],
 };
 
-// 使用 ref 来管理全局参数的状态
-const agreedToUserAgreement = ref(true); // 读取初始状态并转换为布尔类型
+// 使用 ref 來管理全局參數的狀態
+const agreedToUserAgreement = ref(true); // 讀取初始狀態並轉換為布爾類型
 
-// 点击“用户协议及隐私政策”时，自动同意
+// 點擊“用戶協議及隱私政策”時，自動同意
 function handleClick() {
-  agreedToUserAgreement.value = true; // 设置为同意
+  agreedToUserAgreement.value = true; // 設置為同意
   useGlobalStore.updateUserAgreementDialog(true);
 }
 
@@ -68,13 +68,13 @@ function handlerSubmit() {
     globalConfig.value.isAutoOpenAgreement === '1'
   ) {
     return Nmessage.error(
-      `请阅读并同意《${globalConfig.value.agreementTitle}》`
+      `請閱讀並同意《${globalConfig.value.agreementTitle}》`
     );
   }
   isShow.value = false;
   fetchVerifyPhoneIdentityAPI(identityForm.value).then((res: any) => {
     if (res.code === 200) {
-      Nmessage.success('认证成功');
+      Nmessage.success('認證成功');
       useGlobalStore.updatePhoneDialog(false);
     } else {
       Nmessage.error(res.error);
@@ -82,7 +82,7 @@ function handlerSubmit() {
   });
 }
 
-/* 发送验证码 */
+/* 發送驗證碼 */
 async function handleSendCaptcha() {
   isShow.value = false;
   formRef.value?.validate(async (errors: any) => {
@@ -99,7 +99,7 @@ async function handleSendCaptcha() {
         if (success) {
           Nmessage.success(res.data);
           // isSendCaptcha.value = true;
-          // 记录重新发送倒计时
+          // 記錄重新發送倒計時
           lastSendPhoneCodeTime.value = 60;
           changeLastSendPhoneCodeTime();
         } else {
@@ -111,7 +111,7 @@ async function handleSendCaptcha() {
   });
 }
 
-//  定时器改变倒计时时间方法
+//  定時器改變倒計時時間方法
 function changeLastSendPhoneCodeTime() {
   if (lastSendPhoneCodeTime.value > 0) {
     setTimeout(() => {
@@ -158,7 +158,7 @@ interface Props {
               <h2
                 class="mb-8 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900 dark:text-gray-300"
               >
-                手机号绑定
+                手機號綁定
               </h2>
             </div>
 
@@ -167,7 +167,7 @@ interface Props {
                 id="userPhone"
                 type="text"
                 v-model="identityForm.phone"
-                placeholder="请输入手机号"
+                placeholder="請輸入手機號"
                 class="flex-1 block w-full rounded-md border-0 py-2 px-3 text-gray-900 shadow-sm dark:text-gray-300 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-gray-300 sm:text-sm sm:leading-6 dark:bg-gray-800 dark:focus:ring-gray-400"
               />
             </div>
@@ -177,7 +177,7 @@ interface Props {
                 id="username"
                 type="text"
                 v-model="identityForm.code"
-                placeholder="请输入验证码"
+                placeholder="請輸入驗證碼"
                 class="block w-full rounded-md border-0 py-2 px-2 text-gray-900 shadow-sm dark:text-gray-300 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-gray-300 sm:text-sm sm:leading-6 dark:bg-gray-800 dark:focus:ring-gray-400 pl-3 pr-12"
               />
               <button
@@ -187,7 +187,7 @@ interface Props {
                 :loading="loading"
                 @click="isShow = true"
               >
-                发送验证码
+                發送驗證碼
               </button>
             </div>
 
@@ -197,7 +197,7 @@ interface Props {
                   id="username"
                   type="text"
                   v-model="identityForm.username"
-                  placeholder="请输入用户名"
+                  placeholder="請輸入用戶名"
                   class="block w-full rounded-md border-0 py-2 px-3 text-gray-900 shadow-sm dark:text-gray-300 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-gray-300 sm:text-sm sm:leading-6 dark:bg-gray-800 dark:focus:ring-gray-400"
                 />
               </div>
@@ -209,7 +209,7 @@ interface Props {
                   id="password"
                   type="password"
                   v-model="identityForm.password"
-                  placeholder="请输入密码"
+                  placeholder="請輸入密碼"
                   class="block w-full rounded-md border-0 py-2 px-3 text-gray-900 shadow-sm dark:text-gray-300 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-gray-300 sm:text-sm sm:leading-6 dark:bg-gray-800 dark:focus:ring-gray-400"
                 />
               </div>
@@ -221,7 +221,7 @@ interface Props {
                   id="confirmPassword"
                   type="password"
                   v-model="identityForm.confirmPassword"
-                  placeholder="请再次输入密码"
+                  placeholder="請再次輸入密碼"
                   class="block w-full rounded-md border-0 py-2 px-3 text-gray-900 shadow-sm dark:text-gray-300 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-gray-300 sm:text-sm sm:leading-6 dark:bg-gray-800 dark:focus:ring-gray-400"
                 />
               </div>
@@ -240,7 +240,7 @@ interface Props {
                 <p
                   class="ml-1 text-center text-sm text-gray-500 dark:text-gray-400"
                 >
-                  已阅读并同意
+                  已閱讀並同意
                   <a
                     href="#"
                     class="font-semibold leading-6 text-primary-600 hover:text-primary-500 dark:text-primary-500 dark:hover:text-primary-600"
@@ -257,7 +257,7 @@ interface Props {
                   id="phone"
                   type="text"
                   v-model="identityForm.phone"
-                  placeholder="请输入手机号"
+                  placeholder="請輸入手機號"
                   class="block w-full rounded-md border-0 py-2 px-3 text-gray-900 shadow-sm dark:text-gray-300 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-gray-300 sm:text-sm sm:leading-6 dark:bg-gray-800 dark:focus:ring-gray-400"
                 />
               </div>
@@ -269,7 +269,7 @@ interface Props {
                 type="submit"
                 class="flex w-full my-5 justify-center rounded-md bg-primary-500 px-3 py-2 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-primary-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
               >
-                提交认证
+                遞交認證
               </button>
             </div>
             <Vcode

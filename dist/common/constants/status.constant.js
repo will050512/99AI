@@ -8,6 +8,6 @@ var VerificationUseStatusEnum;
 })(VerificationUseStatusEnum = exports.VerificationUseStatusEnum || (exports.VerificationUseStatusEnum = {}));
 exports.ModelsMapCn = {
     1: '普通模型',
-    2: '绘画模型',
+    2: '繪畫模型',
     3: '特殊模型'
 };

@@ -176,7 +176,7 @@ let StatisticService = class StatisticService {
     }
     async getNewAccessToken(baiduApiKey, baiduSecretKey, baiduRefreshToken) {
         const tokenUrl = `http://openapi.baidu.com/oauth/2.0/token?grant_type=refresh_token&refresh_token=${baiduRefreshToken}&client_id=${baiduApiKey}&client_secret=${baiduSecretKey}`;
-        common_1.Logger.log('获取新 accessToken', tokenUrl);
+        common_1.Logger.log('獲取新 accessToken', tokenUrl);
         try {
             const tokenRes = await axios_1.default.get(tokenUrl);
             if (tokenRes.status === 200 && tokenRes.data.access_token) {
@@ -190,14 +190,14 @@ let StatisticService = class StatisticService {
             }
         }
         catch (tokenError) {
-            common_1.Logger.error('获取新 accessToken 失败', {
+            common_1.Logger.error('獲取新 accessToken 失敗', {
                 message: tokenError.message,
                 stack: tokenError.stack,
                 response: tokenError.response
                     ? tokenError.response.data
                     : 'No response data',
             });
-            throw new common_1.HttpException('获取新 accessToken 失败', common_1.HttpStatus.BAD_REQUEST);
+            throw new common_1.HttpException('獲取新 accessToken 失敗', common_1.HttpStatus.BAD_REQUEST);
         }
     }
     async updateAccessTokenInDatabase(accessToken, refreshToken, configEntity) {
@@ -245,7 +245,7 @@ let StatisticService = class StatisticService {
         }
         const { error_code, message } = res.data;
         if (error_code && error_code !== 200) {
-            throw new common_1.HttpException(message || '获取百度统计数据失败', common_1.HttpStatus.BAD_REQUEST);
+            throw new common_1.HttpException(message || '獲取百度統計數據失敗', common_1.HttpStatus.BAD_REQUEST);
         }
         return res.data.result;
     }

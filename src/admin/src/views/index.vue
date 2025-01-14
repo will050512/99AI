@@ -1,7 +1,7 @@
 <route lang="yaml">
 name: home
 meta:
-  title: 主页
+  title: 主頁
 </route>
 
 <script lang="ts" setup>
@@ -43,7 +43,7 @@ const baiduDays = ref(30);
 
 const chatChartsOption = {
   title: {
-    text: '对话统计',
+    text: '對話統計',
     left: '2%',
     padding: [10, 0],
   },
@@ -60,13 +60,13 @@ const chatChartsOption = {
     top: '30px',
     data: [
       {
-        name: '对话数量',
+        name: '對話數量',
         icon: 'rect',
         itemWidth: 10,
         itemHeight: 5,
       },
       {
-        name: '绘画数量',
+        name: '繪畫數量',
         icon: 'rect',
       },
     ],
@@ -118,7 +118,7 @@ const chatChartsOption = {
   ],
   series: [
     {
-      name: '对话数量',
+      name: '對話數量',
       type: 'bar',
       smooth: true,
       itemStyle: {},
@@ -131,7 +131,7 @@ const chatChartsOption = {
       data: [],
     },
     {
-      name: '绘画数量',
+      name: '繪畫數量',
       type: 'bar',
       smooth: true,
       itemStyle: {},
@@ -148,7 +148,7 @@ const chatChartsOption = {
 
 const baiduVisitChartsOption = {
   title: {
-    text: '访问量统计',
+    text: '訪問量統計',
     left: '2%',
     padding: [10, 0],
   },
@@ -182,7 +182,7 @@ const baiduVisitChartsOption = {
     splitLine: {
       show: true,
       lineStyle: {
-        // 分隔线样式
+        // 分隔線樣式
         color: ['#ffffff1a'],
         width: 1,
         type: 'solid',
@@ -302,9 +302,9 @@ onMounted(async () => {
   // 添加通知
   // const h = document.createElement.bind(document);
   // ElNotification({
-  //   title: '配置迁移提醒',
+  //   title: '配置遷移提醒',
   //   message:
-  //     '除对话页外的其他页面将不再维护。专业绘画、思维导图等页面的配置已移至其他设置中。',
+  //     '除對話頁外的其他頁面將不再維護。專業繪畫、思維導圖等頁面的配置已移至其他設置中。',
   //   type: 'info',
   //   duration: 15000,
   // });
@@ -333,12 +333,12 @@ onBeforeMount(() => {
         <el-card>
           <template #header>
             <div class="justify-between flex">
-              <span class="ml-1 font-bold">今日新增用户数量</span>
+              <span class="ml-1 font-bold">今日新增用戶數量</span>
               <b>{{ baseInfo?.newUserCount }}</b>
             </div>
           </template>
           <div class="flex justify-between">
-            <span>总计用户数量：</span>
+            <span>總計用戶數量：</span>
             <span>{{ baseInfo.userCount }}</span>
           </div>
         </el-card>
@@ -347,12 +347,12 @@ onBeforeMount(() => {
         <el-card>
           <template #header>
             <div class="flex justify-between">
-              <span class="font-bold">今日对话</span>
+              <span class="font-bold">今日對話</span>
               <b>{{ baseInfo.newChatCount }}</b>
             </div>
           </template>
           <div class="flex justify-between">
-            <span>总计对话</span>
+            <span>總計對話</span>
             <span>{{ baseInfo.chatCount }}</span>
           </div>
         </el-card>
@@ -361,12 +361,12 @@ onBeforeMount(() => {
         <el-card>
           <template #header>
             <div class="flex justify-between">
-              <span class="ml-1 font-bold">今日绘画数量</span>
+              <span class="ml-1 font-bold">今日繪畫數量</span>
               <b>{{ baseInfo.newDrawCount }}</b>
             </div>
           </template>
           <div class="flex justify-between">
-            <span>总计绘画数量：</span>
+            <span>總計繪畫數量：</span>
             <span>{{ baseInfo.drawCount }}</span>
           </div>
         </el-card>
@@ -375,12 +375,12 @@ onBeforeMount(() => {
         <el-card>
           <template #header>
             <div class="justify-between flex">
-              <span class="ml-1 font-bold">今日订单数量</span>
+              <span class="ml-1 font-bold">今日訂單數量</span>
               <b>{{ baseInfo.newOrderCount }}</b>
             </div>
           </template>
           <div class="flex justify-between">
-            <span>总计订单数量：</span>
+            <span>總計訂單數量：</span>
             <span>{{ baseInfo.orderCount }}</span>
           </div>
         </el-card>
@@ -392,7 +392,7 @@ onBeforeMount(() => {
         <div class="align-center flex justify-between">
           <div>
             <el-icon><Histogram /></el-icon>
-            <span class="ml-1 font-bold">对话信息统计</span>
+            <span class="ml-1 font-bold">對話資訊統計</span>
           </div>
           <div>
             <el-radio-group v-model="chatDays" @change="getChatStatisticInfo">
@@ -415,7 +415,7 @@ onBeforeMount(() => {
         <div class="align-center flex justify-between">
           <div>
             <el-icon><Histogram /></el-icon>
-            <span class="ml-1 font-bold">网站访客统计</span>
+            <span class="ml-1 font-bold">網站訪客統計</span>
           </div>
           <div>
             <el-radio-group v-model="baiduDays" @change="getBaiduVisitInfo">

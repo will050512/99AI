@@ -28,7 +28,7 @@ RedisCacheModule = __decorate([
                     const username = process.env.REDIS_USER;
                     const database = parseInt(process.env.REDIS_DB, 10) || 0;
                     if (!host || !port) {
-                        common_1.Logger.error(`Please configure Redis config | 未配置 Redis 配置信息，请确认配置 Redis 服务以获得更好的体验`, 'RedisCacheModule');
+                        common_1.Logger.error(`Please configure Redis config | 未配置 Redis 配置資訊，請確認配置 Redis 服務以獲得更好的體驗`, 'RedisCacheModule');
                         return;
                     }
                     const client = (0, redis_1.createClient)({

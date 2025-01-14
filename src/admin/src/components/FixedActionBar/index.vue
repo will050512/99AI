@@ -15,13 +15,13 @@ onUnmounted(() => {
 })
 
 function onScroll() {
-  // 变量scrollTop是滚动条滚动时，滚动条上端距离顶部的距离
+  // 變量scrollTop是滾動條滾動時，滾動條上端距離頂部的距離
   const scrollTop = document.documentElement.scrollTop || document.body.scrollTop
-  // 变量windowHeight是可视区的高度
+  // 變量windowHeight是可視區的高度
   const windowHeight = document.documentElement.clientHeight || document.body.clientHeight
-  // 变量scrollHeight是滚动条的总高度（当前可滚动的页面的总高度）
+  // 變量scrollHeight是滾動條的總高度（當前可滾動的頁面的總高度）
   const scrollHeight = document.documentElement.scrollHeight || document.body.scrollHeight
-  // 滚动条到底部
+  // 滾動條到底部
   isBottom.value = Math.ceil(scrollTop + windowHeight) >= scrollHeight
 }
 </script>

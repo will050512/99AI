@@ -15,12 +15,12 @@ const swagger_1 = require("@nestjs/swagger");
 class QuerAllCramiDto {
 }
 __decorate([
-    (0, swagger_1.ApiProperty)({ example: 1, description: '查询页数', required: false }),
+    (0, swagger_1.ApiProperty)({ example: 1, description: '查詢頁數', required: false }),
     (0, class_validator_1.IsOptional)(),
     __metadata("design:type", Number)
 ], QuerAllCramiDto.prototype, "page", void 0);
 __decorate([
-    (0, swagger_1.ApiProperty)({ example: 10, description: '每页数量', required: false }),
+    (0, swagger_1.ApiProperty)({ example: 10, description: '每頁數量', required: false }),
     (0, class_validator_1.IsOptional)(),
     __metadata("design:type", Number)
 ], QuerAllCramiDto.prototype, "size", void 0);
@@ -30,7 +30,7 @@ __decorate([
     __metadata("design:type", Number)
 ], QuerAllCramiDto.prototype, "useId", void 0);
 __decorate([
-    (0, swagger_1.ApiProperty)({ example: 1, description: '卡密状态 0：未使用 1：已消费', required: false }),
+    (0, swagger_1.ApiProperty)({ example: 1, description: '序號狀態 0：未使用 1：已消費', required: false }),
     (0, class_validator_1.IsOptional)(),
     __metadata("design:type", Number)
 ], QuerAllCramiDto.prototype, "status", void 0);

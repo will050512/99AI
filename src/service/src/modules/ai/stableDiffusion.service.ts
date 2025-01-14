@@ -2,7 +2,7 @@ import { Injectable, Logger } from '@nestjs/common';
 import axios from 'axios';
 import { GlobalConfigService } from '../globalConfig/globalConfig.service';
 import { UploadService } from '../upload/upload.service';
-// 引入其他需要的模块或服务
+// 引入其他需要的模塊或服務
 
 @Injectable()
 export class StableDiffusionService {
@@ -33,7 +33,7 @@ export class StableDiffusionService {
       status: 2,
     };
 
-    console.log('开始处理', { model, modelName, prompt }); // 打印输入信息
+    console.log('開始處理', { model, modelName, prompt }); // 打印輸入資訊
 
     const options = {
       method: 'POST',
@@ -51,26 +51,26 @@ export class StableDiffusionService {
 
     try {
       const response = await axios(options);
-      console.log('API响应接收', response.data); // 打印API响应
+      console.log('API響應接收', response.data); // 打印API響應
 
       if (response.data.choices && response.data.choices.length > 0) {
         const choice = response.data.choices[0];
         const content = choice.message.content;
-        console.log('处理内容', content); // 打印选项内容
+        console.log('處理內容', content); // 打印選項內容
 
-        // 使用正则表达式匹配图片链接
+        // 使用正則表達式匹配圖片鏈接
         const regex = /\]\((https?:\/\/[^\)]+)\)/;
         const match = content.match(regex);
         if (match && match[1]) {
-          result.fileInfo = match[1]; // 提取链接并存储在fileInfo中
+          result.fileInfo = match[1]; // 提取鏈接並儲存在fileInfo中
           try {
             const localStorageStatus =
               await this.globalConfigService.getConfigs(['localStorageStatus']);
             if (Number(localStorageStatus)) {
-              // 使用 Date 对象获取当前日期并格式化为 YYYYMM/DD
+              // 使用 Date 對象獲取當前日期並格式化為 YYYYMM/DD
               const now = new Date();
               const year = now.getFullYear();
-              const month = String(now.getMonth() + 1).padStart(2, '0'); // 月份从0开始，所以+1
+              const month = String(now.getMonth() + 1).padStart(2, '0'); // 月份從0開始，所以+1
               const day = String(now.getDate()).padStart(2, '0');
               const currentDate = `${year}${month}/${day}`;
               result.fileInfo = await this.uploadService.uploadFileFromUrl({
@@ -80,15 +80,15 @@ export class StableDiffusionService {
             }
           } catch (error) {
             Logger.error(
-              `上传文件失败: ${error.message}`,
+              `上傳文件失敗: ${error.message}`,
               'StableDiffusionService'
             );
           }
-          console.log('找到链接', match[1]); // 打印提取的链接
+          console.log('找到鏈接', match[1]); // 打印提取的鏈接
         } else {
-          console.log('没有找到链接');
+          console.log('沒有找到鏈接');
         }
-        result.answer = `${prompt} 绘制成功`;
+        result.answer = `${prompt} 繪製成功`;
         if (result.fileInfo) {
           onSuccess(result);
           return;
@@ -99,7 +99,7 @@ export class StableDiffusionService {
         onFailure('No choices returned.');
       }
     } catch (error) {
-      Logger.error('服务器错误，请求失败：', error);
+      Logger.error('服務器錯誤，請求失敗：', error);
     }
   }
 }

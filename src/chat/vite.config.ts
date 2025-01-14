@@ -24,7 +24,7 @@ function setupPlugins(env: ImportMetaEnv): PluginOption[] {
   //   }) as PluginOption
   // );
 
-  // 使用 Brotli 压缩
+  // 使用 Brotli 壓縮
   // plugins.push(compression({ algorithm: 'brotliCompress' }) as PluginOption);
 
   return plugins;

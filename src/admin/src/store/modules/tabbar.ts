@@ -11,7 +11,7 @@ const useTabbarStore = defineStore(
     const list = ref<Tabbar.recordRaw[]>([])
     const leaveIndex = ref(-1)
 
-    // 添加标签页
+    // 添加標籤頁
     async function add(route: RouteLocationNormalized) {
       const names: string[] = []
       route.matched.forEach((v, i) => {
@@ -22,7 +22,7 @@ const useTabbarStore = defineStore(
       const meta = route.matched.at(-1)?.meta
       const tabId = route.fullPath
       if (route.name !== 'reload') {
-        // 记录查找到的标签页
+        // 記錄查找到的標籤頁
         const findTab = list.value.find((item) => {
           if (item.routeName) {
             return item.routeName === route.name
@@ -31,7 +31,7 @@ const useTabbarStore = defineStore(
             return item.tabId === tabId
           }
         })
-        // 新增标签页
+        // 新增標籤頁
         if (!findTab) {
           const listItem = {
             tabId,
@@ -51,7 +51,7 @@ const useTabbarStore = defineStore(
         }
       }
     }
-    // 删除指定标签页
+    // 刪除指定標籤頁
     function remove(tabId: Tabbar.recordRaw['tabId']) {
       const keepName: string[] = []
       const removeName: string[] = []
@@ -69,13 +69,13 @@ const useTabbarStore = defineStore(
           name.push(v)
         }
       })
-      // 如果是手动点击关闭 tab 标签页，则删除页面缓存
+      // 如果是手動點擊關閉 tab 標籤頁，則刪除頁面緩存
       keepAliveStore.remove(name)
       list.value = list.value.filter((item) => {
         return item.tabId !== tabId
       })
     }
-    // 删除两侧标签页
+    // 刪除兩側標籤頁
     function removeOtherSide(tabId: Tabbar.recordRaw['tabId']) {
       const keepName: string[] = []
       const removeName: string[] = []
@@ -98,9 +98,9 @@ const useTabbarStore = defineStore(
         return item.tabId === tabId
       })
     }
-    // 删除左侧标签页
+    // 刪除左側標籤頁
     function removeLeftSide(tabId: Tabbar.recordRaw['tabId']) {
-      // 查找指定路由对应在标签页列表里的下标
+      // 查找指定路由對應在標籤頁列表裡的下標
       const index = list.value.findIndex(item => item.tabId === tabId)
       const keepName: string[] = []
       const removeName: string[] = []
@@ -123,9 +123,9 @@ const useTabbarStore = defineStore(
         return i >= index
       })
     }
-    // 删除右侧标签页
+    // 刪除右側標籤頁
     function removeRightSide(tabId: Tabbar.recordRaw['tabId']) {
-      // 查找指定路由对应在标签页列表里的下标
+      // 查找指定路由對應在標籤頁列表裡的下標
       const index = list.value.findIndex(item => item.tabId === tabId)
       const keepName: string[] = []
       const removeName: string[] = []
@@ -148,7 +148,7 @@ const useTabbarStore = defineStore(
         return i <= index
       })
     }
-    // 清空所有标签页，登出的时候需要清空
+    // 清空所有標籤頁，登出的時候需要清空
     function clean() {
       list.value = []
     }

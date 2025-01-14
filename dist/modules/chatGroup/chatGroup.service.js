@@ -43,14 +43,14 @@ let ChatGroupService = class ChatGroupService {
         const { appId, modelConfig: bodyModelConfig, params } = body;
         let modelConfig = bodyModelConfig || (await this.modelsService.getBaseConfig());
         if (!modelConfig) {
-            throw new common_1.HttpException('管理员未配置任何AI模型、请先联系管理员开通聊天模型配置！', common_1.HttpStatus.BAD_REQUEST);
+            throw new common_1.HttpException('管理員未配置任何AI模型、請先聯繫管理員開通聊天模型配置！', common_1.HttpStatus.BAD_REQUEST);
         }
         modelConfig = JSON.parse(JSON.stringify(modelConfig));
-        const groupParams = { title: '新对话', userId: id, appId, params };
+        const groupParams = { title: '新對話', userId: id, appId, params };
         if (appId) {
             const appInfo = await this.appEntity.findOne({ where: { id: appId } });
             if (!appInfo) {
-                throw new common_1.HttpException('非法操作、您在使用一个不存在的应用！', common_1.HttpStatus.BAD_REQUEST);
+                throw new common_1.HttpException('非法操作、您在使用一個不存在的應用！', common_1.HttpStatus.BAD_REQUEST);
             }
             const { status, name, isFixedModel, isGPTs, appModel, coverImg } = appInfo;
             Object.assign(modelConfig.modelInfo, {
@@ -69,7 +69,7 @@ let ChatGroupService = class ChatGroupService {
                 });
             }
             if (![1, 3, 4, 5].includes(status)) {
-                throw new common_1.HttpException('非法操作、您在使用一个未启用的应用！', common_1.HttpStatus.BAD_REQUEST);
+                throw new common_1.HttpException('非法操作、您在使用一個未啟用的應用！', common_1.HttpStatus.BAD_REQUEST);
             }
             if (name) {
                 groupParams.title = name;
@@ -106,14 +106,14 @@ let ChatGroupService = class ChatGroupService {
             where: { id: groupId, userId: id },
         });
         if (!g) {
-            throw new common_1.HttpException('请先选择一个对话或者新加一个对话再操作！', common_1.HttpStatus.BAD_REQUEST);
+            throw new common_1.HttpException('請先選擇一個對話或者新加一個對話再操作！', common_1.HttpStatus.BAD_REQUEST);
         }
         const { appId } = g;
         if (appId && !title) {
             try {
                 const parseData = JSON.parse(config);
                 if (Number(parseData.keyType) !== 1) {
-                    throw new common_1.HttpException('应用对话名称不能修改哟！', common_1.HttpStatus.BAD_REQUEST);
+                    throw new common_1.HttpException('應用對話名稱不能修改喲！', common_1.HttpStatus.BAD_REQUEST);
                 }
             }
             catch (error) {
@@ -132,7 +132,7 @@ let ChatGroupService = class ChatGroupService {
             return true;
         }
         else {
-            throw new common_1.HttpException('更新对话失败！', common_1.HttpStatus.BAD_REQUEST);
+            throw new common_1.HttpException('更新對話失敗！', common_1.HttpStatus.BAD_REQUEST);
         }
     }
     async handlePdfExtraction(fileUrl, groupId) {
@@ -141,7 +141,7 @@ let ChatGroupService = class ChatGroupService {
             await this.chatGroupEntity.update({ id: groupId }, { pdfTextContent: pdfText });
         }
         catch (error) {
-            console.error('PDF 读取失败:', error);
+            console.error('PDF 讀取失敗:', error);
         }
     }
     async extractPdfText(fileUrl) {
@@ -154,8 +154,8 @@ let ChatGroupService = class ChatGroupService {
             return pdfData.text;
         }
         catch (error) {
-            console.error('PDF 解析失败:', error);
-            throw new Error('PDF 解析失败');
+            console.error('PDF 解析失敗:', error);
+            throw new Error('PDF 解析失敗');
         }
     }
     async updateTime(groupId) {
@@ -170,24 +170,24 @@ let ChatGroupService = class ChatGroupService {
             where: { id: groupId, userId: id },
         });
         if (!g) {
-            throw new common_1.HttpException('非法操作、您在删除一个非法资源！', common_1.HttpStatus.BAD_REQUEST);
+            throw new common_1.HttpException('非法操作、您在刪除一個非法資源！', common_1.HttpStatus.BAD_REQUEST);
         }
         const r = await this.chatGroupEntity.update({ id: groupId }, { isDelete: true });
         if (r.affected) {
-            return '删除成功';
+            return '刪除成功';
         }
         else {
-            throw new common_1.HttpException('删除失败！', common_1.HttpStatus.BAD_REQUEST);
+            throw new common_1.HttpException('刪除失敗！', common_1.HttpStatus.BAD_REQUEST);
         }
     }
     async delAll(req) {
         const { id } = req.user;
         const r = await this.chatGroupEntity.update({ userId: id, isSticky: false, isDelete: false }, { isDelete: true });
         if (r.affected) {
-            return '删除成功';
+            return '刪除成功';
         }
         else {
-            throw new common_1.HttpException('删除失败！', common_1.HttpStatus.BAD_REQUEST);
+            throw new common_1.HttpException('刪除失敗！', common_1.HttpStatus.BAD_REQUEST);
         }
     }
     async getGroupInfoFromId(id) {

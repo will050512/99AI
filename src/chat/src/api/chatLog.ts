@@ -1,6 +1,6 @@
 import { get, post } from '@/utils/request';
 
-/* 删除对话记录 */
+/* 刪除對話記錄 */
 export function fetchDelChatLogAPI<T>(data: { id: number }): Promise<T> {
   return post<T>({
     url: '/chatlog/del',
@@ -9,7 +9,7 @@ export function fetchDelChatLogAPI<T>(data: { id: number }): Promise<T> {
   });
 }
 
-/* 删除一组对话记录 */
+/* 刪除一組對話記錄 */
 export function fetchDelChatLogByGroupIdAPI<T>(data: {
   groupId: number;
 }): Promise<T> {
@@ -19,7 +19,7 @@ export function fetchDelChatLogByGroupIdAPI<T>(data: {
   });
 }
 
-/* 删除一组对话记录 */
+/* 刪除一組對話記錄 */
 export function fetchDeleteGroupChatsAfterIdAPI<T>(data: {
   id: number;
 }): Promise<T> {
@@ -29,7 +29,7 @@ export function fetchDeleteGroupChatsAfterIdAPI<T>(data: {
   });
 }
 
-/* 查询x组对话信息 */
+/* 查詢x組對話資訊 */
 export function fetchQueryChatLogListAPI<T>(data: {
   groupId: number;
 }): Promise<T> {
@@ -39,7 +39,7 @@ export function fetchQueryChatLogListAPI<T>(data: {
   });
 }
 
-/* 查询单个应用的对话信息 */
+/* 查詢單個應用的對話資訊 */
 export function fetchQueryChatLogByAppIdAPI<T>(data: {
   page?: number;
   size?: number;

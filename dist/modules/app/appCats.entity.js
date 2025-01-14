@@ -15,15 +15,15 @@ const typeorm_1 = require("typeorm");
 let AppCatsEntity = class AppCatsEntity extends baseEntity_1.BaseEntity {
 };
 __decorate([
-    (0, typeorm_1.Column)({ unique: true, comment: 'App分类名称' }),
+    (0, typeorm_1.Column)({ unique: true, comment: 'App分類名稱' }),
     __metadata("design:type", String)
 ], AppCatsEntity.prototype, "name", void 0);
 __decorate([
-    (0, typeorm_1.Column)({ comment: 'App分类排序、数字越大越靠前', default: 100 }),
+    (0, typeorm_1.Column)({ comment: 'App分類排序、數字越大越靠前', default: 100 }),
     __metadata("design:type", Number)
 ], AppCatsEntity.prototype, "order", void 0);
 __decorate([
-    (0, typeorm_1.Column)({ comment: 'App分类是否启用中 0：禁用 1：启用', default: 1 }),
+    (0, typeorm_1.Column)({ comment: 'App分類是否啟用中 0：禁用 1：啟用', default: 1 }),
     __metadata("design:type", Number)
 ], AppCatsEntity.prototype, "status", void 0);
 AppCatsEntity = __decorate([

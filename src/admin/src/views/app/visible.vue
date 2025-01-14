@@ -1,6 +1,6 @@
 <route lang="yaml">
 meta:
-  title: 基础设置
+  title: 基礎設置
 </route>
 
 <script lang="ts" setup>
@@ -19,8 +19,8 @@ const formInline = reactive({
 });
 
 const rules = ref<FormRules>({
-  pluginUrl: [{ required: true, trigger: 'blur', message: '请填写插件地址' }],
-  pluginKey: [{ required: true, trigger: 'blur', message: '请填写插件key' }],
+  pluginUrl: [{ required: true, trigger: 'blur', message: '請填寫外掛地址' }],
+  pluginKey: [{ required: true, trigger: 'blur', message: '請填寫外掛key' }],
 });
 
 const formRef = ref<FormInstance>();
@@ -37,11 +37,11 @@ function handlerUpdateConfig() {
     if (valid) {
       try {
         await apiConfig.setConfig({ settings: fotmatSetting(formInline) });
-        ElMessage.success('变更配置信息成功');
+        ElMessage.success('變更配置資訊成功');
       } catch (error) {}
       queryAllconfig();
     } else {
-      ElMessage.error('请填写完整信息');
+      ElMessage.error('請填寫完整資訊');
     }
   });
 }
@@ -64,26 +64,26 @@ onMounted(() => {
   <div>
     <PageHeader>
       <template #title>
-        <div class="flex items-center gap-4">插件应用基础配置</div>
+        <div class="flex items-center gap-4">外掛應用基礎配置</div>
       </template>
       <template #content>
         <div class="text-sm/6">
           <div>
-            插件基础配置，包括插件地址、插件 Key、隐藏插件、插件优先显示等。
+            外掛基礎配置，包括外掛地址、外掛 Key、隱藏外掛、外掛優先顯示等。
           </div>
           <div>
-            插件项目<a
+            外掛項目<a
               href="https://github.com/vastxie/99AIPlugin"
               target="_blank"
-              >开源地址</a
+              >開源地址</a
             >
-            ，可自行部署，欢迎共同维护。
+            ，可自行部署，歡迎共同維護。
           </div>
         </div>
       </template>
       <HButton outline @click="handlerUpdateConfig">
         <SvgIcon name="i-ri:file-text-line" />
-        保存设置
+        保存設置
       </HButton>
     </PageHeader>
 
@@ -96,10 +96,10 @@ onMounted(() => {
       >
         <el-row>
           <el-col :xs="24" :md="20" :lg="15" :xl="12">
-            <el-form-item label="插件地址" prop="pluginUrl">
+            <el-form-item label="外掛地址" prop="pluginUrl">
               <el-input
                 v-model="formInline.pluginUrl"
-                placeholder="插件地址"
+                placeholder="外掛地址"
                 clearable
               />
             </el-form-item>
@@ -107,10 +107,10 @@ onMounted(() => {
         </el-row>
         <el-row>
           <el-col :xs="24" :md="20" :lg="15" :xl="12">
-            <el-form-item label="插件 Key" prop="pluginKey">
+            <el-form-item label="外掛 Key" prop="pluginKey">
               <el-input
                 v-model="formInline.pluginKey"
-                placeholder="插件 Key"
+                placeholder="外掛 Key"
                 clearable
               />
             </el-form-item>
@@ -118,7 +118,7 @@ onMounted(() => {
         </el-row>
         <el-row>
           <el-col :xs="24" :md="20" :lg="15" :xl="12">
-            <el-form-item label="隐藏插件" prop="isHidePlugin">
+            <el-form-item label="隱藏外掛" prop="isHidePlugin">
               <el-switch
                 v-model="formInline.isHidePlugin"
                 active-value="1"
@@ -127,7 +127,7 @@ onMounted(() => {
               <el-tooltip class="box-item" effect="dark" placement="right">
                 <template #content>
                   <div style="width: 250px">
-                    <p>开启后，将隐藏插件功能</p>
+                    <p>開啟後，將隱藏外掛功能</p>
                   </div>
                 </template>
                 <el-icon class="ml-3 cursor-pointer">
@@ -139,7 +139,7 @@ onMounted(() => {
         </el-row>
         <el-row>
           <el-col :xs="24" :md="20" :lg="15" :xl="12">
-            <el-form-item label="插件优先显示" prop="pluginFirst">
+            <el-form-item label="外掛優先顯示" prop="pluginFirst">
               <el-switch
                 v-model="formInline.pluginFirst"
                 active-value="1"
@@ -148,7 +148,7 @@ onMounted(() => {
               <el-tooltip class="box-item" effect="dark" placement="right">
                 <template #content>
                   <div style="width: 250px">
-                    <p>开启后，对话页默认优先显示插件</p>
+                    <p>開啟後，對話頁默認優先顯示外掛</p>
                   </div>
                 </template>
                 <el-icon class="ml-3 cursor-pointer">

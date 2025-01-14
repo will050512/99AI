@@ -10,7 +10,7 @@ export class StatisticController {
   constructor(private readonly statisticService: StatisticService) {}
 
   @Get('base')
-  @ApiOperation({ summary: '获取基础统计数据' })
+  @ApiOperation({ summary: '獲取基礎統計數據' })
   @UseGuards(AdminAuthGuard)
   @ApiBearerAuth()
   getBaseStatistic() {
@@ -18,7 +18,7 @@ export class StatisticController {
   }
 
   @Get('chatStatistic')
-  @ApiOperation({ summary: '获取聊天绘画统计数据' })
+  @ApiOperation({ summary: '獲取聊天繪畫統計數據' })
   @UseGuards(AdminAuthGuard)
   @ApiBearerAuth()
   getChatStatistic(@Query() params: QueryStatisticDto) {
@@ -26,7 +26,7 @@ export class StatisticController {
   }
 
   @Get('baiduVisit')
-  @ApiOperation({ summary: '获取百度统计数据' })
+  @ApiOperation({ summary: '獲取百度統計數據' })
   @UseGuards(AdminAuthGuard)
   @ApiBearerAuth()
   getBaiduStatistics(@Query() params: QueryStatisticDto) {

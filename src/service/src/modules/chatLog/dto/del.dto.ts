@@ -4,6 +4,6 @@ import { Type } from 'class-transformer';
 import { BaseEntity } from 'typeorm';
 
 export class DelDto {
-  @ApiProperty({ example: 1, description: '对话Id', required: true })
+  @ApiProperty({ example: 1, description: '對話Id', required: true })
   id: number;
 }

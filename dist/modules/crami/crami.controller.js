@@ -64,7 +64,7 @@ let CramiController = class CramiController {
 };
 __decorate([
     (0, common_1.Get)('queryOnePackage'),
-    (0, swagger_1.ApiOperation)({ summary: '查询单个套餐' }),
+    (0, swagger_1.ApiOperation)({ summary: '查詢單個套餐' }),
     __param(0, (0, common_1.Query)('id')),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Number]),
@@ -72,7 +72,7 @@ __decorate([
 ], CramiController.prototype, "queryOnePackage", null);
 __decorate([
     (0, common_1.Get)('queryAllPackage'),
-    (0, swagger_1.ApiOperation)({ summary: '查询所有套餐' }),
+    (0, swagger_1.ApiOperation)({ summary: '查詢所有套餐' }),
     __param(0, (0, common_1.Query)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [queryAllPackage_dto_1.QuerAllPackageDto]),
@@ -80,7 +80,7 @@ __decorate([
 ], CramiController.prototype, "queryAllPackage", null);
 __decorate([
     (0, common_1.Post)('createPackage'),
-    (0, swagger_1.ApiOperation)({ summary: '创建套餐' }),
+    (0, swagger_1.ApiOperation)({ summary: '創建套餐' }),
     (0, common_1.UseGuards)(superAuth_guard_1.SuperAuthGuard),
     (0, swagger_1.ApiBearerAuth)(),
     __param(0, (0, common_1.Body)()),
@@ -100,7 +100,7 @@ __decorate([
 ], CramiController.prototype, "updatePackage", null);
 __decorate([
     (0, common_1.Post)('delPackage'),
-    (0, swagger_1.ApiOperation)({ summary: '删除套餐' }),
+    (0, swagger_1.ApiOperation)({ summary: '刪除套餐' }),
     (0, common_1.UseGuards)(superAuth_guard_1.SuperAuthGuard),
     (0, swagger_1.ApiBearerAuth)(),
     __param(0, (0, common_1.Body)()),
@@ -110,7 +110,7 @@ __decorate([
 ], CramiController.prototype, "delPackage", null);
 __decorate([
     (0, common_1.Post)('createCrami'),
-    (0, swagger_1.ApiOperation)({ summary: '生成卡密' }),
+    (0, swagger_1.ApiOperation)({ summary: '生成序號' }),
     (0, common_1.UseGuards)(superAuth_guard_1.SuperAuthGuard),
     (0, swagger_1.ApiBearerAuth)(),
     __param(0, (0, common_1.Body)()),
@@ -120,7 +120,7 @@ __decorate([
 ], CramiController.prototype, "createCrami", null);
 __decorate([
     (0, common_1.Post)('useCrami'),
-    (0, swagger_1.ApiOperation)({ summary: '使用卡密' }),
+    (0, swagger_1.ApiOperation)({ summary: '使用序號' }),
     (0, common_1.UseGuards)(jwtAuth_guard_1.JwtAuthGuard),
     (0, swagger_1.ApiBearerAuth)(),
     __param(0, (0, common_1.Req)()),
@@ -131,7 +131,7 @@ __decorate([
 ], CramiController.prototype, "useCrami", null);
 __decorate([
     (0, common_1.Get)('queryAllCrami'),
-    (0, swagger_1.ApiOperation)({ summary: '查询所有卡密' }),
+    (0, swagger_1.ApiOperation)({ summary: '查詢所有序號' }),
     (0, common_1.UseGuards)(adminAuth_guard_1.AdminAuthGuard),
     (0, swagger_1.ApiBearerAuth)(),
     __param(0, (0, common_1.Query)()),
@@ -142,7 +142,7 @@ __decorate([
 ], CramiController.prototype, "queryAllCrami", null);
 __decorate([
     (0, common_1.Post)('delCrami'),
-    (0, swagger_1.ApiOperation)({ summary: '删除卡密' }),
+    (0, swagger_1.ApiOperation)({ summary: '刪除序號' }),
     (0, common_1.UseGuards)(superAuth_guard_1.SuperAuthGuard),
     (0, swagger_1.ApiBearerAuth)(),
     __param(0, (0, common_1.Body)('id')),
@@ -152,7 +152,7 @@ __decorate([
 ], CramiController.prototype, "delCrami", null);
 __decorate([
     (0, common_1.Post)('batchDelCrami'),
-    (0, swagger_1.ApiOperation)({ summary: '批量删除卡密' }),
+    (0, swagger_1.ApiOperation)({ summary: '批量刪除序號' }),
     (0, common_1.UseGuards)(superAuth_guard_1.SuperAuthGuard),
     (0, swagger_1.ApiBearerAuth)(),
     __param(0, (0, common_1.Body)()),

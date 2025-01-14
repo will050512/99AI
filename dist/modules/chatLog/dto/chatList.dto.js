@@ -15,7 +15,7 @@ const swagger_1 = require("@nestjs/swagger");
 class ChatListDto {
 }
 __decorate([
-    (0, swagger_1.ApiProperty)({ example: 1, description: '对话分组ID', required: false }),
+    (0, swagger_1.ApiProperty)({ example: 1, description: '對話分組ID', required: false }),
     (0, class_validator_1.IsOptional)(),
     __metadata("design:type", Number)
 ], ChatListDto.prototype, "groupId", void 0);

@@ -63,20 +63,20 @@ const listSources = computed(() => chatStore.chatList);
 const configObj = computed(() => {
   const configString = activeGroupInfo.value?.config;
   if (!configString) {
-    return {}; // 提早返回一个空对象
+    return {}; // 提早返回一個空對象
   }
 
   try {
     return JSON.parse(configString);
   } catch (e) {
-    return {}; // 解析失败时返回一个空对象
+    return {}; // 解析失敗時返回一個空對象
   }
 });
 
 const activeModel = computed(() =>
   String(configObj?.value?.modelInfo?.model ?? '')
 );
-/* 当前对话组是否是应用 */
+/* 當前對話組是否是應用 */
 const activeAppId = computed(() => activeGroupInfo?.value?.appId || 0);
 
 let modelMapsCache: any = ref({});
@@ -95,7 +95,7 @@ watch(
   { immediate: true }
 );
 
-/* 查询当前app详情提示用户使用 */
+/* 查詢當前app詳情提示用戶使用 */
 async function queryAppDetail(id: number) {
   const res: any = await fetchQueryOneCatAPI({ id });
   appDetail.value = res.data;
@@ -118,7 +118,7 @@ function handleUpdateCollapsed() {
   appStore.setSiderCollapsed(!collapsed.value);
 }
 
-/* 修改对话组模型配置 */
+/* 修改對話組模型配置 */
 async function switchModel(option: any) {
   const { modelInfo, fileInfo } = chatStore.activeConfig;
 
@@ -128,16 +128,16 @@ async function switchModel(option: any) {
     modelInfo: {
       keyType: option.keyType,
       modelName:
-        (activeGroupInfo?.value?.appId ? modelName : option.label) || '', // 更明确的条件
+        (activeGroupInfo?.value?.appId ? modelName : option.label) || '', // 更明確的條件
       model: option.value,
       deductType: option.deductType,
       deduct: option.deduct,
       isFileUpload: option.isFileUpload,
       modelAvatar: option.modelAvatar || '',
-      isGPTs, // 简化赋值
-      isFixedModel, // 简化赋值
+      isGPTs, // 簡化賦值
+      isFixedModel, // 簡化賦值
     },
-    fileInfo: fileInfo || {}, // 确保 fileInfo 为空时不出错
+    fileInfo: fileInfo || {}, // 確保 fileInfo 為空時不出錯
   };
 
   const params = {
@@ -156,7 +156,7 @@ async function queryModelsList() {
     const { modelMaps, modelTypeList } = res.data;
     modelMapsCache.value = modelMaps;
     modelTypeListCache.value = modelTypeList;
-    // 使用类型断言来告诉 TypeScript flatModelArray 是 Model[] 类型
+    // 使用類型斷言來告訴 TypeScript flatModelArray 是 Model[] 類型
     const flatModelArray = Object.values(modelMaps).flat() as Model[];
     const filteredModelArray = flatModelArray.filter(
       (model) => model.keyType === 1
@@ -214,7 +214,7 @@ onMounted(() => {
                   {{
                     usingPlugin?.pluginName ||
                     activeGroupInfo?.title ||
-                    '新对话'
+                    '新對話'
                   }}
                   <!-- <ChevronRightIcon class="h-4 w-4 align-middle" /> -->
                 </MenuButton>
@@ -261,7 +261,7 @@ onMounted(() => {
                   @mouseover="isHovering = true"
                   @mouseleave="isHovering = false"
                 >
-                  {{ configObj?.modelInfo?.modelName || '新对话' }}
+                  {{ configObj?.modelInfo?.modelName || '新對話' }}
                   <Right
                     v-if="isHovering || isMobile"
                     size="20"
@@ -327,7 +327,7 @@ onMounted(() => {
                           class="dark:text-gray-500"
                         />
                         <div v-else class="w-4 h-4"></div>
-                        <!-- 占位符 -->
+                        <!-- 佔位符 -->
                       </div>
                     </div>
                   </MenuItem>
@@ -346,7 +346,7 @@ onMounted(() => {
               dataSources.length !== 0
             "
           >
-            <div class="mr-2">新对话</div>
+            <div class="mr-2">新對話</div>
             <EditTwo size="20" />
           </button>
         </div>

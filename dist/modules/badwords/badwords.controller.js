@@ -45,7 +45,7 @@ let BadWordsController = class BadWordsController {
 };
 __decorate([
     (0, common_1.Get)('query'),
-    (0, swagger_1.ApiOperation)({ summary: '查询所有敏感词' }),
+    (0, swagger_1.ApiOperation)({ summary: '查詢所有敏感詞' }),
     __param(0, (0, common_1.Query)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [queryBadWords_dto_1.QueryBadWordsDto]),
@@ -53,7 +53,7 @@ __decorate([
 ], BadWordsController.prototype, "queryBadWords", null);
 __decorate([
     (0, common_1.Post)('del'),
-    (0, swagger_1.ApiOperation)({ summary: '删除敏感词' }),
+    (0, swagger_1.ApiOperation)({ summary: '刪除敏感詞' }),
     (0, common_1.UseGuards)(superAuth_guard_1.SuperAuthGuard),
     (0, swagger_1.ApiBearerAuth)(),
     __param(0, (0, common_1.Body)()),
@@ -63,7 +63,7 @@ __decorate([
 ], BadWordsController.prototype, "delBadWords", null);
 __decorate([
     (0, common_1.Post)('update'),
-    (0, swagger_1.ApiOperation)({ summary: '更新敏感词' }),
+    (0, swagger_1.ApiOperation)({ summary: '更新敏感詞' }),
     (0, common_1.UseGuards)(superAuth_guard_1.SuperAuthGuard),
     (0, swagger_1.ApiBearerAuth)(),
     __param(0, (0, common_1.Body)()),
@@ -73,7 +73,7 @@ __decorate([
 ], BadWordsController.prototype, "updateBadWords", null);
 __decorate([
     (0, common_1.Post)('add'),
-    (0, swagger_1.ApiOperation)({ summary: '新增敏感词' }),
+    (0, swagger_1.ApiOperation)({ summary: '新增敏感詞' }),
     (0, common_1.UseGuards)(superAuth_guard_1.SuperAuthGuard),
     (0, swagger_1.ApiBearerAuth)(),
     __param(0, (0, common_1.Body)()),
@@ -83,7 +83,7 @@ __decorate([
 ], BadWordsController.prototype, "addBadWord", null);
 __decorate([
     (0, common_1.Get)('violation'),
-    (0, swagger_1.ApiOperation)({ summary: '查询违规记录' }),
+    (0, swagger_1.ApiOperation)({ summary: '查詢違規記錄' }),
     (0, common_1.UseGuards)(adminAuth_guard_1.AdminAuthGuard),
     (0, swagger_1.ApiBearerAuth)(),
     __param(0, (0, common_1.Req)()),

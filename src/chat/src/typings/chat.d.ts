@@ -68,7 +68,7 @@ declare namespace Chat {
     pluginList: [];
     prompt?: string;
     currentPlugin?: {
-      // 可选，存储当前使用的插件信息
+      // 可選，儲存當前使用的外掛資訊
       pluginId: number;
       pluginName: string;
       description: string;

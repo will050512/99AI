@@ -5,7 +5,7 @@ import { computed } from 'vue';
 export function useLanguage() {
   const appStore = useAppStore();
 
-  // 计算 Naive UI 的语言配置
+  // 計算 Naive UI 的語言配置
   const naiveUILocale = computed(() => {
     switch (appStore.language) {
       case 'en-US': return enUS;
@@ -15,7 +15,7 @@ export function useLanguage() {
     }
   });
 
-  // 监听 appStore.language 的变化，并据此更新 Vue I18n 的语言环境
+  // 監聽 appStore.language 的變化，並據此更新 Vue I18n 的語言環境
   // watch(() => appStore.language, (newLocale) => {
   //   setLocale(newLocale);
   // }, { immediate: true });

@@ -12,26 +12,26 @@ export class Options {
 }
 
 export class ChatProcessDto {
-  @ApiProperty({ example: 'hello, Who are you', description: '对话信息' })
-  @IsNotEmpty({ message: '提问信息不能为空！' })
+  @ApiProperty({ example: 'hello, Who are you', description: '對話資訊' })
+  @IsNotEmpty({ message: '提問資訊不能為空！' })
   prompt: string;
 
-  @ApiProperty({ example: 'https://aiweb.com', description: '对话附带的链接', required: false })
+  @ApiProperty({ example: 'https://aiweb.com', description: '對話附帶的鏈接', required: false })
   url: string;
 
-  @ApiProperty({ example: '{ parentMessageId: 0 }', description: '上次对话信息', required: false })
+  @ApiProperty({ example: '{ parentMessageId: 0 }', description: '上次對話資訊', required: false })
   @Type(() => Options)
   options: Options;
 
   @ApiProperty({
     example: "You are ChatGPT, a large language model trained by OpenAI. Follow the user's instructions carefully. Respond using markdown.",
-    description: '系统预设信息',
+    description: '系統預設資訊',
   })
 
   @IsOptional()
   systemMessage?: string;
 
-  @ApiProperty({ example: 1, description: '应用id', required: false })
+  @ApiProperty({ example: 1, description: '應用id', required: false })
   @IsOptional()
   appId: number;
 

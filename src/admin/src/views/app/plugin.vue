@@ -1,6 +1,6 @@
 <route lang="yaml">
 meta:
-  title: 插件管理
+  title: 外掛管理
 </route>
 
 <script lang="ts" setup>
@@ -18,8 +18,8 @@ const total = ref(0);
 const visible = ref(false);
 const loading = ref(false);
 const isSystemPluginMap = {
-  1: '内置插件',
-  0: '普通插件',
+  1: '內置外掛',
+  0: '普通外掛',
 };
 
 const parameterOptions: string[] = [
@@ -71,21 +71,21 @@ const formPackage = reactive({
 });
 
 const rules = reactive<FormRules>({
-  name: [{ required: true, message: '请填写App名称', trigger: 'blur' }],
+  name: [{ required: true, message: '請填寫App名稱', trigger: 'blur' }],
   description: [
     {
       required: true,
-      message: '请填写App介绍信息、用于对外展示',
+      message: '請填寫App介紹資訊、用於對外展示',
       trigger: 'blur',
     },
   ],
-  pluginImg: [{ required: false, message: '请上传插件封面', trigger: 'blur' }],
-  demoData: [{ required: false, message: '请填写演示数据', trigger: 'blur' }],
+  pluginImg: [{ required: false, message: '請上傳外掛封面', trigger: 'blur' }],
+  demoData: [{ required: false, message: '請填寫演示數據', trigger: 'blur' }],
   isEnabled: [
     {
       required: true,
       type: 'number',
-      message: '请选择插件状态',
+      message: '請選擇外掛狀態',
       trigger: 'change',
     },
   ],
@@ -93,16 +93,16 @@ const rules = reactive<FormRules>({
     {
       required: true,
       type: 'number',
-      message: '请选择是否为系统插件',
+      message: '請選擇是否為系統外掛',
       trigger: 'change',
     },
   ],
-  parameters: [{ required: true, message: '请填写调用参数', trigger: 'blur' }],
+  parameters: [{ required: true, message: '請填寫調用參數', trigger: 'blur' }],
   sortOrder: [
     {
       required: true,
       type: 'number',
-      message: '请填写排序值',
+      message: '請填寫排序值',
       trigger: 'change',
     },
   ],
@@ -117,11 +117,11 @@ interface CatItem {
 const catList: Ref<CatItem[]> = ref([]);
 
 const dialogTitle = computed(() => {
-  return activeAppCatId.value ? '更新插件' : '新增插件';
+  return activeAppCatId.value ? '更新外掛' : '新增外掛';
 });
 
 const dialogButton = computed(() => {
-  return activeAppCatId.value ? '确认更新' : '确认新增';
+  return activeAppCatId.value ? '確認更新' : '確認新增';
 });
 
 async function queryAppList() {
@@ -175,7 +175,7 @@ function handlerCloseDialog(formEl: FormInstance | undefined) {
 
 async function handleDeletePackage(row: any) {
   await ApiPlugin.delPlugin({ id: row.id });
-  ElMessage.success('删除分类成功');
+  ElMessage.success('刪除分類成功');
   queryAppList();
 }
 
@@ -211,7 +211,7 @@ function uploadFile(file: any, successHandler: any) {
       successHandler(response.data);
     })
     .catch((error) => {
-      console.error('上传失败', error);
+      console.error('上傳失敗', error);
     });
 }
 
@@ -242,10 +242,10 @@ const beforeAvatarUpload: UploadProps['beforeUpload'] = (rawFile) => {
   const allowedTypes = ['image/png', 'image/jpeg', 'image/gif', 'image/webp'];
 
   if (!allowedTypes.includes(rawFile.type)) {
-    ElMessage.error('当前系统仅支持 PNG、JPEG、GIF 和 WebP 格式的图片!');
+    ElMessage.error('當前系統僅支持 PNG、JPEG、GIF 和 WebP 格式的圖片!');
     return false;
   } else if (rawFile.size / 1024 > 300) {
-    ElMessage.error('当前限制文件最大不超过 300KB!');
+    ElMessage.error('當前限制文件最大不超過 300KB!');
     return false;
   }
 };
@@ -255,12 +255,12 @@ function handlerSubmit(formEl: FormInstance | undefined) {
     if (valid) {
       if (activeAppCatId.value) {
         const params = { id: activeAppCatId.value, ...formPackage };
-        /* 如果是用户的app 不能修改状态 保持原样返回 */
+        /* 如果是用戶的app 不能修改狀態 保持原樣返回 */
         await ApiPlugin.updatePlugin(params);
-        ElMessage({ type: 'success', message: '更新插件成功！' });
+        ElMessage({ type: 'success', message: '更新外掛成功！' });
       } else {
         await ApiPlugin.createPlugin(formPackage);
-        ElMessage({ type: 'success', message: '创建新的插件成功！' });
+        ElMessage({ type: 'success', message: '創建新的外掛成功！' });
       }
       visible.value = false;
       queryAppList();
@@ -277,37 +277,37 @@ onMounted(() => {
   <div>
     <PageHeader>
       <template #title>
-        <div class="flex items-center gap-4">插件设置</div>
+        <div class="flex items-center gap-4">外掛設置</div>
       </template>
       <template #content>
         <div class="text-sm/6">
           <div>
-            可自定义插件名称、描述和头像用于前端显示，同时需要设置对应的插件参数。
+            可自定義外掛名稱、描述和頭像用於前端顯示，同時需要設置對應的外掛參數。
           </div>
-          <div>插件系统包含，内置插件和普通插件两种。</div>
+          <div>外掛系統包含，內置外掛和普通外掛兩種。</div>
           <div>
-            内置插件已支持Suno音乐（参数：suno-music）、Midjourney绘图（参数：midjourney）、Stable
-            Diffusion绘图（参数：stable-diffusion）、
-          </div>
-          <div>
-            Dalle绘画（参数：dall-e-3）、LumaVideo（参数：luma-video）、CogVideoX（参数：cog-video）、Flux绘画（参数：flux-draw），均需通过创意模型配置对应模型。
+            內置外掛已支持Suno音樂（參數：suno-music）、Midjourney繪圖（參數：midjourney）、Stable
+            Diffusion繪圖（參數：stable-diffusion）、
           </div>
           <div>
-            普通插件需外部插件系统支持，具体参数请查看<a
+            Dalle繪畫（參數：dall-e-3）、LumaVideo（參數：luma-video）、CogVideoX（參數：cog-video）、Flux繪畫（參數：flux-draw），均需通過創意模型配置對應模型。
+          </div>
+          <div>
+            普通外掛需外部外掛系統支持，具體參數請查看<a
               href="https://github.com/vastxie/99AIPlugin"
               target="_blank"
-              >插件系统</a
+              >外掛系統</a
             >
             。
           </div>
           <div>
-            若内置插件参数不在支持列表内，将以插件参数作为模型，调用对应模型。
+            若內置外掛參數不在支持列表內，將以外掛參數作為模型，調用對應模型。
           </div>
         </div>
       </template>
       <HButton outline @click="visible = true">
         <SvgIcon name="ic:baseline-plus" />
-        添加插件
+        添加外掛
       </HButton>
     </PageHeader>
 
@@ -329,9 +329,9 @@ onMounted(() => {
           </template>
         </el-table-column>
         <el-table-column prop="sortOrder" label="排序" width="120" /> />
-        <el-table-column prop="name" label="名称" width="120" />
-        <el-table-column prop="parameters" label="调用参数" width="120" />
-        <el-table-column prop="description" label="描述信息">
+        <el-table-column prop="name" label="名稱" width="120" />
+        <el-table-column prop="parameters" label="調用參數" width="120" />
+        <el-table-column prop="description" label="描述資訊">
           <template #default="scope">
             <template>
               <div :style="{ maxWidth: '350px' }">
@@ -343,14 +343,14 @@ onMounted(() => {
             </div>
           </template>
         </el-table-column>
-        <el-table-column prop="isSystemPlugin" label="分类" width="100">
+        <el-table-column prop="isSystemPlugin" label="分類" width="100">
           <template #default="scope">
             <el-tag :type="scope.row.isSystemPlugin === 1 ? 'success' : 'info'">
-              {{ scope.row.isSystemPlugin === 1 ? '内置插件' : '普通插件' }}
+              {{ scope.row.isSystemPlugin === 1 ? '內置外掛' : '普通外掛' }}
             </el-tag>
           </template>
         </el-table-column>
-        <el-table-column prop="isEnabled" label="状态" width="100">
+        <el-table-column prop="isEnabled" label="狀態" width="100">
           <template #default="scope">
             <el-tag :type="scope.row.isEnabled === 1 ? 'success' : 'danger'">
               {{ QUESTION_STATUS_MAP[scope.row.isEnabled] }}
@@ -366,16 +366,16 @@ onMounted(() => {
               size="small"
               @click="handleUpdatePackage(scope.row)"
             >
-              编辑
+              編輯
             </el-button>
             <el-popconfirm
-              title="确认删除此插件么?"
+              title="確認刪除此外掛麼?"
               width="200"
               icon-color="red"
               @confirm="handleDeletePackage(scope.row)"
             >
               <template #reference>
-                <el-button link type="danger" size="small"> 删除 </el-button>
+                <el-button link type="danger" size="small"> 刪除 </el-button>
               </template>
             </el-popconfirm>
           </template>
@@ -409,35 +409,35 @@ onMounted(() => {
         :model="formPackage"
         :rules="rules"
       >
-        <el-form-item label="插件名称" prop="name">
-          <el-input v-model="formPackage.name" placeholder="请填写插件名称" />
+        <el-form-item label="外掛名稱" prop="name">
+          <el-input v-model="formPackage.name" placeholder="請填寫外掛名稱" />
         </el-form-item>
-        <el-form-item label="插件状态" prop="isEnabled">
+        <el-form-item label="外掛狀態" prop="isEnabled">
           <el-switch
             v-model="formPackage.isEnabled"
             :active-value="1"
             :inactive-value="0"
           />
         </el-form-item>
-        <el-form-item label="插件描述" prop="description">
+        <el-form-item label="外掛描述" prop="description">
           <el-input
             v-model="formPackage.description"
             type="textarea"
-            placeholder="请填写插件描述、用于对外展示..."
+            placeholder="請填寫外掛描述、用於對外展示..."
             :rows="4"
           />
         </el-form-item>
-        <el-form-item label="系统插件" prop="status">
+        <el-form-item label="系統外掛" prop="status">
           <el-switch
             v-model="formPackage.isSystemPlugin"
             :active-value="1"
             :inactive-value="0"
           />
         </el-form-item>
-        <el-form-item label="插件参数" prop="parameters">
+        <el-form-item label="外掛參數" prop="parameters">
           <el-select
             v-model="formPackage.parameters"
-            placeholder="请选择或填写插件参数"
+            placeholder="請選擇或填寫外掛參數"
             filterable
             allow-create
             default-first-option
@@ -452,10 +452,10 @@ onMounted(() => {
           </el-select>
         </el-form-item>
 
-        <el-form-item label="插件图标" prop="pluginImg">
+        <el-form-item label="外掛圖標" prop="pluginImg">
           <el-input
             v-model="formPackage.pluginImg"
-            placeholder="请填写或上传插件图标"
+            placeholder="請填寫或上傳外掛圖標"
             clearable
           >
             <template #append>
@@ -499,7 +499,7 @@ onMounted(() => {
         <el-form-item label="排序ID" prop="sortOrder">
           <el-input
             v-model.number="formPackage.sortOrder"
-            placeholder="请填写排序ID[数字越大越靠前]"
+            placeholder="請填寫排序ID[數字越大越靠前]"
           />
         </el-form-item>
       </el-form>

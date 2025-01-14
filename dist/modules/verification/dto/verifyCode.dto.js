@@ -15,13 +15,13 @@ const swagger_1 = require("@nestjs/swagger");
 class VerifyCodeDto {
 }
 __decorate([
-    (0, swagger_1.ApiProperty)({ example: '1', description: '验证码下发id' }),
-    (0, class_validator_1.IsNotEmpty)({ message: '缺少必要参数！' }),
+    (0, swagger_1.ApiProperty)({ example: '1', description: '驗證碼下發id' }),
+    (0, class_validator_1.IsNotEmpty)({ message: '缺少必要參數！' }),
     __metadata("design:type", Number)
 ], VerifyCodeDto.prototype, "id", void 0);
 __decorate([
-    (0, swagger_1.ApiProperty)({ example: '15366754', description: '验证码' }),
-    (0, class_validator_1.IsNotEmpty)({ message: '验证码不能为空！' }),
+    (0, swagger_1.ApiProperty)({ example: '15366754', description: '驗證碼' }),
+    (0, class_validator_1.IsNotEmpty)({ message: '驗證碼不能為空！' }),
     __metadata("design:type", Number)
 ], VerifyCodeDto.prototype, "code", void 0);
 exports.VerifyCodeDto = VerifyCodeDto;

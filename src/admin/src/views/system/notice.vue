@@ -1,6 +1,6 @@
 <route lang="yaml">
 meta:
-  title: 公告设置
+  title: 公告設置
 </route>
 
 <script lang="ts" setup>
@@ -25,9 +25,9 @@ const theme = computed(() => {
 });
 
 const rules = ref<FormRules>({
-  noticeTitle: [{ required: true, trigger: 'blur', message: '请填写公告标题' }],
+  noticeTitle: [{ required: true, trigger: 'blur', message: '請填寫公告標題' }],
   noticeInfo: [
-    { required: true, trigger: 'blur', message: '请填写公告具体信息' },
+    { required: true, trigger: 'blur', message: '請填寫公告具體資訊' },
   ],
 });
 const formRef = ref<FormInstance>();
@@ -46,11 +46,11 @@ function handlerUpdateConfig() {
     if (valid) {
       try {
         await apiConfig.setConfig({ settings: fotmatSetting(formInline) });
-        ElMessage.success('变更配置信息成功');
+        ElMessage.success('變更配置資訊成功');
       } catch (error) {}
       queryAllconfig();
     } else {
-      ElMessage.error('请填写完整信息');
+      ElMessage.error('請填寫完整資訊');
     }
   });
 }
@@ -85,18 +85,18 @@ async function onUploadImg(
             headers: { 'Content-Type': 'multipart/form-data' },
           });
           if (!res?.data?.data) {
-            ElMessage.error('图片上传失败、请检查您的配置信息！');
+            ElMessage.error('圖片上傳失敗、請檢查您的配置資訊！');
           }
           resovle(res.data.data);
         } catch (error) {
-          ElMessage.error(error || '图片上传失败、请检查您的配置信息！');
+          ElMessage.error(error || '圖片上傳失敗、請檢查您的配置資訊！');
           reject(error);
         }
       });
     })
   );
   callback(res.map((item) => item));
-  ElMessage({ message: '图片上传成功！', type: 'success' });
+  ElMessage({ message: '圖片上傳成功！', type: 'success' });
 }
 
 onMounted(() => {
@@ -108,18 +108,18 @@ onMounted(() => {
   <div>
     <PageHeader>
       <template #title>
-        <div class="flex items-center gap-4">公告设置说明</div>
+        <div class="flex items-center gap-4">公告設置說明</div>
       </template>
       <template #content>
         <div class="text-sm/6">
           <div>
-            公告设置用于配置用户端显示的公告页面。支持使用Markdown语法或HTML标签来创建内容，为灵活的内容格式提供便利。
+            公告設置用於配置用戶端顯示的公告頁面。支持使用Markdown語法或HTML標籤來創建內容，為靈活的內容格式提供便利。
           </div>
         </div>
       </template>
       <HButton outline @click="handlerUpdateConfig">
         <SvgIcon name="i-ri:file-text-line" />
-        保存设置
+        保存設置
       </HButton>
     </PageHeader>
     <el-card style="margin: 20px">
@@ -131,19 +131,19 @@ onMounted(() => {
       >
         <el-row>
           <el-col :xs="24" :md="20" :lg="15" :xl="10">
-            <el-form-item label="公告标题" prop="noticeTitle">
+            <el-form-item label="公告標題" prop="noticeTitle">
               <el-input
                 v-model="formInline.noticeTitle"
                 :rows="1"
-                placeholder="公告标题"
+                placeholder="公告標題"
                 clearable
               />
             </el-form-item>
           </el-col>
           <el-col :offset="2" :xs="24" :md="20" :lg="15" :xl="10">
-            <el-form-item label="自动打开公告" prop="isAutoOpenNotice">
+            <el-form-item label="自動打開公告" prop="isAutoOpenNotice">
               <el-tooltip
-                content="设为自动打开则网站初始化会打开、用户仍可以选择24小时不再查看、选择关闭则不会主动打开！"
+                content="設為自動打開則網站初始化會打開、用戶仍可以選擇24小時不再查看、選擇關閉則不會主動打開！"
                 placement="top"
                 :show-after="500"
               >
@@ -159,7 +159,7 @@ onMounted(() => {
         </el-row>
         <el-row>
           <el-col :span="24">
-            <el-form-item label="公告信息" prop="noticeInfo">
+            <el-form-item label="公告資訊" prop="noticeInfo">
               <MdEditor
                 v-model="formInline.noticeInfo"
                 style="min-height: 80vh"

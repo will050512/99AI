@@ -41,11 +41,11 @@ function goBack() {
         403
       </h1>
       <div class="desc mx-0 text-xl text-stone-5">
-        抱歉，你无权访问该页面
+        抱歉，你無權訪問該頁面
       </div>
       <div>
         <HButton @click="goBack">
-          {{ data.countdown }} 秒后，返回首页
+          {{ data.countdown }} 秒後，返回首頁
         </HButton>
       </div>
     </div>

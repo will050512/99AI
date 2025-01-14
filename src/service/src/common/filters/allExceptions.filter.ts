@@ -14,13 +14,13 @@ export class AllExceptionsFilter<T> implements ExceptionFilter {
     const response = ctx.getResponse();
     const request = ctx.getRequest();
 
-    // 检查异常是否是 HttpException 类型
+    // 檢查異常是否是 HttpException 類型
     const status =
       exception instanceof HttpException
         ? exception.getStatus()
         : HttpStatus.INTERNAL_SERVER_ERROR;
 
-    let message = 'Internal server error'; // 默认错误消息
+    let message = 'Internal server error'; // 默認錯誤消息
 
     if (exception instanceof HttpException) {
       const exceptionRes: any = exception.getResponse();
@@ -30,7 +30,7 @@ export class AllExceptionsFilter<T> implements ExceptionFilter {
           : exceptionRes.message
         : exceptionRes;
     } else if (typeof exception.getResponse === 'function') {
-      // 如果异常有 getResponse 方法，调用它
+      // 如果異常有 getResponse 方法，調用它
       const exceptionRes: any = exception.getResponse();
       message = exceptionRes?.message
         ? Array.isArray(exceptionRes.message)
@@ -40,7 +40,7 @@ export class AllExceptionsFilter<T> implements ExceptionFilter {
     }
 
     if (status === HttpStatus.NOT_FOUND) {
-      // 如果是404错误，重定向到首页
+      // 如果是404錯誤，重定向到首頁
       response.redirect('/');
     } else {
       const statusCode = status || 400;

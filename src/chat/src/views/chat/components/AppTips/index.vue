@@ -62,7 +62,7 @@ watch(
     :class="[isMobile ? 'mb-16' : 'mt-8']"
     class="px-4 select-none w-full flex flex-col items-center justify-center h-full"
   >
-    <!-- 头像和名称 -->
+    <!-- 頭像和名稱 -->
     <div class="w-full md:max-w-[40rem] mb-4">
       <div class="flex items-center justify-center">
         <div
@@ -99,7 +99,7 @@ watch(
       </div>
     </div>
 
-    <!-- 按钮部分 -->
+    <!-- 按鈕部分 -->
     <div class="w-full md:max-w-[40rem] mt-2">
       <div
         class="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-4 justify-center"

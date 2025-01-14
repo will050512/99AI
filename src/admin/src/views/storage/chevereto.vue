@@ -1,6 +1,6 @@
 <route lang="yaml">
 meta:
-  title: Chevereto图床设置
+  title: Chevereto圖床設置
 </route>
 
 <script lang="ts" setup>
@@ -29,11 +29,11 @@ function handlerUpdateConfig() {
     if (valid) {
       try {
         await apiConfig.setConfig({ settings: fotmatSetting(formInline) });
-        ElMessage.success('变更配置信息成功');
+        ElMessage.success('變更配置資訊成功');
       } catch (error) {}
       queryAllconfig();
     } else {
-      ElMessage.error('请填写完整信息');
+      ElMessage.error('請填寫完整資訊');
     }
   });
 }
@@ -51,7 +51,7 @@ const customRules = computed(() => {
   return [
     {
       required: Number(formInline.cheveretoStatus) === 1,
-      message: '开启配置后请填写此项',
+      message: '開啟配置後請填寫此項',
       trigger: 'change',
     },
   ];
@@ -66,41 +66,41 @@ onMounted(() => {
   <div>
     <PageHeader>
       <template #title>
-        <div class="flex items-center gap-4">Chevereto图床设置</div>
+        <div class="flex items-center gap-4">Chevereto圖床設置</div>
       </template>
       <template #content>
         <div class="text-sm/6">
           <div>
-            详细搭建及配置请参考
+            詳細搭建及配置請參考
             <a
               href="https://v4-docs.chevereto.com/developer/api/api-v1.html"
               target="_blank"
-              >Chevereto图床文档</a
+              >Chevereto圖床文檔</a
             >
-            。如果同时开启多个存储服务，腾讯云、阿里云优先级高于 Chevereto
-            图床。
+            。如果同時開啟多個儲存服務，騰訊雲、阿里雲優先級高於 Chevereto
+            圖床。
           </div>
         </div>
       </template>
       <HButton outline @click="handlerUpdateConfig">
         <SvgIcon name="i-ri:file-text-line" />
-        保存设置
+        保存設置
       </HButton>
     </PageHeader>
 
     <el-card style="margin: 20px">
       <template #header>
         <div class="flex justify-between">
-          <b>chevereto图床参数设置</b>
+          <b>chevereto圖床參數設置</b>
           <el-button class="button" text @click="handlerUpdateConfig">
-            保存设置
+            保存設置
           </el-button>
         </div>
       </template>
       <el-form ref="formRef" :model="formInline" label-width="100px">
         <el-row>
           <el-col :xs="24" :md="20" :lg="15" :xl="12">
-            <el-form-item label="服务启用状态" prop="cheveretoStatus">
+            <el-form-item label="服務啟用狀態" prop="cheveretoStatus">
               <el-switch
                 v-model="formInline.cheveretoStatus"
                 active-value="1"
@@ -112,13 +112,13 @@ onMounted(() => {
         <el-row>
           <el-col :xs="24" :md="20" :lg="15" :xl="12">
             <el-form-item
-              label="上传地址"
+              label="上傳地址"
               prop="cheveretoUploadPath"
               :rules="customRules"
             >
               <el-input
                 v-model="formInline.cheveretoUploadPath"
-                placeholder="请填写您的图床上传地址"
+                placeholder="請填寫您的圖床上傳地址"
                 clearable
               />
             </el-form-item>
@@ -133,7 +133,7 @@ onMounted(() => {
             >
               <el-input
                 v-model="formInline.cheveretoKey"
-                placeholder="请填写ApiKey"
+                placeholder="請填寫ApiKey"
                 clearable
                 type="password"
                 show-password

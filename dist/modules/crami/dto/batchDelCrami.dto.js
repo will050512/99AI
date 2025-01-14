@@ -15,9 +15,9 @@ const class_validator_1 = require("class-validator");
 class BatchDelCramiDto {
 }
 __decorate([
-    (0, swagger_1.ApiProperty)({ example: 1, description: '要删除的套餐Ids', required: true }),
-    (0, class_validator_1.IsArray)({ message: '参数类型为数组' }),
-    (0, class_validator_1.ArrayMinSize)(1, { message: '最短长度为1' }),
+    (0, swagger_1.ApiProperty)({ example: 1, description: '要刪除的套餐Ids', required: true }),
+    (0, class_validator_1.IsArray)({ message: '參數類型為數組' }),
+    (0, class_validator_1.ArrayMinSize)(1, { message: '最短長度為1' }),
     __metadata("design:type", Array)
 ], BatchDelCramiDto.prototype, "ids", void 0);
 exports.BatchDelCramiDto = BatchDelCramiDto;

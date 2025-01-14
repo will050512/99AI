@@ -15,17 +15,17 @@ const swagger_1 = require("@nestjs/swagger");
 class UpdateBadWordsDto {
 }
 __decorate([
-    (0, swagger_1.ApiProperty)({ example: 1, description: '敏感词id', required: true }),
+    (0, swagger_1.ApiProperty)({ example: 1, description: '敏感詞id', required: true }),
     (0, class_validator_1.IsOptional)(),
     __metadata("design:type", Number)
 ], UpdateBadWordsDto.prototype, "id", void 0);
 __decorate([
-    (0, swagger_1.ApiProperty)({ example: 'test', description: '敏感词内容', required: false }),
+    (0, swagger_1.ApiProperty)({ example: 'test', description: '敏感詞內容', required: false }),
     (0, class_validator_1.IsOptional)(),
     __metadata("design:type", String)
 ], UpdateBadWordsDto.prototype, "word", void 0);
 __decorate([
-    (0, swagger_1.ApiProperty)({ example: 1, description: '关键词状态', required: false }),
+    (0, swagger_1.ApiProperty)({ example: 1, description: '關鍵詞狀態', required: false }),
     (0, class_validator_1.IsOptional)(),
     __metadata("design:type", Number)
 ], UpdateBadWordsDto.prototype, "status", void 0);

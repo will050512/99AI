@@ -27,7 +27,7 @@ interface Emit {
   (ev: 'pause-request'): void;
 }
 
-// 引入依赖
+// 引入依賴
 const onConversation = inject<any>('onConversation');
 const route = useRoute();
 // 引用的 store
@@ -36,7 +36,7 @@ const authStore = useAuthStore();
 const chatStore = useChatStore();
 const emit = defineEmits<Emit>();
 
-// 初始化变量
+// 初始化變量
 const mjSizes = ref([
   {
     id: 'square',
@@ -86,19 +86,19 @@ const mjVersions = ref([
 ]);
 const mjUrl = ref([
   {
-    title: t('chat.imageToImage'), // 图生图
+    title: t('chat.imageToImage'), // 圖生圖
     values: 'imageToImage',
   },
   {
-    title: t('chat.faceConsistency'), // 人脸一致
+    title: t('chat.faceConsistency'), // 人臉一致
     values: 'faceConsistency',
   },
   {
-    title: t('chat.styleConsistency'), // 风格一致
+    title: t('chat.styleConsistency'), // 風格一致
     values: 'styleConsistency',
   },
   {
-    title: '以图生文', // 文生图
+    title: '以圖生文', // 文生圖
     values: 'imageToText',
   },
 ]);
@@ -146,8 +146,8 @@ const selectedApp = ref();
 const isSelectedApp = ref(false);
 let searchTimeout: string | number | NodeJS.Timeout | null | undefined = null;
 
-// 计算属性
-// 双向绑定 chatStore.prompt
+// 計算屬性
+// 雙向綁定 chatStore.prompt
 const prompt = computed({
   get: () => chatStore.prompt,
   set: (value) => {
@@ -177,13 +177,13 @@ const activeGroupInfo = computed(() => chatStore.getChatByGroupInfo());
 const configObj = computed(() => {
   const configString = activeGroupInfo.value?.config;
   if (!configString) {
-    return {}; // 提早返回一个空对象
+    return {}; // 提早返回一個空對象
   }
 
   try {
     return JSON.parse(configString);
   } catch (e) {
-    return {}; // 解析失败时返回一个空对象
+    return {}; // 解析失敗時返回一個空對象
   }
 });
 const fileParsing = computed(() =>
@@ -250,18 +250,18 @@ const getAspectRatioStyle = (aspectRatioString: any, fixedSize = 16) => {
   const [height, width] = aspectRatioString.split(' / ').map(Number);
   const aspectRatio = height / width;
 
-  // 当宽度大于高度时，固定高度，动态调整宽度
+  // 當寬度大於高度時，固定高度，動態調整寬度
   if (width > height) {
     return {
-      width: `${fixedSize * aspectRatio}px`, // 宽度根据比例动态调整
+      width: `${fixedSize * aspectRatio}px`, // 寬度根據比例動態調整
       height: `${fixedSize}px`, // 固定高度
     };
   }
-  // 当高度大于或等于宽度时，固定宽度，动态调整高度
+  // 當高度大於或等於寬度時，固定寬度，動態調整高度
   else {
     return {
-      width: `${fixedSize}px`, // 固定宽度
-      height: `${fixedSize / aspectRatio}px`, // 高度根据比例动态调整
+      width: `${fixedSize}px`, // 固定寬度
+      height: `${fixedSize / aspectRatio}px`, // 高度根據比例動態調整
     };
   }
 };
@@ -294,32 +294,32 @@ const switchMjUrl = (option: any) => {
   mjUrlParam.value = option.values;
 };
 
-// 自动调整高度
+// 自動調整高度
 const autoResize = () => {
   if (inputRef.value) {
     const textarea = inputRef.value;
-    const maxLines = 8; // 最大行数
+    const maxLines = 8; // 最大行數
     const initialHeight = '1.5rem'; // 初始高度
     textarea.style.height = initialHeight; // 重置高度
 
-    // 计算实际行数
+    // 計算實際行數
     const lines = prompt.value.split('\n').reduce((totalLines, line) => {
-      const maxCharsPerLine = Math.floor(textarea.clientWidth / 8); // 假设每字符宽度为 8px
+      const maxCharsPerLine = Math.floor(textarea.clientWidth / 8); // 假設每字符寬度為 8px
       return totalLines + Math.ceil(line.length / maxCharsPerLine);
     }, 0);
 
-    // 动态获取行高
+    // 動態獲取行高
     const singleLineHeight =
-      parseFloat(window.getComputedStyle(textarea).lineHeight) || 20; // 默认行高 20px
+      parseFloat(window.getComputedStyle(textarea).lineHeight) || 20; // 默認行高 20px
     const maxHeight = singleLineHeight * maxLines; // 最大高度
 
-    // 设置高度
+    // 設置高度
     const contentHeight = singleLineHeight * lines;
     textarea.style.height = Math.min(contentHeight, maxHeight) + 'px';
   }
 };
 
-// 监听 prompt 的变化（外部修改时调整高度）
+// 監聽 prompt 的變化（外部修改時調整高度）
 watch(
   prompt,
   () => {
@@ -327,7 +327,7 @@ watch(
       autoResize();
     });
   },
-  { immediate: true } // 初始化时立即调整
+  { immediate: true } // 初始化時立即調整
 );
 
 const handleInput = async (event: KeyboardEvent) => {
@@ -335,14 +335,14 @@ const handleInput = async (event: KeyboardEvent) => {
   const inputValue = inputElement.value;
   showSuggestions.value = inputValue.startsWith('@');
 
-  // 清除之前的定时器，如果有的话
+  // 清除之前的定時器，如果有的話
   if (searchTimeout) {
     clearTimeout(searchTimeout);
   }
 
   if (showSuggestions.value && !isSelectedApp.value) {
     const searchTerm = inputValue.slice(1); // 去掉'@'
-    // 使用定时器来节流搜索请求
+    // 使用定時器來節流搜索請求
     searchTimeout = setTimeout(async () => {
       if (searchTerm.length > 0) {
         try {
@@ -357,7 +357,7 @@ const handleInput = async (event: KeyboardEvent) => {
       } else {
         searchResults.value = [];
       }
-    }, 1000); // 设置1秒的延迟
+    }, 1000); // 設置1秒的延遲
   } else {
     searchResults.value = [];
   }
@@ -371,32 +371,32 @@ const activeModelAvatar = computed(() => {
   );
 });
 
-// 初始化randomStyles或者在需要时更新它
+// 初始化randomStyles或者在需要時更新它
 const updateRandomStyles = () => {
   const stylesArray = globaelConfig.value?.drawingStyles.split(',');
   const shuffled = stylesArray.sort(() => 0.5 - Math.random());
-  // 如果是移动端，只显示3个；否则显示5个
+  // 如果是移動端，只顯示3個；否則顯示5個
   const displayCount = isMobile.value ? 3 : 5;
   randomStyles.value = shuffled.slice(0, displayCount);
 };
 
 async function appendStyleToInput(style: any) {
-  // 检查prompt.value是否非空并且以逗号结尾
+  // 檢查prompt.value是否非空並且以逗號結尾
   if (prompt.value && /,\s*$/.test(prompt.value)) {
-    // 如果已经以逗号结尾，直接添加风格
+    // 如果已經以逗號結尾，直接添加風格
     await chatStore.setPrompt(`${prompt.value} ${style}`);
     // prompt.value += ` ${style}`;
   } else if (prompt.value) {
-    // 如果非空但不以逗号结尾，先添加逗号再添加风格
+    // 如果非空但不以逗號結尾，先添加逗號再添加風格
     await chatStore.setPrompt(`${prompt.value}, ${style}`);
     // prompt.value += `, ${style}`;
   } else {
-    // 如果prompt.value为空，只添加风格不添加逗号
+    // 如果prompt.value為空，只添加風格不添加逗號
     await chatStore.setPrompt(`${style}`);
     // prompt.value = `${style} ,`;
   }
 
-  // 确保inputRef是已经和textarea元素绑定的ref
+  // 確保inputRef是已經和textarea元素綁定的ref
   inputRef.value.focus();
   inputRef.value.scrollTop = inputRef.value.scrollHeight;
 }
@@ -463,9 +463,9 @@ const handleSubmit = async (index?: number) => {
       isCogViewModel.value) &&
     dataBase64List.value.length > 0
   ) {
-    console.log('满足文件上传条件，开始上传文件');
+    console.log('滿足文件上傳條件，開始上傳文件');
     fileUrl = await uploadFiles();
-    console.log('文件上传成功，文件 URL:', fileUrl);
+    console.log('文件上傳成功，文件 URL:', fileUrl);
 
     isUploading.value = false;
     dataBase64List.value = [];
@@ -489,7 +489,7 @@ const handleSubmit = async (index?: number) => {
     if (extraParam.value.size && !msg.includes('--ar')) {
       let size = extraParam.value.size;
 
-      // 检测并转换格式
+      // 檢測並轉換格式
       switch (size) {
         case '1024x1024':
           size = '1:1';
@@ -519,7 +519,7 @@ const handleSubmit = async (index?: number) => {
 
   if (action === 'DESCRIBE') {
     if (fileUrl) {
-      msg = `以图生文`;
+      msg = `以圖生文`;
     }
   }
 
@@ -536,7 +536,7 @@ const handleSubmit = async (index?: number) => {
   fileList.value = [];
   inputRef.value.style.height = '1.5rem'; // 使用初始高度
 
-  console.log('开始对话', {
+  console.log('開始對話', {
     prompt,
     action,
     useModel,
@@ -567,18 +567,18 @@ const handleSubmit = async (index?: number) => {
 };
 
 const uploadFiles = async (): Promise<string> => {
-  isUploading.value = true; // 标记上传开始
-  const results: any[] = []; // 用于存储每个文件的上传结果
+  isUploading.value = true; // 標記上傳開始
+  const results: any[] = []; // 用於儲存每個文件的上傳結果
 
   try {
     const now = new Date();
     const year = now.getFullYear();
-    const month = String(now.getMonth() + 1).padStart(2, '0'); // 月份从0开始，所以+1
+    const month = String(now.getMonth() + 1).padStart(2, '0'); // 月份從0開始，所以+1
     const day = String(now.getDate()).padStart(2, '0');
     const currentDate = `${year}${month}/${day}`;
     const dir = `userFiles/${currentDate}`;
 
-    // 使用 Promise.all 并行上传所有文件
+    // 使用 Promise.all 並行上傳所有文件
     const uploadPromises = Array.from(fileList.value).map(async (file) => {
       const form = new FormData();
       form.append('file', file);
@@ -591,27 +591,27 @@ const uploadFiles = async (): Promise<string> => {
             headers: { 'Content-Type': 'multipart/form-data' },
           }
         );
-        return res?.data?.data; // 返回上传结果
+        return res?.data?.data; // 返回上傳結果
       } catch (error) {
-        console.error(`上传文件 ${file.name} 失败:`, error);
-        return `上传文件 ${file.name} 失败`; // 返回失败信息
+        console.error(`上傳文件 ${file.name} 失敗:`, error);
+        return `上傳文件 ${file.name} 失敗`; // 返回失敗資訊
       }
     });
 
-    // 等待所有文件上传完成，并将结果保存到 results 数组中
+    // 等待所有文件上傳完成，並將結果保存到 results 數組中
     results.push(...(await Promise.all(uploadPromises)));
   } catch (error) {
-    console.error('上传文件过程中发生错误:', error);
+    console.error('上傳文件過程中發生錯誤:', error);
   } finally {
-    isUploading.value = false; // 标记上传结束
+    isUploading.value = false; // 標記上傳結束
   }
 
-  // 使用逗号将结果数组连接成字符串并返回
-  return results.join(', '); // 返回所有文件的上传结果字符串
+  // 使用逗號將結果數組連接成字串並返回
+  return results.join(', '); // 返回所有文件的上傳結果字串
 };
 
 // const handleFileSelect = async (event: Event) => {
-//   console.log('文件选择事件触发');
+//   console.log('文件選擇事件觸發');
 //   const input = event.target as HTMLInputElement;
 //   const file = input?.files?.[0];
 //   if (file) {
@@ -649,20 +649,20 @@ const handlePaste = async (event: ClipboardEvent) => {
 
 const processFile = async (file: File) => {
   let trimmedFileName = file.name;
-  const maxLength = 25; // 最大长度限制
-  const extension = trimmedFileName.split('.').pop() || ''; // 获取文件扩展名
+  const maxLength = 25; // 最大長度限制
+  const extension = trimmedFileName.split('.').pop() || ''; // 獲取文件擴展名
 
   if (trimmedFileName.length > maxLength) {
-    // 截取文件名并添加省略号，同时保留扩展名
+    // 截取文件名並添加省略號，同時保留擴展名
     trimmedFileName =
       trimmedFileName.substring(0, maxLength - extension.length - 1) +
       '….' +
       extension;
   }
 
-  // 检查文件类型
+  // 檢查文件類型
   if (file.type.startsWith('image/')) {
-    // 处理图像文件
+    // 處理圖像文件
     isFile.value = false;
     await cleanUpFiles();
     handleSetFile(file);
@@ -697,15 +697,15 @@ const processFile = async (file: File) => {
   }
 };
 
-// 异步函数用于检查并清理 dataBase64List 和 fileList 中的非图像文件
+// 異步函數用於檢查並清理 dataBase64List 和 fileList 中的非圖像文件
 async function cleanUpFiles() {
   await updateGroup({ fileParsing: '', fileName: '' });
-  // 创建一个新数组，仅保留 fileList 中的图像文件
+  // 創建一個新數組，僅保留 fileList 中的圖像文件
   const imageFiles = fileList.value.filter((file: File) =>
     file.type.startsWith('image/')
   );
 
-  // 创建一个新数组，仅保留 dataBase64List 中对应的图像文件的 Base64 数据
+  // 創建一個新數組，僅保留 dataBase64List 中對應的圖像文件的 Base64 數據
   const imageBase64List = dataBase64List.value.filter(
     (base64: string, index: number) => {
       return (
@@ -714,14 +714,14 @@ async function cleanUpFiles() {
     }
   );
 
-  // 更新 fileList 和 dataBase64List 为仅包含图像文件
+  // 更新 fileList 和 dataBase64List 為僅包含圖像文件
   fileList.value = imageFiles;
   dataBase64List.value = imageBase64List;
 
-  // 如果文件数量超过4个，移除最前面的一个文件和其对应的Base64数据
+  // 如果文件數量超過4個，移除最前面的一個文件和其對應的Base64數據
   if (fileList.value.length >= 4) {
-    fileList.value.shift(); // 删除第一个文件
-    dataBase64List.value.shift(); // 删除第一个文件的 Base64 数据
+    fileList.value.shift(); // 刪除第一個文件
+    dataBase64List.value.shift(); // 刪除第一個文件的 Base64 數據
   }
 }
 
@@ -729,33 +729,33 @@ const triggerFileUpload = () => {
   fileInput?.value?.click();
 };
 
-const fileList = ref<File[]>([]); // 使用 ref 来创建响应式的文件列表
-const dataBase64List = ref<string[]>([]); // 使用 ref 来创建响应式的 Base64 数据列表
+const fileList = ref<File[]>([]); // 使用 ref 來創建響應式的文件列表
+const dataBase64List = ref<string[]>([]); // 使用 ref 來創建響應式的 Base64 數據列表
 
 const handleSetFile = async (file: File) => {
-  fileList.value.push(file); // 使用 .value 访问 ref 对象并追加新文件
+  fileList.value.push(file); // 使用 .value 訪問 ref 對象並追加新文件
 
   const reader = new FileReader();
 
   reader.onload = (event: any) => {
     const base64Data = event.target?.result as string;
-    dataBase64List.value.push(base64Data); // 使用 .value 访问 ref 对象并追加 Base64 数据
-    console.log(`文件 ${file.name} 的 Base64 数据已添加`);
+    dataBase64List.value.push(base64Data); // 使用 .value 訪問 ref 對象並追加 Base64 數據
+    console.log(`文件 ${file.name} 的 Base64 數據已添加`);
   };
 
-  reader.readAsDataURL(file); // 读取文件并转换为 Base64
+  reader.readAsDataURL(file); // 讀取文件並轉換為 Base64
 
   fileInput.value = null;
 };
 
 const clearData = async (index: number) => {
-  dataBase64List.value.splice(index, 1); // 使用 .value 访问 ref 对象并删除指定索引的图片数据
-  fileList.value.splice(index, 1); // 同时删除对应的文件
+  dataBase64List.value.splice(index, 1); // 使用 .value 訪問 ref 對象並刪除指定索引的圖片數據
+  fileList.value.splice(index, 1); // 同時刪除對應的文件
   await updateGroup({ fileParsing: '', fileName: '' });
 };
 
 const handleFileSelect = async (event: Event) => {
-  console.log('文件选择事件触发');
+  console.log('文件選擇事件觸發');
   const input = event.target as HTMLInputElement;
   const file = input?.files?.[0];
   if (file) {
@@ -772,7 +772,7 @@ const clearSelectApp = async () => {
   chatStore.setUsingPlugin(null);
 };
 
-// 解析文件内容
+// 解析文件內容
 const parseFile = async () => {
   isUploading.value = true;
   try {
@@ -818,7 +818,7 @@ const parseFile = async () => {
       }
     }
 
-    // 检查文本长度并截断
+    // 檢查文本長度並截斷
     if (text.length > 50000) {
       console.warn('Text exceeds 50000 characters, truncating...');
       text = text.slice(0, 50000);
@@ -948,13 +948,13 @@ const extractTextFromParagraphs = (paragraphs: any): string => {
   return text;
 };
 
-// 读取TXT文件
+// 讀取TXT文件
 const readText = async (file: File) => {
   const text = await file.text();
   return text;
 };
 
-/* 修改对话组模型配置 */
+/* 修改對話組模型配置 */
 const updateGroup = async (option: any) => {
   const { modelInfo, fileInfo } = chatStore.activeConfig;
   const config = {
@@ -962,12 +962,12 @@ const updateGroup = async (option: any) => {
       ...modelInfo,
     },
     fileInfo: {
-      // 确保即使 fileInfo 或 fileInfo.fileParsing 不存在，也不会导致错误
+      // 確保即使 fileInfo 或 fileInfo.fileParsing 不存在，也不會導致錯誤
       fileParsing:
         option.fileParsing !== undefined
           ? option.fileParsing
           : fileInfo?.fileParsing,
-      // 确保即使 fileInfo 或 fileInfo.fileName 不存在，也不会导致错误
+      // 確保即使 fileInfo 或 fileInfo.fileName 不存在，也不會導致錯誤
       fileName:
         option.fileName !== undefined ? option.fileName : fileInfo?.fileName,
     },
@@ -997,7 +997,7 @@ const handleEnter = (event: KeyboardEvent) => {
 };
 
 const selectApp = async (app: any) => {
-  // 这里可以设置选中的应用程序的逻辑
+  // 這裡可以設置選中的應用程式的邏輯
   selectedApp.value = app;
   isSelectedApp.value = true;
   await chatStore.setPrompt('');
@@ -1013,7 +1013,7 @@ const handleStop = () => {
 watch(
   [customWidth, customHeight],
   ([newWidth, newHeight], [oldWidth, oldHeight]) => {
-    // 当两个输入都被填写且与之前的值不同时，执行switchSize
+    // 當兩個輸入都被填寫且與之前的值不同時，執行switchSize
     if (
       newWidth &&
       newHeight &&
@@ -1050,7 +1050,7 @@ onMounted(() => {
   updateRandomStyles();
   chatStore.setPrompt('');
 
-  // 设置焦点
+  // 設置焦點
   nextTick(() => {
     if (inputRef.value && !isMobile.value) {
       inputRef.value.focus();
@@ -1238,7 +1238,7 @@ onMounted(() => {
               class="inline-flex w-full justify-center rounded-md text-sm text-gray-500 group-hover:text-gray-700 dark:text-gray-500 dark:group-hover:text-gray-300 whitespace-nowrap"
               @click="triggerFileUpload"
             >
-              图生视频
+              圖生視頻
             </MenuButton>
           </Menu>
           <Menu
@@ -1304,7 +1304,7 @@ onMounted(() => {
         class="flex items-center py-2 px-2 rounded-lg w-full cursor-pointer transition duration-150 ease-in-out"
       >
         <p class="text-sm text-gray-500 dark:text-gray-400 flex-grow truncate">
-          使用 @ 搜索应用程序
+          使用 @ 搜索應用程式
         </p>
       </div>
       <div
@@ -1361,11 +1361,11 @@ onMounted(() => {
             v-for="(base64, index) in dataBase64List"
             :key="index"
           >
-            <!-- 父容器，对图片和图标进行相对定位 -->
+            <!-- 父容器，對圖片和圖標進行相對定位 -->
             <img
               :src="base64"
               class="max-h-16 border border-gray-300 rounded-lg"
-              alt="预览图片"
+              alt="預覽圖片"
             />
             <div
               class="absolute top-2 right-0 transform -translate-y-1/2 cursor-pointer text-gray-300 group-hover:text-gray-500"
@@ -1441,7 +1441,7 @@ onMounted(() => {
             </div>
           </template>
           <template v-if="isSelectedApp && !usingPlugin" class="w-full">
-            <!-- 非图片文件预览（例如文件图标），同样设置 margin-top -->
+            <!-- 非圖片文件預覽（例如文件圖標），同樣設置 margin-top -->
             <div
               class="px-2 flex items-center justify-start bg-opacity rounded-t-lg h-12 text-gray-700 dark:text-gray-400 w-full dark:bg-gray-700"
             >
@@ -1481,9 +1481,9 @@ onMounted(() => {
           </template>
         </div>
       </div>
-      <!-- 按钮容器 -->
+      <!-- 按鈕容器 -->
       <div class="flex justify-between flex-grow w-full py-2 px-2">
-        <!-- 文件上传按钮 -->
+        <!-- 文件上傳按鈕 -->
         <div class="flex justify-start items-end">
           <Link
             v-if="
@@ -1506,7 +1506,7 @@ onMounted(() => {
             class="p-1 rotate-icon text-gray-400 dark:text-gray-600 hover:text-gray-500"
           />
 
-          <!-- 文件上传隐藏输入 -->
+          <!-- 文件上傳隱藏輸入 -->
           <input
             ref="fileInput"
             type="file"
@@ -1530,7 +1530,7 @@ onMounted(() => {
         </div>
 
         <div class="flex justify-end items-end">
-          <!-- 当不在加载状态时显示这个按钮，用于提交 -->
+          <!-- 當不在加載狀態時顯示這個按鈕，用於遞交 -->
           <button
             v-if="!isStreamIn"
             type="button"
@@ -1545,7 +1545,7 @@ onMounted(() => {
             <SendOne size="16" />
           </button>
 
-          <!-- 当在加载状态时显示这个按钮，用于停止 -->
+          <!-- 當在加載狀態時顯示這個按鈕，用於停止 -->
           <button
             v-if="isStreamIn"
             type="button"

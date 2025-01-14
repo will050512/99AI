@@ -68,7 +68,7 @@
     "timeout": "逾時",
     "socks": "Socks",
     "httpsProxy": "HTTPS Proxy",
-    "balance": "API余額"
+    "balance": "API餘額"
   },
   "store": {
     "siderButton": "提示詞商店",
@@ -87,5 +87,14 @@
     "importRepeatContent": "因內容重複跳過：{msg}",
     "onlineImportWarning": "注意：請檢查 JSON 檔案來源！",
     "downloadError": "請檢查網路狀態與 JSON 檔案有效性"
+  },
+  "pay": {
+    "ecpay": "綠界支付",
+    "ecpayPay": "使用綠界支付",
+    "redirectingToEcpay": "正在跳轉至綠界支付...",
+    "ecpayPaymentSuccess": "綠界支付成功",
+    "ecpayPaymentFailed": "綠界支付失敗",
+    "creditCardPay": "信用卡支付",
+    "creditCard": "信用卡"
   }
 }

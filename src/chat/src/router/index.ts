@@ -8,7 +8,7 @@ const routes: RouteRecordRaw[] = [
     path: '/',
     name: 'Layout',
     component: () => import('@/layout/index.vue'),
-    redirect: '/chat', // 动态设置重定向路径
+    redirect: '/chat', // 動態設置重定向路徑
     children: [
       {
         path: '/home',

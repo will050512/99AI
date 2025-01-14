@@ -30,10 +30,10 @@ async function validateDatabase() {
         const [rows] = (await conn.execute(`SHOW DATABASES LIKE '${process.env.DB_DATABASE}'`));
         if (Array.isArray(rows) && rows.length === 0) {
             await conn.execute(`CREATE DATABASE ${process.env.DB_DATABASE}`);
-            common_1.Logger.log(`数据库创建成功[${process.env.DB_DATABASE}]`, 'Database');
+            common_1.Logger.log(`數據庫創建成功[${process.env.DB_DATABASE}]`, 'Database');
         }
         else {
-            common_1.Logger.log(`数据库已存在[${process.env.DB_DATABASE}]`, 'Database');
+            common_1.Logger.log(`數據庫已存在[${process.env.DB_DATABASE}]`, 'Database');
         }
     }
     catch (error) {

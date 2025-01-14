@@ -15,48 +15,48 @@ const swagger_1 = require("@nestjs/swagger");
 class ChatDrawDto {
 }
 __decorate([
-    (0, swagger_1.ApiProperty)({ example: 'Draw a cute little dog', description: '绘画描述信息' }),
+    (0, swagger_1.ApiProperty)({ example: 'Draw a cute little dog', description: '繪畫描述資訊' }),
     __metadata("design:type", String)
 ], ChatDrawDto.prototype, "prompt", void 0);
 __decorate([
-    (0, swagger_1.ApiProperty)({ example: 1, description: '绘画张数', required: true }),
+    (0, swagger_1.ApiProperty)({ example: 1, description: '繪畫張數', required: true }),
     __metadata("design:type", Number)
 ], ChatDrawDto.prototype, "n", void 0);
 __decorate([
-    (0, swagger_1.ApiProperty)({ example: '1024x1024', description: '图片尺寸', required: true }),
+    (0, swagger_1.ApiProperty)({ example: '1024x1024', description: '圖片尺寸', required: true }),
     __metadata("design:type", String)
 ], ChatDrawDto.prototype, "size", void 0);
 __decorate([
-    (0, swagger_1.ApiProperty)({ example: 'standard', description: '图片质量', required: true }),
+    (0, swagger_1.ApiProperty)({ example: 'standard', description: '圖片質量', required: true }),
     __metadata("design:type", String)
 ], ChatDrawDto.prototype, "quality", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)({
         example: 'close-up polaroid photo, of a little joyful cute panda, in the forest, sun rays coming, photographic, sharp focus, depth of field, soft lighting, heigh quality, 24mm, Nikon Z FX',
-        description: '绘画提示词！',
+        description: '繪畫提示詞！',
         required: true,
     }),
-    (0, swagger_1.ApiProperty)({ example: '--ar 16:9 --c 0', description: '除了prompt的额外参数' }),
+    (0, swagger_1.ApiProperty)({ example: '--ar 16:9 --c 0', description: '除了prompt的額外參數' }),
     (0, class_validator_1.IsOptional)(),
     __metadata("design:type", String)
 ], ChatDrawDto.prototype, "extraParam", void 0);
 __decorate([
-    (0, swagger_1.ApiProperty)({ example: 'https://xsdasdasd.com', description: '垫图图片地址' }),
+    (0, swagger_1.ApiProperty)({ example: 'https://xsdasdasd.com', description: '墊圖圖片地址' }),
     (0, class_validator_1.IsOptional)(),
     __metadata("design:type", String)
 ], ChatDrawDto.prototype, "imgUrl", void 0);
 __decorate([
-    (0, swagger_1.ApiProperty)({ example: 'IMAGINE', description: '任务类型,可用值:IMAGINE,UPSCALE,VARIATION,ZOOM,PAN,DESCRIBE,BLEND,SHORTEN,SWAP_FACE' }),
+    (0, swagger_1.ApiProperty)({ example: 'IMAGINE', description: '任務類型,可用值:IMAGINE,UPSCALE,VARIATION,ZOOM,PAN,DESCRIBE,BLEND,SHORTEN,SWAP_FACE' }),
     (0, class_validator_1.IsOptional)(),
     __metadata("design:type", String)
 ], ChatDrawDto.prototype, "action", void 0);
 __decorate([
-    (0, swagger_1.ApiProperty)({ example: 1, description: '变体或者放大的序号' }),
+    (0, swagger_1.ApiProperty)({ example: 1, description: '變體或者放大的序號' }),
     (0, class_validator_1.IsOptional)(),
     __metadata("design:type", Number)
 ], ChatDrawDto.prototype, "orderId", void 0);
 __decorate([
-    (0, swagger_1.ApiProperty)({ example: 1, description: '绘画的DBID' }),
+    (0, swagger_1.ApiProperty)({ example: 1, description: '繪畫的DBID' }),
     (0, class_validator_1.IsOptional)(),
     __metadata("design:type", Number)
 ], ChatDrawDto.prototype, "drawId", void 0);
@@ -71,7 +71,7 @@ __decorate([
     __metadata("design:type", String)
 ], ChatDrawDto.prototype, "base64", void 0);
 __decorate([
-    (0, swagger_1.ApiProperty)({ example: 1, description: '任务ID' }),
+    (0, swagger_1.ApiProperty)({ example: 1, description: '任務ID' }),
     (0, class_validator_1.IsOptional)(),
     __metadata("design:type", Number)
 ], ChatDrawDto.prototype, "taskId", void 0);

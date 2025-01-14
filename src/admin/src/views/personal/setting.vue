@@ -1,7 +1,7 @@
 <route lang="yaml">
 name: personalSetting
 meta:
-  title: 个人设置
+  title: 個人設置
   cache: personal-edit.password
 </route>
 
@@ -38,22 +38,22 @@ function editPassword() {
   <div>
     <page-main>
       <el-tabs tab-position="left" style="height: 600px;">
-        <!-- <el-tab-pane label="基本设置" class="basic">
-          <h2>基本设置</h2>
+        <!-- <el-tab-pane label="基本設置" class="basic">
+          <h2>基本設置</h2>
           <el-row :gutter="20">
             <el-col :span="16">
               <el-form :model="form" label-width="120px" label-suffix="：">
-                <el-form-item label="名 称">
-                  <el-input v-model="form.name" placeholder="请输入你的名称" />
+                <el-form-item label="名 稱">
+                  <el-input v-model="form.name" placeholder="請輸入你的名稱" />
                 </el-form-item>
-                <el-form-item label="手机号">
-                  <el-input v-model="form.mobile" placeholder="请输入你的手机号" />
+                <el-form-item label="手機號">
+                  <el-input v-model="form.mobile" placeholder="請輸入你的手機號" />
                 </el-form-item>
-                <el-form-item label="QQ 号">
-                  <el-input v-model="form.qq" placeholder="请输入你的 QQ 号" />
+                <el-form-item label="QQ 號">
+                  <el-input v-model="form.qq" placeholder="請輸入你的 QQ 號" />
                 </el-form-item>
-                <el-form-item label="微信号">
-                  <el-input v-model="form.wechat" placeholder="请输入你的微信号" />
+                <el-form-item label="微信號">
+                  <el-input v-model="form.wechat" placeholder="請輸入你的微信號" />
                 </el-form-item>
                 <el-form-item>
                   <el-button type="primary">
@@ -67,16 +67,16 @@ function editPassword() {
             </el-col>
           </el-row>
         </el-tab-pane> -->
-        <el-tab-pane label="安全设置" class="security">
-          <h2>安全设置</h2>
+        <el-tab-pane label="安全設置" class="security">
+          <h2>安全設置</h2>
           <div class="setting-list">
             <div class="item">
               <div class="content">
                 <div class="title">
-                  账户密码
+                  賬戶密碼
                 </div>
                 <div class="desc">
-                  当前密码强度：强
+                  當前密碼強度：強
                 </div>
               </div>
               <div class="action">
@@ -88,10 +88,10 @@ function editPassword() {
             <!-- <div class="item">
               <div class="content">
                 <div class="title">
-                  密保手机
+                  密保手機
                 </div>
                 <div class="desc">
-                  已绑定手机：187****3441
+                  已綁定手機：187****3441
                 </div>
               </div>
               <div class="action">
@@ -103,15 +103,15 @@ function editPassword() {
             <div class="item">
               <div class="content">
                 <div class="title">
-                  备用邮箱
+                  備用郵箱
                 </div>
                 <div class="desc">
-                  当前未绑定备用邮箱
+                  當前未綁定備用郵箱
                 </div>
               </div>
               <div class="action">
                 <el-button type="primary" text>
-                  绑定
+                  綁定
                 </el-button>
               </div>
             </div> -->

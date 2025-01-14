@@ -1,6 +1,6 @@
 <route lang="yaml">
 meta:
-  title: 邮件设置
+  title: 郵件設置
 </route>
 
 <script lang="ts" setup>
@@ -22,16 +22,16 @@ const formInline = reactive({
 
 const rules = ref<FormRules>({
   MAILER_HOST: [
-    { required: true, trigger: 'blur', message: '请填写SMTP服务器地址' },
+    { required: true, trigger: 'blur', message: '請填寫SMTP服務器地址' },
   ],
   MAILER_PORT: [
-    { required: true, trigger: 'blur', message: '请填写SMTP服务器端口' },
+    { required: true, trigger: 'blur', message: '請填寫SMTP服務器端口' },
   ],
   MAILER_USER: [
-    { required: true, trigger: 'blur', message: '请填写SMTP用户名称' },
+    { required: true, trigger: 'blur', message: '請填寫SMTP用戶名稱' },
   ],
   MAILER_PASS: [
-    { required: true, trigger: 'blur', message: '请填写SMTP用户密码' },
+    { required: true, trigger: 'blur', message: '請填寫SMTP用戶密碼' },
   ],
   MAILER_SECURE: [{ required: true, trigger: 'blur', message: '是否使用SSL' }],
 });
@@ -57,11 +57,11 @@ function handlerUpdateConfig() {
     if (valid) {
       try {
         await apiConfig.setConfig({ settings: fotmatSetting(formInline) });
-        ElMessage.success('变更配置信息成功');
+        ElMessage.success('變更配置資訊成功');
       } catch (error) {}
       queryAllconfig();
     } else {
-      ElMessage.error('请填写完整信息');
+      ElMessage.error('請填寫完整資訊');
     }
   });
 }
@@ -84,19 +84,19 @@ onMounted(() => {
   <div>
     <PageHeader>
       <template #title>
-        <div class="flex items-center gap-4">邮件登录设置</div>
+        <div class="flex items-center gap-4">郵件登錄設置</div>
       </template>
       <template #content>
         <div class="text-sm/6">
-          <div>邮件设置主要用于发送注册时的激活邮件。</div>
-          <div>是否开启邮箱登录：决定用户是否可以通过邮箱进行登录。</div>
-          <div>是否开启邮箱注册：决定用户是否可以通过邮箱进行注册。</div>
-          <div>SMTP服务器配置，用于发送邮件的 SMTP 相关配置，需自行测试。</div>
+          <div>郵件設置主要用於發送註冊時的激活郵件。</div>
+          <div>是否開啟郵箱登錄：決定用戶是否可以通過郵箱進行登錄。</div>
+          <div>是否開啟郵箱註冊：決定用戶是否可以通過郵箱進行註冊。</div>
+          <div>SMTP服務器配置，用於發送郵件的 SMTP 相關配置，需自行測試。</div>
         </div>
       </template>
       <HButton text outline @click="handlerUpdateConfig">
         <SvgIcon name="i-ri:file-text-line" />
-        保存设置
+        保存設置
       </HButton>
     </PageHeader>
     <el-card style="margin: 20px">
@@ -108,11 +108,11 @@ onMounted(() => {
       >
         <el-row>
           <el-col :xs="24" :md="20" :lg="15" :xl="12">
-            <el-form-item label="开启邮箱注册/登录" prop="emailLoginStatus">
+            <el-form-item label="開啟郵箱註冊/登錄" prop="emailLoginStatus">
               <el-tooltip
                 class="box-item"
                 effect="dark"
-                content="如您启用当前邮箱登录、则用户端可以通过邮箱登录！"
+                content="如您啟用當前郵箱登錄、則用戶端可以通過郵箱登錄！"
                 placement="right"
               >
                 <el-switch
@@ -127,11 +127,11 @@ onMounted(() => {
 
         <el-row>
           <el-col :xs="24" :md="20" :lg="15" :xl="12">
-            <el-form-item label="关闭注册验证" prop="noVerifyRegister">
+            <el-form-item label="關閉註冊驗證" prop="noVerifyRegister">
               <el-tooltip
                 class="box-item"
                 effect="dark"
-                content="打开即为关闭注册校验、注册将直接成功、请谨慎开启！"
+                content="打開即為關閉註冊校驗、註冊將直接成功、請謹慎開啟！"
                 placement="right"
               >
                 <el-switch
@@ -146,7 +146,7 @@ onMounted(() => {
 
         <el-row>
           <el-col :xs="24" :md="20" :lg="15" :xl="12">
-            <el-form-item label="SMTP服务器地址" prop="MAILER_HOST">
+            <el-form-item label="SMTP服務器地址" prop="MAILER_HOST">
               <el-input
                 v-model="formInline.MAILER_HOST"
                 placeholder="示例: smtp.example.com"
@@ -158,7 +158,7 @@ onMounted(() => {
 
         <el-row>
           <el-col :xs="24" :md="20" :lg="15" :xl="12">
-            <el-form-item label="SMTP服务器端口" prop="MAILER_PORT">
+            <el-form-item label="SMTP服務器端口" prop="MAILER_PORT">
               <el-input
                 v-model="formInline.MAILER_PORT"
                 placeholder="示例: 465"
@@ -170,10 +170,10 @@ onMounted(() => {
 
         <el-row>
           <el-col :xs="24" :md="20" :lg="15" :xl="12">
-            <el-form-item label="SMTP用户名称" prop="MAILER_USER">
+            <el-form-item label="SMTP用戶名稱" prop="MAILER_USER">
               <el-input
                 v-model="formInline.MAILER_USER"
-                placeholder="SMTP认证用户名"
+                placeholder="SMTP認證用戶名"
                 clearable
               />
             </el-form-item>
@@ -182,10 +182,10 @@ onMounted(() => {
 
         <el-row>
           <el-col :xs="24" :md="20" :lg="15" :xl="12">
-            <el-form-item label="SMTP用户密码" prop="MAILER_PASS">
+            <el-form-item label="SMTP用戶密碼" prop="MAILER_PASS">
               <el-input
                 v-model="formInline.MAILER_PASS"
-                placeholder="SMTP认证密码"
+                placeholder="SMTP認證密碼"
                 type="password"
                 show-password
                 clearable
@@ -195,13 +195,13 @@ onMounted(() => {
         </el-row>
         <el-row>
           <el-col :xs="24" :md="20" :lg="15" :xl="12">
-            <el-form-item label="邮箱SSL配置" prop="MAILER_SECURE">
+            <el-form-item label="郵箱SSL配置" prop="MAILER_SECURE">
               <el-checkbox
                 v-model="formInline.MAILER_SECURE"
                 true-label="1"
                 false-label="0"
               >
-                启用SSL
+                啟用SSL
               </el-checkbox>
             </el-form-item>
           </el-col>

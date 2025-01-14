@@ -27,7 +27,7 @@ const routes: RouteRecordRaw = {
       path: 'keys',
       name: 'AiMenuKeys',
       component: () => import('@/views/models/key.vue'),
-      meta: { title: '模型设置', icon: 'ph:open-ai-logo-light' },
+      meta: { title: '模型設置', icon: 'ph:open-ai-logo-light' },
     },
   ],
 };

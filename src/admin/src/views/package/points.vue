@@ -1,6 +1,6 @@
 <route lang="yaml">
 meta:
-  title: 积分显示
+  title: 積分顯示
 </route>
 
 <script lang="ts" setup>
@@ -9,10 +9,10 @@ import type { FormInstance, FormRules } from 'element-plus';
 import { ElMessage } from 'element-plus';
 import { onMounted, reactive, ref } from 'vue';
 
-const drawingStyleList = ref(); // 绘画风格关键词列表
-const inputVisible = ref(false); // 控制输入框的显示
-const inputValue = ref(''); // 输入框的值
-const inputRef = ref(); // 输入框的引用
+const drawingStyleList = ref(); // 繪畫風格關鍵詞列表
+const inputVisible = ref(false); // 控制輸入框的顯示
+const inputValue = ref(''); // 輸入框的值
+const inputRef = ref(); // 輸入框的引用
 
 const formInline = reactive({
   isHideModel3Point: '',
@@ -28,13 +28,13 @@ const formInline = reactive({
 });
 const rules = ref<FormRules>({
   model3Name: [
-    { required: true, message: '请输入普通积分名称', trigger: 'blur' },
+    { required: true, message: '請輸入普通積分名稱', trigger: 'blur' },
   ],
   model4Name: [
-    { required: true, message: '请输入高级积分名称', trigger: 'blur' },
+    { required: true, message: '請輸入高級積分名稱', trigger: 'blur' },
   ],
   drawMjName: [
-    { required: true, message: '请输入绘画积分名称', trigger: 'blur' },
+    { required: true, message: '請輸入繪畫積分名稱', trigger: 'blur' },
   ],
 });
 const formRef = ref<FormInstance>();
@@ -58,20 +58,20 @@ async function queryAllconfig() {
   if (res.data.drawingStyles) {
     drawingStyleList.value = res.data.drawingStyles.split(',');
   } else {
-    drawingStyleList.value = []; // 确保drawingStyleList是一个空数组，如果没有drawingStyles数据
+    drawingStyleList.value = []; // 確保drawingStyleList是一個空數組，如果沒有drawingStyles數據
   }
 }
 
-// 显示输入框
+// 顯示輸入框
 function showInput() {
   inputVisible.value = true;
-  // 等待下次 DOM 更新后聚焦输入框
+  // 等待下次 DOM 更新後聚焦輸入框
   nextTick(() => {
     inputRef.value.focus();
   });
 }
 
-// 确认输入
+// 確認輸入
 function handleInputConfirm() {
   const value = inputValue.value.trim();
   if (value) {
@@ -81,12 +81,12 @@ function handleInputConfirm() {
   inputValue.value = '';
 }
 
-// 移除关键词
+// 移除關鍵詞
 function handleStyleRemove(index: any) {
   drawingStyleList.value.splice(index, 1);
 }
 
-// 初始化时从字符串解析关键词列表
+// 初始化時從字串解析關鍵詞列表
 function initDrawingStyles() {
   if (formInline.drawingStyles) {
     drawingStyleList.value = formInline.drawingStyles.split(',');
@@ -99,11 +99,11 @@ function handlerUpdateConfig() {
     if (valid) {
       try {
         await apiConfig.setConfig({ settings: fotmatSetting(formInline) });
-        ElMessage.success('变更配置信息成功');
+        ElMessage.success('變更配置資訊成功');
       } catch (error) {}
       queryAllconfig();
     } else {
-      ElMessage.error('请填写完整信息');
+      ElMessage.error('請填寫完整資訊');
     }
   });
 }
@@ -126,17 +126,17 @@ onMounted(() => {
   <div>
     <PageHeader>
       <template #title>
-        <div class="flex items-center gap-4">网站显示配置</div>
+        <div class="flex items-center gap-4">網站顯示配置</div>
       </template>
       <template #content>
         <div class="text-sm/6">
-          <div>网站显示配置用于控制，积分、侧边菜单、朗读按钮等显示设置。</div>
-          <div>同时可以按需添加绘图风格标签。</div>
+          <div>網站顯示配置用於控制，積分、側邊菜單、朗讀按鈕等顯示設置。</div>
+          <div>同時可以按需添加繪圖風格標籤。</div>
         </div>
       </template>
       <HButton outline @click="handlerUpdateConfig">
         <SvgIcon name="i-ri:file-text-line" />
-        保存设置
+        保存設置
       </HButton>
     </PageHeader>
     <el-card style="margin: 20px">
@@ -148,9 +148,9 @@ onMounted(() => {
       >
         <el-row>
           <el-col :xs="24" :md="20" :lg="15" :xl="12">
-            <el-form-item label="隐藏普通积分" prop="isHideModel3Point">
+            <el-form-item label="隱藏普通積分" prop="isHideModel3Point">
               <el-tooltip
-                content="隐藏后用户端将不显示普通积分，用户仍可以通过地址栏访问页面！"
+                content="隱藏後用戶端將不顯示普通積分，用戶仍可以通過地址欄訪問頁面！"
                 placement="top"
                 :show-after="500"
               >
@@ -165,10 +165,10 @@ onMounted(() => {
         </el-row>
         <el-row>
           <el-col :xs="24" :md="20" :lg="15" :xl="12">
-            <el-form-item label="普通积分名称" prop="model3Name">
+            <el-form-item label="普通積分名稱" prop="model3Name">
               <el-input
                 v-model="formInline.model3Name"
-                placeholder="普通积分名称"
+                placeholder="普通積分名稱"
                 clearable
               />
             </el-form-item>
@@ -176,9 +176,9 @@ onMounted(() => {
         </el-row>
         <el-row>
           <el-col :xs="24" :md="20" :lg="15" :xl="12">
-            <el-form-item label="隐藏高级积分" prop="isHideModel4Point">
+            <el-form-item label="隱藏高級積分" prop="isHideModel4Point">
               <el-tooltip
-                content="隐藏后用户端将不显示高级积分，用户仍可以通过地址栏访问页面！"
+                content="隱藏後用戶端將不顯示高級積分，用戶仍可以通過地址欄訪問頁面！"
                 placement="top"
                 :show-after="500"
               >
@@ -193,10 +193,10 @@ onMounted(() => {
         </el-row>
         <el-row>
           <el-col :xs="24" :md="20" :lg="15" :xl="12">
-            <el-form-item label="高级积分名称" prop="model4Name">
+            <el-form-item label="高級積分名稱" prop="model4Name">
               <el-input
                 v-model="formInline.model4Name"
-                placeholder="高级积分名称"
+                placeholder="高級積分名稱"
                 clearable
               />
             </el-form-item>
@@ -204,9 +204,9 @@ onMounted(() => {
         </el-row>
         <el-row>
           <el-col :xs="24" :md="20" :lg="15" :xl="12">
-            <el-form-item label="隐藏绘画积分" prop="isHideDrawMjPoint">
+            <el-form-item label="隱藏繪畫積分" prop="isHideDrawMjPoint">
               <el-tooltip
-                content="隐藏后用户端将不显示绘画积分，用户仍可以通过地址栏访问页面！"
+                content="隱藏後用戶端將不顯示繪畫積分，用戶仍可以通過地址欄訪問頁面！"
                 placement="top"
                 :show-after="500"
               >
@@ -221,10 +221,10 @@ onMounted(() => {
         </el-row>
         <el-row>
           <el-col :xs="24" :md="20" :lg="15" :xl="12">
-            <el-form-item label="绘画积分名称" prop="drawMjName">
+            <el-form-item label="繪畫積分名稱" prop="drawMjName">
               <el-input
                 v-model="formInline.drawMjName"
-                placeholder="绘画积分名称"
+                placeholder="繪畫積分名稱"
                 clearable
               />
             </el-form-item>
@@ -233,9 +233,9 @@ onMounted(() => {
 
         <el-row>
           <el-col :xs="24" :md="20" :lg="15" :xl="12">
-            <el-form-item label="显示全局水印" prop="showWatermark">
+            <el-form-item label="顯示全局水印" prop="showWatermark">
               <el-tooltip
-                content="开启后将在对话页显示用户名水印"
+                content="開啟後將在對話頁顯示用戶名水印"
                 placement="top"
                 :show-after="500"
               >
@@ -251,9 +251,9 @@ onMounted(() => {
 
         <el-row>
           <el-col :xs="24" :md="20" :lg="15" :xl="12">
-            <el-form-item label="隐藏首页默认预设" prop="isHideDefaultPreset">
+            <el-form-item label="隱藏首頁默認預設" prop="isHideDefaultPreset">
               <el-tooltip
-                content="隐藏后首页将不显示默认预设"
+                content="隱藏後首頁將不顯示默認預設"
                 placement="top"
                 :show-after="500"
               >
@@ -269,9 +269,9 @@ onMounted(() => {
 
         <el-row>
           <el-col :xs="24" :md="20" :lg="15" :xl="12">
-            <el-form-item label="隐藏朗读按钮" prop="isHideTts">
+            <el-form-item label="隱藏朗讀按鈕" prop="isHideTts">
               <el-tooltip
-                content="隐藏后用户端将不显示朗读按钮"
+                content="隱藏後用戶端將不顯示朗讀按鈕"
                 placement="top"
                 :show-after="500"
               >
@@ -287,7 +287,7 @@ onMounted(() => {
 
         <el-row class="mt-2">
           <el-col :xs="24" :md="20" :lg="15" :xl="12">
-            <el-form-item label="绘图风格显示" prop="drawingStyles">
+            <el-form-item label="繪圖風格顯示" prop="drawingStyles">
               <div style="display: flex; flex-wrap: wrap; gap: 10px">
                 <el-tag
                   v-for="(item, index) in drawingStyleList"
@@ -313,7 +313,7 @@ onMounted(() => {
                   style="margin-left: 10px"
                   @click="showInput"
                 >
-                  + 添加风格
+                  + 添加風格
                 </el-button>
               </div>
             </el-form-item>

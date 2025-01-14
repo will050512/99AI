@@ -32,7 +32,7 @@ let SunoService = class SunoService {
             taskData: '',
             status: 2,
         };
-        common_1.Logger.log('开始生成音乐', 'SunoService');
+        common_1.Logger.log('開始生成音樂', 'SunoService');
         let response = null;
         let url = '';
         let payloadJson = {};
@@ -47,25 +47,25 @@ let SunoService = class SunoService {
                 payloadJson = JSON.parse(taskData);
             }
             catch (error) {
-                common_1.Logger.error(`解析taskData失败: ${error.message}`, 'SunoService');
-                throw new Error('taskData格式错误');
+                common_1.Logger.error(`解析taskData失敗: ${error.message}`, 'SunoService');
+                throw new Error('taskData格式錯誤');
             }
         }
-        common_1.Logger.log(`正在准备发送请求到 ${url}，payload: ${JSON.stringify(payloadJson)}, headers: ${JSON.stringify(headers)}`, 'SunoService');
+        common_1.Logger.log(`正在準備發送請求到 ${url}，payload: ${JSON.stringify(payloadJson)}, headers: ${JSON.stringify(headers)}`, 'SunoService');
         try {
             response = await axios_1.default.post(url, payloadJson, { headers });
-            common_1.Logger.debug(`任务提交结果，状态码: ${response.status}, 状态消息: ${response.statusText}, 数据: ${JSON.stringify(response.data)}`);
+            common_1.Logger.debug(`任務遞交結果，狀態碼: ${response.status}, 狀態消息: ${response.statusText}, 數據: ${JSON.stringify(response.data)}`);
         }
         catch (error) {
-            common_1.Logger.error(`任务提交失败: ${error.message}`, 'SunoService');
-            throw new Error('任务提交失败');
+            common_1.Logger.error(`任務遞交失敗: ${error.message}`, 'SunoService');
+            throw new Error('任務遞交失敗');
         }
         if ((_a = response === null || response === void 0 ? void 0 : response.data) === null || _a === void 0 ? void 0 : _a.data) {
             result.taskId = (_b = response === null || response === void 0 ? void 0 : response.data) === null || _b === void 0 ? void 0 : _b.data;
-            common_1.Logger.log(`任务提交成功, 任务ID: ${(_c = response === null || response === void 0 ? void 0 : response.data) === null || _c === void 0 ? void 0 : _c.data}`, 'SunoService');
+            common_1.Logger.log(`任務遞交成功, 任務ID: ${(_c = response === null || response === void 0 ? void 0 : response.data) === null || _c === void 0 ? void 0 : _c.data}`, 'SunoService');
         }
         else {
-            throw new Error('未能获取结果数据, 即将重试');
+            throw new Error('未能獲取結果數據, 即將重試');
         }
         try {
             await this.pollSunoMusicResult({
@@ -87,10 +87,10 @@ let SunoService = class SunoService {
                             taskId: data === null || data === void 0 ? void 0 : data.taskId,
                             taskData: data === null || data === void 0 ? void 0 : data.taskData,
                         });
-                        common_1.Logger.log('音乐任务已完成', 'SunoService');
+                        common_1.Logger.log('音樂任務已完成', 'SunoService');
                     }
                     catch (error) {
-                        common_1.Logger.error(`更新日志失败: ${error.message}`, 'SunoService');
+                        common_1.Logger.error(`更新日誌失敗: ${error.message}`, 'SunoService');
                     }
                 },
                 onAudioSuccess: async (data) => {
@@ -105,10 +105,10 @@ let SunoService = class SunoService {
                             taskId: data === null || data === void 0 ? void 0 : data.taskId,
                             taskData: data === null || data === void 0 ? void 0 : data.taskData,
                         });
-                        common_1.Logger.log('音频生成成功，等待视频生成...', 'SunoService');
+                        common_1.Logger.log('音頻生成成功，等待視頻生成...', 'SunoService');
                     }
                     catch (error) {
-                        common_1.Logger.error(`更新日志失败: ${error.message}`, 'SunoService');
+                        common_1.Logger.error(`更新日誌失敗: ${error.message}`, 'SunoService');
                     }
                 },
                 onGenerating: async (data) => {
@@ -117,33 +117,33 @@ let SunoService = class SunoService {
                             videoUrl: data === null || data === void 0 ? void 0 : data.videoUrl,
                             audioUrl: data === null || data === void 0 ? void 0 : data.audioUrl,
                             fileInfo: data === null || data === void 0 ? void 0 : data.fileInfo,
-                            answer: (data === null || data === void 0 ? void 0 : data.answer) || '音乐生成中...',
+                            answer: (data === null || data === void 0 ? void 0 : data.answer) || '音樂生成中...',
                             progress: data === null || data === void 0 ? void 0 : data.progress,
                             status: data.status,
                         });
-                        common_1.Logger.log('音乐生成中...', 'SunoService');
+                        common_1.Logger.log('音樂生成中...', 'SunoService');
                     }
                     catch (error) {
-                        common_1.Logger.error(`更新日志失败: ${error.message}`, 'SunoService');
+                        common_1.Logger.error(`更新日誌失敗: ${error.message}`, 'SunoService');
                     }
                 },
                 onFailure: async (data) => {
                     try {
                         await this.chatLogService.updateChatLog(assistantLogId, {
-                            answer: '音乐生成失败',
+                            answer: '音樂生成失敗',
                             status: data.status,
                         });
-                        common_1.Logger.log('生成失败', 'SunoService');
+                        common_1.Logger.log('生成失敗', 'SunoService');
                     }
                     catch (error) {
-                        common_1.Logger.error(`更新日志失败: ${error.message}`, 'SunoService');
+                        common_1.Logger.error(`更新日誌失敗: ${error.message}`, 'SunoService');
                     }
                 },
             });
         }
         catch (error) {
-            common_1.Logger.error('查询生成结果时发生错误:', error.message, 'SunoService');
-            throw new Error('查询生成结果时发生错误');
+            common_1.Logger.error('查詢生成結果時發生錯誤:', error.message, 'SunoService');
+            throw new Error('查詢生成結果時發生錯誤');
         }
         return result;
     }
@@ -170,7 +170,7 @@ let SunoService = class SunoService {
                 try {
                     const res = await axios_1.default.get(url, { headers });
                     const responses = res.data.data;
-                    common_1.Logger.debug(`轮询结果: ${JSON.stringify(responses)}`, 'SunoService');
+                    common_1.Logger.debug(`輪詢結果: ${JSON.stringify(responses)}`, 'SunoService');
                     if (action === 'LYRICS') {
                         if (responses.status === 'SUCCESS') {
                             result.taskId = responses.data.id;
@@ -180,7 +180,7 @@ let SunoService = class SunoService {
                             return;
                         }
                         result.progress = responses === null || responses === void 0 ? void 0 : responses.progress;
-                        result.answer = `歌词生成中`;
+                        result.answer = `歌詞生成中`;
                         if (result.progress) {
                             onGenerating(result);
                         }
@@ -200,7 +200,7 @@ let SunoService = class SunoService {
                                     .map((item) => item.image_url)
                                     .filter((url) => url);
                                 const titles = data.map((item) => item.title);
-                                const firstTitle = titles.length > 0 ? titles[0] : '音乐已生成';
+                                const firstTitle = titles.length > 0 ? titles[0] : '音樂已生成';
                                 if (responses.status === 'SUCCESS') {
                                     let audioUrls = [];
                                     let videoUrls = [];
@@ -224,7 +224,7 @@ let SunoService = class SunoService {
                                                     audioUrls.push(uploadedUrl);
                                                 }
                                                 catch (error) {
-                                                    common_1.Logger.error(`上传音频文件失败: ${error.message}`, 'SunoService');
+                                                    common_1.Logger.error(`上傳音頻文件失敗: ${error.message}`, 'SunoService');
                                                     audioUrls.push(url);
                                                 }
                                             }
@@ -237,7 +237,7 @@ let SunoService = class SunoService {
                                                     videoUrls.push(uploadedUrl);
                                                 }
                                                 catch (error) {
-                                                    common_1.Logger.error(`上传视频文件失败: ${error.message}`, 'SunoService');
+                                                    common_1.Logger.error(`上傳視頻文件失敗: ${error.message}`, 'SunoService');
                                                     videoUrls.push(url);
                                                 }
                                             }
@@ -250,7 +250,7 @@ let SunoService = class SunoService {
                                                     imageUrls.push(uploadedUrl);
                                                 }
                                                 catch (error) {
-                                                    common_1.Logger.error(`上传图片文件失败: ${error.message}`, 'SunoService');
+                                                    common_1.Logger.error(`上傳圖片文件失敗: ${error.message}`, 'SunoService');
                                                     imageUrls.push(url);
                                                 }
                                             }
@@ -262,7 +262,7 @@ let SunoService = class SunoService {
                                         }
                                     }
                                     catch (error) {
-                                        common_1.Logger.error(`获取配置失败: ${error.message}`, 'LumaService');
+                                        common_1.Logger.error(`獲取配置失敗: ${error.message}`, 'LumaService');
                                         audioUrls = validAudioUrls;
                                         videoUrls = validVideoUrls;
                                         imageUrls = validImageUrls;
@@ -277,9 +277,9 @@ let SunoService = class SunoService {
                                     else {
                                         result.status = 2;
                                         result.progress = responses === null || responses === void 0 ? void 0 : responses.progress;
-                                        result.answer = `当前生成进度 ${responses === null || responses === void 0 ? void 0 : responses.progress}`;
+                                        result.answer = `當前生成進度 ${responses === null || responses === void 0 ? void 0 : responses.progress}`;
                                     }
-                                    common_1.Logger.debug(`音乐生成成功: ${JSON.stringify(data)}`, 'SunoService');
+                                    common_1.Logger.debug(`音樂生成成功: ${JSON.stringify(data)}`, 'SunoService');
                                     onSuccess(result);
                                     return;
                                 }
@@ -301,16 +301,16 @@ let SunoService = class SunoService {
                 }
                 catch (error) {
                     retryCount++;
-                    common_1.Logger.error(`轮询失败，重试次数: ${retryCount}`, 'SunoService');
+                    common_1.Logger.error(`輪詢失敗，重試次數: ${retryCount}`, 'SunoService');
                 }
             }
-            common_1.Logger.error('轮询超时，请稍后再试！', 'SunoService');
+            common_1.Logger.error('輪詢超時，請稍後再試！', 'SunoService');
             result.status = 4;
             onFailure(result);
-            throw new Error('查询超时，请稍后再试！');
+            throw new Error('查詢超時，請稍後再試！');
         }
         catch (error) {
-            common_1.Logger.error(`轮询过程中发生错误: ${error}`, 'SunoService');
+            common_1.Logger.error(`輪詢過程中發生錯誤: ${error}`, 'SunoService');
             result.status = 5;
             onFailure(result);
         }

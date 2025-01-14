@@ -20,7 +20,7 @@ import { GlobalConfigService } from './globalConfig.service';
 export class GlobalConfigController {
   constructor(private readonly globalConfigService: GlobalConfigService) {}
 
-  @ApiOperation({ summary: '查询所有配置' })
+  @ApiOperation({ summary: '查詢所有配置' })
   @Get('queryAll')
   @UseGuards(AdminAuthGuard)
   @ApiBearerAuth()
@@ -28,13 +28,13 @@ export class GlobalConfigController {
     return this.globalConfigService.queryAllConfig(req);
   }
 
-  @ApiOperation({ summary: '查询前端网站的所有配置' })
+  @ApiOperation({ summary: '查詢前端網站的所有配置' })
   @Get('queryFronet')
   queryFrontConfig(@Query() query: any, @Req() req: Request) {
     return this.globalConfigService.queryFrontConfig(query, req);
   }
 
-  @ApiOperation({ summary: '查询所有配置' })
+  @ApiOperation({ summary: '查詢所有配置' })
   @Post('query')
   @UseGuards(AdminAuthGuard)
   @ApiBearerAuth()
@@ -42,7 +42,7 @@ export class GlobalConfigController {
     return this.globalConfigService.queryConfig(body, req);
   }
 
-  @ApiOperation({ summary: '设置配置信息' })
+  @ApiOperation({ summary: '設置配置資訊' })
   @Post('set')
   @UseGuards(SuperAuthGuard)
   @ApiBearerAuth()
@@ -50,7 +50,7 @@ export class GlobalConfigController {
     return this.globalConfigService.setConfig(body);
   }
 
-  @ApiOperation({ summary: '用户端查询公告信息' })
+  @ApiOperation({ summary: '用戶端查詢公告資訊' })
   @Get('notice')
   queryNotice() {
     return this.globalConfigService.queryNotice();

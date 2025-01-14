@@ -1,6 +1,6 @@
 <route lang="yaml">
 meta:
-  title: 欢迎页设置
+  title: 歡迎頁設置
 </route>
 
 <script lang="ts" setup>
@@ -14,7 +14,7 @@ const formInline = reactive({
   homeHtml: '',
 });
 const rules = ref<FormRules>({
-  siteName: [{ required: true, trigger: 'blur', message: '请填写网站名称' }],
+  siteName: [{ required: true, trigger: 'blur', message: '請填寫網站名稱' }],
 });
 const formRef = ref<FormInstance>();
 
@@ -30,11 +30,11 @@ function handlerUpdateConfig() {
     if (valid) {
       try {
         await apiConfig.setConfig({ settings: fotmatSetting(formInline) });
-        ElMessage.success('变更欢迎页设置成功');
+        ElMessage.success('變更歡迎頁設置成功');
       } catch (error) {}
       queryAllconfig();
     } else {
-      ElMessage.error('请填写完整信息');
+      ElMessage.error('請填寫完整資訊');
     }
   });
 }
@@ -57,24 +57,24 @@ onMounted(() => {
   <div>
     <PageHeader>
       <template #title>
-        <div class="flex items-center gap-4">欢迎页设置</div>
+        <div class="flex items-center gap-4">歡迎頁設置</div>
       </template>
       <template #content>
         <div class="text-sm/6">
           <div>
-            欢迎页设置支持配置访问首页时的默认显示内容。可以启用欢迎页，或直接跳转到聊天页面。
+            歡迎頁設置支持配置訪問首頁時的默認顯示內容。可以啟用歡迎頁，或直接跳轉到聊天頁面。
           </div>
-          <div>若启用欢迎页，可以在此处自定义欢迎页面内容。</div>
+          <div>若啟用歡迎頁，可以在此處自定義歡迎頁面內容。</div>
           <div class="mt-2 text-gray-500">
-            <strong>推荐：</strong> 您可以在其他专业的 HTML 编辑器（如 VS
+            <strong>推薦：</strong> 您可以在其他專業的 HTML 編輯器（如 VS
             Code、Sublime
-            Text）中编辑欢迎页面内容并复制粘贴到此处，以获得更好的编辑体验。
+            Text）中編輯歡迎頁面內容並複製粘貼到此處，以獲得更好的編輯體驗。
           </div>
         </div>
       </template>
       <HButton outline @click="handlerUpdateConfig">
         <SvgIcon name="i-ri:file-text-line" />
-        保存设置
+        保存設置
       </HButton>
     </PageHeader>
 
@@ -87,7 +87,7 @@ onMounted(() => {
       >
         <el-row>
           <el-col :xs="24" :md="24" :lg="24" :xl="24">
-            <el-form-item label="开启欢迎页" prop="clientHomePath">
+            <el-form-item label="開啟歡迎頁" prop="clientHomePath">
               <el-switch
                 v-model="formInline.clientHomePath"
                 :active-value="'/home'"
@@ -99,10 +99,10 @@ onMounted(() => {
 
         <el-row v-if="formInline.clientHomePath === '/home'">
           <el-col :xs="24" :md="20" :lg="15" :xl="12">
-            <el-form-item label="欢迎页（HTML）" prop="homeHtml">
+            <el-form-item label="歡迎頁（HTML）" prop="homeHtml">
               <el-input
                 v-model="formInline.homeHtml"
-                placeholder="请输入自定义欢迎页内容"
+                placeholder="請輸入自定義歡迎頁內容"
                 type="textarea"
                 :rows="10"
                 clearable
@@ -112,7 +112,7 @@ onMounted(() => {
         </el-row>
 
         <el-col :xs="28" :md="24" :lg="20" :xl="12" style="margin-top: 20px">
-          <el-form-item label="预览">
+          <el-form-item label="預覽">
             <iframe
               class="w-full h-100 border border-gray-200 rounded-md bg-gray-100"
               :srcdoc="formInline.homeHtml"

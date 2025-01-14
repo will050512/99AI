@@ -43,7 +43,7 @@ let UserService = class UserService {
         const where = [{ username }, { email }];
         const u = await this.userEntity.findOne({ where: where });
         if (u && u.status !== user_constant_1.UserStatusEnum.PENDING) {
-            throw new common_1.HttpException('用户名或者邮箱已被注册！', common_1.HttpStatus.BAD_REQUEST);
+            throw new common_1.HttpException('用戶名或者郵箱已被註冊！', common_1.HttpStatus.BAD_REQUEST);
         }
         try {
             const userInput = _.cloneDeep(user);
@@ -90,7 +90,7 @@ let UserService = class UserService {
                 const { code, email, id } = v;
                 const { registerVerifyEmailFrom } = configMap;
                 console.log('configMap: ', configMap);
-                console.log(`尝试发送邮件到: ${email}`);
+                console.log(`嘗試發送郵件到: ${email}`);
             }
             else {
                 const { id } = n;
@@ -114,10 +114,10 @@ let UserService = class UserService {
         if (uid > 0) {
             u = await this.userEntity.findOne({ where: { id: uid } });
             if (!u) {
-                throw new common_1.HttpException('当前账户不存在！', common_1.HttpStatus.BAD_REQUEST);
+                throw new common_1.HttpException('當前賬戶不存在！', common_1.HttpStatus.BAD_REQUEST);
             }
             if (!bcrypt.compareSync(password, u.password)) {
-                throw new common_1.HttpException('当前密码错误！', common_1.HttpStatus.BAD_REQUEST);
+                throw new common_1.HttpException('當前密碼錯誤！', common_1.HttpStatus.BAD_REQUEST);
             }
         }
         if (username && password) {
@@ -128,14 +128,14 @@ let UserService = class UserService {
             ];
             u = await this.userEntity.findOne({ where: where });
             if (!u) {
-                throw new common_1.HttpException('当前账户不存在！', common_1.HttpStatus.BAD_REQUEST);
+                throw new common_1.HttpException('當前賬戶不存在！', common_1.HttpStatus.BAD_REQUEST);
             }
             if (!bcrypt.compareSync(password, u.password)) {
-                throw new common_1.HttpException('当前密码错误！', common_1.HttpStatus.BAD_REQUEST);
+                throw new common_1.HttpException('當前密碼錯誤！', common_1.HttpStatus.BAD_REQUEST);
             }
         }
         if (!u) {
-            throw new common_1.HttpException('当前账户不存在！', common_1.HttpStatus.BAD_REQUEST);
+            throw new common_1.HttpException('當前賬戶不存在！', common_1.HttpStatus.BAD_REQUEST);
         }
         if (u.status !== user_constant_1.UserStatusEnum.ACTIVE) {
             throw new common_1.HttpException(user_constant_1.UserStatusErrMsg[u.status], common_1.HttpStatus.BAD_REQUEST);
@@ -166,13 +166,13 @@ let UserService = class UserService {
             return true;
         const u = await this.userEntity.findOne({ where: { id: userId } });
         if (!u) {
-            throw new common_1.HttpException('当前用户信息失效、请重新登录！', common_1.HttpStatus.UNAUTHORIZED);
+            throw new common_1.HttpException('當前用戶資訊失效、請重新登錄！', common_1.HttpStatus.UNAUTHORIZED);
         }
         if (u.status === user_constant_1.UserStatusEnum.BLACKLISTED) {
-            throw new common_1.HttpException('您的账户已被永久加入黑名单、如有疑问、请联系管理员！', common_1.HttpStatus.BAD_REQUEST);
+            throw new common_1.HttpException('您的賬戶已被永久加入黑名單、如有疑問、請聯繫管理員！', common_1.HttpStatus.BAD_REQUEST);
         }
         if (u.status === user_constant_1.UserStatusEnum.LOCKED) {
-            throw new common_1.HttpException('您的账户已被封禁、如有疑问、请联系管理员！', common_1.HttpStatus.BAD_REQUEST);
+            throw new common_1.HttpException('您的賬戶已被封禁、如有疑問、請聯繫管理員！', common_1.HttpStatus.BAD_REQUEST);
         }
     }
     async getUserInfo(userId) {
@@ -189,7 +189,7 @@ let UserService = class UserService {
             ],
         });
         if (!userInfo) {
-            throw new common_1.HttpException('当前用户信息失效、请重新登录！', common_1.HttpStatus.UNAUTHORIZED);
+            throw new common_1.HttpException('當前用戶資訊失效、請重新登錄！', common_1.HttpStatus.UNAUTHORIZED);
         }
         userInfo.isBindWx = !!(userInfo === null || userInfo === void 0 ? void 0 : userInfo.openId);
         delete userInfo.openId;
@@ -211,22 +211,22 @@ let UserService = class UserService {
         const { id } = req.user;
         const u = await this.userEntity.findOne({ where: { id } });
         if (!u) {
-            throw new common_1.HttpException('当前用户不存在！', common_1.HttpStatus.BAD_REQUEST);
+            throw new common_1.HttpException('當前用戶不存在！', common_1.HttpStatus.BAD_REQUEST);
         }
         if (body.username && u.username === body.username) {
-            throw new common_1.HttpException('没有变更，无需更改！', common_1.HttpStatus.BAD_REQUEST);
+            throw new common_1.HttpException('沒有變更，無需更改！', common_1.HttpStatus.BAD_REQUEST);
         }
         if (body.username) {
             const usernameTaken = await this.isUsernameTaken(body.username, id);
             if (usernameTaken) {
-                throw new common_1.HttpException('用户名已存在！', common_1.HttpStatus.BAD_REQUEST);
+                throw new common_1.HttpException('用戶名已存在！', common_1.HttpStatus.BAD_REQUEST);
             }
         }
         const r = await this.userEntity.update({ id }, body);
         if (r.affected <= 0) {
-            throw new common_1.HttpException('修改用户信息失败！', common_1.HttpStatus.BAD_REQUEST);
+            throw new common_1.HttpException('修改用戶資訊失敗！', common_1.HttpStatus.BAD_REQUEST);
         }
-        return '修改用户信息成功！';
+        return '修改用戶資訊成功！';
     }
     async isUsernameTaken(username, excludeUserId) {
         const where = { username };
@@ -240,7 +240,7 @@ let UserService = class UserService {
         const hashedPassword = bcrypt.hashSync(password, 10);
         const r = await this.userEntity.update({ id: userId }, { password: hashedPassword });
         if (r.affected <= 0) {
-            throw new common_1.HttpException('修改密码失败、请重新试试吧。', common_1.HttpStatus.BAD_REQUEST);
+            throw new common_1.HttpException('修改密碼失敗、請重新試試吧。', common_1.HttpStatus.BAD_REQUEST);
         }
     }
     async userRecharge(body) {
@@ -316,33 +316,33 @@ let UserService = class UserService {
         const { id, status } = body;
         const n = await this.userEntity.findOne({ where: { id } });
         if (!n) {
-            throw new common_1.HttpException('用户不存在！', common_1.HttpStatus.BAD_REQUEST);
+            throw new common_1.HttpException('用戶不存在！', common_1.HttpStatus.BAD_REQUEST);
         }
         if (n.role === 'super') {
-            throw new common_1.HttpException('超级管理员不可被操作！', common_1.HttpStatus.BAD_REQUEST);
+            throw new common_1.HttpException('超級管理員不可被操作！', common_1.HttpStatus.BAD_REQUEST);
         }
         if (n.role === 'super') {
-            throw new common_1.HttpException('超级管理员不可被操作！', common_1.HttpStatus.BAD_REQUEST);
+            throw new common_1.HttpException('超級管理員不可被操作！', common_1.HttpStatus.BAD_REQUEST);
         }
         const r = await this.userEntity.update({ id }, { status });
         if (r.affected <= 0) {
-            throw new common_1.HttpException('修改用户状态失败！', common_1.HttpStatus.BAD_REQUEST);
+            throw new common_1.HttpException('修改用戶狀態失敗！', common_1.HttpStatus.BAD_REQUEST);
         }
-        return '修改用户状态成功！';
+        return '修改用戶狀態成功！';
     }
     async resetUserPass(body) {
         const { id } = body;
         const u = await this.userEntity.findOne({ where: { id } });
         if (!u) {
-            throw new common_1.HttpException('用户不存在！', common_1.HttpStatus.BAD_REQUEST);
+            throw new common_1.HttpException('用戶不存在！', common_1.HttpStatus.BAD_REQUEST);
         }
         const defaultPassword = '123456';
         const hashPassword = bcrypt.hashSync(defaultPassword, 10);
         const raw = await this.userEntity.update({ id }, { password: hashPassword });
         if (raw.affected <= 0) {
-            throw new common_1.HttpException('重置密码失败！', common_1.HttpStatus.BAD_REQUEST);
+            throw new common_1.HttpException('重置密碼失敗！', common_1.HttpStatus.BAD_REQUEST);
         }
-        return `密码重置为[${defaultPassword}]成功!`;
+        return `密碼重置為[${defaultPassword}]成功!`;
     }
     async savaLoginIp(userId, ip) {
         return await this.userEntity.update({ id: userId }, { lastLoginIp: ip });
@@ -362,7 +362,7 @@ let UserService = class UserService {
         ]);
         const userInfo = {
             avatar: userDefautlAvatar,
-            username: `用户${(0, utils_1.createRandomUid)()}`,
+            username: `用戶${(0, utils_1.createRandomUid)()}`,
             status: user_constant_1.UserStatusEnum.ACTIVE,
             sex: 0,
             email: `${(0, utils_1.createRandomUid)()}@default.com`,
@@ -378,7 +378,7 @@ let UserService = class UserService {
         ]);
         const userInfo = {
             avatar: userDefautlAvatar,
-            username: `用户${(0, utils_1.createRandomUid)()}`,
+            username: `用戶${(0, utils_1.createRandomUid)()}`,
             status: user_constant_1.UserStatusEnum.ACTIVE,
             sex: 0,
         };
@@ -412,17 +412,17 @@ let UserService = class UserService {
         try {
             const user = await this.userEntity.findOne({ where: { id: userId } });
             if (!user)
-                return { status: false, msg: '当前绑定用户不存在！' };
+                return { status: false, msg: '當前綁定用戶不存在！' };
             const bindU = await this.userEntity.findOne({ where: { openId } });
             if (bindU)
-                return { status: false, msg: '该微信已绑定其他账号！' };
+                return { status: false, msg: '該微信已綁定其他賬號！' };
             const res = await this.userEntity.update({ id: userId }, { openId });
             if (res.affected <= 0)
-                return { status: false, msg: '绑定微信失败、请联系管理员！' };
-            return { status: true, msg: '恭喜您绑定成功、后续可直接扫码登录了！' };
+                return { status: false, msg: '綁定微信失敗、請聯繫管理員！' };
+            return { status: true, msg: '恭喜您綁定成功、後續可直接掃碼登錄了！' };
         }
         catch (error) {
-            return { status: false, msg: '绑定微信失败、请联系管理员！' };
+            return { status: false, msg: '綁定微信失敗、請聯繫管理員！' };
         }
     }
     async getOpenIdByUserId(userId) {
@@ -462,27 +462,27 @@ let UserService = class UserService {
             where: [{ username }, { phone }],
         });
         if (user && user.username === username) {
-            throw new common_1.HttpException('用户名已存在、请更换用户名！', common_1.HttpStatus.BAD_REQUEST);
+            throw new common_1.HttpException('用戶名已存在、請更換用戶名！', common_1.HttpStatus.BAD_REQUEST);
         }
         if (user && user.phone === phone) {
-            throw new common_1.HttpException('当前手机号已注册、请勿重复注册！', common_1.HttpStatus.BAD_REQUEST);
+            throw new common_1.HttpException('當前手機號已註冊、請勿重複註冊！', common_1.HttpStatus.BAD_REQUEST);
         }
     }
     async verifyUserRegisterByEmail(params) {
         const { username, email } = params;
-        console.log(`校验邮箱注册: 开始 - 用户名: ${username}, 邮箱: ${email}`);
+        console.log(`校驗郵箱註冊: 開始 - 用戶名: ${username}, 郵箱: ${email}`);
         const user = await this.userEntity.findOne({
             where: [{ username }, { email }],
         });
         if (user && user.username === username) {
-            console.error(`校验失败: 用户名 "${username}" 已存在`);
-            throw new common_1.HttpException('用户名已存在、请更换用户名！', common_1.HttpStatus.BAD_REQUEST);
+            console.error(`校驗失敗: 用戶名 "${username}" 已存在`);
+            throw new common_1.HttpException('用戶名已存在、請更換用戶名！', common_1.HttpStatus.BAD_REQUEST);
         }
         if (user && user.email === email) {
-            console.error(`校验失败: 邮箱 "${email}" 已被注册`);
-            throw new common_1.HttpException('当前邮箱已注册、请勿重复注册！', common_1.HttpStatus.BAD_REQUEST);
+            console.error(`校驗失敗: 郵箱 "${email}" 已被註冊`);
+            throw new common_1.HttpException('當前郵箱已註冊、請勿重複註冊！', common_1.HttpStatus.BAD_REQUEST);
         }
-        console.log(`校验邮箱注册: 成功 - 用户名: ${username}, 邮箱: ${email} 未被占用`);
+        console.log(`校驗郵箱註冊: 成功 - 用戶名: ${username}, 郵箱: ${email} 未被佔用`);
     }
     async createUser(userInfo) {
         return await this.userEntity.save(userInfo);
@@ -490,7 +490,7 @@ let UserService = class UserService {
     async saveRealNameInfo(userId, realName, idCard) {
         const user = await this.userEntity.findOne({ where: { id: userId } });
         if (!user) {
-            common_1.Logger.error('用户不存在');
+            common_1.Logger.error('用戶不存在');
         }
         await this.userEntity.update({ id: userId }, { realName, idCard });
         return;
@@ -499,10 +499,10 @@ let UserService = class UserService {
         const user = await this.userEntity.findOne({ where: { id: userId } });
         const hashedPassword = bcrypt.hashSync(password, 10);
         if (!user) {
-            common_1.Logger.error('用户不存在');
+            common_1.Logger.error('用戶不存在');
         }
         if (!phone || !username || !hashedPassword) {
-            throw new common_1.HttpException('参数错误！', common_1.HttpStatus.BAD_REQUEST);
+            throw new common_1.HttpException('參數錯誤！', common_1.HttpStatus.BAD_REQUEST);
         }
         await this.userEntity.update({ id: userId }, { phone, username, password: hashedPassword });
         return;

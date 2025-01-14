@@ -52,7 +52,7 @@ let OfficialService = class OfficialService {
         ]);
         const Url = (0, utils_1.formatUrl)(process.env.weChatOpenUrl || 'https://open.weixin.qq.com');
         const res = `${Url}/connect/oauth2/authorize?appid=${appId}&redirect_uri=${encodeURIComponent(url)}&response_type=code&scope=snsapi_base&state=weChatLogin#wechat_redirect`;
-        console.log('回跳跳转地址: ', res);
+        console.log('回跳跳轉地址: ', res);
         return res;
     }
     async getJsapiTicket(url) {
@@ -109,8 +109,8 @@ let OfficialService = class OfficialService {
         try {
             common_1.Logger.log(`Scanning with openID: ${openID}, sceneStr: ${sceneStr}`, 'OfficialService');
             if (!this.sceneStrMap[sceneStr]) {
-                common_1.Logger.error(`非法参数: 未找到的 sceneStr ${sceneStr}`);
-                throw new common_1.HttpException('非法参数', common_1.HttpStatus.BAD_REQUEST);
+                common_1.Logger.error(`非法參數: 未找到的 sceneStr ${sceneStr}`);
+                throw new common_1.HttpException('非法參數', common_1.HttpStatus.BAD_REQUEST);
             }
             const user = await this.userService.getUserFromOpenId(openID, sceneStr);
             common_1.Logger.log(`User found: ${user ? user.id : 'No user found'}`, 'OfficialService');
@@ -119,7 +119,7 @@ let OfficialService = class OfficialService {
         catch (error) {
             common_1.Logger.error('Error in scan method:', error.message);
             common_1.Logger.error('Stack trace:', error.stack);
-            throw new common_1.HttpException('处理扫码事件时发生错误', common_1.HttpStatus.INTERNAL_SERVER_ERROR);
+            throw new common_1.HttpException('處理掃碼事件時發生錯誤', common_1.HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
     async loginBySceneStr(req, body) {
@@ -135,14 +135,14 @@ let OfficialService = class OfficialService {
     }
     async scanBindWx(openId, sceneStr) {
         if (!this.sceneStrMap[sceneStr])
-            throw new common_1.HttpException('非法参数', common_1.HttpStatus.BAD_REQUEST);
+            throw new common_1.HttpException('非法參數', common_1.HttpStatus.BAD_REQUEST);
         const userId = sceneStr.split('/')[1];
         const bindRes = await this.userService.bindWx(openId, userId);
         this.scanedSceneStrMap[sceneStr] = bindRes;
     }
     async bindWxBySceneStr(req, sceneStr) {
         if (!this.sceneStrMap[sceneStr])
-            throw new common_1.HttpException('非法参数', common_1.HttpStatus.BAD_REQUEST);
+            throw new common_1.HttpException('非法參數', common_1.HttpStatus.BAD_REQUEST);
         const { id } = req.user;
         const res = this.scanedSceneStrMap[sceneStr];
         if (!res)
@@ -175,11 +175,11 @@ let OfficialService = class OfficialService {
     async aotoPlay(msg) {
         const timeoutPromise = new Promise((resolve, reject) => {
             setTimeout(() => {
-                reject(new Error('请求超时'));
+                reject(new Error('請求超時'));
             }, 4800);
         });
         let question = (await this.globalConfigService.getConfigs(['officialAutoReplyText'])) ||
-            '由于公众号的回复限制、过长的问题我们可能无法回复、您可以前往我们的官方站点享受更加完善的服务、如果您有更多问题、欢迎像我提问！';
+            '由於公眾號的回覆限制、過長的問題我們可能無法回覆、您可以前往我們的官方站點享受更加完善的服務、如果您有更多問題、歡迎像我提問！';
         return question;
     }
 };

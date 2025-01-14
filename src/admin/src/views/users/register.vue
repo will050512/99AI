@@ -1,6 +1,6 @@
 <route lang="yaml">
 meta:
-  title: 访问配置
+  title: 訪問配置
 </route>
 
 <script lang="ts" setup>
@@ -33,44 +33,44 @@ const rules = ref<FormRules>({
     {
       required: true,
       trigger: 'blur',
-      message: '请填写每日限制的基础模型积分',
+      message: '請填寫每日限制的基礎模型積分',
     },
   ],
   visitorModel4Num: [
     {
       required: true,
       trigger: 'blur',
-      message: '请填写每日限制的高级模型积分',
+      message: '請填寫每日限制的高級模型積分',
     },
   ],
   visitorMJNum: [
     {
       required: true,
       trigger: 'blur',
-      message: '请填写每日限制的绘画额度积分',
+      message: '請填寫每日限制的繪畫額度積分',
     },
   ],
   signInStatus: [
-    { required: true, trigger: 'blur', message: '请选择是否开启签到奖励' },
+    { required: true, trigger: 'blur', message: '請選擇是否開啟簽到獎勵' },
   ],
   signInModel3Count: [
-    { required: true, trigger: 'blur', message: '请填写赠送的基础模型额度' },
+    { required: true, trigger: 'blur', message: '請填寫贈送的基礎模型額度' },
   ],
   signInModel4Count: [
-    { required: true, trigger: 'blur', message: '请填写赠送的高级模型额度' },
+    { required: true, trigger: 'blur', message: '請填寫贈送的高級模型額度' },
   ],
   signInMjDrawToken: [
-    { required: true, trigger: 'blur', message: '请填写赠送的绘画Token数量' },
+    { required: true, trigger: 'blur', message: '請填寫贈送的繪畫Token數量' },
   ],
 
   registerSendStatus: [
-    { required: true, trigger: 'change', message: '请确认是否开启注册赠送' },
+    { required: true, trigger: 'change', message: '請確認是否開啟註冊贈送' },
   ],
   firstRegisterSendStatus: [
     {
       required: true,
       trigger: 'change',
-      message: '请确认是否开启优先注册赠送',
+      message: '請確認是否開啟優先註冊贈送',
     },
   ],
 });
@@ -111,11 +111,11 @@ function handlerUpdateConfig() {
     if (valid) {
       try {
         await apiConfig.setConfig({ settings: fotmatSetting(formInline) });
-        ElMessage.success('变更配置信息成功');
+        ElMessage.success('變更配置資訊成功');
       } catch (error) {}
       queryAllconfig();
     } else {
-      ElMessage.error('请填写完整信息');
+      ElMessage.error('請填寫完整資訊');
     }
   });
 }
@@ -133,7 +133,7 @@ const firstSendRules = computed(() => {
   return [
     {
       required: formInline.firstRegisterSendStatus,
-      message: '开启优先注册赠送选项后需填写此项',
+      message: '開啟優先註冊贈送選項後需填寫此項',
       trigger: 'change',
     },
   ];
@@ -142,7 +142,7 @@ const registerSendRules = computed(() => {
   return [
     {
       required: formInline.registerSendStatus,
-      message: '开启注册赠送选项后需填写此项',
+      message: '開啟註冊贈送選項後需填寫此項',
       trigger: 'change',
     },
   ];
@@ -157,24 +157,24 @@ onMounted(() => {
   <div>
     <PageHeader>
       <template #title>
-        <div class="flex items-center gap-4">基础访问设置</div>
+        <div class="flex items-center gap-4">基礎訪問設置</div>
       </template>
       <template #content>
         <div class="text-sm/6">
           <div>
-            注册与访问设置支持为新用户定义默认赠送额度，涵盖对话次数、普通绘画次数和高级绘画次数。
+            註冊與訪問設置支持為新用戶定義默認贈送額度，涵蓋對話次數、普通繪畫次數和高級繪畫次數。
           </div>
           <div>
-            系统还为最初注册的前x名用户提供额外奖励，同时允许通过邀请机制为新用户及邀请者设置特定的奖励额度。
+            系統還為最初註冊的前x名用戶提供額外獎勵，同時允許通過邀請機制為新用戶及邀請者設置特定的獎勵額度。
           </div>
           <div>
-            此外，管理员可配置签到奖励和为访客分配可使用的额度，以鼓励日常活跃和吸引更多用户体验平台。
+            此外，管理員可配置簽到獎勵和為訪客分配可使用的額度，以鼓勵日常活躍和吸引更多用戶體驗平臺。
           </div>
         </div>
       </template>
       <HButton outline text @click="handlerUpdateConfig">
         <SvgIcon name="i-ri:file-text-line" />
-        保存设置
+        保存設置
       </HButton>
     </PageHeader>
     <el-card style="margin: 20px">
@@ -184,10 +184,10 @@ onMounted(() => {
         :model="formInline"
         label-width="220px"
       >
-        <h5>注册赠送</h5>
+        <h5>註冊贈送</h5>
         <el-row>
           <el-col :xs="24" :md="20" :lg="15" :xl="12">
-            <el-form-item label="是否开启注册赠送" prop="registerSendStatus">
+            <el-form-item label="是否開啟註冊贈送" prop="registerSendStatus">
               <el-switch
                 v-model="formInline.registerSendStatus"
                 :active-value="1"
@@ -199,12 +199,12 @@ onMounted(() => {
         <el-row>
           <el-col :xs="24" :md="20" :lg="15" :xl="12">
             <el-form-item
-              label="注册赠送基础模型对话额度"
+              label="註冊贈送基礎模型對話額度"
               prop="registerSendModel3Count"
             >
               <el-input
                 v-model="formInline.registerSendModel3Count"
-                placeholder="首次注册赠基础模型对话额度"
+                placeholder="首次註冊贈基礎模型對話額度"
                 clearable
               />
             </el-form-item>
@@ -213,12 +213,12 @@ onMounted(() => {
         <el-row>
           <el-col :xs="24" :md="20" :lg="15" :xl="12">
             <el-form-item
-              label="注册赠送高级模型对话额度"
+              label="註冊贈送高級模型對話額度"
               prop="registerSendModel4Count"
             >
               <el-input
                 v-model="formInline.registerSendModel4Count"
-                placeholder="首次注册赠高级模型对话额度"
+                placeholder="首次註冊贈高級模型對話額度"
                 clearable
               />
             </el-form-item>
@@ -227,23 +227,23 @@ onMounted(() => {
         <el-row>
           <el-col :xs="24" :md="20" :lg="15" :xl="12">
             <el-form-item
-              label="注册赠送绘画额度"
+              label="註冊贈送繪畫額度"
               prop="registerSendDrawMjCount"
             >
               <el-input
                 v-model="formInline.registerSendDrawMjCount"
-                placeholder="首次注册赠送MJ额度"
+                placeholder="首次註冊贈送MJ額度"
                 clearable
               />
             </el-form-item>
           </el-col>
         </el-row>
         <el-divider />
-        <h5>限定注册赠送</h5>
+        <h5>限定註冊贈送</h5>
         <el-row>
           <el-col :xs="24" :md="20" :lg="15" :xl="12">
             <el-form-item
-              label="开启优先注册赠送"
+              label="開啟優先註冊贈送"
               prop="firstRegisterSendStatus"
             >
               <el-switch
@@ -256,10 +256,10 @@ onMounted(() => {
         </el-row>
         <el-row>
           <el-col :xs="24" :md="20" :lg="15" :xl="12">
-            <el-form-item label="前多少名获得奖励" prop="firstRegisterSendRank">
+            <el-form-item label="前多少名獲得獎勵" prop="firstRegisterSendRank">
               <el-input
                 v-model="formInline.firstRegisterSendRank"
-                placeholder="设置优先注册前N名可以获得奖励"
+                placeholder="設置優先註冊前N名可以獲得獎勵"
                 clearable
               />
             </el-form-item>
@@ -268,12 +268,12 @@ onMounted(() => {
         <el-row>
           <el-col :xs="24" :md="20" :lg="15" :xl="12">
             <el-form-item
-              label="优先赠基础模型送对话额度"
+              label="優先贈基礎模型送對話額度"
               prop="firstRregisterSendModel3Count"
             >
               <el-input
                 v-model="formInline.firstRregisterSendModel3Count"
-                placeholder="优先注册用户额外赠送基础模型对话额度"
+                placeholder="優先註冊用戶額外贈送基礎模型對話額度"
                 clearable
               />
             </el-form-item>
@@ -282,12 +282,12 @@ onMounted(() => {
         <el-row>
           <el-col :xs="24" :md="20" :lg="15" :xl="12">
             <el-form-item
-              label="优先赠高级模型送对话额度"
+              label="優先贈高級模型送對話額度"
               prop="firstRregisterSendModel4Count"
             >
               <el-input
                 v-model="formInline.firstRregisterSendModel4Count"
-                placeholder="优先注册用户额外赠送高级模型对话额度"
+                placeholder="優先註冊用戶額外贈送高級模型對話額度"
                 clearable
               />
             </el-form-item>
@@ -296,26 +296,26 @@ onMounted(() => {
         <el-row>
           <el-col :xs="24" :md="20" :lg="15" :xl="12">
             <el-form-item
-              label="优先赠送绘画额度"
+              label="優先贈送繪畫額度"
               prop="firstRregisterSendDrawMjCount"
             >
               <el-input
                 v-model="formInline.firstRregisterSendDrawMjCount"
-                placeholder="优先注册用户额外赠送MJ额度"
+                placeholder="優先註冊用戶額外贈送MJ額度"
                 clearable
               />
             </el-form-item>
           </el-col>
         </el-row>
         <el-divider />
-        <h5>签到奖励</h5>
+        <h5>簽到獎勵</h5>
         <el-row>
           <el-col :xs="24" :md="20" :lg="15" :xl="12">
-            <el-form-item label="开启签到奖励" prop="signInStatus">
+            <el-form-item label="開啟簽到獎勵" prop="signInStatus">
               <el-tooltip
                 class="box-item"
                 effect="dark"
-                content="如您启用签到奖励、则用户端则可以通过每日签到获取额度！"
+                content="如您啟用簽到獎勵、則用戶端則可以通過每日簽到獲取額度！"
                 placement="right"
               >
                 <el-switch
@@ -329,11 +329,11 @@ onMounted(() => {
         </el-row>
         <el-row>
           <el-col :xs="24" :md="20" :lg="15" :xl="12">
-            <el-form-item label="赠送基础模型额度" prop="signInModel3Count">
+            <el-form-item label="贈送基礎模型額度" prop="signInModel3Count">
               <el-input
                 v-model="formInline.signInModel3Count"
                 type="number"
-                placeholder="请填写签到赠送的基础模型额度"
+                placeholder="請填寫簽到贈送的基礎模型額度"
                 clearable
               />
             </el-form-item>
@@ -341,11 +341,11 @@ onMounted(() => {
         </el-row>
         <el-row>
           <el-col :xs="24" :md="20" :lg="15" :xl="12">
-            <el-form-item label="赠送高级模型额度" prop="signInModel4Count">
+            <el-form-item label="贈送高級模型額度" prop="signInModel4Count">
               <el-input
                 v-model="formInline.signInModel4Count"
                 type="number"
-                placeholder="请填写签到赠送的高级模型额度"
+                placeholder="請填寫簽到贈送的高級模型額度"
                 clearable
               />
             </el-form-item>
@@ -353,25 +353,25 @@ onMounted(() => {
         </el-row>
         <el-row>
           <el-col :xs="24" :md="20" :lg="15" :xl="12">
-            <el-form-item label="赠送绘画额度" prop="signInMjDrawToken">
+            <el-form-item label="贈送繪畫額度" prop="signInMjDrawToken">
               <el-input
                 v-model="formInline.signInMjDrawToken"
                 type="number"
-                placeholder="请填写签到赠送绘画额度"
+                placeholder="請填寫簽到贈送繪畫額度"
                 clearable
               />
             </el-form-item>
           </el-col>
         </el-row>
         <el-divider />
-        <h5>访客设置</h5>
+        <h5>訪客設置</h5>
         <el-row>
           <el-col :xs="24" :md="20" :lg="15" :xl="12">
-            <el-form-item label="基础模型额度" prop="visitorModel3Num">
+            <el-form-item label="基礎模型額度" prop="visitorModel3Num">
               <el-input
                 v-model="formInline.visitorModel3Num"
                 type="number"
-                placeholder="请填写每日限制基础模型积分"
+                placeholder="請填寫每日限制基礎模型積分"
                 clearable
               />
             </el-form-item>
@@ -380,11 +380,11 @@ onMounted(() => {
 
         <el-row>
           <el-col :xs="24" :md="20" :lg="15" :xl="12">
-            <el-form-item label="高级模型额度" prop="visitorModel4Num">
+            <el-form-item label="高級模型額度" prop="visitorModel4Num">
               <el-input
                 v-model="formInline.visitorModel4Num"
                 type="number"
-                placeholder="请填写每日限制的高级模型积分"
+                placeholder="請填寫每日限制的高級模型積分"
                 clearable
               />
             </el-form-item>
@@ -392,11 +392,11 @@ onMounted(() => {
         </el-row>
         <el-row>
           <el-col :xs="24" :md="20" :lg="15" :xl="12">
-            <el-form-item label="绘画积分额度" prop="visitorMJNum">
+            <el-form-item label="繪畫積分額度" prop="visitorMJNum">
               <el-input
                 v-model="formInline.visitorMJNum"
                 type="number"
-                placeholder="请填写每日限制的绘画额度积分"
+                placeholder="請填寫每日限制的繪畫額度積分"
                 clearable
               />
             </el-form-item>

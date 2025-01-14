@@ -1,6 +1,6 @@
 <route lang="yaml">
 meta:
-  title: 卡密管理
+  title: 序號管理
 </route>
 
 <script lang="ts" setup>
@@ -35,7 +35,7 @@ const selects = ref([]);
 const selectCramiList = ref<any[]>([]);
 
 const form = reactive({
-  packageId: null,
+  packageId: '' as string | number, // 修改類型定義
   count: 1,
   drawMjCount: 0,
   model3Count: 0,
@@ -50,17 +50,17 @@ const formInline = reactive({
 });
 
 const rules = reactive<FormRules>({
-  packageId: [{ required: true, message: '请选择套餐类型', trigger: 'change' }],
-  days: [{ required: true, message: '请填写有效期天数', trigger: 'blur' }],
-  count: [{ required: true, message: '请填写想要生成的数量', trigger: 'blur' }],
+  packageId: [{ required: true, message: '請選擇套餐類型', trigger: 'change' }],
+  days: [{ required: true, message: '請填寫有效期天數', trigger: 'blur' }],
+  count: [{ required: true, message: '請填寫想要生成的數量', trigger: 'blur' }],
   drawMjCount: [
-    { required: true, message: '卡密携带绘画数量', trigger: 'blur' },
+    { required: true, message: '序號攜帶繪畫數量', trigger: 'blur' },
   ],
   model3Count: [
-    { required: true, message: '卡密携带基础模型对话数量', trigger: 'blur' },
+    { required: true, message: '序號攜帶基礎模型對話數量', trigger: 'blur' },
   ],
   model4Count: [
-    { required: true, message: '卡密携带高级模型金额', trigger: 'blur' },
+    { required: true, message: '序號攜帶高級模型金額', trigger: 'blur' },
   ],
 });
 
@@ -99,7 +99,7 @@ async function handlerCreateCrami(formEl: FormInstance | undefined) {
   formEl?.validate(async (valid) => {
     if (valid) {
       await ApiPackage.createCrami(form);
-      ElMessage({ type: 'success', message: '生成卡密成功！' });
+      ElMessage({ type: 'success', message: '生成序號成功！' });
       visible.value = false;
       queryAllCramiList();
     }
@@ -117,7 +117,7 @@ function handlerReset(formEl: FormInstance | undefined) {
 
 async function handleDeleteCrami(row: any) {
   await ApiPackage.delCrami({ id: row.id });
-  ElMessage({ type: 'success', message: '删除卡密成功！' });
+  ElMessage({ type: 'success', message: '刪除序號成功！' });
   queryAllCramiList();
 }
 
@@ -132,7 +132,7 @@ async function batchDelCrami() {
       ids: selects.value.map((t: any) => t.id),
     });
     loading.value = false;
-    ElMessage({ type: 'success', message: '删除卡密成功！' });
+    ElMessage({ type: 'success', message: '刪除序號成功！' });
     queryAllCramiList();
   } catch (error) {
     loading.value = false;
@@ -142,7 +142,7 @@ async function batchDelCrami() {
 function handleShowCrami() {
   cramiDialog.value = true;
   const data = selects.value.map((t: any) => {
-    return `${t.code}<---->${t.packageName || '自定义套餐'}`;
+    return `${t.code}<---->${t.packageName || '自定義套餐'}`;
   });
   selectCramiList.value = data;
 }
@@ -166,9 +166,9 @@ function exportToFile(array: string[], filename: string) {
 
 function exportCrami() {
   const data = selects.value.map((t: any) => {
-    return `${t.code}<---->${t.packageName || '自定义套餐'}`;
+    return `${t.code}<---->${t.packageName || '自定義套餐'}`;
   });
-  exportToFile(data, '卡密信息');
+  exportToFile(data, '序號資訊');
 }
 
 const hasEmail = computed(() => {
@@ -184,13 +184,13 @@ onMounted(() => {
   <div>
     <PageHeader>
       <template #title>
-        <div class="flex items-center gap-4">卡密设置</div>
+        <div class="flex items-center gap-4">序號設置</div>
       </template>
       <template #content>
         <div class="text-sm/6">
-          <div>可生成套餐类卡密与自定义卡密，套餐类卡密的设置项更多。</div>
+          <div>可生成套餐類序號與自定義序號，套餐類序號的設置項更多。</div>
           <div>
-            过期时间表示卡密的过期时间，不是用户充值后的有效期，设置为0表示永不过期。
+            過期時間表示序號的過期時間，不是用戶充值後的有效期，設置為0表示永不過期。
           </div>
         </div>
       </template>
@@ -201,7 +201,7 @@ onMounted(() => {
         type="danger"
         @click="handleShowCrami"
       >
-        显示选中卡密
+        顯示選中序號
       </HButton>
       <HButton
         outline
@@ -209,7 +209,7 @@ onMounted(() => {
         type="danger"
         @click="batchDelCrami"
       >
-        批量删除卡密
+        批量刪除序號
       </HButton>
       <HButton
         outline
@@ -217,26 +217,26 @@ onMounted(() => {
         type="primary"
         @click="exportCrami"
       >
-        批量导出卡密
+        批量導出序號
       </HButton>
       <HButton outline type="success" @click="openCreateCramiDialog">
         <SvgIcon name="ic:baseline-plus" />
-        批量生成卡密
+        批量生成序號
       </HButton>
     </PageHeader>
     <!-- <page-main>
-      <el-alert :closable="false" show-icon title="卡密说明" description="" type="success" />
+      <el-alert :closable="false" show-icon title="序號說明" description="" type="success" />
     </page-main> -->
     <page-main>
       <el-form ref="formRef" :inline="true" :model="formInline">
-        <el-form-item label="用户名称" prop="useId">
+        <el-form-item label="用戶名稱" prop="useId">
           <el-select
             v-model="formInline.useId"
             filterable
             clearable
             remote
             reserve-keyword
-            placeholder="用户姓名[模糊搜索]"
+            placeholder="用戶姓名[模糊搜索]"
             remote-show-suffix
             :remote-method="handlerSearchUser"
             style="width: 160px"
@@ -250,10 +250,10 @@ onMounted(() => {
           </el-select>
         </el-form-item>
 
-        <el-form-item label="卡密状态" prop="status">
+        <el-form-item label="序號狀態" prop="status">
           <el-select
             v-model="formInline.status"
-            placeholder="请选择卡密状态"
+            placeholder="請選擇序號狀態"
             clearable
             style="width: 160px"
           >
@@ -267,7 +267,7 @@ onMounted(() => {
         </el-form-item>
         <el-form-item>
           <el-button type="primary" @click="queryAllCramiList">
-            查询
+            查詢
           </el-button>
           <el-button @click="handlerReset(formRef)"> 重置 </el-button>
         </el-form-item>
@@ -285,15 +285,15 @@ onMounted(() => {
         @selection-change="handleSelectionChange"
       >
         <el-table-column type="selection" width="55" />
-        <el-table-column prop="code" label="卡密账号" width="180" />
-        <el-table-column prop="packageName" label="套餐类型" width="180">
+        <el-table-column prop="code" label="序號賬號" width="180" />
+        <el-table-column prop="packageName" label="套餐類型" width="180">
           <template #default="scope">
             <el-tag :type="scope.row.packageName ? 'success' : 'danger'">
-              {{ scope.row.packageName || '自定义卡密' }}
+              {{ scope.row.packageName || '自定義序號' }}
             </el-tag>
           </template>
         </el-table-column>
-        <el-table-column prop="code" label="卡密状态" width="180">
+        <el-table-column prop="code" label="序號狀態" width="180">
           <template #default="scope">
             <el-tag :type="scope.row.status ? 'danger' : 'success'">
               {{ scope.row.status ? '已使用' : '未使用' }}
@@ -304,18 +304,18 @@ onMounted(() => {
         <el-table-column
           v-if="hasEmail"
           prop="email"
-          label="使用人邮箱"
+          label="使用人郵箱"
           width="180"
         />
-        <el-table-column prop="model3Count" label="基础模型额度" />
-        <el-table-column prop="model4Count" label="高级模型额度" />
-        <el-table-column prop="drawMjCount" label="绘画模型额度" />
-        <el-table-column prop="days" label="有效天数">
+        <el-table-column prop="model3Count" label="基礎模型額度" />
+        <el-table-column prop="model4Count" label="高級模型額度" />
+        <el-table-column prop="drawMjCount" label="繪畫模型額度" />
+        <el-table-column prop="days" label="有效天數">
           <template #default="scope">
             {{ scope.row.days > 0 ? `${scope.row.days}天` : '永久' }}
           </template>
         </el-table-column>
-        <el-table-column prop="createdAt" label="注册时间" width="200">
+        <el-table-column prop="createdAt" label="註冊時間" width="200">
           <template #default="scope">
             {{ utcToShanghaiTime(scope.row.createdAt, 'YYYY-MM-DD hh:mm:ss') }}
           </template>
@@ -323,14 +323,14 @@ onMounted(() => {
         <el-table-column label="操作">
           <template #default="scope">
             <el-popconfirm
-              title="确认删除此卡密么?"
+              title="確認刪除此序號麼?"
               width="200"
               icon-color="red"
               @confirm="handleDeleteCrami(scope.row)"
             >
               <template #reference>
                 <el-button link type="danger" size="small">
-                  删除卡密
+                  刪除序號
                 </el-button>
               </template>
             </el-popconfirm>
@@ -352,7 +352,7 @@ onMounted(() => {
     </page-main>
     <el-dialog
       v-model="visible"
-      title="生成卡密"
+      title="生成序號"
       width="450"
       @close="handleClose(formCramiRef)"
     >
@@ -364,7 +364,7 @@ onMounted(() => {
         :rules="rules"
       >
         <el-row>
-          <el-form-item label="是否生成自定义卡密" label-width="170px">
+          <el-form-item label="是否生成自定義序號" label-width="170px">
             <el-switch
               v-model="customCrami"
               :active-value="1"
@@ -372,10 +372,10 @@ onMounted(() => {
             />
           </el-form-item>
         </el-row>
-        <el-form-item v-if="!customCrami" label="套餐类型" prop="packageId">
+        <el-form-item v-if="!customCrami" label="套餐類型" prop="packageId">
           <el-select
             v-model.number="form.packageId"
-            placeholder="请选择套餐类型"
+            placeholder="請選擇套餐類型"
             clearable
             style="width: 100%"
           >
@@ -388,47 +388,47 @@ onMounted(() => {
           </el-select>
         </el-form-item>
         <div v-if="customCrami">
-          <el-form-item label="基础模型额度" prop="model3Count">
+          <el-form-item label="基礎模型額度" prop="model3Count">
             <el-input
               v-model.number="form.model3Count"
               type="number"
-              placeholder="卡密携带基础模型额度"
+              placeholder="序號攜帶基礎模型額度"
             />
           </el-form-item>
-          <el-form-item label="高级模型额度" prop="model4Count">
+          <el-form-item label="高級模型額度" prop="model4Count">
             <el-input
               v-model.number="form.model4Count"
               type="number"
-              placeholder="卡密携带高级模型额度"
+              placeholder="序號攜帶高級模型額度"
             />
           </el-form-item>
-          <el-form-item label="绘画模型额度" prop="drawMjCount">
+          <el-form-item label="繪畫模型額度" prop="drawMjCount">
             <el-input
               v-model.number="form.drawMjCount"
               type="number"
-              placeholder="卡密携带绘画积分额度"
+              placeholder="序號攜帶繪畫積分額度"
             />
           </el-form-item>
         </div>
-        <el-form-item label="生成数量" prop="count">
+        <el-form-item label="生成數量" prop="count">
           <el-input
             v-model.number="form.count"
             type="number"
-            placeholder="本次生成的张数"
+            placeholder="本次生成的張數"
           />
         </el-form-item>
       </el-form>
       <template #footer>
         <span class="dialog-footer">
-          <el-button @click="visible = false">放弃生成</el-button>
+          <el-button @click="visible = false">放棄生成</el-button>
           <el-button type="primary" @click="handlerCreateCrami(formCramiRef)">
-            确定生成
+            確定生成
           </el-button>
         </span>
       </template>
     </el-dialog>
 
-    <el-dialog v-model="cramiDialog" title="卡密列表">
+    <el-dialog v-model="cramiDialog" title="序號列表">
       <div style="max-height: 200px; overflow: scroll">
         <div v-for="(item, index) in selectCramiList" :key="index">
           {{ item }}
@@ -436,7 +436,7 @@ onMounted(() => {
       </div>
       <template #footer>
         <span class="dialog-footer">
-          <el-button @click="cramiDialog = false">关闭弹窗</el-button>
+          <el-button @click="cramiDialog = false">關閉彈窗</el-button>
         </span>
       </template>
     </el-dialog>

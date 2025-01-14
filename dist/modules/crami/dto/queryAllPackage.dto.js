@@ -15,27 +15,27 @@ const swagger_1 = require("@nestjs/swagger");
 class QuerAllPackageDto {
 }
 __decorate([
-    (0, swagger_1.ApiProperty)({ example: 1, description: '查询页数', required: false }),
+    (0, swagger_1.ApiProperty)({ example: 1, description: '查詢頁數', required: false }),
     (0, class_validator_1.IsOptional)(),
     __metadata("design:type", Number)
 ], QuerAllPackageDto.prototype, "page", void 0);
 __decorate([
-    (0, swagger_1.ApiProperty)({ example: 10, description: '每页数量', required: false }),
+    (0, swagger_1.ApiProperty)({ example: 10, description: '每頁數量', required: false }),
     (0, class_validator_1.IsOptional)(),
     __metadata("design:type", Number)
 ], QuerAllPackageDto.prototype, "size", void 0);
 __decorate([
-    (0, swagger_1.ApiProperty)({ example: 'name', description: '套餐名称', required: false }),
+    (0, swagger_1.ApiProperty)({ example: 'name', description: '套餐名稱', required: false }),
     (0, class_validator_1.IsOptional)(),
     __metadata("design:type", String)
 ], QuerAllPackageDto.prototype, "name", void 0);
 __decorate([
-    (0, swagger_1.ApiProperty)({ example: 1, description: '套餐状态 0：禁用 1：启用', required: false }),
+    (0, swagger_1.ApiProperty)({ example: 1, description: '套餐狀態 0：禁用 1：啟用', required: false }),
     (0, class_validator_1.IsOptional)(),
     __metadata("design:type", Number)
 ], QuerAllPackageDto.prototype, "status", void 0);
 __decorate([
-    (0, swagger_1.ApiProperty)({ example: 1, description: '套餐类型 -1：永久套餐 1：限时套餐', required: false }),
+    (0, swagger_1.ApiProperty)({ example: 1, description: '套餐類型 -1：永久套餐 1：限時套餐', required: false }),
     (0, class_validator_1.IsOptional)(),
     __metadata("design:type", Number)
 ], QuerAllPackageDto.prototype, "type", void 0);

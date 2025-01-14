@@ -3,7 +3,7 @@ import axios, { AxiosResponse } from 'axios';
 import { ChatLogService } from '../chatLog/chatLog.service';
 import { GlobalConfigService } from '../globalConfig/globalConfig.service';
 import { UploadService } from '../upload/upload.service';
-// 引入其他需要的模块或服务
+// 引入其他需要的模塊或服務
 
 @Injectable()
 export class CogVideoService {
@@ -35,13 +35,13 @@ export class CogVideoService {
       prompt: prompt,
     };
 
-    // 如果 fileInfo 存在，则添加 image_url 属性
+    // 如果 fileInfo 存在，則添加 image_url 屬性
     if (fileInfo) {
       payloadJson['image_url'] = fileInfo;
     }
 
     Logger.log(
-      `正在准备发送请求到 ${url}，payload: ${JSON.stringify(
+      `正在準備發送請求到 ${url}，payload: ${JSON.stringify(
         payloadJson
       )}, headers: ${JSON.stringify(headers)}`,
       'CogService'
@@ -50,20 +50,20 @@ export class CogVideoService {
     try {
       response = await axios.post(url, payloadJson, { headers });
       Logger.debug(
-        `任务提交结果，状态码: ${response.status}, 状态消息: ${
+        `任務遞交結果，狀態碼: ${response.status}, 狀態消息: ${
           response.statusText
-        }, 数据: ${JSON.stringify(response.data)}`
+        }, 數據: ${JSON.stringify(response.data)}`
       );
     } catch (error) {
-      Logger.error(`任务提交失败: ${error.message}`, 'CogService');
-      throw new Error('任务提交失败');
+      Logger.error(`任務遞交失敗: ${error.message}`, 'CogService');
+      throw new Error('任務遞交失敗');
     }
 
     if (response?.data?.id) {
       result.taskId = response?.data?.id;
-      Logger.log(`任务提交成功, 任务ID: ${response?.data?.id}`, 'CogService');
+      Logger.log(`任務遞交成功, 任務ID: ${response?.data?.id}`, 'CogService');
     } else {
-      throw new Error('未能获取结果数据, 即将重试');
+      throw new Error('未能獲取結果數據, 即將重試');
     }
 
     try {
@@ -85,9 +85,9 @@ export class CogVideoService {
               taskId: data?.taskId,
               taskData: data?.taskData,
             });
-            Logger.log('视频任务已完成', 'CogService');
+            Logger.log('視頻任務已完成', 'CogService');
           } catch (error) {
-            Logger.error(`更新日志失败: ${error.message}`, 'CogService');
+            Logger.error(`更新日誌失敗: ${error.message}`, 'CogService');
           }
         },
         onGenerating: async (data) => {
@@ -96,30 +96,30 @@ export class CogVideoService {
               videoUrl: data?.videoUrl,
               audioUrl: data?.audioUrl,
               fileInfo: data?.fileInfo,
-              answer: data?.answer || '视频生成中...',
+              answer: data?.answer || '視頻生成中...',
               progress: data?.progress,
               status: data.status,
             });
-            Logger.log('视频生成中...', 'CogService');
+            Logger.log('視頻生成中...', 'CogService');
           } catch (error) {
-            Logger.error(`更新日志失败: ${error.message}`, 'CogService');
+            Logger.error(`更新日誌失敗: ${error.message}`, 'CogService');
           }
         },
         onFailure: async (data) => {
           try {
             await this.chatLogService.updateChatLog(assistantLogId, {
-              answer: '视频生成失败',
+              answer: '視頻生成失敗',
               status: data.status,
             });
-            Logger.log('生成失败', 'Lum aService');
+            Logger.log('生成失敗', 'Lum aService');
           } catch (error) {
-            Logger.error(`更新日志失败: ${error.message}`, 'CogService');
+            Logger.error(`更新日誌失敗: ${error.message}`, 'CogService');
           }
         },
       });
     } catch (error) {
-      Logger.error('查询生成结果时发生错误:', error.message, 'CogService');
-      throw new Error('查询生成结果时发生错误');
+      Logger.error('查詢生成結果時發生錯誤:', error.message, 'CogService');
+      throw new Error('查詢生成結果時發生錯誤');
     }
     return result;
   }
@@ -153,7 +153,7 @@ export class CogVideoService {
     const startTime = Date.now();
     const totalDuration = 300000;
     const POLL_INTERVAL = 5000; // 每5秒查一次
-    let retryCount = 0; // 当前重试次数
+    let retryCount = 0; // 當前重試次數
 
     try {
       while (Date.now() - startTime < timeout) {
@@ -166,19 +166,19 @@ export class CogVideoService {
           const interval = setInterval(() => {
             const elapsed = Date.now() - startTime;
             let percentage = Math.floor((elapsed / totalDuration) * 100);
-            if (percentage >= 99) percentage = 99; // 最多显示99%
-            result.answer = `视频生成中 （${percentage}%）`;
+            if (percentage >= 99) percentage = 99; // 最多顯示99%
+            result.answer = `視頻生成中 （${percentage}%）`;
             // onGenerate(result);
-          }, 1000); // 每秒更新一次进度
+          }, 1000); // 每秒更新一次進度
 
           const responses = res.data;
 
-          Logger.debug(`轮询结果: ${JSON.stringify(responses)}`, 'CogService');
+          Logger.debug(`輪詢結果: ${JSON.stringify(responses)}`, 'CogService');
 
           if (responses.task_status === 'SUCCESS') {
             result.taskId = responses.request_id;
             result.taskData = JSON.stringify(responses);
-            Logger.log('视频生成成功', 'CogService');
+            Logger.log('視頻生成成功', 'CogService');
             result.fileInfo = responses.video_result[0].url;
             Logger.log(result.fileInfo, 'CogService');
             try {
@@ -187,10 +187,10 @@ export class CogVideoService {
                   'localStorageStatus',
                 ]);
               if (Number(localStorageStatus)) {
-                // 使用 Date 对象获取当前日期并格式化为 YYYYMM/DD
+                // 使用 Date 對象獲取當前日期並格式化為 YYYYMM/DD
                 const now = new Date();
                 const year = now.getFullYear();
-                const month = String(now.getMonth() + 1).padStart(2, '0'); // 月份从0开始，所以+1
+                const month = String(now.getMonth() + 1).padStart(2, '0'); // 月份從0開始，所以+1
                 const day = String(now.getDate()).padStart(2, '0');
                 const currentDate = `${year}${month}/${day}`;
                 result.fileInfo = await this.uploadService.uploadFileFromUrl({
@@ -199,10 +199,10 @@ export class CogVideoService {
                 });
               }
             } catch (error) {
-              Logger.error(`上传文件失败: ${error.message}`, 'CogService');
+              Logger.error(`上傳文件失敗: ${error.message}`, 'CogService');
             }
 
-            result.answer = `提示词: "${prompt}"`;
+            result.answer = `提示詞: "${prompt}"`;
             onSuccess(result);
             clearInterval(interval);
             return;
@@ -214,15 +214,15 @@ export class CogVideoService {
           }
         } catch (error) {
           retryCount++;
-          Logger.error(`轮询失败，重试次数: ${retryCount}`, 'CogService');
+          Logger.error(`輪詢失敗，重試次數: ${retryCount}`, 'CogService');
         }
       }
-      Logger.error('轮询超时，请稍后再试！', 'CogService');
+      Logger.error('輪詢超時，請稍後再試！', 'CogService');
       result.status = 4;
       onFailure(result);
-      throw new Error('查询超时，请稍后再试！');
+      throw new Error('查詢超時，請稍後再試！');
     } catch (error) {
-      Logger.error(`轮询过程中发生错误: ${error}`, 'CogService');
+      Logger.error(`輪詢過程中發生錯誤: ${error}`, 'CogService');
       result.status = 5;
       onFailure(result);
     }

@@ -7,7 +7,7 @@
 <script setup lang="ts">
 import { onMounted, ref, watch } from 'vue';
 
-// 定义接收的属性
+// 定義接收的屬性
 const props = defineProps({
   src: String,
 	selectColor: String,
@@ -32,14 +32,14 @@ onMounted(() => {
   }
 });
 
-// 监听src属性变化
+// 監聽src屬性變化
 watch(() => props.src, (newSrc) => {
   if (newSrc) {
     initCanvas();
   }
 });
 
-// 初始化Canvas函数
+// 初始化Canvas函數
 function initCanvas(){
   if (!ctx.value || !props.src) return;
   const img = new Image();
@@ -57,12 +57,12 @@ function initCanvas(){
   img.src = props.src;
 };
 
-// 获取下标
+// 獲取下標
 function pointToIndex (x: number, y: number) {
   return (y * canvas.value!.width + x) * 4;
 };
 
-// 获取颜色
+// 獲取顏色
 function getColor(x: number, y: number, imgData: Uint8ClampedArray) {
   const i = pointToIndex(x, y);
   return [
@@ -78,9 +78,9 @@ function diff (color1: number[], color2: number[]) {
     return sum;
 };
 
-// 修改颜色
+// 修改顏色
 function changeColor (initX: number, initY: number, targetColor: number[], clickColor: number[], imgData: Uint8ClampedArray){
-	// 保存当前状态
+	// 保存當前狀態
   if (ctx.value && canvas.value) {
     const currentImageData = ctx.value.getImageData(0, 0, canvas.value.width, canvas.value.height);
 		addAction(currentImageData)
@@ -102,7 +102,7 @@ function changeColor (initX: number, initY: number, targetColor: number[], click
   }
 };
 
-/* 点选图片换色 */
+/* 點選圖片換色 */
 function handleClick(e: MouseEvent){
   if (!ctx.value || !canvas.value) return;
   const x = e.offsetX;
@@ -114,7 +114,7 @@ function handleClick(e: MouseEvent){
   ctx.value.putImageData(imageData, 0, 0);
 };
 
-/* 获得base64 */
+/* 獲得base64 */
 function exportToBase64WithCustomBackground() {
   if (!ctx.value || !canvas.value) return '';
   const originalImageData = ctx.value.getImageData(0, 0, canvas.value.width, canvas.value.height);
@@ -142,7 +142,7 @@ function exportToBase64WithCustomBackground() {
   tempCtx.putImageData(newImageData, 0, 0);
   return tempCanvas.toDataURL("image/png");
 };
-/* 格式化传入颜色 */
+/* 格式化傳入顏色 */
 function parseColor(selectColor: string): number[]{
   if (selectColor && selectColor.startsWith('#')) {
     const extendedHex = selectColor.length === 4 ? '#' + selectColor[1] + selectColor[1] + selectColor[2] + selectColor[2] + selectColor[3] + selectColor[3] : selectColor;
@@ -157,12 +157,12 @@ function parseColor(selectColor: string): number[]{
       .replace(/\)/, '')
       .split(',')
       .map((num) => parseInt(num));
-    if (rgbValues.length === 3) rgbValues.push(255);  // 如果没有 alpha，添加一个默认的不透明度
+    if (rgbValues.length === 3) rgbValues.push(255);  // 如果沒有 alpha，添加一個默認的不透明度
     return rgbValues;
   }
   return [0, 0, 0, 255];
 };
-/* 对外提供base64格式的遮罩 */
+/* 對外提供base64格式的遮罩 */
 async function getBase(){
 	return await exportToBase64WithCustomBackground()
 }
@@ -173,16 +173,16 @@ function undo() {
   ctx.value.putImageData(previousState.imageData, 0, 0);
   modifiedPixels = new Set(previousState.currentModifiedPixels);
 }
-/* 清空画布 */
+/* 清空畫布 */
 function clear() {
   if (!ctx.value || !canvas.value) return;
 
-  // 直接清空画布
+  // 直接清空畫布
   ctx.value.clearRect(0, 0, canvas.value.width, canvas.value.height);
 
-  // 重置修改记录和历史记录
+  // 重置修改記錄和歷史記錄
   modifiedPixels.clear();
-  history.value = []; // 如果您想保留初始状态，可以重置为 [initialState]
+  history.value = []; // 如果您想保留初始狀態，可以重置為 [initialState]
 
   initCanvas();
 }
@@ -190,14 +190,14 @@ function clear() {
 
 
 
-/* 设置记录栈最大存储步数 防止存储过多 */
+/* 設置記錄棧最大儲存步數 防止儲存過多 */
 function setMaxHistorySteps(steps) {
   maxHistorySteps.value = steps;
 }
 
-/* 检测、超出限制移除老的数据 */
+/* 檢測、超出限制移除老的數據 */
 function addAction(imageData) {
-	const currentModifiedPixels = new Set(modifiedPixels); // 创建 modifiedPixels 的一个副本
+	const currentModifiedPixels = new Set(modifiedPixels); // 創建 modifiedPixels 的一個副本
   history.value.push({ imageData, currentModifiedPixels }); // 保存 imageData 和 modifiedPixels
   if (history.value.length > maxHistorySteps.value) {
     history.value.shift();
@@ -213,5 +213,5 @@ defineExpose({
 </script>
 
 <style>
-  /* 这里可以添加样式 */
+  /* 這裡可以添加樣式 */
 </style>

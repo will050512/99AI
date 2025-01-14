@@ -1,6 +1,6 @@
 <route lang="yaml">
 meta:
-  title: 本地存储配置
+  title: 本地儲存配置
 </route>
 
 <script lang="ts" setup>
@@ -24,7 +24,7 @@ async function queryAllconfig() {
 }
 
 const rules = ref<FormRules>({
-  siteUrl: [{ required: true, message: '请输入网站地址', trigger: 'blur' }],
+  siteUrl: [{ required: true, message: '請輸入網站地址', trigger: 'blur' }],
 });
 
 function handlerUpdateConfig() {
@@ -32,11 +32,11 @@ function handlerUpdateConfig() {
     if (valid) {
       try {
         await apiConfig.setConfig({ settings: fotmatSetting(formInline) });
-        ElMessage.success('变更配置信息成功');
+        ElMessage.success('變更配置資訊成功');
       } catch (error) {}
       queryAllconfig();
     } else {
-      ElMessage.error('请填写完整信息');
+      ElMessage.error('請填寫完整資訊');
     }
   });
 }
@@ -59,21 +59,21 @@ onMounted(() => {
   <div>
     <PageHeader>
       <template #title>
-        <div class="flex items-center gap-4">本地存储参数设置</div>
+        <div class="flex items-center gap-4">本地儲存參數設置</div>
       </template>
       <template #content>
         <div class="text-sm/6">
           <div>
-            开启后将优先使用本地存储方式保存数据，有些场景需开启跨域访问，可能需额外自行解决读写权限问题。
+            開啟後將優先使用本地儲存方式保存數據，有些場景需開啟跨域訪問，可能需額外自行解決讀寫權限問題。
           </div>
           <div>
-            文件存储目录为 /public/file，更新迁移时请做好数据维护及备份。
+            文件儲存目錄為 /public/file，更新遷移時請做好數據維護及備份。
           </div>
         </div>
       </template>
       <HButton outline @click="handlerUpdateConfig">
         <SvgIcon name="i-ri:file-text-line" />
-        保存设置
+        保存設置
       </HButton>
     </PageHeader>
 
@@ -86,7 +86,7 @@ onMounted(() => {
       >
         <el-row>
           <el-col :xs="24" :md="20" :lg="15" :xl="12">
-            <el-form-item label="启用状态" prop="localStorageStatus">
+            <el-form-item label="啟用狀態" prop="localStorageStatus">
               <el-switch
                 v-model="formInline.localStorageStatus"
                 active-value="1"
@@ -97,10 +97,10 @@ onMounted(() => {
         </el-row>
         <el-row>
           <el-col :xs="24" :md="20" :lg="15" :xl="12">
-            <el-form-item label="网站地址" prop="siteUrl">
+            <el-form-item label="網站地址" prop="siteUrl">
               <el-input
                 v-model="formInline.siteUrl"
-                placeholder="网站地址"
+                placeholder="網站地址"
                 clearable
               />
             </el-form-item>

@@ -15,22 +15,22 @@ const swagger_1 = require("@nestjs/swagger");
 class QueryAutoReplyDto {
 }
 __decorate([
-    (0, swagger_1.ApiProperty)({ example: 1, description: '查询页数', required: false }),
+    (0, swagger_1.ApiProperty)({ example: 1, description: '查詢頁數', required: false }),
     (0, class_validator_1.IsOptional)(),
     __metadata("design:type", Number)
 ], QueryAutoReplyDto.prototype, "page", void 0);
 __decorate([
-    (0, swagger_1.ApiProperty)({ example: 10, description: '每页数量', required: false }),
+    (0, swagger_1.ApiProperty)({ example: 10, description: '每頁數量', required: false }),
     (0, class_validator_1.IsOptional)(),
     __metadata("design:type", Number)
 ], QueryAutoReplyDto.prototype, "size", void 0);
 __decorate([
-    (0, swagger_1.ApiProperty)({ example: '你是谁', description: '提问问题', required: false }),
+    (0, swagger_1.ApiProperty)({ example: '你是誰', description: '提問問題', required: false }),
     (0, class_validator_1.IsOptional)(),
     __metadata("design:type", String)
 ], QueryAutoReplyDto.prototype, "prompt", void 0);
 __decorate([
-    (0, swagger_1.ApiProperty)({ example: 1, description: '问题状态', required: false }),
+    (0, swagger_1.ApiProperty)({ example: 1, description: '問題狀態', required: false }),
     (0, class_validator_1.IsOptional)(),
     __metadata("design:type", Number)
 ], QueryAutoReplyDto.prototype, "status", void 0);

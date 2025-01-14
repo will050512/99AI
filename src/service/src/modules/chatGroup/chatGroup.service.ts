@@ -25,26 +25,26 @@ export class ChatGroupService {
   //   const { id } = req.user;
   //   const { appId, modelConfig: bodyModelConfig } = body;
 
-  //   // 尝试使用从请求体中提供的 modelConfig，否则获取默认配置
+  //   // 嘗試使用從請求體中提供的 modelConfig，否則獲取默認配置
   //   let modelConfig = bodyModelConfig;
   //   if (!modelConfig) {
   //     modelConfig = await this.modelsService.getBaseConfig(appId);
   //     if (!modelConfig) {
-  //       throw new HttpException('管理员未配置任何AI模型、请先联系管理员开通聊天模型配置！', HttpStatus.BAD_REQUEST);
+  //       throw new HttpException('管理員未配置任何AI模型、請先聯繫管理員開通聊天模型配置！', HttpStatus.BAD_REQUEST);
   //     }
   //   }
 
-  //   // 初始化创建对话组的参数
-  //   const params = { title: '新对话', userId: id };
+  //   // 初始化創建對話組的參數
+  //   const params = { title: '新對話', userId: id };
   //   if (appId) {
-  //     // 查找应用信息
+  //     // 查找應用資訊
   //     const appInfo = await this.appEntity.findOne({ where: { id: appId } });
   //     if (!appInfo) {
-  //       throw new HttpException('非法操作、您在使用一个不存在的应用！', HttpStatus.BAD_REQUEST);
+  //       throw new HttpException('非法操作、您在使用一個不存在的應用！', HttpStatus.BAD_REQUEST);
   //     }
-  //     console.log('开始提取应用信息并进行验证');
+  //     console.log('開始提取應用資訊並進行驗證');
 
-  //     // 提取应用信息并进行必要的验证
+  //     // 提取應用資訊並進行必要的驗證
   //     const { status, name, isFixedModel, isGPTs, appModel } = appInfo;
   //     modelConfig.modelInfo.isGPTs = isGPTs;
   //     modelConfig.modelInfo.isFixedModel = isFixedModel;
@@ -59,60 +59,60 @@ export class ChatGroupService {
 
   //     // const existingGroupCount = await this.chatGroupEntity.count({ where: { userId: id, appId, isDelete: false } });
   //     // if (existingGroupCount > 0) {
-  //     //   throw new HttpException('当前应用已经开启了一个对话无需新建了！', HttpStatus.BAD_REQUEST);
+  //     //   throw new HttpException('當前應用已經開啟了一個對話無需新建了！', HttpStatus.BAD_REQUEST);
   //     // }
   //     if (![1, 3, 4, 5].includes(status)) {
-  //       throw new HttpException('非法操作、您在使用一个未启用的应用！', HttpStatus.BAD_REQUEST);
+  //       throw new HttpException('非法操作、您在使用一個未啟用的應用！', HttpStatus.BAD_REQUEST);
   //     }
 
-  //     // 如果有名称，则设置对话组标题
+  //     // 如果有名稱，則設置對話組標題
   //     if (name) {
   //       params['title'] = name;
   //     }
   //     params['appId'] = appId;
   //   }
-  //   // 创建新的聊天组并保存
-  //   console.log('最终的 modelConfig.modelInfo:', modelConfig);
+  //   // 創建新的聊天組並保存
+  //   console.log('最終的 modelConfig.modelInfo:', modelConfig);
   //   const newGroup = await this.chatGroupEntity.save({ ...params, config: JSON.stringify(modelConfig) });
   //   return newGroup;
   // }
 
   async create(body: CreateGroupDto, req: Request) {
-    const { id } = req.user; // 从请求中获取用户ID
-    const { appId, modelConfig: bodyModelConfig, params } = body; // 从请求体中提取appId和modelConfig
+    const { id } = req.user; // 從請求中獲取用戶ID
+    const { appId, modelConfig: bodyModelConfig, params } = body; // 從請求體中提取appId和modelConfig
 
-    // 尝试使用从请求体中提供的 modelConfig，否则获取默认配置
+    // 嘗試使用從請求體中提供的 modelConfig，否則獲取默認配置
     let modelConfig =
       bodyModelConfig || (await this.modelsService.getBaseConfig());
     if (!modelConfig) {
       throw new HttpException(
-        '管理员未配置任何AI模型、请先联系管理员开通聊天模型配置！',
+        '管理員未配置任何AI模型、請先聯繫管理員開通聊天模型配置！',
         HttpStatus.BAD_REQUEST
       );
     }
 
-    // 使用 JSON.parse(JSON.stringify(object)) 进行深拷贝以避免直接修改原对象
+    // 使用 JSON.parse(JSON.stringify(object)) 進行深拷貝以避免直接修改原對象
     modelConfig = JSON.parse(JSON.stringify(modelConfig));
 
-    // 初始化创建对话组的参数
-    const groupParams = { title: '新对话', userId: id, appId, params };
+    // 初始化創建對話組的參數
+    const groupParams = { title: '新對話', userId: id, appId, params };
     // const params = { title: 'New chat', userId: id };
 
-    // 如果指定了appId，查找并验证应用信息
+    // 如果指定了appId，查找並驗證應用資訊
     if (appId) {
       const appInfo = await this.appEntity.findOne({ where: { id: appId } });
       if (!appInfo) {
         throw new HttpException(
-          '非法操作、您在使用一个不存在的应用！',
+          '非法操作、您在使用一個不存在的應用！',
           HttpStatus.BAD_REQUEST
         );
       }
 
-      // 应用存在，提取并验证应用信息
+      // 應用存在，提取並驗證應用資訊
       const { status, name, isFixedModel, isGPTs, appModel, coverImg } =
         appInfo;
 
-      // 更新 modelConfig 以反映应用的特定配置
+      // 更新 modelConfig 以反映應用的特定配置
       Object.assign(modelConfig.modelInfo, {
         isGPTs,
         isFixedModel,
@@ -120,7 +120,7 @@ export class ChatGroupService {
         modelName: name,
       });
 
-      // 如果是固定模型或GPTs模型，获取并设置额外的模型信息
+      // 如果是固定模型或GPTs模型，獲取並設置額外的模型資訊
       if (isGPTs === 1 || isFixedModel === 1) {
         const appModelKey = await this.modelsService.getCurrentModelKeyInfo(
           isFixedModel === 1 ? appModel : 'gpts'
@@ -133,27 +133,27 @@ export class ChatGroupService {
         });
       }
 
-      // 检查应用状态是否允许创建对话组
+      // 檢查應用狀態是否允許創建對話組
       if (![1, 3, 4, 5].includes(status)) {
         throw new HttpException(
-          '非法操作、您在使用一个未启用的应用！',
+          '非法操作、您在使用一個未啟用的應用！',
           HttpStatus.BAD_REQUEST
         );
       }
 
-      // 如果应用有名称，则使用它作为对话组标题
+      // 如果應用有名稱，則使用它作為對話組標題
       if (name) {
         groupParams.title = name;
       }
     }
 
-    // 创建新的聊天组并保存
+    // 創建新的聊天組並保存
     const newGroup = await this.chatGroupEntity.save({
       ...groupParams,
-      config: JSON.stringify(modelConfig), // 将 modelConfig 对象转换为 JSON 字符串进行保存
+      config: JSON.stringify(modelConfig), // 將 modelConfig 對象轉換為 JSON 字串進行保存
     });
 
-    return newGroup; // 返回新创建的聊天组
+    return newGroup; // 返回新創建的聊天組
   }
 
   async query(req: Request) {
@@ -185,7 +185,7 @@ export class ChatGroupService {
     });
     if (!g) {
       throw new HttpException(
-        '请先选择一个对话或者新加一个对话再操作！',
+        '請先選擇一個對話或者新加一個對話再操作！',
         HttpStatus.BAD_REQUEST
       );
     }
@@ -195,7 +195,7 @@ export class ChatGroupService {
         const parseData = JSON.parse(config);
         if (Number(parseData.keyType) !== 1) {
           throw new HttpException(
-            '应用对话名称不能修改哟！',
+            '應用對話名稱不能修改喲！',
             HttpStatus.BAD_REQUEST
           );
         }
@@ -210,17 +210,17 @@ export class ChatGroupService {
     fileUrl && (data['fileUrl'] = fileUrl);
     const u = await this.chatGroupEntity.update({ id: groupId }, data);
     if (u.affected) {
-      // 如果 fileUrl 不为空，异步处理 PDF 内容读取
+      // 如果 fileUrl 不為空，異步處理 PDF 內容讀取
       if (fileUrl) {
         this.handlePdfExtraction(fileUrl, groupId);
       }
       return true;
     } else {
-      throw new HttpException('更新对话失败！', HttpStatus.BAD_REQUEST);
+      throw new HttpException('更新對話失敗！', HttpStatus.BAD_REQUEST);
     }
   }
 
-  // 异步处理 PDF 内容读取
+  // 異步處理 PDF 內容讀取
   private async handlePdfExtraction(fileUrl: string, groupId: number) {
     try {
       const pdfText = await this.extractPdfText(fileUrl);
@@ -229,12 +229,12 @@ export class ChatGroupService {
         { pdfTextContent: pdfText }
       );
     } catch (error) {
-      // 处理错误情况，例如记录日志
-      console.error('PDF 读取失败:', error);
+      // 處理錯誤情況，例如記錄日誌
+      console.error('PDF 讀取失敗:', error);
     }
   }
 
-  // 从 PDF 文件 URL 中提取文本内容
+  // 從 PDF 文件 URL 中提取文本內容
   private async extractPdfText(fileUrl: string): Promise<string> {
     try {
       const response = await axios.get(fileUrl, {
@@ -244,8 +244,8 @@ export class ChatGroupService {
       const pdfData = await pdf(dataBuffer);
       return pdfData.text;
     } catch (error) {
-      console.error('PDF 解析失败:', error);
-      throw new Error('PDF 解析失败');
+      console.error('PDF 解析失敗:', error);
+      throw new Error('PDF 解析失敗');
     }
   }
 
@@ -263,7 +263,7 @@ export class ChatGroupService {
     });
     if (!g) {
       throw new HttpException(
-        '非法操作、您在删除一个非法资源！',
+        '非法操作、您在刪除一個非法資源！',
         HttpStatus.BAD_REQUEST
       );
     }
@@ -272,13 +272,13 @@ export class ChatGroupService {
       { isDelete: true }
     );
     if (r.affected) {
-      return '删除成功';
+      return '刪除成功';
     } else {
-      throw new HttpException('删除失败！', HttpStatus.BAD_REQUEST);
+      throw new HttpException('刪除失敗！', HttpStatus.BAD_REQUEST);
     }
   }
 
-  /* 删除非置顶开启的所有对话记录 */
+  /* 刪除非置頂開啟的所有對話記錄 */
   async delAll(req: Request) {
     const { id } = req.user;
     const r = await this.chatGroupEntity.update(
@@ -286,13 +286,13 @@ export class ChatGroupService {
       { isDelete: true }
     );
     if (r.affected) {
-      return '删除成功';
+      return '刪除成功';
     } else {
-      throw new HttpException('删除失败！', HttpStatus.BAD_REQUEST);
+      throw new HttpException('刪除失敗！', HttpStatus.BAD_REQUEST);
     }
   }
 
-  /* 通过groupId查询当前对话组的详细信息 */
+  /* 通過groupId查詢當前對話組的詳細資訊 */
   async getGroupInfoFromId(id) {
     if (!id) return;
     const groupInfo = await this.chatGroupEntity.findOne({ where: { id } });

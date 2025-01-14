@@ -15,27 +15,27 @@ const class_validator_1 = require("class-validator");
 class QuerAppDto {
 }
 __decorate([
-    (0, swagger_1.ApiProperty)({ example: 1, description: '查询页数', required: false }),
+    (0, swagger_1.ApiProperty)({ example: 1, description: '查詢頁數', required: false }),
     (0, class_validator_1.IsOptional)(),
     __metadata("design:type", Number)
 ], QuerAppDto.prototype, "page", void 0);
 __decorate([
-    (0, swagger_1.ApiProperty)({ example: 10, description: '每页数量', required: false }),
+    (0, swagger_1.ApiProperty)({ example: 10, description: '每頁數量', required: false }),
     (0, class_validator_1.IsOptional)(),
     __metadata("design:type", Number)
 ], QuerAppDto.prototype, "size", void 0);
 __decorate([
-    (0, swagger_1.ApiProperty)({ example: 'name', description: 'app名称', required: false }),
+    (0, swagger_1.ApiProperty)({ example: 'name', description: 'app名稱', required: false }),
     (0, class_validator_1.IsOptional)(),
     __metadata("design:type", String)
 ], QuerAppDto.prototype, "name", void 0);
 __decorate([
-    (0, swagger_1.ApiProperty)({ example: 1, description: 'app状态 0：禁用 1：启用 3:审核加入广场中 4：已拒绝加入广场', required: false }),
+    (0, swagger_1.ApiProperty)({ example: 1, description: 'app狀態 0：禁用 1：啟用 3:審核加入廣場中 4：已拒絕加入廣場', required: false }),
     (0, class_validator_1.IsOptional)(),
     __metadata("design:type", Number)
 ], QuerAppDto.prototype, "status", void 0);
 __decorate([
-    (0, swagger_1.ApiProperty)({ example: 2, description: 'app分类Id', required: false }),
+    (0, swagger_1.ApiProperty)({ example: 2, description: 'app分類Id', required: false }),
     (0, class_validator_1.IsOptional)(),
     __metadata("design:type", Number)
 ], QuerAppDto.prototype, "catId", void 0);
@@ -45,7 +45,7 @@ __decorate([
     __metadata("design:type", String)
 ], QuerAppDto.prototype, "role", void 0);
 __decorate([
-    (0, swagger_1.ApiProperty)({ example: '关键词', description: '搜索关键词', required: false }),
+    (0, swagger_1.ApiProperty)({ example: '關鍵詞', description: '搜索關鍵詞', required: false }),
     (0, class_validator_1.IsOptional)(),
     __metadata("design:type", String)
 ], QuerAppDto.prototype, "keyword", void 0);

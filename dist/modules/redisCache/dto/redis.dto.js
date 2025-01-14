@@ -15,12 +15,12 @@ const swagger_1 = require("@nestjs/swagger");
 class RedisDto {
 }
 __decorate([
-    (0, swagger_1.ApiProperty)({ example: 'name', description: '邮箱' }),
+    (0, swagger_1.ApiProperty)({ example: 'name', description: '郵箱' }),
     __metadata("design:type", String)
 ], RedisDto.prototype, "key", void 0);
 __decorate([
-    (0, swagger_1.ApiProperty)({ example: '123456', description: '密码' }),
-    (0, class_validator_1.IsNotEmpty)({ message: '用户密码不能为空！' }),
+    (0, swagger_1.ApiProperty)({ example: '123456', description: '密碼' }),
+    (0, class_validator_1.IsNotEmpty)({ message: '用戶密碼不能為空！' }),
     __metadata("design:type", String)
 ], RedisDto.prototype, "val", void 0);
 exports.RedisDto = RedisDto;

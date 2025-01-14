@@ -29,17 +29,17 @@ export const t = i18n.global.t;
 
 export function setLocale(locale: Language) {
   i18n.global.locale = locale;
-  // 将新的语言设置保存到 localStorage
+  // 將新的語言設置保存到 localStorage
   localStorage.setItem('appLanguage', locale);
 }
 
-// 使用加密和指定过期时间（或永久保存）保存语言设置
+// 使用加密和指定過期時間（或永久保存）保存語言設置
 // export function setLocale(locale: Language) {
-//   console.log(`正在切换语言至: ${locale}`);
+//   console.log(`正在切換語言至: ${locale}`);
 //   i18n.global.locale = locale;
-//   // 使用自定义 localStorage 工具保存语言设置
+//   // 使用自定義 localStorage 工具保存語言設置
 //   ls.set('appLanguage', locale);
-//   console.log(`当前语言已切换至: ${i18n.global.locale}`);
+//   console.log(`當前語言已切換至: ${i18n.global.locale}`);
 // }
 
 export function setupI18n(app: App) {

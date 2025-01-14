@@ -35,7 +35,7 @@ let PayController = class PayController {
 };
 __decorate([
     (0, common_1.Post)('notify'),
-    (0, swagger_1.ApiOperation)({ summary: 'hupi支付结果通知' }),
+    (0, swagger_1.ApiOperation)({ summary: 'hupi支付結果通知' }),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Object]),
@@ -43,7 +43,7 @@ __decorate([
 ], PayController.prototype, "notifyHupi", null);
 __decorate([
     (0, common_1.Post)('notify'),
-    (0, swagger_1.ApiOperation)({ summary: 'ltzf支付结果通知' }),
+    (0, swagger_1.ApiOperation)({ summary: 'ltzf支付結果通知' }),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Object]),
@@ -51,7 +51,7 @@ __decorate([
 ], PayController.prototype, "notifyLtzf", null);
 __decorate([
     (0, common_1.Get)('notify'),
-    (0, swagger_1.ApiOperation)({ summary: 'Epay支付结果通知' }),
+    (0, swagger_1.ApiOperation)({ summary: 'Epay支付結果通知' }),
     __param(0, (0, common_1.Query)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Object]),

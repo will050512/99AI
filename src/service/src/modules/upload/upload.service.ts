@@ -16,7 +16,7 @@ import * as mime from 'mime-types';
 import * as path from 'path';
 import * as streamToBuffer from 'stream-to-buffer';
 import { GlobalConfigService } from '../globalConfig/globalConfig.service';
-const blacklist = ['exe', 'sh', 'bat', 'js', 'php', 'py']; // 黑名单
+const blacklist = ['exe', 'sh', 'bat', 'js', 'php', 'py']; // 黑名單
 
 @Injectable()
 export class UploadService implements OnModuleInit {
@@ -31,27 +31,27 @@ export class UploadService implements OnModuleInit {
     if (process.env.ISDEV === 'TRUE') {
       dir = `dev/${dir}`;
     }
-    // 使用 mime-types 库获取文件扩展名
+    // 使用 mime-types 庫獲取文件擴展名
     const fileExtension = mime.extension(mimetype) || '';
     if (!fileExtension) {
-      Logger.error('无法识别文件类型，请检查文件', 'UploadService');
+      Logger.error('無法識別文件類型，請檢查文件', 'UploadService');
 
       // throw new HttpException(
-      //   '无法识别文件类型，请检查文件',
+      //   '無法識別文件類型，請檢查文件',
       //   HttpStatus.UNSUPPORTED_MEDIA_TYPE
       // );
     }
 
-    // 检查文件扩展名是否在黑名单中
+    // 檢查文件擴展名是否在黑名單中
     if (blacklist.includes(fileExtension.toLowerCase())) {
-      Logger.error('不允许上传此类型的文件', 'UploadService');
-      throw new Error('不允许上传此类型的文件');
+      Logger.error('不允許上傳此類型的文件', 'UploadService');
+      throw new Error('不允許上傳此類型的文件');
     }
 
     const now = new Date();
-    const timestamp = now.getTime(); // 获取当前时间的时间戳
-    const randomString = Math.random().toString(36).substring(2, 6); // 生成4位随机字符串
-    const filename = `${timestamp}_${randomString}.${fileExtension}`; // 生成新的文件名，并添加文件后缀
+    const timestamp = now.getTime(); // 獲取當前時間的時間戳
+    const randomString = Math.random().toString(36).substring(2, 6); // 生成4位隨機字串
+    const filename = `${timestamp}_${randomString}.${fileExtension}`; // 生成新的文件名，並添加文件後綴
 
     const {
       tencentCosStatus = 0,
@@ -66,7 +66,7 @@ export class UploadService implements OnModuleInit {
     ]);
 
     Logger.log(
-      `上传配置状态 - 腾讯云:本地存储: ${localStorageStatus}, ${tencentCosStatus}, 阿里云: ${aliOssStatus}, Chevereto: ${cheveretoStatus}`,
+      `上傳配置狀態 - 騰訊雲:本地儲存: ${localStorageStatus}, ${tencentCosStatus}, 阿里雲: ${aliOssStatus}, Chevereto: ${cheveretoStatus}`,
       'UploadService'
     );
 
@@ -76,64 +76,64 @@ export class UploadService implements OnModuleInit {
       !Number(cheveretoStatus) &&
       !Number(localStorageStatus)
     ) {
-      Logger.error('未配置任何上传方式', 'UploadService');
+      Logger.error('未配置任何上傳方式', 'UploadService');
       throw new HttpException(
-        '请先前往后台配置上传图片的方式',
+        '請先前往後臺配置上傳圖片的方式',
         HttpStatus.BAD_REQUEST
       );
     }
 
     try {
       if (Number(localStorageStatus)) {
-        Logger.log('使用本地存储上传文件', 'UploadService');
+        Logger.log('使用本地儲存上傳文件', 'UploadService');
         const result = await this.uploadFileToLocal({ filename, buffer, dir });
         Logger.log(
-          `文件已上传到本地存储。访问 URL: ${result}`,
+          `文件已上傳到本地儲存。訪問 URL: ${result}`,
           'UploadService'
         );
         return result;
       }
       if (Number(tencentCosStatus)) {
-        Logger.log('使用腾讯云 COS 上传文件', 'UploadService');
+        Logger.log('使用騰訊雲 COS 上傳文件', 'UploadService');
         const result = await this.uploadFileByTencentCos({
           filename,
           buffer,
           dir,
         });
         Logger.log(
-          `文件已上传到腾讯云 COS。访问 URL: ${result}`,
+          `文件已上傳到騰訊雲 COS。訪問 URL: ${result}`,
           'UploadService'
         );
         return result;
       }
       if (Number(aliOssStatus)) {
-        Logger.log('使用阿里云 OSS 上传文件', 'UploadService');
+        Logger.log('使用阿里雲 OSS 上傳文件', 'UploadService');
         const result = await this.uploadFileByAliOss({
           filename,
           buffer,
           dir,
         });
         Logger.log(
-          `文件已上传到阿里云 OSS。访问 URL: ${result}`,
+          `文件已上傳到阿里雲 OSS。訪問 URL: ${result}`,
           'UploadService'
         );
         return result;
       }
       if (Number(cheveretoStatus)) {
-        Logger.log('使用 Chevereto 上传文件', 'UploadService');
+        Logger.log('使用 Chevereto 上傳文件', 'UploadService');
         const result = await this.uploadFileByChevereto({
           filename,
           buffer: buffer.toString('base64'),
         });
         Logger.log(
-          `文件已上传到 Chevereto。访问 URL: ${result}`,
+          `文件已上傳到 Chevereto。訪問 URL: ${result}`,
           'UploadService'
         );
         return result;
       }
     } catch (error) {
-      Logger.error(`上传失败: ${error.message}`, 'UploadService');
-      throw error; // 重新抛出异常，以便调用方可以处理
+      Logger.error(`上傳失敗: ${error.message}`, 'UploadService');
+      throw error; // 重新拋出異常，以便調用方可以處理
     }
   }
 
@@ -168,7 +168,7 @@ export class UploadService implements OnModuleInit {
     return await this.uploadFile({ buffer, mimetype: mimeType }, dir);
   }
 
-  /* 通过腾讯云上传图片 */
+  /* 通過騰訊雲上傳圖片 */
   async uploadFileByTencentCos({ filename, buffer, dir }) {
     const { Bucket, Region, SecretId, SecretKey } = await this.getUploadConfig(
       'tencent'
@@ -203,7 +203,7 @@ export class UploadService implements OnModuleInit {
                 /^(https:\/\/[^/]+)(\/.*)$/,
                 `https://${acceleratedDomain}$2`
               );
-              console.log('当前已开启全球加速----------------->', locationUrl);
+              console.log('當前已開啟全球加速----------------->', locationUrl);
             }
             return resolve(locationUrl);
           }
@@ -211,11 +211,11 @@ export class UploadService implements OnModuleInit {
       });
     } catch (error) {
       console.log('error: ', error);
-      throw new HttpException('上传图片失败[ten]', HttpStatus.BAD_REQUEST);
+      throw new HttpException('上傳圖片失敗[ten]', HttpStatus.BAD_REQUEST);
     }
   }
 
-  /* 通过阿里云上传图片 */
+  /* 通過阿里雲上傳圖片 */
   async uploadFileByAliOss({ filename, buffer, dir }) {
     const { region, bucket, accessKeyId, accessKeySecret } =
       await this.getUploadConfig('ali');
@@ -226,7 +226,7 @@ export class UploadService implements OnModuleInit {
       bucket: removeSpecialCharacters(bucket),
     });
     try {
-      console.log('ali 开始上传');
+      console.log('ali 開始上傳');
       return new Promise((resolve, reject) => {
         client
           .put(`${dir}/${filename}`, buffer)
@@ -237,7 +237,7 @@ export class UploadService implements OnModuleInit {
                 /^(https:\/\/[^/]+)(\/.*)$/,
                 `https://${acceleratedDomain}$2`
               );
-              console.log('当前已开启全球加速----------------->', result.url);
+              console.log('當前已開啟全球加速----------------->', result.url);
             }
             resolve(result.url);
           })
@@ -246,61 +246,61 @@ export class UploadService implements OnModuleInit {
           });
       });
     } catch (error) {
-      throw new HttpException('上传图片失败[ali]', HttpStatus.BAD_REQUEST);
+      throw new HttpException('上傳圖片失敗[ali]', HttpStatus.BAD_REQUEST);
     }
   }
 
-  // 假设 uploadFileToLocal 是类的一个方法
+  // 假設 uploadFileToLocal 是類的一個方法
   async uploadFileToLocal({ filename, buffer, dir = 'others' }) {
-    // 确保目录和文件名没有非法字符
+    // 確保目錄和文件名沒有非法字符
     const normalizedDir = path.normalize(dir).replace(/^(\.\.(\/|\\|$))+/, '');
     const normalizedFilename = path.basename(filename);
 
-    const projectRoot = process.cwd(); // 获取项目根目录
+    const projectRoot = process.cwd(); // 獲取項目根目錄
     const uploadDir = path.join(projectRoot, 'public', 'file', normalizedDir);
     const filePath = path.join(uploadDir, normalizedFilename);
 
-    // 确保最终路径在预期的目录内
+    // 確保最終路徑在預期的目錄內
     if (!filePath.startsWith(path.join(projectRoot, 'public', 'file'))) {
-      throw new Error('非法路径，禁止访问目录之外的位置');
+      throw new Error('非法路徑，禁止訪問目錄之外的位置');
     }
 
-    // 确保目录存在
+    // 確保目錄存在
     try {
       await fs.mkdir(uploadDir, { recursive: true });
     } catch (err) {
-      Logger.error(`创建目录失败: ${uploadDir}`, err);
+      Logger.error(`創建目錄失敗: ${uploadDir}`, err);
       throw err;
     }
 
-    // // 将文件buffer写入到指定路径
+    // // 將文件buffer寫入到指定路徑
     // try {
     //   await fs.writeFile(filePath, buffer);
     // } catch (err) {
-    //   Logger.error(`文件保存失败: ${filePath}`, err);
+    //   Logger.error(`文件保存失敗: ${filePath}`, err);
     //   throw err;
     // }
 
-    // 将文件buffer写入到指定路径并设置为只读
+    // 將文件buffer寫入到指定路徑並設置為只讀
     try {
-      await fs.writeFile(filePath, buffer, { mode: 0o444 }); // 设置文件为只读
+      await fs.writeFile(filePath, buffer, { mode: 0o444 }); // 設置文件為只讀
     } catch (err) {
-      Logger.error(`文件保存失败: ${filePath}`, err);
+      Logger.error(`文件保存失敗: ${filePath}`, err);
       throw err;
     }
 
-    // 使用环境变量中定义的基础URL来构建完整的文件访问URL
+    // 使用環境變量中定義的基礎URL來構建完整的文件訪問URL
     let fileUrl = `file/${normalizedDir}/${normalizedFilename}`;
     const siteUrl = await this.globalConfigService.getConfigs(['siteUrl']);
     if (siteUrl) {
       const url = formatUrl(siteUrl);
       fileUrl = `${url}/${fileUrl}`;
     }
-    // 返回文件访问的URL
+    // 返回文件訪問的URL
     return fileUrl;
   }
 
-  /* 通过三方图床上传图片 */
+  /* 通過三方圖床上傳圖片 */
   async uploadFileByChevereto({ filename = '', buffer }) {
     const { key, uploadPath } = await this.getUploadConfig('chevereto');
     let url = uploadPath.endsWith('/') ? uploadPath.slice(0, -1) : uploadPath;
@@ -321,18 +321,18 @@ export class UploadService implements OnModuleInit {
           res?.data.code,
           res?.data.error.message
         );
-        Logger.error('上传图片失败[Chevereto]', JSON.stringify(res.data));
+        Logger.error('上傳圖片失敗[Chevereto]', JSON.stringify(res.data));
       }
     } catch (error) {
       console.log('error: ', error);
       throw new HttpException(
-        `上传图片失败[Chevereto|buffer] --> ${error.response?.data.error.message}`,
+        `上傳圖片失敗[Chevereto|buffer] --> ${error.response?.data.error.message}`,
         HttpStatus.BAD_REQUEST
       );
     }
   }
 
-  /* 获取cos上传配置 */
+  /* 獲取cos上傳配置 */
   async getUploadConfig(type) {
     if (type === 'ali') {
       const {
@@ -393,7 +393,7 @@ export class UploadService implements OnModuleInit {
         if (err) {
           reject(
             new HttpException(
-              '获取图片资源失败，请重新试试吧！',
+              '獲取圖片資源失敗，請重新試試吧！',
               HttpStatus.BAD_REQUEST
             )
           );

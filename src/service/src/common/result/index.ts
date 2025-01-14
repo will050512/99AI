@@ -11,11 +11,11 @@ export class Result<T> {
 		this.message = message;
 	}
 
-	static success<T>(data?: T, message = '请求成功'): Result<T> {
+	static success<T>(data?: T, message = '請求成功'): Result<T> {
 		return new Result<T>(200, true, data, message);
 	}
 
-	static fail<T>(code: number, message = '请求失败', data?: T): Result<T> {
+	static fail<T>(code: number, message = '請求失敗', data?: T): Result<T> {
 		return new Result<T>(code, false, data, message);
 	}
 }

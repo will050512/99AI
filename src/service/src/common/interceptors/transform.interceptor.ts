@@ -11,7 +11,7 @@ export class TransformInterceptor implements NestInterceptor {
         const response = context.switchToHttp().getResponse();
         const request = context.switchToHttp().getRequest();
         response.statusCode = 200;
-        /* 微信类支付类通知接口需要原样输出 */
+        /* 微信類支付類通知介面需要原樣輸出 */
         if (request.path.includes('notify')) {
           return data;
         }

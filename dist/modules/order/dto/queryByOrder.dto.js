@@ -14,7 +14,7 @@ const swagger_1 = require("@nestjs/swagger");
 class QueryByOrderIdDto {
 }
 __decorate([
-    (0, swagger_1.ApiProperty)({ example: 'qwdadadwe-qeqwfcadqw-gguytewj', description: '订单ID', required: false }),
+    (0, swagger_1.ApiProperty)({ example: 'qwdadadwe-qeqwfcadqw-gguytewj', description: '訂單ID', required: false }),
     __metadata("design:type", String)
 ], QueryByOrderIdDto.prototype, "orderId", void 0);
 exports.QueryByOrderIdDto = QueryByOrderIdDto;

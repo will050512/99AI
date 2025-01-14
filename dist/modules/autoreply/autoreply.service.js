@@ -93,29 +93,29 @@ let AutoreplyService = class AutoreplyService {
     async addAutoreply(body) {
         await this.autoReplyEntity.save(body);
         await this.loadAutoReplyList();
-        return '添加问题成功！';
+        return '添加問題成功！';
     }
     async updateAutoreply(body) {
         const { id } = body;
         const res = await this.autoReplyEntity.update({ id }, body);
         if (res.affected > 0) {
             await this.loadAutoReplyList();
-            return '更新问题成功';
+            return '更新問題成功';
         }
-        throw new common_1.HttpException('更新失败', common_1.HttpStatus.BAD_REQUEST);
+        throw new common_1.HttpException('更新失敗', common_1.HttpStatus.BAD_REQUEST);
     }
     async delAutoreply(body) {
         const { id } = body;
         const z = await this.autoReplyEntity.findOne({ where: { id } });
         if (!z) {
-            throw new common_1.HttpException('该问题不存在,请检查您的提交信息', common_1.HttpStatus.BAD_REQUEST);
+            throw new common_1.HttpException('該問題不存在,請檢查您的遞交資訊', common_1.HttpStatus.BAD_REQUEST);
         }
         const res = await this.autoReplyEntity.delete({ id });
         if (res.affected > 0) {
             await this.loadAutoReplyList();
-            return '删除问题成功';
+            return '刪除問題成功';
         }
-        throw new common_1.HttpException('删除失败', common_1.HttpStatus.BAD_REQUEST);
+        throw new common_1.HttpException('刪除失敗', common_1.HttpStatus.BAD_REQUEST);
     }
 };
 AutoreplyService = __decorate([

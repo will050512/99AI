@@ -36,7 +36,7 @@ export class BadWordsService implements OnModuleInit {
     this.loadBadWords();
   }
 
-  /* 敏感词匹配 */
+  /* 敏感詞匹配 */
   // async customSensitiveWords(content, userId) {
   //   const triggeredWords = [];
   //   for (let i = 0; i < this.badWords.length; i++) {
@@ -50,52 +50,52 @@ export class BadWordsService implements OnModuleInit {
   //       userId,
   //       content,
   //       triggeredWords,
-  //       ['自定义'],
-  //       '自定义检测'
+  //       ['自定義'],
+  //       '自定義檢測'
   //     );
-  //     const tips = `您提交的信息中包含违规的内容、我们已对您的账户进行标记、请合规使用！`;
+  //     const tips = `您遞交的資訊中包含違規的內容、我們已對您的賬戶進行標記、請合規使用！`;
   //     throw new HttpException(tips, HttpStatus.BAD_REQUEST);
   //   }
   // }
-  /* 敏感词匹配 */
+  /* 敏感詞匹配 */
   async customSensitiveWords(content, userId) {
     const triggeredWords = [];
 
-    // 遍历敏感词列表，查找内容中是否包含敏感词
+    // 遍歷敏感詞列表，查找內容中是否包含敏感詞
     for (let i = 0; i < this.badWords.length; i++) {
       const word = this.badWords[i];
       if (content.includes(word)) {
-        triggeredWords.push(word); // 如果包含敏感词，将其加入到数组中
+        triggeredWords.push(word); // 如果包含敏感詞，將其加入到數組中
       }
     }
 
     if (triggeredWords.length) {
-      // 如果找到敏感词，记录用户提交的违规内容
+      // 如果找到敏感詞，記錄用戶遞交的違規內容
       await this.recordUserBadWords(
         userId,
         content,
         triggeredWords,
-        ['自定义'],
-        '自定义检测'
+        ['自定義'],
+        '自定義檢測'
       );
     }
 
-    // 返回检测到的敏感词列表（如果没有敏感词，返回空数组）
+    // 返回檢測到的敏感詞列表（如果沒有敏感詞，返回空數組）
     return triggeredWords;
   }
 
-  /* 敏感词检测 先检测百度敏感词 后检测自定义的 */
+  /* 敏感詞檢測 先檢測百度敏感詞 後檢測自定義的 */
   async checkBadWords(content: string, userId: number) {
     const config = await this.globalConfigService.getSensitiveConfig();
-    /* 如果有则启动配置检测 没有则跳过 */
+    /* 如果有則啟動配置檢測 沒有則跳過 */
     if (config) {
       await this.checkBadWordsByConfig(content, config, userId);
     }
-    /* 自定义敏感词检测 */
+    /* 自定義敏感詞檢測 */
     return await this.customSensitiveWords(content, userId);
   }
 
-  /* 通过配置信息去检测敏感词 */
+  /* 通過配置資訊去檢測敏感詞 */
   async checkBadWordsByConfig(content: string, config: any, userId) {
     const { useType } = config;
     useType === 'baidu' &&
@@ -106,14 +106,14 @@ export class BadWordsService implements OnModuleInit {
       ));
   }
 
-  /* 提取百度云敏感词违规类型 */
+  /* 提取百度雲敏感詞違規類型 */
   extractContent(str) {
-    const pattern = /存在(.*?)不合规/;
+    const pattern = /存在(.*?)不合規/;
     const match = str.match(pattern);
     return match ? match[1] : '';
   }
 
-  /* 通过百度云敏感词检测 */
+  /* 通過百度雲敏感詞檢測 */
   async baiduCheckBadWords(
     content: string,
     accessToken: string,
@@ -129,10 +129,10 @@ export class BadWordsService implements OnModuleInit {
     const { conclusion, error_code, error_msg, conclusionType, data } =
       response.data;
     if (error_code) {
-      console.log('百度文本检测出现错误、请查看配置信息: ', error_msg);
+      console.log('百度文本檢測出現錯誤、請查看配置資訊: ', error_msg);
     }
-    // conclusion 审核结果，可取值：合规、不合规、疑似、审核失败
-    // conclusionType 1.合规，2.不合规，3.疑似，4.审核失败
+    // conclusion 審核結果，可取值：合規、不合規、疑似、審核失敗
+    // conclusionType 1.合規，2.不合規，3.疑似，4.審核失敗
     if (conclusionType !== 1) {
       const types = [
         ...new Set(data.map((item) => this.extractContent(item.msg))),
@@ -142,11 +142,11 @@ export class BadWordsService implements OnModuleInit {
         content,
         ['***'],
         types,
-        '百度云检测'
+        '百度雲檢測'
       );
-      const tips = `您提交的信息中包含${types.join(
+      const tips = `您遞交的資訊中包含${types.join(
         ','
-      )}的内容、我们已对您的账户进行标记、请合规使用！`;
+      )}的內容、我們已對您的賬戶進行標記、請合規使用！`;
       throw new HttpException(tips, HttpStatus.BAD_REQUEST);
     }
   }
@@ -155,12 +155,12 @@ export class BadWordsService implements OnModuleInit {
   formarTips(wordList) {
     const categorys = wordList.map((t) => t.category);
     const unSet = [...new Set(categorys)];
-    return `您提交的内容中包含${unSet.join(
+    return `您遞交的內容中包含${unSet.join(
       ','
-    )}的信息、我们已对您账号进行标记、请合规使用！`;
+    )}的資訊、我們已對您賬號進行標記、請合規使用！`;
   }
 
-  /* 加载自定义的敏感词 */
+  /* 加載自定義的敏感詞 */
   async loadBadWords() {
     const data = await this.badWordsEntity.find({
       where: { status: 1 },
@@ -169,7 +169,7 @@ export class BadWordsService implements OnModuleInit {
     this.badWords = data.map((t) => t.word);
   }
 
-  /* 查询自定义的敏感词 */
+  /* 查詢自定義的敏感詞 */
   async queryBadWords(query: QueryBadWordsDto) {
     const { page = 1, size = 500, word, status } = query;
     const where: any = {};
@@ -184,40 +184,40 @@ export class BadWordsService implements OnModuleInit {
     return { rows, count };
   }
 
-  /* 删除自定义敏感词 */
+  /* 刪除自定義敏感詞 */
   async delBadWords(body: DelBadWordsDto) {
     const b = await this.badWordsEntity.findOne({ where: { id: body.id } });
     if (!b) {
       throw new HttpException(
-        '敏感词不存在,请检查您的提交信息',
+        '敏感詞不存在,請檢查您的遞交資訊',
         HttpStatus.BAD_REQUEST
       );
     }
     const res = await this.badWordsEntity.delete({ id: body.id });
     if (res.affected > 0) {
       await this.loadBadWords();
-      return '删除敏感词成功';
+      return '刪除敏感詞成功';
     } else {
-      throw new HttpException('删除敏感词失败', HttpStatus.BAD_REQUEST);
+      throw new HttpException('刪除敏感詞失敗', HttpStatus.BAD_REQUEST);
     }
   }
 
-  /* 修改自定义敏感词 */
+  /* 修改自定義敏感詞 */
   async updateBadWords(body: UpdateBadWordsDto) {
     const { id, word, status } = body;
     const b = await this.badWordsEntity.findOne({ where: { word } });
     if (b) {
       throw new HttpException(
-        '敏感词已经存在了、请勿重复添加',
+        '敏感詞已經存在了、請勿重複添加',
         HttpStatus.BAD_REQUEST
       );
     }
     const res = await this.badWordsEntity.update({ id }, { word, status });
     if (res.affected > 0) {
       await this.loadBadWords();
-      return '更新敏感词成功';
+      return '更新敏感詞成功';
     } else {
-      throw new HttpException('更新敏感词失败', HttpStatus.BAD_REQUEST);
+      throw new HttpException('更新敏感詞失敗', HttpStatus.BAD_REQUEST);
     }
   }
 
@@ -226,16 +226,16 @@ export class BadWordsService implements OnModuleInit {
     const b = await this.badWordsEntity.findOne({ where: { word } });
     if (b) {
       throw new HttpException(
-        '敏感词已存在,请检查您的提交信息',
+        '敏感詞已存在,請檢查您的遞交資訊',
         HttpStatus.BAD_REQUEST
       );
     }
     await this.badWordsEntity.save({ word });
     await this.loadBadWords();
-    return '添加敏感词成功';
+    return '添加敏感詞成功';
   }
 
-  /* 记录用户违规次数内容 */
+  /* 記錄用戶違規次數內容 */
   async recordUserBadWords(userId, content, words, typeCn, typeOriginCn) {
     const data = {
       userId,
@@ -257,7 +257,7 @@ export class BadWordsService implements OnModuleInit {
     }
   }
 
-  /* 违规记录 */
+  /* 違規記錄 */
   async violation(req, query) {
     const { role } = req.user;
     const { page = 1, size = 10, userId, typeOriginCn } = query;
@@ -276,7 +276,7 @@ export class BadWordsService implements OnModuleInit {
       select: ['id', 'avatar', 'username', 'email', 'violationCount', 'status'],
     });
     rows.forEach((t: any) => {
-      // 查找用户信息，如果没有找到，返回空对象
+      // 查找用戶資訊，如果沒有找到，返回空對象
       const user: any = usersInfo.find((u) => u.id === t.userId) || {};
 
       // const user: any = usersInfo.find((u) => u.id === t.userId);

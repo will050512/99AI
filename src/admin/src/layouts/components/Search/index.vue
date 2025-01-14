@@ -105,7 +105,7 @@ watch(() => isShow.value, (val) => {
   if (val) {
     searchInput.value = ''
     actived.value = -1
-    // 当搜索显示的时候绑定上、下、回车快捷键，隐藏的时候再解绑。另外当 input 处于 focus 状态时，采用 vue 来绑定键盘事件
+    // 當搜索顯示的時候綁定上、下、回車快捷鍵，隱藏的時候再解綁。另外當 input 處於 focus 狀態時，採用 vue 來綁定鍵盤事件
     hotkeys('up', keyUp)
     hotkeys('down', keyDown)
     hotkeys('enter', keyEnter)
@@ -254,7 +254,7 @@ function pageJump(path: listTypes['path'], link: listTypes['link']) {
               <div class="flex flex-col overflow-y-auto rounded-xl bg-white shadow-xl dark-bg-stone-8">
                 <div class="flex items-center px-4 py-3" border-b="~ solid stone-2 dark-stone-7">
                   <SvgIcon name="i-ep:search" :size="18" class="text-stone-5" />
-                  <input ref="searchInputRef" v-model="searchInput" placeholder="搜索页面，支持标题、URL模糊查询" class="w-full border-0 rounded-md bg-transparent px-3 text-base text-dark dark-text-white focus-outline-none placeholder-stone-4 dark-placeholder-stone-5" @keydown.esc="eventBus.emit('global-search-toggle')" @keydown.up.prevent="keyUp" @keydown.down.prevent="keyDown" @keydown.enter.prevent="keyEnter">
+                  <input ref="searchInputRef" v-model="searchInput" placeholder="搜索頁面，支持標題、URL模糊查詢" class="w-full border-0 rounded-md bg-transparent px-3 text-base text-dark dark-text-white focus-outline-none placeholder-stone-4 dark-placeholder-stone-5" @keydown.esc="eventBus.emit('global-search-toggle')" @keydown.up.prevent="keyUp" @keydown.down.prevent="keyDown" @keydown.enter.prevent="keyEnter">
                 </div>
                 <DialogDescription class="relative m-0 of-y-hidden">
                   <OverlayScrollbarsComponent ref="searchResultRef" :options="{ scrollbars: { autoHide: 'leave', autoHideDelay: 300 } }" defer class="h-full">
@@ -262,10 +262,10 @@ function pageJump(path: listTypes['path'], link: listTypes['link']) {
                       <a v-for="(item, index) in resultList" ref="searchResultItemRef" :key="item.path" class="flex cursor-pointer items-center" :class="{ 'bg-stone-2/40 dark-bg-stone-7/40': index === actived }" :data-index="index" @click="pageJump(item.path, item.link)" @mouseover="actived = index">
                         <SvgIcon v-if="item.icon" :name="item.icon" :size="20" class="basis-16 transition" :class="{ 'scale-120 text-ui-primary': index === actived }" />
                         <div class="flex flex-1 flex-col gap-1 truncate px-4 py-3" border-l="~ solid stone-2 dark-stone-7">
-                          <div class="truncate text-base font-bold">{{ (typeof item.title === 'function' ? item.title() : item.title) ?? '[ 无标题 ]' }}</div>
+                          <div class="truncate text-base font-bold">{{ (typeof item.title === 'function' ? item.title() : item.title) ?? '[ 無標題 ]' }}</div>
                           <Breadcrumb v-if="item.breadcrumb.length" class="truncate">
                             <BreadcrumbItem v-for="(bc, bcIndex) in item.breadcrumb" :key="bcIndex" class="text-xs">
-                              {{ (typeof bc.title === 'function' ? bc.title() : bc.title) ?? '[ 无标题 ]' }}
+                              {{ (typeof bc.title === 'function' ? bc.title() : bc.title) ?? '[ 無標題 ]' }}
                             </BreadcrumbItem>
                           </Breadcrumb>
                         </div>
@@ -275,7 +275,7 @@ function pageJump(path: listTypes['path'], link: listTypes['link']) {
                       <div flex="center col" py-6 text-stone-5>
                         <SvgIcon name="i-tabler:mood-empty" :size="40" />
                         <p m-2 text-base>
-                          没有找到你想要的
+                          沒有找到你想要的
                         </p>
                       </div>
                     </template>
@@ -287,7 +287,7 @@ function pageJump(path: listTypes['path'], link: listTypes['link']) {
                       <HKbd>
                         <SvgIcon name="i-ion:md-return-left" :size="14" />
                       </HKbd>
-                      <span>访问</span>
+                      <span>訪問</span>
                     </div>
                     <div class="inline-flex items-center gap-1 text-xs">
                       <HKbd>
@@ -296,7 +296,7 @@ function pageJump(path: listTypes['path'], link: listTypes['link']) {
                       <HKbd>
                         <SvgIcon name="i-ant-design:caret-down-filled" :size="14" />
                       </HKbd>
-                      <span>切换</span>
+                      <span>切換</span>
                     </div>
                   </div>
                   <div v-if="settingsStore.settings.navSearch.enableHotkeys" class="inline-flex items-center gap-1 text-xs">

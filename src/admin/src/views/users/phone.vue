@@ -1,6 +1,6 @@
 <route lang="yaml">
 meta:
-  title: 手机验证码配置
+  title: 手機驗證碼配置
 </route>
 
 <script lang="ts" setup>
@@ -19,34 +19,34 @@ const formInline = reactive({
 
 const rules = ref<FormRules>({
   phoneLoginStatus: [
-    { required: false, trigger: 'blur', message: '请选择是否开启手机号登录' },
+    { required: false, trigger: 'blur', message: '請選擇是否開啟手機號登錄' },
   ],
   aliPhoneAccessKeyId: [
     {
       required: false,
       trigger: 'blur',
-      message: '请填写阿里云短信服务accessKeyId',
+      message: '請填寫阿里雲短信服務accessKeyId',
     },
   ],
   aliPhoneAccessKeySecret: [
     {
       required: false,
       trigger: 'blur',
-      message: '请填写阿里云短信服务accessKeySecret',
+      message: '請填寫阿里雲短信服務accessKeySecret',
     },
   ],
   aliPhoneSignName: [
     {
       required: false,
       trigger: 'blur',
-      message: '请填写阿里云短信服务的模板签名',
+      message: '請填寫阿里雲短信服務的模板簽名',
     },
   ],
   aliPhoneTemplateCode: [
     {
       required: false,
       trigger: 'blur',
-      message: '请填写阿里云短信服务的模板ID',
+      message: '請填寫阿里雲短信服務的模板ID',
     },
   ],
 });
@@ -70,11 +70,11 @@ function handlerUpdateConfig() {
     if (valid) {
       try {
         await apiConfig.setConfig({ settings: fotmatSetting(formInline) });
-        ElMessage.success('变更配置信息成功');
+        ElMessage.success('變更配置資訊成功');
       } catch (error) {}
       queryAllconfig();
     } else {
-      ElMessage.error('请填写完整信息');
+      ElMessage.error('請填寫完整資訊');
     }
   });
 }
@@ -97,23 +97,23 @@ onMounted(() => {
   <div>
     <PageHeader>
       <template #title>
-        <div class="flex items-center gap-4">手机验证码登录设置</div>
+        <div class="flex items-center gap-4">手機驗證碼登錄設置</div>
       </template>
       <template #content>
         <div class="text-sm/6">
           <div>
-            手机验证使用<a
+            手機驗證使用<a
               href="https://dysms.console.aliyun.com/overview"
               target="_blank"
-              >阿里云短信服务</a
-            >，请先申请好签名模板以及获取到您的秘钥信息。
+              >阿里雲短信服務</a
+            >，請先申請好籤名模板以及獲取到您的秘鑰資訊。
           </div>
-          <div>当您配置并开启后则表示开启用户端手机号注册的行为！</div>
+          <div>當您配置並開啟後則表示開啟用戶端手機號註冊的行為！</div>
         </div>
       </template>
       <HButton text outline @click="handlerUpdateConfig">
         <SvgIcon name="i-ri:file-text-line" />
-        保存设置
+        保存設置
       </HButton>
     </PageHeader>
     <el-card style="margin: 20px">
@@ -125,11 +125,11 @@ onMounted(() => {
       >
         <el-row>
           <el-col :xs="24" :md="20" :lg="15" :xl="12">
-            <el-form-item label="开启手机号注册/登录" prop="phoneLoginStatus">
+            <el-form-item label="開啟手機號註冊/登錄" prop="phoneLoginStatus">
               <el-tooltip
                 class="box-item"
                 effect="dark"
-                content="如您启用短信登录、则用户端则可以通过手机号的方式登录！"
+                content="如您啟用短信登錄、則用戶端則可以通過手機號的方式登錄！"
                 placement="right"
               >
                 <el-switch
@@ -147,7 +147,7 @@ onMounted(() => {
             <el-form-item label="AccessKeyId" prop="aliPhoneAccessKeyId">
               <el-input
                 v-model="formInline.aliPhoneAccessKeyId"
-                placeholder="请填写AccessKeyId"
+                placeholder="請填寫AccessKeyId"
                 clearable
                 type="password"
                 show-password
@@ -163,7 +163,7 @@ onMounted(() => {
             >
               <el-input
                 v-model="formInline.aliPhoneAccessKeySecret"
-                placeholder="请填写AccessKeySecret"
+                placeholder="請填寫AccessKeySecret"
                 clearable
                 type="password"
                 show-password
@@ -173,10 +173,10 @@ onMounted(() => {
         </el-row>
         <el-row>
           <el-col :xs="24" :md="20" :lg="15" :xl="12">
-            <el-form-item label="短信签名" prop="aliPhoneSignName">
+            <el-form-item label="短信簽名" prop="aliPhoneSignName">
               <el-input
                 v-model="formInline.aliPhoneSignName"
-                placeholder="请填写您申请的短信签名"
+                placeholder="請填寫您申請的短信簽名"
                 clearable
               />
             </el-form-item>
@@ -187,7 +187,7 @@ onMounted(() => {
             <el-form-item label="短信模板ID" prop="aliPhoneTemplateCode">
               <el-input
                 v-model="formInline.aliPhoneTemplateCode"
-                placeholder="请填写短信模板ID"
+                placeholder="請填寫短信模板ID"
                 clearable
               />
             </el-form-item>

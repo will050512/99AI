@@ -4,13 +4,13 @@ import { BaseEntity } from 'src/common/entity/baseEntity';
 
 @Entity({ name: 'signin' })
 export class SigninEntity extends BaseEntity {
-  @Column({ comment: '用户ID' })
+  @Column({ comment: '用戶ID' })
   userId: number;
 
-  @Column({ comment: '签到日期' })
+  @Column({ comment: '簽到日期' })
   signInDate: string;
 
-  @Column({ comment: '签到时间' })
+  @Column({ comment: '簽到時間' })
   signInTime: Date;
 
   @Column({ default: false })

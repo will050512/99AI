@@ -19,7 +19,7 @@ import { RedisCacheService } from './redisCache.service';
 
         if (!host || !port) {
           Logger.error(
-            `Please configure Redis config | 未配置 Redis 配置信息，请确认配置 Redis 服务以获得更好的体验`,
+            `Please configure Redis config | 未配置 Redis 配置資訊，請確認配置 Redis 服務以獲得更好的體驗`,
             'RedisCacheModule'
           );
           return;

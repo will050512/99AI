@@ -10,7 +10,7 @@ const routes: RouteRecordRaw = {
   redirect: '/user/dashboard',
   name: 'userMenu',
   meta: {
-    title: '访问管理',
+    title: '訪問管理',
     icon: 'mdi:user-outline',
   },
   children: [
@@ -19,7 +19,7 @@ const routes: RouteRecordRaw = {
       name: 'systemMenuRegister',
       component: () => import('@/views/users/register.vue'),
       meta: {
-        title: '访问配置',
+        title: '訪問配置',
         icon: 'hugeicons:access',
       },
     },
@@ -28,7 +28,7 @@ const routes: RouteRecordRaw = {
       name: 'userAgreement',
       component: () => import('@/views/users/userAgreement.vue'),
       meta: {
-        title: '用户协议配置',
+        title: '用戶協議配置',
         icon: 'hugeicons:access',
       },
     },
@@ -37,7 +37,7 @@ const routes: RouteRecordRaw = {
       name: 'systemMenuEmail',
       component: () => import('@/views/users/email.vue'),
       meta: {
-        title: '邮件登录配置',
+        title: '郵件登錄配置',
         icon: 'material-symbols:mail-outline',
       },
     },
@@ -46,7 +46,7 @@ const routes: RouteRecordRaw = {
       name: 'systemMenuWechat',
       component: () => import('@/views/users/wechat.vue'),
       meta: {
-        title: '微信登录配置',
+        title: '微信登錄配置',
         icon: 'la:weixin',
       },
     },
@@ -55,7 +55,7 @@ const routes: RouteRecordRaw = {
       name: 'AliPhoneMenu',
       component: () => import('@/views/users/phone.vue'),
       meta: {
-        title: '短信登录配置',
+        title: '短信登錄配置',
         icon: 'tabler:message',
       },
     },

@@ -58,14 +58,14 @@ function http<T = any>(
       authStore.removeToken()
       if (!hasWhitePath(error?.request?.responseURL)) {
         authStore.loadInit && authStore.setLoginDialog(true)
-        const message = error.response.data?.message || '请先登录后再进行使用！'
+        const message = error.response.data?.message || '請先登錄後再進行使用！'
         Date.now() - last401ErrorTimestamp > 3000 && window.$message.error(message)
       }
       last401ErrorTimestamp = Date.now()
     }
     else {
       if (data && !data?.success)
-        window.$message.error(data?.message || '请求接口错误！')
+        window.$message.error(data?.message || '請求介面錯誤！')
     }
     throw new Error(error.response?.data?.message || error || 'Error')
   }

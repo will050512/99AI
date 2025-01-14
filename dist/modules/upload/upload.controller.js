@@ -30,7 +30,7 @@ let UploadController = class UploadController {
 };
 __decorate([
     (0, common_1.Post)('file'),
-    (0, swagger_1.ApiOperation)({ summary: '上传文件' }),
+    (0, swagger_1.ApiOperation)({ summary: '上傳文件' }),
     (0, common_1.UseInterceptors)((0, platform_express_1.FileInterceptor)('file')),
     __param(0, (0, common_1.UploadedFile)()),
     __param(1, (0, common_1.Query)('dir')),
@@ -40,7 +40,7 @@ __decorate([
 ], UploadController.prototype, "uploadFile", null);
 __decorate([
     (0, common_1.Post)('fileFromUrl'),
-    (0, swagger_1.ApiOperation)({ summary: '从URL上传文件' }),
+    (0, swagger_1.ApiOperation)({ summary: '從URL上傳文件' }),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Object]),

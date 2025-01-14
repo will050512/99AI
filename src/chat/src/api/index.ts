@@ -1,7 +1,7 @@
 import { get, post } from '@/utils/request';
 import type { AxiosProgressEvent, GenericAbortSignal } from 'axios';
 
-/* 对话聊天 */
+/* 對話聊天 */
 export function fetchChatAPIProcess<T = any>(params: {
   model: string;
   modelName: string;
@@ -54,7 +54,7 @@ export function fetchPptCoverAPIProcess<T>(data: {
   return post<T>({ url: '/chatgpt/ppt-cover', data }) as Promise<T>;
 }
 
-/* TTS 文字转语音 */
+/* TTS 文字轉語音 */
 export function fetchTtsAPIProces<T>(data: {
   chatId: number;
   prompt: string;
@@ -62,12 +62,12 @@ export function fetchTtsAPIProces<T>(data: {
   return post<T>({ url: '/chatgpt/tts-process', data }) as Promise<T>;
 }
 
-/* 获取个人信息 */
+/* 獲取個人資訊 */
 export function fetchGetInfo<T>() {
   return get<T>({ url: '/auth/getInfo' });
 }
 
-/* 注册 */
+/* 註冊 */
 export function fetchRegisterAPI<T>(data: {
   username: string;
   password: string;
@@ -77,7 +77,7 @@ export function fetchRegisterAPI<T>(data: {
   return post<T>({ url: '/auth/register', data }) as Promise<T>;
 }
 
-/* 登录 */
+/* 登錄 */
 export function fetchLoginAPI<T>(data: {
   username: string;
   password: string;
@@ -85,7 +85,7 @@ export function fetchLoginAPI<T>(data: {
   return post<T>({ url: '/auth/login', data }) as Promise<T>;
 }
 
-/* 验证码登录 */
+/* 驗證碼登錄 */
 export function fetchLoginWithCaptchaAPI<T>(data: {
   contact: string;
   code: string;
@@ -93,7 +93,7 @@ export function fetchLoginWithCaptchaAPI<T>(data: {
   return post<T>({ url: '/auth/loginWithCaptcha', data }) as Promise<T>;
 }
 
-/* 修改个人信息 */
+/* 修改個人資訊 */
 export function fetchUpdateInfoAPI<T>(data: {
   username?: string;
   avatar?: string;
@@ -101,14 +101,14 @@ export function fetchUpdateInfoAPI<T>(data: {
   return post<T>({ url: '/user/update', data }) as Promise<T>;
 }
 
-/* 修改密码 */
+/* 修改密碼 */
 export function fetchUpdatePasswordAPI<T>(data: {
   password?: string;
 }): Promise<T> {
   return post<T>({ url: '/auth/updatePassword', data }) as Promise<T>;
 }
 
-/* 同步对话 */
+/* 同步對話 */
 export function fetchGetchatSyncApi<T = any>(params: {
   prompt: string;
   options?: {
@@ -127,12 +127,12 @@ export function fetchGetchatSyncApi<T = any>(params: {
   });
 }
 
-/* 获取图片验证码 */
+/* 獲取圖片驗證碼 */
 export function fetchCaptchaImg<T>(data: { color: string }): Promise<T> {
   return post<T>({ url: '/auth/captcha', data }) as Promise<T>;
 }
 
-/* 发送邮箱验证码 */
+/* 發送郵箱驗證碼 */
 export function fetchSendCode<T>(data: {
   contact: string;
   captchaCode: string;
@@ -140,12 +140,12 @@ export function fetchSendCode<T>(data: {
   return post<T>({ url: '/auth/sendCode', data }) as Promise<T>;
 }
 
-/* 发送手机验证码 */
+/* 發送手機驗證碼 */
 export function fetchSendSms<T>(data: { phone: string }): Promise<T> {
   return post<T>({ url: '/auth/sendPhoneCode', data }) as Promise<T>;
 }
 
-/* 发送邮箱验证码 */
+/* 發送郵箱驗證碼 */
 export function fetchSendEmailCode<T>(data: {
   phone: string;
   captchaId: string;

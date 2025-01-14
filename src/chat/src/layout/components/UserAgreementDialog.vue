@@ -19,12 +19,12 @@ const globalConfig = computed(() => authStore.globalConfig);
 // const agreementInfo = authStore.globalConfig.agreementInfo;
 
 function handleClose() {
-  useGlobalStore.updateUserAgreementDialog(false); // 假设你有一个类似的状态管理方法
+  useGlobalStore.updateUserAgreementDialog(false); // 假設你有一個類似的狀態管理方法
 }
 
 function handleAgree() {
-  useGlobalStore.updateUserAgreementDialog(false); // 假设你有一个类似的状态管理方法
-  ss.set('agreedToUserAgreement', 'true'); // 标记用户已经同意
+  useGlobalStore.updateUserAgreementDialog(false); // 假設你有一個類似的狀態管理方法
+  ss.set('agreedToUserAgreement', 'true'); // 標記用戶已經同意
 }
 </script>
 
@@ -62,7 +62,7 @@ function handleAgree() {
           @click="handleAgree"
           class="px-4 py-2 shadow-sm bg-primary-600 text-white rounded-md hover:bg-primary-500"
         >
-          <span>已阅读</span>
+          <span>已閱讀</span>
         </button>
       </div>
     </div>

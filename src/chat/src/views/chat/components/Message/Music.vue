@@ -63,21 +63,21 @@ const showEditDialog = () => {
   isDialogVisible.value = true;
 };
 
-// 定义一个方法来更新 customIdData
+// 定義一個方法來更新 customIdData
 const updateCustomIdData = () => {
   customIdData.value = JSON.parse(props.taskData || '{}');
 };
 
-// 监听 props.taskData 的变化并更新 customIdData
+// 監聽 props.taskData 的變化並更新 customIdData
 watch(
   () => props.taskData,
   () => {
     updateCustomIdData();
   },
-  { immediate: true } // 确保在组件加载时立即运行一次
+  { immediate: true } // 確保在組件加載時立即運行一次
 );
 
-// 在组件加载时立即更新 customIdData
+// 在組件加載時立即更新 customIdData
 onMounted(() => {
   updateCustomIdData();
 });
@@ -94,7 +94,7 @@ const musicModel = ref([
   },
   {
     id: 'instrumental',
-    title: '纯音乐',
+    title: '純音樂',
     values: true,
   },
 ]);
@@ -102,7 +102,7 @@ const musicModel = ref([
 const musicStyle = ref([
   {
     id: 'default',
-    title: '默认',
+    title: '默認',
     values: '',
   },
   {
@@ -112,12 +112,12 @@ const musicStyle = ref([
   },
   {
     id: 'rock',
-    title: '摇滚',
+    title: '搖滾',
     values: 'rock',
   },
   {
     id: 'hiphop',
-    title: '嘻哈/说唱',
+    title: '嘻哈/說唱',
     values: 'hiphop',
   },
   {
@@ -127,12 +127,12 @@ const musicStyle = ref([
   },
   {
     id: 'blues',
-    title: '蓝调/灵魂',
+    title: '藍調/靈魂',
     values: 'blues',
   },
   {
     id: 'country',
-    title: '乡村',
+    title: '鄉村',
     values: 'country',
   },
   {
@@ -142,7 +142,7 @@ const musicStyle = ref([
   },
   {
     id: 'folk',
-    title: '民谣',
+    title: '民謠',
     values: 'folk',
   },
   {
@@ -152,22 +152,22 @@ const musicStyle = ref([
   },
   {
     id: 'world',
-    title: '世界音乐',
+    title: '世界音樂',
     values: 'world',
   },
   {
     id: 'electronic',
-    title: '电子',
+    title: '電子',
     values: 'electronic',
   },
   {
     id: 'newage',
-    title: '新世纪',
+    title: '新世紀',
     values: 'newage',
   },
   {
     id: 'metal',
-    title: '重金属',
+    title: '重金屬',
     values: 'metal',
   },
   {
@@ -177,7 +177,7 @@ const musicStyle = ref([
   },
   {
     id: 'rnb',
-    title: '节奏布鲁斯',
+    title: '節奏布魯斯',
     values: 'rnb',
   },
 ]);
@@ -219,7 +219,7 @@ const submitEdit = async () => {
       customId: customId,
       modelType: 2,
       model: props.model || 'suno-music',
-      modelName: props.modelName || 'AI音乐',
+      modelName: props.modelName || 'AI音樂',
       modelAvatar: props.modelAvatar,
     });
   } catch (error) {}
@@ -228,26 +228,26 @@ const submitEdit = async () => {
 watch(
   () => props.status,
   (currentStatus) => {
-    // 清除可能已经存在的定时器
+    // 清除可能已經存在的定時器
     if (intervalId !== undefined) {
       clearInterval(intervalId);
       intervalId = undefined;
     }
 
-    // 当status为2时，启动定时器
+    // 當status為2時，啟動定時器
     if (currentStatus === 2) {
       intervalId = window.setInterval(async () => {
-        // 这里替换为你想要定期执行的操作
+        // 這裡替換為你想要定期執行的操作
 
         await chatStore.queryActiveChatLogList();
-        // 例如，可以在这里调用 chatStore.queryActiveChatLogList();
-      }, 5000); // 每5秒执行一次
+        // 例如，可以在這裡調用 chatStore.queryActiveChatLogList();
+      }, 5000); // 每5秒執行一次
     }
   },
   { immediate: true }
 );
 
-// 组件卸载时清除定时器
+// 組件卸載時清除定時器
 onUnmounted(() => {
   if (intervalId !== undefined) {
     clearInterval(intervalId);
@@ -279,8 +279,8 @@ const mediaInfo = computed(() => {
     image,
     video: videoInfo.value[index] || { type: 'video', url: '' },
     audio: audioInfo.value[index] || { type: 'audio', url: '' },
-    title: '标题', // 根据需要调整标题
-    subtitle: '媒体风格', // 根据需要调整副标题
+    title: '標題', // 根據需要調整標題
+    subtitle: '媒體風格', // 根據需要調整副標題
   }));
 });
 
@@ -317,11 +317,11 @@ const togglePlay = (index: number) => {
   const currentAudio = audioRefs.value[index];
 
   if (currentAudio) {
-    // 暂停所有其他音频
+    // 暫停所有其他音頻
     audioRefs.value.forEach((audio, idx) => {
       if (audio && idx !== index) {
         audio.pause();
-        audio.currentTime = 0; // 可选：重置音频到起始位置
+        audio.currentTime = 0; // 可選：重置音頻到起始位置
       }
     });
 
@@ -386,13 +386,13 @@ function downloadAudio(url: string) {
       const link = document.createElement('a');
       const objectURL = URL.createObjectURL(blob);
       link.href = objectURL;
-      const title = props.text || '音频文件';
-      link.setAttribute('download', `${title}.mp3`); // 可以根据需要修改文件名
-      link.style.display = 'none'; // 隐藏链接
+      const title = props.text || '音頻文件';
+      link.setAttribute('download', `${title}.mp3`); // 可以根據需要修改文件名
+      link.style.display = 'none'; // 隱藏鏈接
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
-      URL.revokeObjectURL(objectURL); // 释放URL对象
+      URL.revokeObjectURL(objectURL); // 釋放URL對象
     })
     .catch((error) => {});
 }
@@ -429,7 +429,7 @@ const handleGenerateMusic = async () => {
       customId: customId,
       modelType: 2,
       model: props.model || 'suno-music',
-      modelName: props.modelName || 'AI音乐',
+      modelName: props.modelName || 'AI音樂',
       modelAvatar: props.modelAvatar,
     });
   } catch (error) {}
@@ -555,13 +555,13 @@ const closeVideoDialog = () => {
             @click="showEditDialog"
             class="px-4 py-1 shadow-sm ring-1 ring-inset bg-white ring-gray-300 hover:bg-gray-50 text-gray-900 rounded-md mr-4 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700 dark:ring-gray-700 dark:hover:ring-gray-600"
           >
-            编辑
+            編輯
           </button>
           <button
             @click="handleGenerateMusic"
             class="px-4 py-1 shadow-sm bg-primary-600 hover:bg-primary-500 text-white dark rounded-md"
           >
-            一键创作音乐
+            一鍵創作音樂
           </button>
         </div>
       </div>
@@ -593,7 +593,7 @@ const closeVideoDialog = () => {
     </div>
   </div>
 
-  <!-- 新增的视频弹窗 -->
+  <!-- 新增的視頻彈窗 -->
   <div
     v-if="isVideoDialogVisible"
     class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50"
@@ -634,15 +634,15 @@ const closeVideoDialog = () => {
         @click="closeDialog"
       />
       <div class="flex-none">
-        <h2 class="text-2xl mb-4 font-semibold">歌词编辑</h2>
-        <p class="mb-4">您可以点击内容进行编辑修改</p>
+        <h2 class="text-2xl mb-4 font-semibold">歌詞編輯</h2>
+        <p class="mb-4">您可以點擊內容進行編輯修改</p>
       </div>
       <div
         class="flex-1 overflow-y-auto p-4 rounded-lg border-2 dark:border-gray-700"
       >
         <div>
           <div class="flex items-center mb-4">
-            <label class="w-12 text-gray-500 font-semibold">标题</label>
+            <label class="w-12 text-gray-500 font-semibold">標題</label>
             <input
               type="text"
               v-model="customIdData.title"
@@ -650,7 +650,7 @@ const closeVideoDialog = () => {
             />
           </div>
           <div class="mb-4">
-            <!-- <label class="text-gray-500 font-semibold">歌词</label> -->
+            <!-- <label class="text-gray-500 font-semibold">歌詞</label> -->
             <div class="flex flex-col">
               <div
                 v-for="(line, index) in filteredLines"
@@ -725,7 +725,7 @@ const closeVideoDialog = () => {
             <MenuButton
               class="px-3 py-2 shadow-sm ring-1 ring-inset bg-white ring-gray-300 hover:bg-gray-50 text-gray-900 rounded-md mr-4 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700 dark:ring-gray-700 dark:hover:ring-gray-600 inline-flex w-full justify-center text-sm group-hover:bg-gray-50 dark:group-hover:bg-gray-700 group-hover:text-gray-900 dark:group-hover:text-gray-400 whitespace-nowrap"
             >
-              风格：{{ selectedMusicStyle.title }}
+              風格：{{ selectedMusicStyle.title }}
             </MenuButton>
 
             <transition
@@ -771,7 +771,7 @@ const closeVideoDialog = () => {
             @click="submitEdit"
             class="px-4 py-2 shadow-sm bg-primary-600 hover:bg-primary-500 text-white rounded-md"
           >
-            提交
+            遞交
           </button>
         </div>
       </div>

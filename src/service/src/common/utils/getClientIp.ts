@@ -2,7 +2,7 @@ import { Request } from 'express';
 
 function getFirstValidIp(ipString: string): string {
   const ips = ipString.split(',').map(ip => ip.trim());
-  // 可以在这里加入对IP地址有效性的额外验证
+  // 可以在這裡加入對IP地址有效性的額外驗證
   return ips.find(ip => isValidIp(ip)) || '';
 }
 

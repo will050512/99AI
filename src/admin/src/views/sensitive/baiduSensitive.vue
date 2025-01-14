@@ -1,6 +1,6 @@
 <route lang="yaml">
 meta:
-  title: 百度云敏感词设置
+  title: 百度雲敏感詞設置
 </route>
 
 <script lang="ts" setup>
@@ -17,13 +17,13 @@ const formInline = reactive({
 
 const rules = ref<FormRules>({
   baiduTextStatus: [
-    { required: true, trigger: 'blur', message: '请选择是否启用百度文本审核' },
+    { required: true, trigger: 'blur', message: '請選擇是否啟用百度文本審核' },
   ],
   baiduTextSecretKey: [
-    { required: true, trigger: 'blur', message: '请填写百度文本审核SecretKey' },
+    { required: true, trigger: 'blur', message: '請填寫百度文本審核SecretKey' },
   ],
   baiduTextApiKey: [
-    { required: true, trigger: 'blur', message: '请填写百度文本审核APIKey' },
+    { required: true, trigger: 'blur', message: '請填寫百度文本審核APIKey' },
   ],
 });
 
@@ -41,11 +41,11 @@ function handlerUpdateConfig() {
     if (valid) {
       try {
         await apiConfig.setConfig({ settings: fotmatSetting(formInline) });
-        ElMessage.success('变更配置信息成功');
+        ElMessage.success('變更配置資訊成功');
       } catch (error) {}
       queryAllconfig();
     } else {
-      ElMessage.error('请填写完整信息');
+      ElMessage.error('請填寫完整資訊');
     }
   });
 }
@@ -68,22 +68,22 @@ onMounted(() => {
   <div>
     <PageHeader>
       <template #title>
-        <div class="flex items-center gap-4">百度文本审核参数设置</div>
+        <div class="flex items-center gap-4">百度文本審核參數設置</div>
       </template>
       <template #content>
         <div class="text-sm/6">
           <div>
-            当前百度云免费5万条，可查看<a
+            當前百度雲免費5萬條，可查看<a
               href="https://console.bce.baidu.com/ai/#/ai/antiporn/overview/index"
               target="_blank"
-              >使用文档</a
-            >，如果百度云敏感词与自定义敏感词都配置的情况，会先检测百度云后检测自定义的敏感词。
+              >使用文檔</a
+            >，如果百度雲敏感詞與自定義敏感詞都配置的情況，會先檢測百度雲後檢測自定義的敏感詞。
           </div>
         </div>
       </template>
       <HButton outline @click="handlerUpdateConfig">
         <SvgIcon name="i-ri:file-text-line" />
-        保存设置
+        保存設置
       </HButton>
     </PageHeader>
 
@@ -96,9 +96,9 @@ onMounted(() => {
       >
         <el-row>
           <el-col :xs="24" :md="20" :lg="15" :xl="12">
-            <el-form-item label="开启此敏感词设置" prop="baiduTextStatus">
+            <el-form-item label="開啟此敏感詞設置" prop="baiduTextStatus">
               <el-tooltip
-                content="开启将打开敏感词检测、如果同时开启其他敏感词将会通过菜单顺序仅同时开启一个！"
+                content="開啟將打開敏感詞檢測、如果同時開啟其他敏感詞將會通過菜單順序僅同時開啟一個！"
                 placement="top"
                 :show-after="500"
               >
@@ -113,10 +113,10 @@ onMounted(() => {
         </el-row>
         <el-row>
           <el-col :xs="24" :md="20" :lg="15" :xl="12">
-            <el-form-item label="文本审核ApiKey" prop="baiduTextApiKey">
+            <el-form-item label="文本審核ApiKey" prop="baiduTextApiKey">
               <el-input
                 v-model="formInline.baiduTextApiKey"
-                placeholder="请填写百度文本审核ApiKey"
+                placeholder="請填寫百度文本審核ApiKey"
                 clearable
               />
             </el-form-item>
@@ -125,10 +125,10 @@ onMounted(() => {
 
         <el-row>
           <el-col :xs="24" :md="20" :lg="15" :xl="12">
-            <el-form-item label="文本审核SecretKey" prop="baiduTextSecretKey">
+            <el-form-item label="文本審核SecretKey" prop="baiduTextSecretKey">
               <el-input
                 v-model="formInline.baiduTextSecretKey"
-                placeholder="请填写百度文本审核SecretKey"
+                placeholder="請填寫百度文本審核SecretKey"
                 clearable
               />
             </el-form-item>

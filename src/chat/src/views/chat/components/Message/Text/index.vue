@@ -70,8 +70,8 @@ const isHtml = ref(false);
 const playbackState = ref('paused');
 let currentAudio: HTMLAudioElement | null = null;
 
-const editableContent = ref(props.text); // 新增一个引用来存储编辑后的内容
-const isEditable = ref(false); // 定义一个状态变量控制是否进入编辑模式
+const editableContent = ref(props.text); // 新增一個引用來儲存編輯後的內容
+const isEditable = ref(false); // 定義一個狀態變量控制是否進入編輯模式
 
 const textarea = ref<HTMLTextAreaElement | null>(null);
 
@@ -83,11 +83,11 @@ function adjustTextareaHeight() {
 }
 
 function cancelEdit() {
-  editableContent.value = props.text; // 重置已编辑的内容
-  isEditable.value = false; // 退出编辑模式
+  editableContent.value = props.text; // 重置已編輯的內容
+  isEditable.value = false; // 退出編輯模式
 }
 
-// 创建一个响应式引用来存储音频URL
+// 創建一個響應式引用來儲存音頻URL
 
 const buttonGroupClass = computed(() => {
   return playbackState.value !== 'paused' || isEditable.value
@@ -95,24 +95,24 @@ const buttonGroupClass = computed(() => {
     : 'opacity-0 group-hover:opacity-100';
 });
 
-// 这个函数用于获取音频URL并播放音频
+// 這個函數用於獲取音頻URL並播放音頻
 async function handlePlay() {
   if (playbackState.value === 'loading' || playbackState.value === 'playing') {
     return;
   }
-  // 使用localTtsUrl的值进行判断
+  // 使用localTtsUrl的值進行判斷
   if (localTtsUrl.value) {
     playAudio(localTtsUrl.value);
     return;
   }
-  // 这里可以加入你的文本提示，或者根据组件内部的状态来确定
+  // 這裡可以加入你的文本提示，或者根據組件內部的狀態來確定
   playbackState.value = 'loading';
   try {
     const res = await fetchTtsAPIProces({
       chatId: props.chatId,
       prompt: props.text,
     });
-    const ttsUrl = res.ttsUrl; // 假设响应中包含ttsUrl
+    const ttsUrl = res.ttsUrl; // 假設響應中包含ttsUrl
     if (ttsUrl) {
       localTtsUrl.value = ttsUrl; // 更新本地ttsUrl
       playAudio(ttsUrl);
@@ -125,40 +125,40 @@ async function handlePlay() {
 }
 
 function playAudio(audioSrc: string | undefined) {
-  // 如果之前已经有音频在播放，先停止它
+  // 如果之前已經有音頻在播放，先停止它
   if (currentAudio) {
     currentAudio.pause();
   }
-  // 创建新的音频对象并播放
+  // 創建新的音頻對象並播放
   currentAudio = new Audio(audioSrc);
   currentAudio
     .play()
     .then(() => {
-      playbackState.value = 'playing'; // 更新状态为播放中
+      playbackState.value = 'playing'; // 更新狀態為播放中
     })
     .catch((error) => {
-      playbackState.value = 'paused'; // 出错时更新状态为暂停
+      playbackState.value = 'paused'; // 出錯時更新狀態為暫停
     });
 
-  // 当音频播放结束时更新状态
+  // 當音頻播放結束時更新狀態
   currentAudio.onended = () => {
-    playbackState.value = 'paused'; // 音频结束时更新状态为暂停
+    playbackState.value = 'paused'; // 音頻結束時更新狀態為暫停
     currentAudio = null; // 清除引用
   };
 }
 
 function pauseAudio() {
   if (currentAudio) {
-    currentAudio.pause(); // 暂停音频
-    playbackState.value = 'paused'; // 更新状态为暂停
+    currentAudio.pause(); // 暫停音頻
+    playbackState.value = 'paused'; // 更新狀態為暫停
   }
 }
 
 function playOrPause() {
   if (playbackState.value === 'playing') {
-    pauseAudio(); // 如果当前是播放状态，则暂停
+    pauseAudio(); // 如果當前是播放狀態，則暫停
   } else {
-    handlePlay(); // 否则，尝试播放音频
+    handlePlay(); // 否則，嘗試播放音頻
   }
 }
 
@@ -168,11 +168,11 @@ const mdi = new MarkdownIt({
     const validLang = !!(language && hljs.getLanguage(language));
     if (validLang) {
       const lang = language ?? '';
-      // 检测到HTML代码块时，直接返回原始内容
+      // 檢測到HTML代碼塊時，直接返回原始內容
       console.log('language', language);
       if (language === 'html') {
-        htmlContent.value = code; // 存储HTML内容
-        isHtml.value = true; // 标记为HTML内容
+        htmlContent.value = code; // 儲存HTML內容
+        isHtml.value = true; // 標記為HTML內容
         console.log('htmlContent', htmlContent.value);
       }
       return highlightBlock(
@@ -185,21 +185,21 @@ const mdi = new MarkdownIt({
   },
 });
 
-// 添加自定义渲染规则来处理图片
+// 添加自定義渲染規則來處理圖片
 mdi.renderer.rules.image = function (tokens, idx, options, env, self) {
   const token = tokens[idx];
   const src = token.attrGet('src');
   const title = token.attrGet('title');
   const alt = token.content;
 
-  // 使用普通的<img>标签，你可以根据需要添加或调整属性
+  // 使用普通的<img>標籤，你可以根據需要添加或調整屬性
   return `<img src="${src}" alt="${alt}" title="${
     title || alt
   }" class="rounded-md" style=" max-width:100% ;max-height: 30vh; "/>`;
 };
 
 const fileInfo = computed(() => props.fileInfo);
-// 将 fileInfo 转换为数组
+// 將 fileInfo 轉換為數組
 const fileInfoArray = computed(() =>
   fileInfo?.value?.split(',').map((file) => file.trim())
 );
@@ -224,7 +224,7 @@ mdi.use(mdKatex, {
 const text = computed(() => {
   const value = props.text ?? '';
 
-  // 使用正则表达式替换 \( 后面的空格和 \) 前面的空格，以及 \[ 和 \] 的情况
+  // 使用正則表達式替換 \( 後面的空格和 \) 前面的空格，以及 \[ 和 \] 的情況
   const modifiedValue = value
     .replace(/\\\(\s*/g, '$')
     .replace(/\s*\\\)/g, '$')
@@ -257,18 +257,18 @@ function closeModal() {
 
 async function handleEditMessage() {
   if (isEditable.value) {
-    const tempEditableContent = editableContent.value; // 存储编辑后的内容到临时变量
+    const tempEditableContent = editableContent.value; // 儲存編輯後的內容到臨時變量
     await onConversation({
-      msg: tempEditableContent, // 使用临时变量中的编辑后的内容
+      msg: tempEditableContent, // 使用臨時變量中的編輯後的內容
       chatId: props.chatId,
     });
 
-    isEditable.value = false; // 提交后退出编辑模式
+    isEditable.value = false; // 遞交後退出編輯模式
   } else {
     editableContent.value = props.text;
-    isEditable.value = true; // 进入编辑模式
-    await nextTick(); // 确保 DOM 更新完成
-    adjustTextareaHeight(); // 调整高度
+    isEditable.value = true; // 進入編輯模式
+    await nextTick(); // 確保 DOM 更新完成
+    adjustTextareaHeight(); // 調整高度
   }
 }
 
@@ -372,7 +372,7 @@ onMounted(() => {
           :key="index"
           :src="file"
           :preview-src="file"
-          alt="图片"
+          alt="圖片"
           class="rounded-md flex ml-2"
           :class="[{ 'justify-end': inversion }]"
           :style="{
@@ -390,7 +390,7 @@ onMounted(() => {
           @click="handleEdit"
           class="px-4 py-1 shadow-sm ring-1 ring-inset bg-white ring-gray-300 hover:bg-gray-50 text-gray-900 rounded-md mr-4 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700 dark:ring-gray-700 dark:hover:ring-gray-600"
         >
-          预览代码
+          預覽代碼
         </button>
       </div>
     </div>
@@ -458,7 +458,7 @@ onMounted(() => {
           @click="handleEditMessage"
         >
           <Send class="mr-1" />
-          <span class="flex text-sm">提交</span>
+          <span class="flex text-sm">遞交</span>
         </button>
         <button
           v-if="inversion && !isEditable && modelType === 1"
@@ -467,7 +467,7 @@ onMounted(() => {
           @click="handleEditMessage"
         >
           <Edit class="mr-1" />
-          <span class="flex text-sm">编辑</span>
+          <span class="flex text-sm">編輯</span>
         </button>
         <button
           v-if="!inversion && modelType === 1"
@@ -535,7 +535,7 @@ onMounted(() => {
 
   50% {
     transform: scale(0.5);
-    /* 缩小到50%的尺寸 */
+    /* 縮小到50%的尺寸 */
     opacity: 0.5;
     /* 半透明 */
   }
@@ -544,15 +544,15 @@ onMounted(() => {
 .breathing-dot {
   display: inline-block;
   width: 10px;
-  /* 圆点的基础宽度 */
+  /* 圓點的基礎寬度 */
   height: 10px;
-  /* 圆点的基础高度 */
+  /* 圓點的基礎高度 */
   border-radius: 50%;
-  /* 使其成为圆形 */
+  /* 使其成為圓形 */
   background-color: black;
-  /* 圆点的颜色 */
+  /* 圓點的顏色 */
   animation: breathe 2s infinite;
-  /* 应用动画，无限循环 */
+  /* 應用動畫，無限循環 */
 }
 
 @keyframes breathe {
@@ -560,33 +560,33 @@ onMounted(() => {
   100% {
     transform: scale(1);
     opacity: 1;
-    /* 开始和结束时完全不透明 */
+    /* 開始和結束時完全不透明 */
   }
 
   50% {
     transform: scale(0.75);
-    /* 中间缩小到75% */
+    /* 中間縮小到75% */
     opacity: 0.75;
-    /* 中间透明度降低，增加平滑感 */
+    /* 中間透明度降低，增加平滑感 */
   }
 }
 
 .loading-anchor::after {
   content: '';
-  /* 不使用文本内容 */
+  /* 不使用文本內容 */
   display: inline-block;
   width: 0.875em;
-  /* 控制原点的大小 */
+  /* 控制原點的大小 */
   height: 0.875em;
-  /* 保持原点为圆形 */
+  /* 保持原點為圓形 */
   margin-left: 2px;
   background-color: #000;
-  /* 原点颜色 */
+  /* 原點顏色 */
   border-radius: 50%;
-  /* 使其成为圆形 */
+  /* 使其成為圓形 */
   animation: breathe 2s infinite ease-in-out;
-  /* 应用呼吸效果动画 */
+  /* 應用呼吸效果動畫 */
   vertical-align: middle;
-  /* 根据需要调整垂直对齐 */
+  /* 根據需要調整垂直對齊 */
 }
 </style>

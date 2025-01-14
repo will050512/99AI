@@ -34,7 +34,7 @@ let StatisticController = class StatisticController {
 };
 __decorate([
     (0, common_1.Get)('base'),
-    (0, swagger_1.ApiOperation)({ summary: '获取基础统计数据' }),
+    (0, swagger_1.ApiOperation)({ summary: '獲取基礎統計數據' }),
     (0, common_1.UseGuards)(adminAuth_guard_1.AdminAuthGuard),
     (0, swagger_1.ApiBearerAuth)(),
     __metadata("design:type", Function),
@@ -43,7 +43,7 @@ __decorate([
 ], StatisticController.prototype, "getBaseStatistic", null);
 __decorate([
     (0, common_1.Get)('chatStatistic'),
-    (0, swagger_1.ApiOperation)({ summary: '获取聊天绘画统计数据' }),
+    (0, swagger_1.ApiOperation)({ summary: '獲取聊天繪畫統計數據' }),
     (0, common_1.UseGuards)(adminAuth_guard_1.AdminAuthGuard),
     (0, swagger_1.ApiBearerAuth)(),
     __param(0, (0, common_1.Query)()),
@@ -53,7 +53,7 @@ __decorate([
 ], StatisticController.prototype, "getChatStatistic", null);
 __decorate([
     (0, common_1.Get)('baiduVisit'),
-    (0, swagger_1.ApiOperation)({ summary: '获取百度统计数据' }),
+    (0, swagger_1.ApiOperation)({ summary: '獲取百度統計數據' }),
     (0, common_1.UseGuards)(adminAuth_guard_1.AdminAuthGuard),
     (0, swagger_1.ApiBearerAuth)(),
     __param(0, (0, common_1.Query)()),

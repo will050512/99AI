@@ -9,7 +9,7 @@ const route = useRoute();
 
 const { copy, copied } = useClipboard();
 // watch(copied, (val) => {
-//   val && Message.success('复制成功', {
+//   val && Message.success('複製成功', {
 //     zIndex: 2000,
 //   })
 // })
@@ -33,13 +33,13 @@ function open() {
             class="text-ui-primary/80"
           />
           <div class="my-2 text-xl text-dark dark-text-white">
-            是否访问此链接
+            是否訪問此鏈接
           </div>
           <div
             class="my-2 max-w-[300px] cursor-pointer text-center text-[14px] text-stone-5"
             @click="route.meta.link && copy(route.meta.link)"
           >
-            <HTooltip text="复制链接">
+            <HTooltip text="複製鏈接">
               <div class="line-clamp-3">
                 {{ route.meta.link }}
               </div>
@@ -47,7 +47,7 @@ function open() {
           </div>
           <HButton class="my-4" @click="open">
             <SvgIcon name="i-ri:external-link-fill" />
-            立即访问
+            立即訪問
           </HButton>
         </div>
       </PageMain>

@@ -26,16 +26,25 @@ export class OrderService {
     private readonly globalConfigService: GlobalConfigService,
   ) {}
 
-  /* 购买商品 */
+  /* 購買商品 */
   async buy(params: BuyDto, req: Request) {
     try {
       const { goodsId, count = 1, payType } = params;
       const { id: userId } = req.user;
+
       if(userId > 1000000){
-        throw new HttpException('请先注册账号后购买商品！', HttpStatus.UNAUTHORIZED)
+        throw new HttpException('請先註冊賬號後購買商品！', HttpStatus.UNAUTHORIZED)
       }
+
+      // 檢查支付平台是否開啟
+      const payPlatform = await this.globalConfigService.queryPayType();
+      if (!payPlatform) {
+        throw new HttpException('管理員還未開啟支付功能！', HttpStatus.BAD_REQUEST);
+      }
+
       const order = await this.create(userId, goodsId, count, payType);
       const res = await this.payService.pay(userId, order.orderId, payType);
+
       return {
         ...res,
         orderId: order.orderId,
@@ -43,26 +52,28 @@ export class OrderService {
         total: order.total,
       };
     } catch (error) {
-      if( error.status === 401){
+      if(error.status === 401) {
         throw new HttpException(error.message, HttpStatus.UNAUTHORIZED)
       }
-      
-      throw new HttpException(error.message || '购买失败!', HttpStatus.BAD_REQUEST);
+      throw new HttpException(error.message || '購買失敗!', HttpStatus.BAD_REQUEST);
     }
   }
 
-  /* 查询订单状态 */
+  /* 查詢訂單狀態 */
   async queryByOrderId(req: Request, params: QueryByOrderIdDto) {
     const { id: userId } = req.user;
     const { orderId } = params;
     const order = await this.orderEntity.findOne({ where: { userId, orderId } });
-    if (!order) throw new HttpException('订单不存在!', HttpStatus.BAD_REQUEST);
+    if (!order) throw new HttpException('訂單不存在!', HttpStatus.BAD_REQUEST);
     return order;
   }
 
-  /* 创建工单 */
+  /* 創建工單 */
   async create(userId: number, goodsId: number, count: number, payType: string) {
     const payPlatform = await this.globalConfigService.queryPayType();
+    if (!payPlatform) {
+      throw new HttpException('管理員還未開啟支付功能！', HttpStatus.BAD_REQUEST);
+    }
     // query goods
     const goods = await this.cramiPackageEntity.findOne({ where: { id: goodsId } });
     if (!goods) throw new HttpException('套餐不存在!', HttpStatus.BAD_REQUEST);
@@ -87,7 +98,7 @@ export class OrderService {
     return await this.orderEntity.findAndCount({ where: { userId }, order: { id: 'DESC' }, skip: (page - 1) * size, take: size });
   }
 
-  /* 查询所有订单 */
+  /* 查詢所有訂單 */
   async queryAllOrder(params: QuerAllOrderDto) {
     const { page, size, userId, platform, status } = params;
     const where = {};
@@ -113,17 +124,17 @@ export class OrderService {
     return { rows, count, ...totalPrice };
   }
 
-  /* 删除订单 */
+  /* 刪除訂單 */
   async deleteOrder(body: QueryByOrderIdDto) {
     const { orderId } = body;
     const o = await this.orderEntity.findOne({ where: { orderId } });
     if (!o) {
-      throw new HttpException('订单不存在!', HttpStatus.BAD_REQUEST);
+      throw new HttpException('訂單不存在!', HttpStatus.BAD_REQUEST);
     }
     return await this.orderEntity.delete({ orderId });
   }
 
-  /* 删除未支付订单 */
+  /* 刪除未支付訂單 */
   async deleteNotPay(){
     return await this.orderEntity.delete({ status: 0 });
   }

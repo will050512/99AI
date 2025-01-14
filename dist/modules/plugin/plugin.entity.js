@@ -15,27 +15,27 @@ const typeorm_1 = require("typeorm");
 let PluginEntity = class PluginEntity extends baseEntity_1.BaseEntity {
 };
 __decorate([
-    (0, typeorm_1.Column)({ unique: true, comment: '插件名称' }),
+    (0, typeorm_1.Column)({ unique: true, comment: '外掛名稱' }),
     __metadata("design:type", String)
 ], PluginEntity.prototype, "name", void 0);
 __decorate([
-    (0, typeorm_1.Column)({ comment: '插件封面', nullable: true, type: 'text' }),
+    (0, typeorm_1.Column)({ comment: '外掛封面', nullable: true, type: 'text' }),
     __metadata("design:type", String)
 ], PluginEntity.prototype, "pluginImg", void 0);
 __decorate([
-    (0, typeorm_1.Column)({ comment: '插件描述' }),
+    (0, typeorm_1.Column)({ comment: '外掛描述' }),
     __metadata("design:type", String)
 ], PluginEntity.prototype, "description", void 0);
 __decorate([
-    (0, typeorm_1.Column)({ comment: '插件是否启用 0：禁用 1：启用', default: 1 }),
+    (0, typeorm_1.Column)({ comment: '外掛是否啟用 0：禁用 1：啟用', default: 1 }),
     __metadata("design:type", Number)
 ], PluginEntity.prototype, "isEnabled", void 0);
 __decorate([
-    (0, typeorm_1.Column)({ comment: '插件是否为系统插件 0：否 1：是', default: 0 }),
+    (0, typeorm_1.Column)({ comment: '外掛是否為系統外掛 0：否 1：是', default: 0 }),
     __metadata("design:type", Number)
 ], PluginEntity.prototype, "isSystemPlugin", void 0);
 __decorate([
-    (0, typeorm_1.Column)({ comment: '调用参数', type: 'text' }),
+    (0, typeorm_1.Column)({ comment: '調用參數', type: 'text' }),
     __metadata("design:type", String)
 ], PluginEntity.prototype, "parameters", void 0);
 __decorate([

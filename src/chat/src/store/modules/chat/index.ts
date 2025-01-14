@@ -21,7 +21,7 @@ export const useChatStore = defineStore('chat-store', {
   state: (): Chat.ChatState => getLocalState(),
 
   getters: {
-    /* 当前选用模型的配置 */
+    /* 當前選用模型的配置 */
     activeConfig: (state) => {
       const uuid = state.active;
       if (!uuid) return {};
@@ -43,49 +43,49 @@ export const useChatStore = defineStore('chat-store', {
       return state.groupList.find((item) => item.uuid === uuid)?.fileUrl;
     },
 
-    /* 当前选用模型的名称 */
+    /* 當前選用模型的名稱 */
     activeModel(state) {
       return this.activeConfig?.modelInfo?.model;
     },
 
-    /* 当前选用模型的名称 */
+    /* 當前選用模型的名稱 */
     activeModelName(state) {
       return this.activeConfig?.modelInfo?.modelName;
     },
 
-    /* 当前选用模型的名称 */
+    /* 當前選用模型的名稱 */
     activeModelAvatar(state) {
       return this.activeConfig?.modelInfo?.modelAvatar;
     },
 
-    /* 当前选用模型的扣费类型 */
+    /* 當前選用模型的扣費類型 */
     activeModelDeductType(state) {
       return this.activeConfig?.modelInfo?.deductType;
     },
 
-    /* 当前选用模型的模型类型 */
+    /* 當前選用模型的模型類型 */
     activeModelKeyType(state) {
       return this.activeConfig?.modelInfo?.keyType;
     },
 
-    /* 当前选用模型支持上传文件的格式 */
+    /* 當前選用模型支持上傳文件的格式 */
     activeModelFileUpload(state) {
       return this.activeConfig?.modelInfo?.isFileUpload;
     },
 
-    /* 当前选用模型的调用价格 */
+    /* 當前選用模型的調用價格 */
     activeModelPrice(state) {
       return this.activeConfig?.modelInfo?.deduct;
     },
   },
 
   actions: {
-    /* 查询插件列表 */
+    /* 查詢外掛列表 */
     async queryPlugins() {
       try {
         const res: any = await fetchQueryPluginsAPI();
         if (res.success && res.code === 200) {
-          // 过滤掉不启用的插件并只保留需要的字段
+          // 過濾掉不啟用的外掛並只保留需要的字段
           this.pluginList = res.data.rows
             .filter((plugin: any) => plugin.isEnabled === 1)
             .map((plugin: any) => ({
@@ -101,12 +101,12 @@ export const useChatStore = defineStore('chat-store', {
       } catch (error) {}
     },
 
-    /* 对话组过滤 */
+    /* 對話組過濾 */
     setGroupKeyWord(keyWord: string) {
       this.groupKeyWord = keyWord;
     },
 
-    /* 计算拿到当前选择的对话组信息 */
+    /* 計算拿到當前選擇的對話組資訊 */
     getChatByGroupInfo() {
       if (this.active)
         return this.groupList.find((item) => item.uuid === this.active);
@@ -117,7 +117,7 @@ export const useChatStore = defineStore('chat-store', {
       return this.groupList.find((item) => item.uuid === uuid)?.config;
     },
 
-    /* 新增新的对话组 */
+    /* 新增新的對話組 */
     async addNewChatGroup(appId = 0, modelConfig?: any, params?: string) {
       try {
         const res: any = await fetchCreateGroupAPI({
@@ -129,17 +129,17 @@ export const useChatStore = defineStore('chat-store', {
         await this.queryMyGroup();
         await this.setActiveGroup(res.data.id);
       } catch (error) {
-        console.error('新增对话组时出错:', error);
+        console.error('新增對話組時出錯:', error);
       }
     },
 
-    /* 查询基础模型配置  */
+    /* 查詢基礎模型配置  */
     async getBaseModelConfig() {
       const res = await fetchModelBaseConfigAPI();
       this.baseConfig = res?.data;
     },
 
-    /* 查询我的对话组 */
+    /* 查詢我的對話組 */
     async queryMyGroup() {
       const res: any = await fetchQueryGroupAPI();
       this.groupList = [
@@ -182,14 +182,14 @@ export const useChatStore = defineStore('chat-store', {
       if (!this.active || !isHasActive) {
         this.groupList.length && this.setActiveGroup(this.groupList[0].uuid);
       }
-      // 如果 groupList 为空，新建一个对话组
+      // 如果 groupList 為空，新建一個對話組
       if (this.groupList.length === 0) {
         await this.addNewChatGroup();
       }
       this.recordState();
     },
 
-    /* 修改对话组信息 */
+    /* 修改對話組資訊 */
     async updateGroupInfo(params: {
       groupId: number;
       title?: string;
@@ -200,16 +200,16 @@ export const useChatStore = defineStore('chat-store', {
       await this.queryMyGroup();
     },
 
-    /* 变更对话组 */
-    // 设置当前激活的对话组
+    /* 變更對話組 */
+    // 設置當前激活的對話組
     async setActiveGroup(uuid: number) {
       // this.chatList = [];
-      // 将当前激活的对话组ID设置为传入的uuid
+      // 將當前激活的對話組ID設置為傳入的uuid
       this.active = uuid;
 
-      // 如果当前有激活的对话组，则查询该对话组的聊天记录列表
+      // 如果當前有激活的對話組，則查詢該對話組的聊天記錄列表
 
-      // 将所有对话组的编辑状态设置为false
+      // 將所有對話組的編輯狀態設置為false
       this.groupList.forEach((item) => (item.isEdit = false));
 
       if (this.active) {
@@ -217,11 +217,11 @@ export const useChatStore = defineStore('chat-store', {
       } else {
         this.chatList = [];
       }
-      // 记录当前状态
+      // 記錄當前狀態
       this.recordState();
     },
 
-    /* 删除对话组 */
+    /* 刪除對話組 */
     async deleteGroup(params: Chat.History) {
       const curIndex = this.groupList.findIndex(
         (item) => item.uuid === params.uuid
@@ -249,7 +249,7 @@ export const useChatStore = defineStore('chat-store', {
       this.recordState();
     },
 
-    /* 删除全部非置顶对话组 */
+    /* 刪除全部非置頂對話組 */
     async delAllGroup() {
       if (!this.active || !this.groupList.length) return;
       await fetchDelAllGroupAPI();
@@ -258,7 +258,7 @@ export const useChatStore = defineStore('chat-store', {
       else await this.setActiveGroup(this.groupList[0].uuid);
     },
 
-    // /* 查询当前对话组的聊天记录 */
+    // /* 查詢當前對話組的聊天記錄 */
     // async queryActiveChatLogList() {
     //   if (!this.active || Number(this.active) === 0) return;
     //   const res: any = await fetchQueryChatLogListAPI({ groupId: this.active });
@@ -266,7 +266,7 @@ export const useChatStore = defineStore('chat-store', {
     //   this.recordState();
     // },
 
-    /* 查询当前对话组的聊天记录 */
+    /* 查詢當前對話組的聊天記錄 */
     async queryActiveChatLogList() {
       if (!this.active || Number(this.active) === 0) return;
       try {
@@ -285,42 +285,42 @@ export const useChatStore = defineStore('chat-store', {
       this.recordState();
     },
 
-    /* 添加一条虚拟的对话记录 */
+    /* 添加一條虛擬的對話記錄 */
     addGroupChat(data: Chat.Chat) {
       this.chatList = [...this.chatList, data];
     },
 
-    /* 动态修改对话记录 */
+    /* 動態修改對話記錄 */
     updateGroupChat(index: number, data: Chat.Chat) {
       this.chatList[index] = { ...this.chatList[index], ...data };
     },
 
-    /* 修改其中部分内容 */
+    /* 修改其中部分內容 */
     updateGroupChatSome(index: number, data: Partial<Chat.Chat>) {
       this.chatList[index] = { ...this.chatList[index], ...data };
     },
 
-    /* 删除一条对话记录 */
+    /* 刪除一條對話記錄 */
     async deleteChatById(chatId: number | undefined) {
       if (!chatId) return;
       await fetchDelChatLogAPI({ id: chatId });
       await this.queryActiveChatLogList();
     },
 
-    /* 删除一条对话记录 */
+    /* 刪除一條對話記錄 */
     async deleteChatsAfterId(chatId: number | undefined) {
       if (!chatId) return;
       await fetchDeleteGroupChatsAfterIdAPI({ id: chatId });
       await this.queryActiveChatLogList();
     },
 
-    /* 设置使用上下文 */
+    /* 設置使用上下文 */
     setUsingContext(context: boolean) {
       this.usingContext = context;
       this.recordState();
     },
 
-    /* 设置使用联网 */
+    /* 設置使用聯網 */
     setUsingNetwork(context: boolean) {
       this.usingNetwork = context;
       this.recordState();
@@ -343,7 +343,7 @@ export const useChatStore = defineStore('chat-store', {
       this.recordState();
     },
 
-    /* 删除当前对话组的全部内容 */
+    /* 刪除當前對話組的全部內容 */
     async clearChatByGroupId() {
       if (!this.active) return;
 

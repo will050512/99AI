@@ -56,7 +56,7 @@ let ModelsController = class ModelsController {
 };
 __decorate([
     (0, common_1.Post)('setModel'),
-    (0, swagger_1.ApiOperation)({ summary: '设置模型' }),
+    (0, swagger_1.ApiOperation)({ summary: '設置模型' }),
     (0, common_1.UseGuards)(superAuth_guard_1.SuperAuthGuard),
     (0, swagger_1.ApiBearerAuth)(),
     __param(0, (0, common_1.Body)()),
@@ -66,7 +66,7 @@ __decorate([
 ], ModelsController.prototype, "setModel", null);
 __decorate([
     (0, common_1.Post)('delModel'),
-    (0, swagger_1.ApiOperation)({ summary: '删除模型' }),
+    (0, swagger_1.ApiOperation)({ summary: '刪除模型' }),
     (0, common_1.UseGuards)(superAuth_guard_1.SuperAuthGuard),
     (0, swagger_1.ApiBearerAuth)(),
     __param(0, (0, common_1.Body)()),
@@ -76,7 +76,7 @@ __decorate([
 ], ModelsController.prototype, "delModel", null);
 __decorate([
     (0, common_1.Get)('query'),
-    (0, swagger_1.ApiOperation)({ summary: '管理端查询模型列表' }),
+    (0, swagger_1.ApiOperation)({ summary: '管理端查詢模型列表' }),
     (0, common_1.UseGuards)(adminAuth_guard_1.AdminAuthGuard),
     (0, swagger_1.ApiBearerAuth)(),
     __param(0, (0, common_1.Req)()),
@@ -87,28 +87,28 @@ __decorate([
 ], ModelsController.prototype, "queryModels", null);
 __decorate([
     (0, common_1.Get)('list'),
-    (0, swagger_1.ApiOperation)({ summary: '客户端查询当前所有可以使用的模型' }),
+    (0, swagger_1.ApiOperation)({ summary: '客戶端查詢當前所有可以使用的模型' }),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", void 0)
 ], ModelsController.prototype, "modelsList", null);
 __decorate([
     (0, common_1.Get)('mjInfo'),
-    (0, swagger_1.ApiOperation)({ summary: '客户端查询当前所有可以使用的模型' }),
+    (0, swagger_1.ApiOperation)({ summary: '客戶端查詢當前所有可以使用的模型' }),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", void 0)
 ], ModelsController.prototype, "getMjInfo", null);
 __decorate([
     (0, common_1.Get)('baseConfig'),
-    (0, swagger_1.ApiOperation)({ summary: '客户端查询当前已经配置模型的基础配置' }),
+    (0, swagger_1.ApiOperation)({ summary: '客戶端查詢當前已經配置模型的基礎配置' }),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", void 0)
 ], ModelsController.prototype, "baseConfig", null);
 __decorate([
     (0, common_1.Get)('queryModelType'),
-    (0, swagger_1.ApiOperation)({ summary: '查询模型类型' }),
+    (0, swagger_1.ApiOperation)({ summary: '查詢模型類型' }),
     __param(0, (0, common_1.Query)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [queryModelType_dto_1.QueryModelTypeDto]),
@@ -116,7 +116,7 @@ __decorate([
 ], ModelsController.prototype, "queryModelType", null);
 __decorate([
     (0, common_1.Post)('setModelType'),
-    (0, swagger_1.ApiOperation)({ summary: '创建修改模型类型' }),
+    (0, swagger_1.ApiOperation)({ summary: '創建修改模型類型' }),
     (0, common_1.UseGuards)(superAuth_guard_1.SuperAuthGuard),
     (0, swagger_1.ApiBearerAuth)(),
     __param(0, (0, common_1.Body)()),
@@ -126,7 +126,7 @@ __decorate([
 ], ModelsController.prototype, "setModelType", null);
 __decorate([
     (0, common_1.Post)('delModelType'),
-    (0, swagger_1.ApiOperation)({ summary: '删除模型类型' }),
+    (0, swagger_1.ApiOperation)({ summary: '刪除模型類型' }),
     (0, common_1.UseGuards)(superAuth_guard_1.SuperAuthGuard),
     (0, swagger_1.ApiBearerAuth)(),
     __param(0, (0, common_1.Body)()),

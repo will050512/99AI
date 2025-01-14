@@ -62,7 +62,7 @@ const ms = useMessage();
 const email = computed(() => authStore.userInfo.email || '');
 const isBindWx = computed(() => authStore.userInfo.isBindWx);
 const avatar = ref(authStore.userInfo.avatar ?? defaultAvatar);
-const username = ref(authStore.userInfo.username ?? '未登录');
+const username = ref(authStore.userInfo.username ?? '未登錄');
 const sign = ref(authStore.userInfo.sign ?? t('usercenter.defaultSignature'));
 
 const btnDisabled = ref(false);

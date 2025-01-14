@@ -1,6 +1,6 @@
 <route lang="yaml">
 meta:
-  title: 账户变更记录
+  title: 賬戶變更記錄
 </route>
 
 <script lang="ts" setup>
@@ -60,13 +60,13 @@ interface UserItem {
 
 const rules = reactive<FormRules>({
   model3Count: [
-    { required: true, message: '请填写赠送基础模型额度', trigger: 'blur' },
+    { required: true, message: '請填寫贈送基礎模型額度', trigger: 'blur' },
   ],
   model4Count: [
-    { required: true, message: '请填写赠送高级模型额度', trigger: 'blur' },
+    { required: true, message: '請填寫贈送高級模型額度', trigger: 'blur' },
   ],
   drawMjCount: [
-    { required: true, message: '请填写赠送绘画积分额度', trigger: 'blur' },
+    { required: true, message: '請填寫贈送繪畫積分額度', trigger: 'blur' },
   ],
 });
 
@@ -103,19 +103,19 @@ onMounted(() => queryAllAccountLog());
   <div>
     <PageHeader>
       <template #title>
-        <div class="flex items-center gap-4">账户明细</div>
+        <div class="flex items-center gap-4">賬戶明細</div>
       </template>
     </PageHeader>
     <page-main>
       <el-form ref="formRef" :inline="true" :model="formInline">
-        <el-form-item label="用户名称" prop="userId">
+        <el-form-item label="用戶名稱" prop="userId">
           <el-select
             v-model="formInline.userId"
             filterable
             clearable
             remote
             reserve-keyword
-            placeholder="昵称|手机号|邮箱[模糊搜索]"
+            placeholder="暱稱|手機號|郵箱[模糊搜索]"
             remote-show-suffix
             :remote-method="handlerSearchUser"
             style="width: 200px"
@@ -128,10 +128,10 @@ onMounted(() => queryAllAccountLog());
             />
           </el-select>
         </el-form-item>
-        <el-form-item label="充值类型" prop="rechargeType">
+        <el-form-item label="充值類型" prop="rechargeType">
           <el-select
             v-model="formInline.rechargeType"
-            placeholder="请选择充值类型"
+            placeholder="請選擇充值類型"
             clearable
             style="width: 160px"
           >
@@ -145,7 +145,7 @@ onMounted(() => queryAllAccountLog());
         </el-form-item>
         <el-form-item>
           <el-button type="primary" @click="queryAllAccountLog">
-            查询
+            查詢
           </el-button>
           <el-button @click="handlerReset(formRef)"> 重置 </el-button>
         </el-form-item>
@@ -160,23 +160,23 @@ onMounted(() => queryAllAccountLog());
         style="width: 100%"
         size="large"
       >
-        <el-table-column prop="avatar" label="用户头像" width="120" fixed>
+        <el-table-column prop="avatar" label="用戶頭像" width="120" fixed>
           <template #default="scope">
             <el-avatar :src="scope.row.avatar" />
           </template>
         </el-table-column>
-        <el-table-column prop="username" label="用户名称" width="150" fixed />
-        <el-table-column prop="userId" label="用户ID" width="80" />
-        <el-table-column prop="uid" label="订单ID" width="130" />
+        <el-table-column prop="username" label="用戶名稱" width="150" fixed />
+        <el-table-column prop="userId" label="用戶ID" width="80" />
+        <el-table-column prop="uid" label="訂單ID" width="130" />
         <el-table-column
           prop="email"
-          label="用户邮箱"
+          label="用戶郵箱"
           width="250"
           align="left"
         />
         <el-table-column
           prop="balanceInfo.useModel4Count"
-          label="充值类型"
+          label="充值類型"
           width="160"
           align="center"
         >
@@ -192,32 +192,32 @@ onMounted(() => queryAllAccountLog());
         </el-table-column>
         <el-table-column
           prop="model3Count"
-          label="基础模型额度"
+          label="基礎模型額度"
           width="120"
           align="center"
         />
         <el-table-column
           prop="model4Count"
-          label="高级模型额度"
+          label="高級模型額度"
           width="120"
           align="center"
         />
         <el-table-column
           prop="drawMjCount"
-          label="绘画余额额度"
+          label="繪畫餘額額度"
           width="120"
           align="center"
         />
-        <el-table-column label="额度有效期" width="170" align="center">
+        <el-table-column label="額度有效期" width="170" align="center">
           <template #default="scope">
             <el-tag type="success">
-              {{ scope.row?.days <= 0 ? '永久时效' : `${scope.row?.days}天` }}
+              {{ scope.row?.days <= 0 ? '永久時效' : `${scope.row?.days}天` }}
             </el-tag>
           </template>
         </el-table-column>
         <el-table-column
           prop="status"
-          label="用户状态"
+          label="用戶狀態"
           width="120"
           align="center"
         >
@@ -229,7 +229,7 @@ onMounted(() => queryAllAccountLog());
         </el-table-column>
         <el-table-column
           prop="createdAt"
-          label="充值时间"
+          label="充值時間"
           width="200"
           align="center"
         >

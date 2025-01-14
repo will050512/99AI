@@ -39,7 +39,7 @@ async function handleSticky(group: Chat.History, event?: MouseEvent) {
   });
 }
 
-/* 删除对话组 */
+/* 刪除對話組 */
 async function handleDelete(
   params: Chat.History,
   event?: MouseEvent | TouchEvent
@@ -50,21 +50,21 @@ async function handleDelete(
 
 const handleDeleteDebounce = debounce(handleDelete, 600);
 
-/* 修改对话组title */
+/* 修改對話組title */
 async function updateGroupTitle(params: Chat.History) {
   const { uuid, title } = params;
   params.isEdit = false;
   await chatStore.updateGroupInfo({ groupId: uuid, title });
 }
 
-/* 修改对话组信息 */
+/* 修改對話組資訊 */
 async function handleEnter(params: Chat.History, event: KeyboardEvent) {
   event?.stopPropagation();
 
   if (event.key === 'Enter') updateGroupTitle(params);
 }
 
-/* 判断是不是当前选中 */
+/* 判斷是不是當前選中 */
 function isActive(uuid: number) {
   return chatStore.active === uuid;
 }
@@ -108,7 +108,7 @@ function isActive(uuid: number) {
       </div>
       <div v-if="isActive(item.uuid)" class="absolute z-10 right-2">
         <template v-if="!item.isEdit">
-          <!-- 下拉菜单 -->
+          <!-- 下拉菜單 -->
           <Menu as="div" class="relative inline-block text-left">
             <MenuButton class="p-1">
               <EllipsisHorizontalIcon class="h-5 w-5" aria-hidden="true" />

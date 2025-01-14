@@ -1,5 +1,5 @@
 /**
- * 转义 HTML 字符
+ * 轉義 HTML 字符
  * @param source
  */
 export function encodeHTML(source: string) {
@@ -12,7 +12,7 @@ export function encodeHTML(source: string) {
 }
 
 /**
- * 判断是否为代码块
+ * 判斷是否為代碼塊
  * @param text
  */
 export function includeCode(text: string | null | undefined) {
@@ -21,7 +21,7 @@ export function includeCode(text: string | null | undefined) {
 }
 
 /**
- * 复制文本
+ * 複製文本
  * @param options
  */
 export function copyText(options: { text: string; origin?: boolean }) {

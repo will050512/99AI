@@ -15,15 +15,15 @@ const typeorm_1 = require("typeorm");
 let BadWordsEntity = class BadWordsEntity extends baseEntity_1.BaseEntity {
 };
 __decorate([
-    (0, typeorm_1.Column)({ length: 20, comment: '敏感词' }),
+    (0, typeorm_1.Column)({ length: 20, comment: '敏感詞' }),
     __metadata("design:type", String)
 ], BadWordsEntity.prototype, "word", void 0);
 __decorate([
-    (0, typeorm_1.Column)({ default: 1, comment: '敏感词开启状态' }),
+    (0, typeorm_1.Column)({ default: 1, comment: '敏感詞開啟狀態' }),
     __metadata("design:type", Number)
 ], BadWordsEntity.prototype, "status", void 0);
 __decorate([
-    (0, typeorm_1.Column)({ default: 0, comment: '敏感词触发次数' }),
+    (0, typeorm_1.Column)({ default: 0, comment: '敏感詞觸發次數' }),
     __metadata("design:type", Number)
 ], BadWordsEntity.prototype, "count", void 0);
 BadWordsEntity = __decorate([

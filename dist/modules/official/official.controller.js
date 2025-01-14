@@ -36,7 +36,7 @@ let OfficialController = class OfficialController {
                 return res.status(200).send('');
             }
             if (xml.event[0] == 'SCAN') {
-                console.log('扫码');
+                console.log('掃碼');
                 const sceneStr = xml.eventkey[0];
                 if (sceneStr.includes('/')) {
                     this.officialService.scanBindWx(xml.fromusername[0], sceneStr);
@@ -48,7 +48,7 @@ let OfficialController = class OfficialController {
                 return res.status(200).send(xmlMsg);
             }
             if (xml.event[0] == 'subscribe') {
-                console.log('订阅', xml.eventkey[0]);
+                console.log('訂閱', xml.eventkey[0]);
                 const sceneStr = xml.eventkey[0].split('qrscene_')[1];
                 console.log('sceneStr: ', sceneStr);
                 if (!sceneStr) {
@@ -106,7 +106,7 @@ let OfficialController = class OfficialController {
 };
 __decorate([
     (0, common_1.Get)('notify'),
-    (0, swagger_1.ApiOperation)({ summary: '公众号通知接口GET' }),
+    (0, swagger_1.ApiOperation)({ summary: '公眾號通知介面GET' }),
     __param(0, (0, common_1.Req)()),
     __param(1, (0, common_1.Query)()),
     __param(2, (0, common_1.Body)()),
@@ -116,7 +116,7 @@ __decorate([
 ], OfficialController.prototype, "notify", null);
 __decorate([
     (0, common_1.Post)('notify'),
-    (0, swagger_1.ApiOperation)({ summary: '公众号通知接口POST' }),
+    (0, swagger_1.ApiOperation)({ summary: '公眾號通知介面POST' }),
     __param(0, (0, common_1.Req)()),
     __param(1, (0, common_1.Query)()),
     __param(2, (0, common_1.Body)()),
@@ -127,14 +127,14 @@ __decorate([
 ], OfficialController.prototype, "notifyPost", null);
 __decorate([
     (0, common_1.Post)('getQRSceneStr'),
-    (0, swagger_1.ApiOperation)({ summary: '获取登录二维码sceneStr' }),
+    (0, swagger_1.ApiOperation)({ summary: '獲取登錄二維碼sceneStr' }),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", Promise)
 ], OfficialController.prototype, "getQRSceneStr", null);
 __decorate([
     (0, common_1.Post)('getQRSceneStrByBind'),
-    (0, swagger_1.ApiOperation)({ summary: '获取绑定二维码的sceneStr' }),
+    (0, swagger_1.ApiOperation)({ summary: '獲取綁定二維碼的sceneStr' }),
     (0, common_1.UseGuards)(jwtAuth_guard_1.JwtAuthGuard),
     __param(0, (0, common_1.Req)()),
     __metadata("design:type", Function),
@@ -143,7 +143,7 @@ __decorate([
 ], OfficialController.prototype, "getQRSceneStrByBind", null);
 __decorate([
     (0, common_1.Get)('getQRCode'),
-    (0, swagger_1.ApiOperation)({ summary: '获取二维码' }),
+    (0, swagger_1.ApiOperation)({ summary: '獲取二維碼' }),
     __param(0, (0, common_1.Query)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [getQrCode_dto_1.GetQrCodeDto]),
@@ -151,7 +151,7 @@ __decorate([
 ], OfficialController.prototype, "getQRCode", null);
 __decorate([
     (0, common_1.Post)('loginBySceneStr'),
-    (0, swagger_1.ApiOperation)({ summary: '扫码登录轮询查询' }),
+    (0, swagger_1.ApiOperation)({ summary: '掃碼登錄輪詢查詢' }),
     __param(0, (0, common_1.Req)()),
     __param(1, (0, common_1.Body)()),
     __metadata("design:type", Function),
@@ -160,7 +160,7 @@ __decorate([
 ], OfficialController.prototype, "loginBySceneStr", null);
 __decorate([
     (0, common_1.Post)('bindWxBySceneStr'),
-    (0, swagger_1.ApiOperation)({ summary: '扫码绑定轮询查询' }),
+    (0, swagger_1.ApiOperation)({ summary: '掃碼綁定輪詢查詢' }),
     (0, common_1.UseGuards)(jwtAuth_guard_1.JwtAuthGuard),
     __param(0, (0, common_1.Req)()),
     __param(1, (0, common_1.Body)()),
@@ -170,7 +170,7 @@ __decorate([
 ], OfficialController.prototype, "bindWxBySceneStr", null);
 __decorate([
     (0, common_1.Post)('getRedirectUrl'),
-    (0, swagger_1.ApiOperation)({ summary: '获取登录跳转地址' }),
+    (0, swagger_1.ApiOperation)({ summary: '獲取登錄跳轉地址' }),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Object]),
@@ -178,7 +178,7 @@ __decorate([
 ], OfficialController.prototype, "getRedirectUrl", null);
 __decorate([
     (0, common_1.Post)('getJsapiTicket'),
-    (0, swagger_1.ApiOperation)({ summary: '获取注册配置' }),
+    (0, swagger_1.ApiOperation)({ summary: '獲取註冊配置' }),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Object]),
@@ -186,7 +186,7 @@ __decorate([
 ], OfficialController.prototype, "getJsapiTicket", null);
 __decorate([
     (0, common_1.Post)('loginByCode'),
-    (0, swagger_1.ApiOperation)({ summary: '公众号静默登录' }),
+    (0, swagger_1.ApiOperation)({ summary: '公眾號靜默登錄' }),
     __param(0, (0, common_1.Req)()),
     __param(1, (0, common_1.Body)()),
     __metadata("design:type", Function),

@@ -24,13 +24,13 @@ export class BadWordsController {
   constructor(private readonly badWordsService: BadWordsService) {}
 
   @Get('query')
-  @ApiOperation({ summary: '查询所有敏感词' })
+  @ApiOperation({ summary: '查詢所有敏感詞' })
   queryBadWords(@Query() query: QueryBadWordsDto) {
     return this.badWordsService.queryBadWords(query);
   }
 
   @Post('del')
-  @ApiOperation({ summary: '删除敏感词' })
+  @ApiOperation({ summary: '刪除敏感詞' })
   @UseGuards(SuperAuthGuard)
   @ApiBearerAuth()
   delBadWords(@Body() body: DelBadWordsDto) {
@@ -38,7 +38,7 @@ export class BadWordsController {
   }
 
   @Post('update')
-  @ApiOperation({ summary: '更新敏感词' })
+  @ApiOperation({ summary: '更新敏感詞' })
   @UseGuards(SuperAuthGuard)
   @ApiBearerAuth()
   updateBadWords(@Body() body: UpdateBadWordsDto) {
@@ -46,7 +46,7 @@ export class BadWordsController {
   }
 
   @Post('add')
-  @ApiOperation({ summary: '新增敏感词' })
+  @ApiOperation({ summary: '新增敏感詞' })
   @UseGuards(SuperAuthGuard)
   @ApiBearerAuth()
   addBadWord(@Body() body: AddBadWordDto) {
@@ -54,7 +54,7 @@ export class BadWordsController {
   }
 
   @Get('violation')
-  @ApiOperation({ summary: '查询违规记录' })
+  @ApiOperation({ summary: '查詢違規記錄' })
   @UseGuards(AdminAuthGuard)
   @ApiBearerAuth()
   violation(@Req() req: Request, @Query() query: QueryViolationDto) {

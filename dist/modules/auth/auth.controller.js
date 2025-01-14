@@ -58,7 +58,7 @@ let AuthController = class AuthController {
 };
 __decorate([
     (0, common_1.Post)('register'),
-    (0, swagger_1.ApiOperation)({ summary: '用户注册' }),
+    (0, swagger_1.ApiOperation)({ summary: '用戶註冊' }),
     __param(0, (0, common_1.Body)()),
     __param(1, (0, common_1.Req)()),
     __metadata("design:type", Function),
@@ -67,7 +67,7 @@ __decorate([
 ], AuthController.prototype, "register", null);
 __decorate([
     (0, common_1.Post)('login'),
-    (0, swagger_1.ApiOperation)({ summary: '用户登录' }),
+    (0, swagger_1.ApiOperation)({ summary: '用戶登錄' }),
     __param(0, (0, common_1.Body)()),
     __param(1, (0, common_1.Req)()),
     __metadata("design:type", Function),
@@ -76,7 +76,7 @@ __decorate([
 ], AuthController.prototype, "login", null);
 __decorate([
     (0, common_1.Post)('loginWithCaptcha'),
-    (0, swagger_1.ApiOperation)({ summary: '用户使用验证码登录' }),
+    (0, swagger_1.ApiOperation)({ summary: '用戶使用驗證碼登錄' }),
     __param(0, (0, common_1.Body)()),
     __param(1, (0, common_1.Req)()),
     __metadata("design:type", Function),
@@ -85,7 +85,7 @@ __decorate([
 ], AuthController.prototype, "loginWithCaptcha", null);
 __decorate([
     (0, common_1.Post)('updatePassword'),
-    (0, swagger_1.ApiOperation)({ summary: '用户更改密码' }),
+    (0, swagger_1.ApiOperation)({ summary: '用戶更改密碼' }),
     (0, common_1.UseGuards)(jwtAuth_guard_1.JwtAuthGuard),
     (0, swagger_1.ApiBearerAuth)(),
     __param(0, (0, common_1.Req)()),
@@ -96,7 +96,7 @@ __decorate([
 ], AuthController.prototype, "updatePassword", null);
 __decorate([
     (0, common_1.Post)('updatePassByOther'),
-    (0, swagger_1.ApiOperation)({ summary: '用户更改密码' }),
+    (0, swagger_1.ApiOperation)({ summary: '用戶更改密碼' }),
     (0, common_1.UseGuards)(jwtAuth_guard_1.JwtAuthGuard),
     (0, swagger_1.ApiBearerAuth)(),
     __param(0, (0, common_1.Req)()),
@@ -107,7 +107,7 @@ __decorate([
 ], AuthController.prototype, "updatePassByOther", null);
 __decorate([
     (0, common_1.Get)('getInfo'),
-    (0, swagger_1.ApiOperation)({ summary: '获取用户个人信息' }),
+    (0, swagger_1.ApiOperation)({ summary: '獲取用戶個人資訊' }),
     (0, common_1.UseGuards)(jwtAuth_guard_1.JwtAuthGuard),
     (0, swagger_1.ApiBearerAuth)(),
     __param(0, (0, common_1.Req)()),
@@ -117,7 +117,7 @@ __decorate([
 ], AuthController.prototype, "getInfo", null);
 __decorate([
     (0, common_1.Post)('sendCode'),
-    (0, swagger_1.ApiOperation)({ summary: '发送验证码' }),
+    (0, swagger_1.ApiOperation)({ summary: '發送驗證碼' }),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Object]),
@@ -125,7 +125,7 @@ __decorate([
 ], AuthController.prototype, "sendCode", null);
 __decorate([
     (0, common_1.Post)('sendPhoneCode'),
-    (0, swagger_1.ApiOperation)({ summary: '发送手机验证码' }),
+    (0, swagger_1.ApiOperation)({ summary: '發送手機驗證碼' }),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Object]),
@@ -133,7 +133,7 @@ __decorate([
 ], AuthController.prototype, "sendPhoneCode", null);
 __decorate([
     (0, common_1.Post)('verifyIdentity'),
-    (0, swagger_1.ApiOperation)({ summary: '验证身份' }),
+    (0, swagger_1.ApiOperation)({ summary: '驗證身份' }),
     (0, common_1.UseGuards)(jwtAuth_guard_1.JwtAuthGuard),
     (0, swagger_1.ApiBearerAuth)(),
     __param(0, (0, common_1.Req)()),
@@ -144,7 +144,7 @@ __decorate([
 ], AuthController.prototype, "verifyIdentity", null);
 __decorate([
     (0, common_1.Post)('verifyPhoneIdentity'),
-    (0, swagger_1.ApiOperation)({ summary: '验证手机号' }),
+    (0, swagger_1.ApiOperation)({ summary: '驗證手機號' }),
     (0, common_1.UseGuards)(jwtAuth_guard_1.JwtAuthGuard),
     (0, swagger_1.ApiBearerAuth)(),
     __param(0, (0, common_1.Req)()),

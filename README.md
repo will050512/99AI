@@ -1,20 +1,20 @@
-# 99 AI 稳定版
+# 99 AI 穩定版
 
-可商业化的 AI Web 应用，旨在提供一个易部署、低门槛的集成化人工智能服务站点，支持多种部署方式。
+可商業化的 AI Web 應用，旨在提供一個易部署、低門檻的集成化人工智能服務站點，支持多種部署方式。
 
-为了方便用户部署，项目已经 **打包完成**，可直接运行部署。源码支持商用、二次开发及分发，但请保留[出处](https://github.com/vastxie/99AI)，共同维护社区生态。
+為了方便用戶部署，項目已經 **打包完成**，可直接運行部署。源碼支持商用、二次開發及分發，但請保留[出處](https://github.com/vastxie/99AI)，共同維護社區生態。
 
-**二次开发源码** 存放于 `src` 目录下，开发者可以根据需要自由修改和扩展。
+**二次開發源碼** 存放於 `src` 目錄下，開發者可以根據需要自由修改和擴展。
 
-## 项目介绍
+## 項目介紹
 
 ### 主要功能
 
-- [x] **AI 对话**：支持 OpenAI Chat 格式，后台可自定义模型名称、头像、介绍、代理、key、积分扣除方式、文件上传模式等参数。
+- [x] **AI 對話**：支持 OpenAI Chat 格式，後臺可自定義模型名稱、頭像、介紹、代理、key、積分扣除方式、文件上傳模式等參數。
 
 <img width="1444" alt="image" src="https://github.com/vastxie/99AI/assets/24899308/dd373bec-674e-4a6c-8304-f6abd1a65e1e">
 
-- [x] **多模态模型**：使用`gpt-4o`、`claude-3`等视觉模型，或`gpt-4-all`等逆向模型，完成图像、文件的识别分析。
+- [x] **多模態模型**：使用`gpt-4o`、`claude-3`等視覺模型，或`gpt-4-all`等逆向模型，完成圖像、文件的識別分析。
 
 <img width="1443" alt="image" src="https://github.com/vastxie/99AI/assets/24899308/e1f1ed62-97e5-4412-9b72-5916d2337fdc">
 
@@ -22,41 +22,41 @@
 
 <img width="1444" alt="image" src="https://github.com/vastxie/99AI/assets/24899308/eedfd9fd-f3f3-4a37-8a82-b73e135e8dfe">
 
-- [x] **代码预览**： `HTML` 代码的预览与编辑。
+- [x] **代碼預覽**： `HTML` 代碼的預覽與編輯。
 
 <img width="1444" alt="image" src="https://github.com/vastxie/99AI/assets/24899308/d7860dbf-0897-4f26-9d70-d304a270c05a">
 
 <img width="1444" alt="image" src="https://github.com/vastxie/99AI/assets/24899308/13e558fa-62a8-4fff-9e2b-c4820acefbc4">
 
-- [x] **联网搜索**：对接[插件系统](https://github.com/vastxie/99AIPlugin)，拓展 AI 功能边界。
+- [x] **聯網搜索**：對接[外掛系統](https://github.com/vastxie/99AIPlugin)，拓展 AI 功能邊界。
 
 <img width="1444" alt="image" src="https://github.com/vastxie/99AI/assets/24899308/6ad1bcbb-ac6b-4478-9d91-9ae8b71afa64">
 
-- [x] **思维导图**
+- [x] **思維導圖**
 
 <img width="1444" alt="image" src="https://github.com/vastxie/99AI/assets/24899308/d6eb861d-2e26-415a-acf6-e2d44fc29620">
 
 <img width="1445" alt="image" src="https://github.com/vastxie/99AI/assets/24899308/61f1b059-1eab-428a-91a7-3015ffdac970">
 
-- [x] **AI 绘画**：对接 `midjourney` 、`dall-e`、`stable-diffusion` 等绘画模型。
+- [x] **AI 繪畫**：對接 `midjourney` 、`dall-e`、`stable-diffusion` 等繪畫模型。
 
 <img width="1444" alt="image" src="https://github.com/vastxie/99AI/assets/24899308/39728c39-ed98-4d77-bee8-f7548c5f4a28">
 
 <img width="1444" alt="image" src="https://github.com/vastxie/99AI/assets/24899308/4a70785d-bf66-49e2-a822-5c91a68bd667">
 
-- [x] **AI 音乐**：对接 `suno-music` 完成音乐创作。
+- [x] **AI 音樂**：對接 `suno-music` 完成音樂創作。
 
 <img width="1445" alt="image" src="https://github.com/vastxie/99AI/assets/24899308/a2e42201-fad7-4498-9fb0-c107fcc2f683">
 
 <img width="1446" alt="image" src="https://github.com/vastxie/99AI/assets/24899308/62e466d0-7866-4efb-b28e-03f6b088d043">
 
-- [x] **AI 视频**：对接 `luma-video` 文生视频。
+- [x] **AI 視頻**：對接 `luma-video` 文生視頻。
 
 <img width="1446" alt="image" src="https://github.com/vastxie/99AI/assets/24899308/365cc93e-6fc0-4107-ac4c-6b25f31f0f12">
 
 <img width="1443" alt="image" src="https://github.com/vastxie/99AI/assets/24899308/734013e1-273b-4655-b18e-a8f138165130">
 
-- [x] **知识库预设**
+- [x] **知識庫預設**
 
 <img width="1446" alt="image" src="https://github.com/vastxie/99AI/assets/24899308/abe7fe07-535f-43cc-8bc5-5e49eb6271cf">
 
@@ -64,48 +64,48 @@
 
 <img width="1443" alt="image" src="https://github.com/vastxie/99AI/assets/24899308/a341dc07-cd83-4594-bff7-c5b784f41eb1">
 
-- [x] 更多功能持续开发中 ··· ···
+- [x] 更多功能持續開發中 ··· ···
 
-## 版本说明
+## 版本說明
 
-| 特性         | 稳定版               | 开发版                                                         |
+| 特性         | 穩定版               | 開發版                                                         |
 | :----------- | :------------------- | :------------------------------------------------------------- |
-| **商用许可** | 支持商用             | 支持商用                                                       |
-| **源码状态** | 未编译，支持自由修改 | 已编译，代码不可二次开发                                       |
-| **获取方式** | 公开项目             | 私有库，需赞助后获取                                           |
-| **页面特性** | 单对话页面           | 包含更多功能页面（如独立的绘画页面、思维导图页面、分销页面等） |
+| **商用許可** | 支持商用             | 支持商用                                                       |
+| **源碼狀態** | 未編譯，支持自由修改 | 已編譯，代碼不可二次開發                                       |
+| **獲取方式** | 公開項目             | 私有庫，需贊助後獲取                                           |
+| **頁面特性** | 單對話頁面           | 包含更多功能頁面（如獨立的繪畫頁面、思維導圖頁面、分銷頁面等） |
 
 ## 部署指南
 
-请参考完整的 [部署文档](./DEPLOYMENT.md) 了解详细信息。
+請參考完整的 [部署文檔](./DEPLOYMENT.md) 瞭解詳細資訊。
 
-部署文档可能不是非常详细，但绝对够用。如果在安装或配置中遇到任何问题，可询问 AI、通过 [issue](https://github.com/vastxie/99AI/issues) 反馈或交流群内提问题。
+部署文檔可能不是非常詳細，但絕對夠用。如果在安裝或配置中遇到任何問題，可詢問 AI、通過 [issue](https://github.com/vastxie/99AI/issues) 反饋或交流群內提問題。
 
-## 项目开发
+## 項目開發
 
-请参考完整的 [开发文档](./src/DEVELOPMENT.md) 了解详细的开发流程和指引。
+請參考完整的 [開發文檔](./src/DEVELOPMENT.md) 瞭解詳細的開發流程和指引。
 
-### 目录结构
+### 目錄結構
 
 ```plaintext
 99AI/
-├── DEPLOYMENT.md          # 部署文档
+├── DEPLOYMENT.md          # 部署文檔
 ├── Dockerfile             # Docker 配置文件
-├── deploy.sh              # 一键部署脚本
+├── deploy.sh              # 一鍵部署腳本
 ├── docker-compose.yml     # Docker Compose 配置文件
-├── dist/                  # 打包后的静态资源与后端代码
-├── logs/                  # 日志存储目录
-├── public/                # 前端公共静态资源
-└── src/                   # 源码目录
-    ├── admin/             # 管理端（基于 Fantastic Admin Basic 构建）
-    ├── chat/              # 用户端（用户对话页面）
-    ├── service/           # 后端服务（基于 NestJS 构建的核心 API 服务）
-    └── build.sh           # 一键打包脚本
+├── dist/                  # 打包後的靜態資源與後端代碼
+├── logs/                  # 日誌儲存目錄
+├── public/                # 前端公共靜態資源
+└── src/                   # 源碼目錄
+    ├── admin/             # 管理端（基於 Fantastic Admin Basic 構建）
+    ├── chat/              # 用戶端（用戶對話頁面）
+    ├── service/           # 後端服務（基於 NestJS 構建的核心 API 服務）
+    └── build.sh           # 一鍵打包腳本
 ```
 
-## 学习交流
+## 學習交流
 
-扫码添加微信备注 `99`，拉交流群。（不接受私聊技术咨询，有问题优先群内交流）
+掃碼添加微信備註 `99`，拉交流群。（不接受私聊技術諮詢，有問題優先群內交流）
 
 <img src="https://github.com/vastxie/99AI/assets/24899308/ee20578f-063d-48d8-bff6-85ac3e38fe60"
      width="300" alt="WeChat QR code for joining the group">

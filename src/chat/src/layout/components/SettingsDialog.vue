@@ -12,9 +12,9 @@
             : 'max-h-[80vh] rounded-lg shadow-lg w-full max-w-5xl p-4 mx-2 min-h-[70vh] '
         "
       >
-        <!-- 标题部分 -->
+        <!-- 標題部分 -->
         <div class="flex justify-between items-center mb-2">
-          <span class="text-xl font-bold">设置</span>
+          <span class="text-xl font-bold">設置</span>
           <button
             @click="handleClose"
             class="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-300"
@@ -36,9 +36,9 @@
             </svg>
           </button>
         </div>
-        <!-- 主体部分 -->
+        <!-- 主體部分 -->
         <div class="flex flex-grow">
-          <!-- 左边标签栏 -->
+          <!-- 左邊標籤欄 -->
           <div class="w-1/5 bg-white dark:bg-gray-800 rounded-lg">
             <div
               v-for="(tab, index) in tabs"
@@ -55,7 +55,7 @@
               {{ tab.name }}
             </div>
           </div>
-          <!-- 右边内容区域 -->
+          <!-- 右邊內容區域 -->
           <div class="w-3/4 bg-white dark:bg-gray-900 p-1 rounded-lg ml-4">
             <transition name="fade" mode="out-in">
               <component
@@ -85,16 +85,16 @@ interface Props {
 const { isMobile } = useBasicLayout();
 const props = defineProps<Props>();
 
-// 使用 markRaw 避免组件变成 reactive 对象
+// 使用 markRaw 避免組件變成 reactive 對象
 const tabs = ref([
-  { name: '网站公告', component: markRaw(NoticeDialog) },
-  { name: '网站公告', component: markRaw(NoticeDialog) },
-  { name: '签到奖励', component: markRaw(SignInDialog) },
-  { name: '通用设置', component: markRaw(SignInDialog) },
-  { name: '基础信息', component: markRaw(SignInDialog) },
-  { name: '消费记录', component: markRaw(SignInDialog) },
-  { name: '退出登录', component: markRaw(SignInDialog) },
-  // 继续添加其他标签和对应的组件
+  { name: '網站公告', component: markRaw(NoticeDialog) },
+  { name: '網站公告', component: markRaw(NoticeDialog) },
+  { name: '簽到獎勵', component: markRaw(SignInDialog) },
+  { name: '通用設置', component: markRaw(SignInDialog) },
+  { name: '基礎資訊', component: markRaw(SignInDialog) },
+  { name: '消費記錄', component: markRaw(SignInDialog) },
+  { name: '退出登錄', component: markRaw(SignInDialog) },
+  // 繼續添加其他標籤和對應的組件
 ]);
 
 const activeTab = ref(0);

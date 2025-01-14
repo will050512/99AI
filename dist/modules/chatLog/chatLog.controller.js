@@ -65,7 +65,7 @@ let ChatLogController = class ChatLogController {
 };
 __decorate([
     (0, common_1.Get)('draw'),
-    (0, swagger_1.ApiOperation)({ summary: '查询我的绘制记录' }),
+    (0, swagger_1.ApiOperation)({ summary: '查詢我的繪製記錄' }),
     (0, swagger_1.ApiBearerAuth)(),
     (0, common_1.UseGuards)(jwtAuth_guard_1.JwtAuthGuard),
     __param(0, (0, common_1.Query)()),
@@ -76,7 +76,7 @@ __decorate([
 ], ChatLogController.prototype, "querDrawLog", null);
 __decorate([
     (0, common_1.Post)('recDrawImg'),
-    (0, swagger_1.ApiOperation)({ summary: '推荐此图片对外展示' }),
+    (0, swagger_1.ApiOperation)({ summary: '推薦此圖片對外展示' }),
     (0, swagger_1.ApiBearerAuth)(),
     (0, common_1.UseGuards)(superAuth_guard_1.SuperAuthGuard),
     __param(0, (0, common_1.Body)()),
@@ -86,7 +86,7 @@ __decorate([
 ], ChatLogController.prototype, "recDrawImg", null);
 __decorate([
     (0, common_1.Get)('drawAll'),
-    (0, swagger_1.ApiOperation)({ summary: '查询所有的绘制记录' }),
+    (0, swagger_1.ApiOperation)({ summary: '查詢所有的繪製記錄' }),
     __param(0, (0, common_1.Query)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [queryAllDrawLog_dto_1.QuerAllDrawLogDto]),
@@ -94,7 +94,7 @@ __decorate([
 ], ChatLogController.prototype, "querAllDrawLog", null);
 __decorate([
     (0, common_1.Get)('chatAll'),
-    (0, swagger_1.ApiOperation)({ summary: '查询所有的问答记录' }),
+    (0, swagger_1.ApiOperation)({ summary: '查詢所有的問答記錄' }),
     (0, swagger_1.ApiBearerAuth)(),
     (0, common_1.UseGuards)(adminAuth_guard_1.AdminAuthGuard),
     __param(0, (0, common_1.Query)()),
@@ -105,7 +105,7 @@ __decorate([
 ], ChatLogController.prototype, "queryAllChatLog", null);
 __decorate([
     (0, common_1.Post)('exportExcel'),
-    (0, swagger_1.ApiOperation)({ summary: '导出问答记录' }),
+    (0, swagger_1.ApiOperation)({ summary: '導出問答記錄' }),
     (0, swagger_1.ApiBearerAuth)(),
     __param(0, (0, common_1.Body)()),
     __param(1, (0, common_1.Res)()),
@@ -115,7 +115,7 @@ __decorate([
 ], ChatLogController.prototype, "exportExcel", null);
 __decorate([
     (0, common_1.Get)('chatList'),
-    (0, swagger_1.ApiOperation)({ summary: '查询我的问答记录' }),
+    (0, swagger_1.ApiOperation)({ summary: '查詢我的問答記錄' }),
     (0, swagger_1.ApiBearerAuth)(),
     (0, common_1.UseGuards)(jwtAuth_guard_1.JwtAuthGuard),
     __param(0, (0, common_1.Req)()),
@@ -126,7 +126,7 @@ __decorate([
 ], ChatLogController.prototype, "chatList", null);
 __decorate([
     (0, common_1.Post)('del'),
-    (0, swagger_1.ApiOperation)({ summary: '删除我的问答记录' }),
+    (0, swagger_1.ApiOperation)({ summary: '刪除我的問答記錄' }),
     (0, swagger_1.ApiBearerAuth)(),
     (0, common_1.UseGuards)(jwtAuth_guard_1.JwtAuthGuard),
     __param(0, (0, common_1.Req)()),
@@ -137,7 +137,7 @@ __decorate([
 ], ChatLogController.prototype, "del", null);
 __decorate([
     (0, common_1.Post)('delByGroupId'),
-    (0, swagger_1.ApiOperation)({ summary: '清空一组对话' }),
+    (0, swagger_1.ApiOperation)({ summary: '清空一組對話' }),
     (0, swagger_1.ApiBearerAuth)(),
     (0, common_1.UseGuards)(jwtAuth_guard_1.JwtAuthGuard),
     __param(0, (0, common_1.Req)()),
@@ -148,7 +148,7 @@ __decorate([
 ], ChatLogController.prototype, "delByGroupId", null);
 __decorate([
     (0, common_1.Post)('deleteChatsAfterId'),
-    (0, swagger_1.ApiOperation)({ summary: '删除对话组中某条对话及其后的所有对话' }),
+    (0, swagger_1.ApiOperation)({ summary: '刪除對話組中某條對話及其後的所有對話' }),
     (0, swagger_1.ApiBearerAuth)(),
     (0, common_1.UseGuards)(jwtAuth_guard_1.JwtAuthGuard),
     __param(0, (0, common_1.Req)()),
@@ -159,7 +159,7 @@ __decorate([
 ], ChatLogController.prototype, "deleteChatsAfterId", null);
 __decorate([
     (0, common_1.Get)('byAppId'),
-    (0, swagger_1.ApiOperation)({ summary: '查询某个应用的问答记录' }),
+    (0, swagger_1.ApiOperation)({ summary: '查詢某個應用的問答記錄' }),
     (0, swagger_1.ApiBearerAuth)(),
     (0, common_1.UseGuards)(jwtAuth_guard_1.JwtAuthGuard),
     __param(0, (0, common_1.Req)()),

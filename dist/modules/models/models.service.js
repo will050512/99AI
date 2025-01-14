@@ -68,7 +68,7 @@ let ModelsService = class ModelsService {
     }
     async lockKey(keyId, remark, keyStatus = -1) {
         const res = await this.modelsEntity.update({ id: keyId }, { status: false, keyStatus, remark });
-        common_1.Logger.error(`key: ${keyId} 欠费或被官方封禁导致不可用，已被系统自动锁定`);
+        common_1.Logger.error(`key: ${keyId} 欠費或被官方封禁導致不可用，已被系統自動鎖定`);
         this.initCalcKey();
     }
     async getCurrentModelKeyInfo(model) {
@@ -85,7 +85,7 @@ let ModelsService = class ModelsService {
             where: { model: (0, typeorm_2.Like)(`${modelPrefix}%`) },
         });
         if (matchingModels.length === 0) {
-            throw new common_1.HttpException('未找到匹配的模型，请重新选择模型！', common_1.HttpStatus.BAD_REQUEST);
+            throw new common_1.HttpException('未找到匹配的模型，請重新選擇模型！', common_1.HttpStatus.BAD_REQUEST);
         }
         const firstMatchModel = matchingModels[0];
         const modifiedModelName = firstMatchModel.model.replace(modelPrefix, '');
@@ -154,11 +154,11 @@ let ModelsService = class ModelsService {
     }
     async delModel({ id }) {
         if (!id) {
-            throw new common_1.HttpException('缺失必要参数！', common_1.HttpStatus.BAD_REQUEST);
+            throw new common_1.HttpException('缺失必要參數！', common_1.HttpStatus.BAD_REQUEST);
         }
         const m = await this.modelsEntity.findOne({ where: { id } });
         if (!m) {
-            throw new common_1.HttpException('当前账号不存在！', common_1.HttpStatus.BAD_REQUEST);
+            throw new common_1.HttpException('當前賬號不存在！', common_1.HttpStatus.BAD_REQUEST);
         }
         const res = await this.modelsEntity.delete({ id });
         await this.initCalcKey();

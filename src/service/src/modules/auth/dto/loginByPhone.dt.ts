@@ -3,14 +3,14 @@ import { ApiProperty } from '@nestjs/swagger';
 import { Type } from 'class-transformer';
 
 export class LoginByPhoneDto {
-  @ApiProperty({ example: '19999999', description: '手机号' })
-  @IsNotEmpty({ message: '手机号不能为空！' })
-  @IsPhoneNumber('CN', { message: '手机号格式不正确！' })
+  @ApiProperty({ example: '19999999', description: '手機號' })
+  @IsNotEmpty({ message: '手機號不能為空！' })
+  @IsPhoneNumber('CN', { message: '手機號格式不正確！' })
   phone?: string;
 
-  @ApiProperty({ example: '999999', description: '密码' })
-  @IsNotEmpty({ message: '用户密码不能为空！' })
-  @MinLength(6, { message: '用户密码最低需要大于6位数！' })
-  @MaxLength(30, { message: '用户密码最长不能超过30位数！' })
+  @ApiProperty({ example: '999999', description: '密碼' })
+  @IsNotEmpty({ message: '用戶密碼不能為空！' })
+  @MinLength(6, { message: '用戶密碼最低需要大於6位數！' })
+  @MaxLength(30, { message: '用戶密碼最長不能超過30位數！' })
   password: string;
 }

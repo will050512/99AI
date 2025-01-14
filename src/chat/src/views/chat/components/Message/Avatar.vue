@@ -55,7 +55,7 @@ const robotAvatarSrc = computed(() => {
   } else if (props.model?.includes('stable-diffusion')) {
     return sdxl;
   }
-  // 没有匹配到模型时返回undefined
+  // 沒有匹配到模型時返回undefined
   return undefined;
 });
 
@@ -83,7 +83,7 @@ const activeGroupInfo = computed(() =>
 </script>
 
 <template>
-  <!-- 机器人头像逻辑 -->
+  <!-- 機器人頭像邏輯 -->
   <img
     v-if="isString(modelAvatar) && modelAvatar.length > 0"
     class="inline-flex h-7 w-7 items-center justify-center rounded-full border da r border-gray-100 dark:border-gray-750 border-solid shadow-sm"

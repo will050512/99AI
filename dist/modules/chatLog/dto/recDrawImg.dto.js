@@ -14,7 +14,7 @@ const swagger_1 = require("@nestjs/swagger");
 class recDrawImgDto {
 }
 __decorate([
-    (0, swagger_1.ApiProperty)({ example: 1, description: '推荐图片的id' }),
+    (0, swagger_1.ApiProperty)({ example: 1, description: '推薦圖片的id' }),
     __metadata("design:type", Number)
 ], recDrawImgDto.prototype, "id", void 0);
 exports.recDrawImgDto = recDrawImgDto;

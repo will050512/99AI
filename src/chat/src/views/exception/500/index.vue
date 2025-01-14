@@ -50,7 +50,7 @@ function toHome() {
           xmlns="http://www.w3.org/2000/svg"
           viewBox="130 0 1230 930"
         >
-          <title xml:lang="en">出了点小错误......</title>
+          <title xml:lang="en">出了點小錯誤......</title>
           <defs>
             <filter id="f1">
               <feGaussianBlur in="SourceGraphic" stdDeviation="0,4" />
@@ -413,7 +413,7 @@ function toHome() {
                 font-size="34"
                 fill="#0170BB"
               >
-                出了点小错误、刷新看看呢......
+                出了點小錯誤、刷新看看呢......
               </text>
               <path
                 fill="#a5c7e4"

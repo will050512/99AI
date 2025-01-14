@@ -15,27 +15,27 @@ const swagger_1 = require("@nestjs/swagger");
 class QuerAllOrderDto {
 }
 __decorate([
-    (0, swagger_1.ApiProperty)({ example: 1, description: '查询页数', required: false }),
+    (0, swagger_1.ApiProperty)({ example: 1, description: '查詢頁數', required: false }),
     (0, class_validator_1.IsOptional)(),
     __metadata("design:type", Number)
 ], QuerAllOrderDto.prototype, "page", void 0);
 __decorate([
-    (0, swagger_1.ApiProperty)({ example: 10, description: '每页数量', required: false }),
+    (0, swagger_1.ApiProperty)({ example: 10, description: '每頁數量', required: false }),
     (0, class_validator_1.IsOptional)(),
     __metadata("design:type", Number)
 ], QuerAllOrderDto.prototype, "size", void 0);
 __decorate([
-    (0, swagger_1.ApiProperty)({ example: 99, description: '支付的用户id', required: false }),
+    (0, swagger_1.ApiProperty)({ example: 99, description: '支付的用戶id', required: false }),
     (0, class_validator_1.IsOptional)(),
     __metadata("design:type", Number)
 ], QuerAllOrderDto.prototype, "userId", void 0);
 __decorate([
-    (0, swagger_1.ApiProperty)({ example: 'epay', description: '支付的平台', required: false }),
+    (0, swagger_1.ApiProperty)({ example: 'epay', description: '支付的平臺', required: false }),
     (0, class_validator_1.IsOptional)(),
     __metadata("design:type", String)
 ], QuerAllOrderDto.prototype, "platform", void 0);
 __decorate([
-    (0, swagger_1.ApiProperty)({ example: 1, description: '订单状态', required: false }),
+    (0, swagger_1.ApiProperty)({ example: 1, description: '訂單狀態', required: false }),
     (0, class_validator_1.IsOptional)(),
     __metadata("design:type", Number)
 ], QuerAllOrderDto.prototype, "status", void 0);

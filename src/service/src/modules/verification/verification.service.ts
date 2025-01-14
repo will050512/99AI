@@ -32,7 +32,7 @@ export class VerificationService {
       where: { userId: user.id, type },
       order: { createdAt: 'DESC' },
     });
-    // 限制一分钟内不得重新发送
+    // 限制一分鐘內不得重新發送
     if (
       historyVerify &&
       historyVerify.createdAt.getTime() + 1 * 60 * 1000 > Date.now()
@@ -41,7 +41,7 @@ export class VerificationService {
         (historyVerify.createdAt.getTime() + 1 * 60 * 1000 - Date.now()) / 1000
       );
       throw new HttpException(
-        `${diffS}S内不得重新发送`,
+        `${diffS}S內不得重新發送`,
         HttpStatus.BAD_REQUEST
       );
     }
@@ -61,19 +61,19 @@ export class VerificationService {
       order: { createdAt: 'DESC' },
     });
     if (!v) {
-      throw new HttpException('验证码不存在', HttpStatus.BAD_REQUEST);
+      throw new HttpException('驗證碼不存在', HttpStatus.BAD_REQUEST);
     }
     if (v.used === VerificationUseStatusEnum.USED) {
-      throw new HttpException('当前验证码已被使用！', HttpStatus.BAD_REQUEST);
+      throw new HttpException('當前驗證碼已被使用！', HttpStatus.BAD_REQUEST);
     } else {
       v.used = VerificationUseStatusEnum.USED;
       await this.verifycationEntity.update({ id }, v);
     }
     if (Number(v.code) !== Number(code)) {
-      throw new HttpException('验证码错误', HttpStatus.BAD_REQUEST);
+      throw new HttpException('驗證碼錯誤', HttpStatus.BAD_REQUEST);
     }
     if (v.expiresAt < new Date()) {
-      throw new HttpException('验证码已过期', HttpStatus.BAD_REQUEST);
+      throw new HttpException('驗證碼已過期', HttpStatus.BAD_REQUEST);
     }
     return v;
   }
@@ -84,7 +84,7 @@ export class VerificationService {
     console.log('Received messageInfo:', messageInfo);
     const { phone, code } = messageInfo;
     if (!phone || !code) {
-      throw new HttpException('确实必要参数错误！', HttpStatus.BAD_REQUEST);
+      throw new HttpException('確實必要參數錯誤！', HttpStatus.BAD_REQUEST);
     }
     const client = new Core({
       accessKeyId,
@@ -109,13 +109,13 @@ export class VerificationService {
         return true;
       } else {
         throw new HttpException(
-          response.Message || '验证码发送失败！',
+          response.Message || '驗證碼發送失敗！',
           HttpStatus.BAD_REQUEST
         );
       }
     } catch (error) {
       throw new HttpException(
-        error?.data?.Message || '验证码发送失败！',
+        error?.data?.Message || '驗證碼發送失敗！',
         HttpStatus.BAD_REQUEST
       );
     }
@@ -125,7 +125,7 @@ export class VerificationService {
     const appCode = await this.globalConfigService.getConfigs(['appCode']);
     const { name, idCard } = identityInfo;
     if (!name || !idCard) {
-      throw new HttpException('缺少必要参数！', HttpStatus.BAD_REQUEST);
+      throw new HttpException('缺少必要參數！', HttpStatus.BAD_REQUEST);
     }
     Logger.debug(`Received identityInfo: ${name}, ${idCard}`);
 
@@ -143,21 +143,21 @@ export class VerificationService {
 
     try {
       const response = await axios.post(apiUrl, params, { headers });
-      // 将响应转换为字符串
+      // 將響應轉換為字串
       const responseString = JSON.stringify(response.data);
 
-      // 输出日志
+      // 輸出日誌
       Logger.debug(`Received response: ${responseString}`);
 
       switch (response.data.result.res) {
         case '1':
           return true;
         case '2':
-          Logger.log('验证不一致', 'VerificationService');
+          Logger.log('驗證不一致', 'VerificationService');
         case '3':
-          Logger.log('实名认证异常', 'VerificationService');
+          Logger.log('實名認證異常', 'VerificationService');
         default:
-          Logger.log('未知的认证结果', 'VerificationService');
+          Logger.log('未知的認證結果', 'VerificationService');
       }
       return false;
     } catch (error) {

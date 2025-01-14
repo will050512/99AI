@@ -3,33 +3,33 @@ import { ApiProperty } from '@nestjs/swagger';
 import { Type } from 'class-transformer';
 
 export class CustomAppDto {
-  @ApiProperty({ example: '前端助手', description: 'app名称', required: true })
+  @ApiProperty({ example: '前端助手', description: 'app名稱', required: true })
   name: string;
 
-  @ApiProperty({ example: 1, description: 'app分类Id', required: true })
+  @ApiProperty({ example: 1, description: 'app分類Id', required: true })
   catId: number;
 
   @ApiProperty({
-    example: '适用于编程编码、期望成为您的编程助手',
-    description: 'app名称详情描述',
+    example: '適用於編程編碼、期望成為您的編程助手',
+    description: 'app名稱詳情描述',
     required: false,
   })
-  @IsDefined({ message: 'app名称描述是必传参数' })
+  @IsDefined({ message: 'app名稱描述是必傳參數' })
   des: string;
 
-  @ApiProperty({ example: '你现在是一个翻译官。接下来我说的所有话帮我翻译成中文', description: '预设的prompt', required: true })
+  @ApiProperty({ example: '你現在是一個翻譯官。接下來我說的所有話幫我翻譯成中文', description: '預設的prompt', required: true })
   preset: string;
 
-  @ApiProperty({ example: 'https://xxxx.png', description: '套餐封面图片', required: false })
+  @ApiProperty({ example: 'https://xxxx.png', description: '套餐封面圖片', required: false })
   coverImg: string;
 
-  @ApiProperty({ example: '这是一句示例数据', description: 'app示例数据', required: false })
+  @ApiProperty({ example: '這是一句示例數據', description: 'app示例數據', required: false })
   demoData: string;
 
   @ApiProperty({ example: false, description: '是否共享到所有人', required: false })
   public: boolean;
 
-  @ApiProperty({ example: 1, description: '应用ID', required: false })
+  @ApiProperty({ example: 1, description: '應用ID', required: false })
   @IsOptional()
   appId: number;
 }

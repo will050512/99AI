@@ -15,19 +15,19 @@ const typeorm_1 = require("typeorm");
 let AutoReplyEntity = class AutoReplyEntity extends baseEntity_1.BaseEntity {
 };
 __decorate([
-    (0, typeorm_1.Column)({ comment: '提问的问题', type: 'text' }),
+    (0, typeorm_1.Column)({ comment: '提問的問題', type: 'text' }),
     __metadata("design:type", String)
 ], AutoReplyEntity.prototype, "prompt", void 0);
 __decorate([
-    (0, typeorm_1.Column)({ comment: '定义的答案', type: 'text' }),
+    (0, typeorm_1.Column)({ comment: '定義的答案', type: 'text' }),
     __metadata("design:type", String)
 ], AutoReplyEntity.prototype, "answer", void 0);
 __decorate([
-    (0, typeorm_1.Column)({ default: 1, comment: '是否开启AI回复，0：关闭 1：启用' }),
+    (0, typeorm_1.Column)({ default: 1, comment: '是否開啟AI回覆，0：關閉 1：啟用' }),
     __metadata("design:type", Number)
 ], AutoReplyEntity.prototype, "isAIReplyEnabled", void 0);
 __decorate([
-    (0, typeorm_1.Column)({ default: 1, comment: '启用当前自动回复状态， 0：关闭 1：启用' }),
+    (0, typeorm_1.Column)({ default: 1, comment: '啟用當前自動回覆狀態， 0：關閉 1：啟用' }),
     __metadata("design:type", Number)
 ], AutoReplyEntity.prototype, "status", void 0);
 AutoReplyEntity = __decorate([

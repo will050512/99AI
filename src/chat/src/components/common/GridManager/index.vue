@@ -57,7 +57,7 @@ const width = computed(() => {
 });
 
 const router = useRouter();
-/* 拿到图片高度 对定位top和right  新的一轮去插入最小值的那一列 贪心算法即可 */
+/* 拿到圖片高度 對定位top和right  新的一輪去插入最小值的那一列 貪心算法即可 */
 function compilerContainer() {
   calcHeight();
   compilerColumn();
@@ -65,10 +65,10 @@ function compilerContainer() {
   const itemWidth = realWidth.value;
   const cacheHeight = <any>[];
   props.dataList.forEach((item, index) => {
-    const drawRatio = item.drawRatio; // 假设 drawRatio 是 "1632x2912"
-    const dimensions = drawRatio.split('x'); // 使用 'x' 分割字符串
-    const width = parseInt(dimensions[0], 10); // 宽度，转换为数字
-    const height = parseInt(dimensions[1], 10); // 高度，转换为数字
+    const drawRatio = item.drawRatio; // 假設 drawRatio 是 "1632x2912"
+    const dimensions = drawRatio.split('x'); // 使用 'x' 分割字串
+    const width = parseInt(dimensions[0], 10); // 寬度，轉換為數字
+    const height = parseInt(dimensions[1], 10); // 高度，轉換為數字
     const bi = itemWidth / width;
     const boxheight = height * bi + props.gap + otherInfoContainerHeight.value;
     const currentBox = boxRefs.value[item.id];
@@ -93,7 +93,7 @@ function setItemRefs(el: HTMLDivElement, item: FileItem) {
   }
 }
 
-/* 通过额外展示的信息计算有没有除了图片意外额外的高度 eg： 图片100px 额外显示其他信息30px cacheHeight的高度在图片的基础上需要+30 */
+/* 通過額外展示的資訊計算有沒有除了圖片意外額外的高度 eg： 圖片100px 額外顯示其他資訊30px cacheHeight的高度在圖片的基礎上需要+30 */
 function calcHeight() {
   const { showName = 0, showOther = 0 } = {};
   otherInfoContainerHeight.value =
@@ -118,21 +118,21 @@ watch(
   { immediate: true }
 );
 
-/* 计算放多少列比较合理，并计算最终单个图片的宽 */
+/* 計算放多少列比較合理，並計算最終單個圖片的寬 */
 function compilerColumn() {
   if (!wapperRef.value) return;
   const containerWidth = wapperRef.value.clientWidth;
 
-  /* 计算按目前宽度最多可以是几列 */
+  /* 計算按目前寬度最多可以是幾列 */
   realColumn.value = Math.floor(containerWidth / width.value);
-  const surplus = containerWidth - realColumn.value * width.value; // 剩下的多余空间
-  /* 计算如果给了左右间距那么作业间距需要占多少宽度 */
-  const positionWith = (realColumn.value - 1) * props.gap; // 设置的right 需要padding的值
-  /* 总宽度减去right的宽度，如果是负数考虑要不要cloumn-1 那么图片真实宽度就会比传入的宽度大 */
+  const surplus = containerWidth - realColumn.value * width.value; // 剩下的多餘空間
+  /* 計算如果給了左右間距那麼作業間距需要佔多少寬度 */
+  const positionWith = (realColumn.value - 1) * props.gap; // 設置的right 需要padding的值
+  /* 總寬度減去right的寬度，如果是負數考慮要不要cloumn-1 那麼圖片真實寬度就會比傳入的寬度大 */
   if (surplus - positionWith < 0) {
     realColumn.value -= 1;
   }
-  /* 图片宽度*列 + right的间距 不管大于小于总宽  多的或者少的那部分都平分给列容器 保证总宽是100% */
+  /* 圖片寬度*列 + right的間距 不管大於小於總寬  多的或者少的那部分都平分給列容器 保證總寬是100% */
   realWidth.value = Math.floor(
     (containerWidth - positionWith) / realColumn.value
   );
@@ -152,7 +152,7 @@ function handleCopy(item: any) {
   }
   const { prompt } = item;
   copyText({ text: prompt });
-  ms.success('复制prompt成功');
+  ms.success('複製prompt成功');
 }
 
 function drawLike(item: any) {
@@ -250,7 +250,7 @@ onUnmounted(() => {
                     </span>
                   </button>
                 </template>
-                <span>画同款</span>
+                <span>畫同款</span>
               </n-popover>
 
               <n-popover trigger="hover" v-if="usePropmpt">
@@ -267,7 +267,7 @@ onUnmounted(() => {
                     </span>
                   </button>
                 </template>
-                <span>使用当前画同款</span>
+                <span>使用當前畫同款</span>
               </n-popover>
 
               <n-popover trigger="hover" v-if="copyPropmpt">
@@ -281,7 +281,7 @@ onUnmounted(() => {
                     </span>
                   </button>
                 </template>
-                <span>复制提示词</span>
+                <span>複製提示詞</span>
               </n-popover>
             </div>
           </div>

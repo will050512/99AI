@@ -15,23 +15,23 @@ const baseEntity_1 = require("../../common/entity/baseEntity");
 let ViolationLogEntity = class ViolationLogEntity extends baseEntity_1.BaseEntity {
 };
 __decorate([
-    (0, typeorm_1.Column)({ comment: '用户id' }),
+    (0, typeorm_1.Column)({ comment: '用戶id' }),
     __metadata("design:type", Number)
 ], ViolationLogEntity.prototype, "userId", void 0);
 __decorate([
-    (0, typeorm_1.Column)({ comment: '违规内容', type: 'text' }),
+    (0, typeorm_1.Column)({ comment: '違規內容', type: 'text' }),
     __metadata("design:type", String)
 ], ViolationLogEntity.prototype, "content", void 0);
 __decorate([
-    (0, typeorm_1.Column)({ comment: '敏感词', type: 'text' }),
+    (0, typeorm_1.Column)({ comment: '敏感詞', type: 'text' }),
     __metadata("design:type", String)
 ], ViolationLogEntity.prototype, "words", void 0);
 __decorate([
-    (0, typeorm_1.Column)({ comment: '违规类型' }),
+    (0, typeorm_1.Column)({ comment: '違規類型' }),
     __metadata("design:type", String)
 ], ViolationLogEntity.prototype, "typeCn", void 0);
 __decorate([
-    (0, typeorm_1.Column)({ comment: '违规检测失败于哪个平台' }),
+    (0, typeorm_1.Column)({ comment: '違規檢測失敗於哪個平臺' }),
     __metadata("design:type", String)
 ], ViolationLogEntity.prototype, "typeOriginCn", void 0);
 ViolationLogEntity = __decorate([

@@ -44,7 +44,7 @@ const isLogin = computed(() => authStore.isLogin);
 const createNewChatGroup = inject(
   'createNewChatGroup',
   async (appId?: number) => {
-    // 默认逻辑或简单的提示信息
+    // 默認邏輯或簡單的提示資訊
   }
 ) as (appId?: number) => Promise<void>;
 
@@ -52,7 +52,7 @@ const mineApps = computed(() => {
   return appCatStore.mineApps;
 });
 
-// utc格式转换
+// utc格式轉換
 function formatUtcTime(utcTime: Date | string) {
   const date = new Date(utcTime);
   const shanghaiTime = date.getTime() + 8 * 60 * 60 * 1000;
@@ -102,10 +102,10 @@ const otherList = computed(() =>
   })
 );
 
-/* 选中切换对话 */
+/* 選中切換對話 */
 async function handleSelect(group: Chat.History) {
   if (isStreamIn.value) {
-    ms.info('AI回复中，请稍后再试');
+    ms.info('AI回覆中，請稍後再試');
     return;
   }
   const { uuid } = group;
@@ -123,7 +123,7 @@ async function addNewChatGroupFromApp(appId: number) {
   // router.replace({ path: '/chat', query: { appId: appId } });
 }
 
-/* 删除对话组 */
+/* 刪除對話組 */
 async function handleDelete(params: Chat.History) {
   event?.stopPropagation();
   await chatStore.deleteGroup(params);
@@ -133,7 +133,7 @@ async function handleDelete(params: Chat.History) {
 
 const useGlobalStore = useGlobalStoreWithOut();
 
-/* 判断是不是当前选中 */
+/* 判斷是不是當前選中 */
 function isActive(uuid: number) {
   return chatStore.active === uuid;
 }
@@ -155,17 +155,17 @@ async function handleCollect(appId?) {
   }
 }
 
-// 监听登录状态的变化
+// 監聽登錄狀態的變化
 watch(
   () => authStore.isLogin,
   (newValue, oldValue) => {
     if (newValue === true) {
-      // 如果登录了，则查询我的应用
+      // 如果登錄了，則查詢我的應用
       appCatStore.queryMineApps();
       chatStore.queryMyGroup();
     }
   },
-  { immediate: true } // 立即执行，以处理组件加载时的逻辑
+  { immediate: true } // 立即執行，以處理組件加載時的邏輯
 );
 </script>
 
@@ -257,7 +257,7 @@ watch(
                       }"
                       class="group flex rounded-md items-center w-full p-2 text-sm"
                     >
-                      选项 1
+                      選項 1
                     </button>
                   </MenuItem>
                   <MenuItem as="template" v-slot="{ active }">
@@ -268,7 +268,7 @@ watch(
                       }"
                       class="group flex rounded-md items-center w-full p-2 text-sm"
                     >
-                      选项 2
+                      選項 2
                     </button>
                   </MenuItem>
                 </MenuItems>

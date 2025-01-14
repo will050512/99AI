@@ -15,30 +15,30 @@ import { ApiProperty } from '@nestjs/swagger';
 import { Type } from 'class-transformer';
 
 export class CreatCramiDto {
-  @ApiProperty({ example: 1, description: '套餐类型', required: true })
-  @IsNumber({}, { message: '套餐类型必须是number' })
+  @ApiProperty({ example: 1, description: '套餐類型', required: true })
+  @IsNumber({}, { message: '套餐類型必須是number' })
   @IsOptional()
   packageId: number;
 
-  @ApiProperty({ example: 1, description: '单次生成卡密数量' })
-  @IsNumber({}, { message: '创建卡密的张数数量' })
-  @Max(50, { message: '单次创建卡密的张数数量不能超过50张' })
-  @Min(1, { message: '单次创建卡密的张数数量不能少于1张' })
+  @ApiProperty({ example: 1, description: '單次生成序號數量' })
+  @IsNumber({}, { message: '創建序號的張數數量' })
+  @Max(50, { message: '單次創建序號的張數數量不能超過50張' })
+  @Min(1, { message: '單次創建序號的張數數量不能少於1張' })
   @IsOptional()
   count: number;
 
-  @ApiProperty({ example: 0, description: '卡密携带模型3额度' })
-  @IsNumber({}, { message: '卡密携带的余额必须是number' })
+  @ApiProperty({ example: 0, description: '序號攜帶模型3額度' })
+  @IsNumber({}, { message: '序號攜帶的餘額必須是number' })
   @IsOptional()
   model3Count: number;
 
-  @ApiProperty({ example: 100, description: '卡密携带模型4额度' })
-  @IsNumber({}, { message: '卡密携带额度类型必须是number' })
+  @ApiProperty({ example: 100, description: '序號攜帶模型4額度' })
+  @IsNumber({}, { message: '序號攜帶額度類型必須是number' })
   @IsOptional()
   model4Count: number;
 
-  @ApiProperty({ example: 3, description: '卡密携带MJ绘画额度' })
-  @IsNumber({}, { message: '卡密携带额度类型必须是number' })
+  @ApiProperty({ example: 3, description: '序號攜帶MJ繪畫額度' })
+  @IsNumber({}, { message: '序號攜帶額度類型必須是number' })
   @IsOptional()
   drawMjCount: number;
 }

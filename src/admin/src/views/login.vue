@@ -1,6 +1,6 @@
 <route lang="yaml">
 meta:
-  title: 登录
+  title: 登錄
   constant: true
   layout: false
 </route>
@@ -15,8 +15,8 @@ const router = useRouter()
 const userStore = useUserStore()
 const title = import.meta.env.VITE_APP_TITLE
 
-// 校验 title 是否包含 "AIWeb"
-const encodedKeyword = 'QUlXZWI=' // "AIWeb" 的 Base64 编码
+// 校驗 title 是否包含 "AIWeb"
+const encodedKeyword = 'QUlXZWI=' // "AIWeb" 的 Base64 編碼
 const decodedKeyword = atob(encodedKeyword)
 
 if (!title.includes(decodedKeyword)) {
@@ -24,12 +24,12 @@ if (!title.includes(decodedKeyword)) {
   throw new Error('')
 }
 
-// 表单类型，login 登录，reset 重置密码
+// 表單類型，login 登錄，reset 重置密碼
 const formType = ref('login')
 const loading = ref(false)
 const redirect = ref(route.query.redirect?.toString() ?? '/')
 
-// 登录
+// 登錄
 const loginFormRef = ref<FormInstance>()
 const loginForm = ref({
   username: localStorage.login_username || '',
@@ -37,10 +37,10 @@ const loginForm = ref({
   remember: !!localStorage.login_username,
 })
 const loginRules = ref<FormRules>({
-  username: [{ required: true, trigger: 'blur', message: '请输入用户名' }],
+  username: [{ required: true, trigger: 'blur', message: '請輸入用戶名' }],
   password: [
-    { required: true, trigger: 'blur', message: '请输入密码' },
-    { min: 6, max: 18, trigger: 'blur', message: '密码长度为6到18位' },
+    { required: true, trigger: 'blur', message: '請輸入密碼' },
+    { min: 6, max: 18, trigger: 'blur', message: '密碼長度為6到18位' },
   ],
 })
 function handleLogin() {
@@ -81,14 +81,14 @@ function handleLogin() {
       >
         <div class="mb-6 text-center">
           <h3 class="text-xl text-gray-900 font-bold">
-            欢迎来到 {{ title }}
+            歡迎來到 {{ title }}
           </h3>
         </div>
         <div>
           <el-form-item prop="username" class="py-2">
             <el-input
               v-model="loginForm.username"
-              placeholder="用户名"
+              placeholder="用戶名"
               text
               tabindex="1"
               autocomplete="on"
@@ -106,7 +106,7 @@ function handleLogin() {
             <el-input
               v-model="loginForm.password"
               type="password"
-              placeholder="密码"
+              placeholder="密碼"
               tabindex="2"
               autocomplete="on"
               show-password
@@ -124,7 +124,7 @@ function handleLogin() {
         </div>
         <div class="mb-4 flex items-center justify-between">
           <el-checkbox v-model="loginForm.remember" size="large">
-            记住我
+            記住我
           </el-checkbox>
         </div>
         <el-button
@@ -134,7 +134,7 @@ function handleLogin() {
           class="w-full"
           @click.prevent="handleLogin"
         >
-          登录
+          登錄
         </el-button>
       </el-form>
     </div>

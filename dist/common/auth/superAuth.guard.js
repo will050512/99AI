@@ -21,7 +21,7 @@ let SuperAuthGuard = class SuperAuthGuard extends jwtAuth_guard_1.JwtAuthGuard {
             return true;
         }
         else {
-            throw new common_1.UnauthorizedException('非法操作、非超级管理员无权操作！');
+            throw new common_1.UnauthorizedException('非法操作、非超級管理員無權操作！');
         }
     }
 };

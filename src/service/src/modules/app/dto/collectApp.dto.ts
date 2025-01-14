@@ -3,6 +3,6 @@ import { IsNumber } from 'class-validator';
 
 export class CollectAppDto {
 	@ApiProperty({ example: 1, description: '要收藏的appId', required: true })
-	@IsNumber({}, { message: 'ID必须是Number' })
+	@IsNumber({}, { message: 'ID必須是Number' })
 	appId: number;
 }

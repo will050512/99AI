@@ -10,7 +10,7 @@ import createVitePlugins from './vite/plugins';
 // https://vitejs.dev/config/
 export default async ({ mode, command }) => {
   const env = loadEnv(mode, process.cwd());
-  // 全局 scss 资源
+  // 全局 scss 資源
   const scssResources = [];
   fs.readdirSync('src/assets/styles/resources').forEach((dirname) => {
     if (fs.statSync(`src/assets/styles/resources/${dirname}`).isFile()) {
@@ -18,12 +18,12 @@ export default async ({ mode, command }) => {
     }
   });
 
-  // 判断是否启用类型检查
+  // 判斷是否啟用類型檢查
   const enableTypeCheck = env.VITE_ENABLE_TYPE_CHECK === 'true';
 
   return defineConfig({
     base: env.VITE_BASE_PATH,
-    // 开发服务器选项 https://cn.vitejs.dev/config/#server-options
+    // 開發服務器選項 https://cn.vitejs.dev/config/#server-options
     server: {
       open: true,
       port: 9000,
@@ -35,7 +35,7 @@ export default async ({ mode, command }) => {
         },
       },
     },
-    // 构建选项 https://cn.vitejs.dev/config/#server-fsserve-root
+    // 構建選項 https://cn.vitejs.dev/config/#server-fsserve-root
     build: {
       outDir: mode === 'production' ? 'dist' : `dist-${mode}`,
       sourcemap: env.VITE_BUILD_SOURCEMAP === 'true',

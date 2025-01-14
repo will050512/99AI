@@ -19,7 +19,7 @@ export class ChatController {
   ) {}
 
   @Post('chat-process')
-  @ApiOperation({ summary: 'gpt聊天对话' })
+  @ApiOperation({ summary: 'gpt聊天對話' })
   @UseGuards(JwtAuthGuard)
   @ApiBearerAuth()
   chatProcess(
@@ -31,7 +31,7 @@ export class ChatController {
   }
 
   @Post('chat-sync')
-  @ApiOperation({ summary: 'gpt聊天对话' })
+  @ApiOperation({ summary: 'gpt聊天對話' })
   @UseGuards(JwtAuthGuard)
   @ApiBearerAuth()
   chatProcessSync(@Body() body: ChatProcessDto, @Req() req: Request) {
@@ -39,7 +39,7 @@ export class ChatController {
   }
 
   @Post('mj-fy')
-  @ApiOperation({ summary: 'gpt描述词绘画翻译' })
+  @ApiOperation({ summary: 'gpt描述詞繪畫翻譯' })
   @UseGuards(JwtAuthGuard)
   @ApiBearerAuth()
   async mjFanyi(@Body() body: ChatProcessDto, @Req() req: Request) {
@@ -50,7 +50,7 @@ export class ChatController {
   }
 
   @Post('chat-mind')
-  @ApiOperation({ summary: 'mind思维导图提示' })
+  @ApiOperation({ summary: 'mind思維導圖提示' })
   @UseGuards(JwtAuthGuard)
   @ApiBearerAuth()
   async chatmind(
@@ -66,7 +66,7 @@ export class ChatController {
   }
 
   @Post('tts-process')
-  @ApiOperation({ summary: 'tts语音播报' })
+  @ApiOperation({ summary: 'tts語音播報' })
   @UseGuards(JwtAuthGuard)
   @ApiBearerAuth()
   ttsProcess(@Body() body: any, @Req() req: Request, @Res() res: Response) {
@@ -74,7 +74,7 @@ export class ChatController {
   }
 
   @Post('ppt-cover')
-  @ApiOperation({ summary: 'ppt封面获取' })
+  @ApiOperation({ summary: 'ppt封面獲取' })
   @UseGuards(JwtAuthGuard)
   @ApiBearerAuth()
   pptCover(

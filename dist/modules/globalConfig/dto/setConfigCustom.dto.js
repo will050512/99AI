@@ -18,7 +18,7 @@ class SetConfigCustomDto {
 __decorate([
     (0, swagger_1.ApiProperty)({
         example: { configKey: 'siteName', configVal: 'AIWeb', infoKey: 'AIWeb' },
-        description: '设置更新配置信息',
+        description: '設置更新配置資訊',
     }),
     (0, class_validator_1.ValidateNested)({ each: true }),
     (0, class_transformer_1.Type)(() => Object),

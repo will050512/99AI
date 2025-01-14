@@ -65,7 +65,7 @@ function handleReminder() {
   ss.set('showNotice', Date.now() + 24 * 60 * 60 * 1000);
 }
 
-// 监听 visible 属性变化
+// 監聽 visible 屬性變化
 watch(
   () => props.visible,
   (newValue) => {

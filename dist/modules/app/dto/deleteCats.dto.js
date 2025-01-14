@@ -15,8 +15,8 @@ const class_validator_1 = require("class-validator");
 class DeleteCatsDto {
 }
 __decorate([
-    (0, swagger_1.ApiProperty)({ example: 1, description: '要删除app分类Id', required: true }),
-    (0, class_validator_1.IsNumber)({}, { message: 'ID必须是Number' }),
+    (0, swagger_1.ApiProperty)({ example: 1, description: '要刪除app分類Id', required: true }),
+    (0, class_validator_1.IsNumber)({}, { message: 'ID必須是Number' }),
     __metadata("design:type", Number)
 ], DeleteCatsDto.prototype, "id", void 0);
 exports.DeleteCatsDto = DeleteCatsDto;

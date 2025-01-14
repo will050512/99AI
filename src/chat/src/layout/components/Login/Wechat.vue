@@ -30,13 +30,13 @@ const { isMobile } = useBasicLayout();
 const phoneLoginStatus = computed(
   () => Number(authStore.globalConfig.phoneLoginStatus) === 1
 );
-// 使用 ref 来管理全局参数的状态
-const agreedToUserAgreement = ref(true); // 读取初始状态并转换为布尔类型
+// 使用 ref 來管理全局參數的狀態
+const agreedToUserAgreement = ref(true); // 讀取初始狀態並轉換為布爾類型
 const useGlobalStore = useGlobalStoreWithOut();
 
-// 点击“用户协议及隐私政策”时，自动同意
+// 點擊“用戶協議及隱私政策”時，自動同意
 function handleClick() {
-  agreedToUserAgreement.value = true; // 设置为同意
+  agreedToUserAgreement.value = true; // 設置為同意
   useGlobalStore.updateUserAgreementDialog(true);
 }
 const globalConfig = computed(() => authStore.globalConfig);
@@ -115,11 +115,11 @@ onMounted(() => {
 });
 
 onBeforeUnmount(() => {
-  // 清除用于检测的timer
+  // 清除用於檢測的timer
   if (timer.value !== null) {
     clearInterval(timer.value);
   }
-  // 组件卸载时，也清除handleTimeDown的countdownTimer
+  // 組件卸載時，也清除handleTimeDown的countdownTimer
   if (countdownTimer.value !== null) {
     clearInterval(countdownTimer.value);
   }
@@ -168,7 +168,7 @@ onBeforeUnmount(() => {
           class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600"
         />
         <p class="ml-1 text-center text-sm text-gray-500 dark:text-gray-400">
-          扫码登录及代表同意
+          掃碼登錄及代表同意
           <a
             href="#"
             class="font-semibold leading-6 text-primary-600 hover:text-primary-500 dark:text-primary-500 dark:hover:text-primary-600"
@@ -198,12 +198,12 @@ onBeforeUnmount(() => {
     </p>
 
     <!-- <p class="mt-10 text-center text-sm text-gray-500">
-      登录即代表同意
+      登錄即代表同意
       {{ ' ' }}
       <a
         href="#"
         class="font-semibold leading-6 text-indigo-600 hover:text-indigo-500"
-        >用户协议</a
+        >用戶協議</a
       >
     </p> -->
   </div>

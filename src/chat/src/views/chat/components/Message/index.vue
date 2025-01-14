@@ -58,7 +58,7 @@ function handleDetele() {
 
 function handleCopy() {
   copyText({ text: props.text ?? '' });
-  props.text && ms.success('复制成功！');
+  props.text && ms.success('複製成功！');
 }
 
 function handleRegenerate() {

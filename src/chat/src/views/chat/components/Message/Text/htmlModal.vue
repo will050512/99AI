@@ -37,7 +37,7 @@
             @click="handleCopy"
             class="px-4 py-2 shadow-sm bg-primary-600 hover:bg-primary-500 text-white dark rounded-md"
           >
-            复制
+            複製
           </button>
         </div>
       </div>
@@ -90,9 +90,9 @@ const closeModal = () => {
 const handleCopy = async () => {
   try {
     await navigator.clipboard.writeText(localEditableText.value);
-    window.$message?.success('内容已复制到剪贴板');
+    window.$message?.success('內容已複製到剪貼板');
   } catch (err) {
-    window.$message?.error('复制失败');
+    window.$message?.error('複製失敗');
   }
 };
 </script>

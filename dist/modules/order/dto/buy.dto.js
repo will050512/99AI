@@ -14,7 +14,7 @@ const swagger_1 = require("@nestjs/swagger");
 class BuyDto {
 }
 __decorate([
-    (0, swagger_1.ApiProperty)({ example: 1, description: '要购买的套餐Id', required: true }),
+    (0, swagger_1.ApiProperty)({ example: 1, description: '要購買的套餐Id', required: true }),
     __metadata("design:type", Number)
 ], BuyDto.prototype, "goodsId", void 0);
 __decorate([
@@ -22,7 +22,7 @@ __decorate([
     __metadata("design:type", String)
 ], BuyDto.prototype, "payType", void 0);
 __decorate([
-    (0, swagger_1.ApiProperty)({ example: 1, description: '购买数量', required: false }),
+    (0, swagger_1.ApiProperty)({ example: 1, description: '購買數量', required: false }),
     __metadata("design:type", Number)
 ], BuyDto.prototype, "count", void 0);
 exports.BuyDto = BuyDto;

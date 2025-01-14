@@ -38,10 +38,10 @@ export class GlobalConfigService implements OnModuleInit {
     await this.initGetAllConfig();
   }
 
-  /* 对外提供给其他service  */
+  /* 對外提供給其他service  */
   async getConfigs(configKey: string[]) {
     if (configKey.length === 0) return;
-    /* 微信token特殊处理 */
+    /* 微信token特殊處理 */
     if (configKey.includes('wechatAccessToken') && configKey.length === 1) {
       return this.wechatAccessToken;
     }
@@ -57,7 +57,7 @@ export class GlobalConfigService implements OnModuleInit {
     }
   }
 
-  /* 初始化查询所有config 不对外调用 */
+  /* 初始化查詢所有config 不對外調用 */
   async initGetAllConfig() {
     const data = await this.configEntity.find();
     this.globalConfigs = data.reduce((prev, cur) => {
@@ -67,14 +67,14 @@ export class GlobalConfigService implements OnModuleInit {
     this.initBaiduSensitive();
   }
 
-  /* 初始化百度敏感词 拿到百度的access_token isInit: 初始化报错不检测  管理端手动修改则提示 */
+  /* 初始化百度敏感詞 拿到百度的access_token isInit: 初始化報錯不檢測  管理端手動修改則提示 */
   async initBaiduSensitive(isInit = true) {
     const { baiduTextApiKey, baiduTextSecretKey } = await this.getConfigs([
       'baiduTextApiKey',
       'baiduTextSecretKey',
     ]);
     if (!baiduTextApiKey || !baiduTextSecretKey) {
-      // Logger.error('百度敏感词初始化失败，如果需要敏感检测、请前往后台系统配置!', 'GlobalConfigService');
+      // Logger.error('百度敏感詞初始化失敗，如果需要敏感檢測、請前往後臺系統配置!', 'GlobalConfigService');
       return;
     }
     const headers = {
@@ -87,7 +87,7 @@ export class GlobalConfigService implements OnModuleInit {
       this.globalConfigs.baiduTextAccessToken = response.data.access_token;
     } catch (error) {
       if (isInit) {
-        // Logger.error('百度敏感词配置检测失败，您的参数可能配置的不正确!', 'GlobalConfigService');
+        // Logger.error('百度敏感詞配置檢測失敗，您的參數可能配置的不正確!', 'GlobalConfigService');
       } else {
         throw new HttpException(
           error.response.data.error_description,
@@ -97,13 +97,13 @@ export class GlobalConfigService implements OnModuleInit {
     }
   }
 
-  /* 定时刷新 access_token */
+  /* 定時刷新 access_token */
   async getWechatAccessToken(isInit = false) {
     const { wechatOfficialAppId: appId, wechatOfficialAppSecret: secret } =
       await this.getConfigs(['wechatOfficialAppId', 'wechatOfficialAppSecret']);
     if (!appId || !secret) {
       return Logger.error(
-        '还未配置微信的appId和secret、配置后才可进行微信扫码登录！！！',
+        '還未配置微信的appId和secret、配置後才可進行微信掃碼登錄！！！',
         'OfficialService'
       );
     }
@@ -121,7 +121,7 @@ export class GlobalConfigService implements OnModuleInit {
     );
   }
 
-  /* 获取微信access_token */
+  /* 獲取微信access_token */
   async fetchBaseAccessToken(appId: string, secret: string, isInit = false) {
     if (process.env.ISDEV === 'TRUE') {
       this.wechatAccessToken = '';
@@ -138,12 +138,12 @@ export class GlobalConfigService implements OnModuleInit {
     if (errmsg) {
       if (isInit) {
         Logger.error(
-          `获取微信access_token失败、错误信息：${errmsg}`,
+          `獲取微信access_token失敗、錯誤資訊：${errmsg}`,
           'OfficialService'
         );
       } else {
         throw new HttpException(
-          '请配置正确的秘钥、当前秘钥检测不通过！',
+          '請配置正確的秘鑰、當前秘鑰檢測不通過！',
           HttpStatus.BAD_REQUEST
         );
       }
@@ -152,7 +152,7 @@ export class GlobalConfigService implements OnModuleInit {
     return access_token;
   }
 
-  /* 获取微信jsapi_ticket */
+  /* 獲取微信jsapi_ticket */
   async fetchJsapiTicket(accessToken: string) {
     if (process.env.ISDEV === 'TRUE') {
       this.wechatJsapiTicket = '';
@@ -167,15 +167,15 @@ export class GlobalConfigService implements OnModuleInit {
     return res?.data?.ticket;
   }
 
-  /* 查询所有配置信息 */
+  /* 查詢所有配置資訊 */
   async queryAllConfig(req: Request) {
     const { role } = req.user;
     return this.globalConfigs;
   }
 
-  /* 前端网站的所有查阅权限的配置信息 */
+  /* 前端網站的所有查閱權限的配置資訊 */
   async queryFrontConfig(query, req) {
-    /* 指定前端可以访问范围 */
+    /* 指定前端可以訪問範圍 */
     const allowKeys = [
       'registerSendStatus',
       'registerSendModel3Count',
@@ -261,23 +261,23 @@ export class GlobalConfigService implements OnModuleInit {
       prev[cur.configKey] = cur.configVal;
       return prev;
     }, {});
-    /* 追加一些自定义的配置 */
+    /* 追加一些自定義的配置 */
     const { wechatOfficialAppId, wechatOfficialAppSecret } =
       await this.getConfigs(['wechatOfficialAppId', 'wechatOfficialAppSecret']);
     const isUseWxLogin = !!(wechatOfficialAppId && wechatOfficialAppSecret);
 
-    /* 查看是否有本机未同步数据 */
+    /* 查看是否有本機未同步數據 */
     return { ...publicConfig, isUseWxLogin };
   }
 
-  /* 查询配置 */
+  /* 查詢配置 */
   async queryConfig(body: QueryConfigDto, req: Request) {
     const { role } = req.user;
     const { keys } = body;
     const data = await this.configEntity.find({
       where: { configKey: In(keys) },
     });
-    /* 对演示账户的一些敏感配置修改处理 */
+    /* 對演示賬戶的一些敏感配置修改處理 */
     if (role !== 'super') {
       // data = data.filter((t) => !t.configKey.includes('Key'));
       data.forEach((item) => {
@@ -294,12 +294,12 @@ export class GlobalConfigService implements OnModuleInit {
           item.configKey.includes('mjProxyImgUrl') ||
           item.configKey === 'openaiBaseUrl'
         ) {
-          /* 比较长的隐藏内容自定义 */
+          /* 比較長的隱藏內容自定義 */
           const longKeys = ['payWeChatPublicKey', 'payWeChatPrivateKey'];
           if (longKeys.includes(item.configKey)) {
             return (item.configVal = hideString(
               item.configVal,
-              '隐私内容、非超级管理员无权查看'
+              '隱私內容、非超級管理員無權查看'
             ));
           }
           const whiteListKey = [
@@ -324,7 +324,7 @@ export class GlobalConfigService implements OnModuleInit {
     }, {});
   }
 
-  /* 设置配置信息 */
+  /* 設置配置資訊 */
   async setConfig(body: SetConfigDto) {
     try {
       const { settings } = body;
@@ -333,14 +333,14 @@ export class GlobalConfigService implements OnModuleInit {
       }
       await this.initGetAllConfig();
       const keys = settings.map((t) => t.configKey);
-      /* 如果修改的包含了百度云文本检测选择、则需要触发更新重新获取token */
+      /* 如果修改的包含了百度雲文本檢測選擇、則需要觸發更新重新獲取token */
       if (
         keys.includes('baiduTextApiKey') ||
         keys.includes('baiduTextSecretKey')
       ) {
         await this.initBaiduSensitive(false);
       }
-      /* 如果变更微信配置 则需要手动刷新微信 access_token */
+      /* 如果變更微信配置 則需要手動刷新微信 access_token */
       if (
         keys.includes('wechatOfficialAppId') ||
         keys.includes('wechatOfficialAppSecret')
@@ -348,15 +348,15 @@ export class GlobalConfigService implements OnModuleInit {
         await this.getWechatAccessToken();
       }
 
-      return '设置完成！';
+      return '設置完成！';
     } catch (error) {
       console.log('error: ', error);
     }
   }
 
-  /* 创建或更新配置信息 */
+  /* 創建或更新配置資訊 */
   async createOrUpdate(setting) {
-    /* 后期追加配置非自动化的需要手动追加为public让前端查找 */
+    /* 後期追加配置非自動化的需要手動追加為public讓前端查找 */
     try {
       const { configKey, configVal, status = 1 } = setting;
       const c = await this.configEntity.findOne({ where: { configKey } });
@@ -374,55 +374,51 @@ export class GlobalConfigService implements OnModuleInit {
       }
     } catch (error) {
       console.log('error: ', error);
-      throw new HttpException('设置配置信息错误！', HttpStatus.BAD_REQUEST);
+      throw new HttpException('設置配置資訊錯誤！', HttpStatus.BAD_REQUEST);
     }
   }
 
-  /* 查询公告信息 */
+  /* 查詢公告資訊 */
   async queryNotice() {
     return await this.getConfigs(['noticeInfo', 'noticeTitle']);
   }
 
-  /* 开启多个支付规则的时候 按顺序只使用一个 */
+  /* 開啟多個支付規則的時候 按順序只使用一個 */
   async queryPayType() {
-    const {
-      payHupiStatus = 0,
-      payEpayStatus = 0,
-      payWechatStatus = 0,
-      payMpayStatus = 0,
-      payLtzfStatus = 0,
-    } = await this.getConfigs([
-      'payHupiStatus',
-      'payEpayStatus',
-      'payMpayStatus',
-      'payWechatStatus',
-      'payLtzfStatus',
-    ]);
-    if (
-      [
-        payHupiStatus,
-        payEpayStatus,
-        payWechatStatus,
-        payMpayStatus,
-        payLtzfStatus,
-      ].every((status) => status === 0)
-    ) {
-      throw new HttpException('支付功能暂未开放!', HttpStatus.BAD_REQUEST);
-    }
-    if (Number(payWechatStatus) === 1) {
-      return 'wechat';
-    }
-    if (Number(payEpayStatus) === 1) {
-      return 'epay';
-    }
-    if (Number(payMpayStatus) === 1) {
-      return 'mpay';
-    }
-    if (Number(payHupiStatus) === 1) {
-      return 'hupi';
-    }
-    if (Number(payLtzfStatus) === 1) {
-      return 'ltzf';
+    try {
+      // 獲取所有支付配置
+      const configs = await this.getConfigs([
+        'payEcpayStatus',
+        'payEcpayMerchantId',
+        'payEcpayHashKey',
+        'payEcpayHashIV',
+        'payWechatStatus',
+        'payEpayStatus',
+        'payMpayStatus',
+        'payHupiStatus',
+        'payLtzfStatus'
+      ]);
+
+      // 檢查綠界支付配置是否完整且啟用
+      if (configs.payEcpayStatus === '1' &&
+          configs.payEcpayMerchantId &&
+          configs.payEcpayHashKey &&
+          configs.payEcpayHashIV) {
+        Logger.log('使用綠界支付');
+        return 'ecpay';
+      }
+
+      // 其他支付方式檢查
+      if (configs.payWechatStatus === '1') return 'wechat';
+      if (configs.payEpayStatus === '1') return 'epay';
+      if (configs.payMpayStatus === '1') return 'mpay';
+      if (configs.payHupiStatus === '1') return 'hupi';
+      if (configs.payLtzfStatus === '1') return 'ltzf';
+
+      throw new HttpException('支付功能暫未開放!', HttpStatus.BAD_REQUEST);
+    } catch (error) {
+      Logger.error('查詢支付類型錯誤:', error);
+      throw new HttpException('支付功能暫未開放!', HttpStatus.BAD_REQUEST);
     }
   }
 
@@ -453,7 +449,7 @@ export class GlobalConfigService implements OnModuleInit {
     ]);
     if (Number(phoneLoginStatus) !== 1) {
       throw new HttpException(
-        '手机验证码功能暂未开放!',
+        '手機驗證碼功能暫未開放!',
         HttpStatus.BAD_REQUEST
       );
     }
@@ -470,7 +466,7 @@ export class GlobalConfigService implements OnModuleInit {
     return process.env.NAMESPACE || 'AIWeb';
   }
 
-  /* 获取签名赠送额度 */
+  /* 獲取簽名贈送額度 */
   async getSignatureGiftConfig() {
     const {
       signInStatus = 0,
@@ -484,7 +480,7 @@ export class GlobalConfigService implements OnModuleInit {
       'signInMjDrawToken',
     ]);
     if (Number(signInStatus) !== 1) {
-      throw new HttpException('签到功能暂未开放!', HttpStatus.BAD_REQUEST);
+      throw new HttpException('簽到功能暫未開放!', HttpStatus.BAD_REQUEST);
     }
     return {
       model3Count: Number(signInModel3Count),
@@ -499,10 +495,10 @@ export class GlobalConfigService implements OnModuleInit {
     const responseData: any = await response.json();
     const { success = true, message } = responseData;
 
-    Logger.debug('感谢您使用AIWeb，祝您使用愉快~');
+    Logger.debug('感謝您使用AIWeb，祝您使用愉快~');
   }
 
-  /* 拿到敏感次配置 都开启优先使用百度云 */
+  /* 拿到敏感次配置 都開啟優先使用百度雲 */
   async getSensitiveConfig() {
     const { baiduTextStatus = 0, baiduTextAccessToken } = await this.getConfigs(
       ['baiduTextStatus', 'baiduTextAccessToken']

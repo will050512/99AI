@@ -16,8 +16,8 @@ const createApp_dto_1 = require("./createApp.dto");
 class UpdateAppDto extends createApp_dto_1.CreateAppDto {
 }
 __decorate([
-    (0, swagger_1.ApiProperty)({ example: 1, description: '要修改的分类Id', required: true }),
-    (0, class_validator_1.IsNumber)({}, { message: '分类ID必须是Number' }),
+    (0, swagger_1.ApiProperty)({ example: 1, description: '要修改的分類Id', required: true }),
+    (0, class_validator_1.IsNumber)({}, { message: '分類ID必須是Number' }),
     __metadata("design:type", Number)
 ], UpdateAppDto.prototype, "id", void 0);
 exports.UpdateAppDto = UpdateAppDto;

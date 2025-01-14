@@ -15,16 +15,16 @@ const swagger_1 = require("@nestjs/swagger");
 class LoginByPhoneDto {
 }
 __decorate([
-    (0, swagger_1.ApiProperty)({ example: '19999999', description: '手机号' }),
-    (0, class_validator_1.IsNotEmpty)({ message: '手机号不能为空！' }),
-    (0, class_validator_1.IsPhoneNumber)('CN', { message: '手机号格式不正确！' }),
+    (0, swagger_1.ApiProperty)({ example: '19999999', description: '手機號' }),
+    (0, class_validator_1.IsNotEmpty)({ message: '手機號不能為空！' }),
+    (0, class_validator_1.IsPhoneNumber)('CN', { message: '手機號格式不正確！' }),
     __metadata("design:type", String)
 ], LoginByPhoneDto.prototype, "phone", void 0);
 __decorate([
-    (0, swagger_1.ApiProperty)({ example: '999999', description: '密码' }),
-    (0, class_validator_1.IsNotEmpty)({ message: '用户密码不能为空！' }),
-    (0, class_validator_1.MinLength)(6, { message: '用户密码最低需要大于6位数！' }),
-    (0, class_validator_1.MaxLength)(30, { message: '用户密码最长不能超过30位数！' }),
+    (0, swagger_1.ApiProperty)({ example: '999999', description: '密碼' }),
+    (0, class_validator_1.IsNotEmpty)({ message: '用戶密碼不能為空！' }),
+    (0, class_validator_1.MinLength)(6, { message: '用戶密碼最低需要大於6位數！' }),
+    (0, class_validator_1.MaxLength)(30, { message: '用戶密碼最長不能超過30位數！' }),
     __metadata("design:type", String)
 ], LoginByPhoneDto.prototype, "password", void 0);
 exports.LoginByPhoneDto = LoginByPhoneDto;

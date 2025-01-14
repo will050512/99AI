@@ -15,7 +15,7 @@ const { switchTo } = useMenu()
 
 const menuRef = ref()
 
-// 顶部模式鼠标滚动
+// 頂部模式鼠標滾動
 function handlerMouserScroll(event: WheelEvent) {
   if (event.deltaY || event.detail !== 0) {
     menuRef.value.scrollBy({
@@ -31,7 +31,7 @@ function handlerMouserScroll(event: WheelEvent) {
       <div class="header-container">
         <Logo class="title" />
         <div ref="menuRef" class="menu-container" @wheel.prevent="handlerMouserScroll">
-          <!-- 顶部模式 -->
+          <!-- 頂部模式 -->
           <div class="menu flex of-hidden transition-all">
             <template v-for="(item, index) in menuStore.allMenus" :key="index">
               <div
@@ -115,10 +115,10 @@ header {
       overflow-x: auto;
       mask-image: linear-gradient(to right, transparent, #000 20px, #000 calc(100% - 20px), transparent);
 
-      // firefox隐藏滚动条
+      // firefox隱藏滾動條
       scrollbar-width: none;
 
-      // chrome隐藏滚动条
+      // chrome隱藏滾動條
       &::-webkit-scrollbar {
         display: none;
       }
@@ -147,7 +147,7 @@ header {
   }
 }
 
-// 头部动画
+// 頭部動畫
 .header-enter-active,
 .header-leave-active {
   transition: transform 0.3s;

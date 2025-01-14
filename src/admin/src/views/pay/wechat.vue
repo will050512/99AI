@@ -1,6 +1,6 @@
 <route lang="yaml">
 meta:
-  title: 官方微信支付设置
+  title: 官方微信支付設置
 </route>
 
 <script lang="ts" setup>
@@ -21,30 +21,30 @@ const formInline = reactive({
 
 const rules = ref<FormRules>({
   payWechatStatus: [
-    { required: true, trigger: 'change', message: '请选择当前支付开启状态' },
+    { required: true, trigger: 'change', message: '請選擇當前支付開啟狀態' },
   ],
   payWeChatSecret: [
-    { required: true, trigger: 'blur', message: '请填写支付Secret秘钥' },
+    { required: true, trigger: 'blur', message: '請填寫支付Secret秘鑰' },
   ],
   payWeChatMchId: [
-    { required: true, trigger: 'blur', message: '请填写商户号' },
+    { required: true, trigger: 'blur', message: '請填寫商戶號' },
   ],
-  payWeChatAppId: [{ required: true, trigger: 'blur', message: '请填写AppId' }],
+  payWeChatAppId: [{ required: true, trigger: 'blur', message: '請填寫AppId' }],
   payWeChatNotifyUrl: [
-    { required: true, trigger: 'blur', message: '请填写支付通知地址' },
+    { required: true, trigger: 'blur', message: '請填寫支付通知地址' },
   ],
   payWeChatPublicKey: [
     {
       required: true,
       trigger: 'blur',
-      message: '请填写支付公钥信息（cert.pem文件）',
+      message: '請填寫支付公鑰資訊（cert.pem文件）',
     },
   ],
   payWeChatPrivateKey: [
     {
       required: true,
       trigger: 'blur',
-      message: '请填写支付私钥地址（key.pem文件）',
+      message: '請填寫支付私鑰地址（key.pem文件）',
     },
   ],
 });
@@ -71,11 +71,11 @@ function handlerUpdateConfig() {
     if (valid) {
       try {
         await apiConfig.setConfig({ settings: fotmatSetting(formInline) });
-        ElMessage.success('变更配置信息成功');
+        ElMessage.success('變更配置資訊成功');
       } catch (error) {}
       queryAllconfig();
     } else {
-      ElMessage.error('请填写完整信息');
+      ElMessage.error('請填寫完整資訊');
     }
   });
 }
@@ -98,23 +98,23 @@ onMounted(() => {
   <div>
     <PageHeader>
       <template #title>
-        <div class="flex items-center gap-4">微信支付设置</div>
+        <div class="flex items-center gap-4">微信支付設置</div>
       </template>
       <template #content>
         <div class="text-sm/6">
           <div>
-            同时开启多个支付，将以微信支付作为最高优先级，在pc端会调用 native
-            支付，在微信环境内将调用 Jsapi 支付。
+            同時開啟多個支付，將以微信支付作為最高優先級，在pc端會調用 native
+            支付，在微信環境內將調用 Jsapi 支付。
           </div>
           <div>
-            请确认微信支付已经申请了支付权限，支付通知地址为：
-            https://您的域名/api/pay/notify。
+            請確認微信支付已經申請了支付權限，支付通知地址為：
+            https://您的網域名稱/api/pay/notify。
           </div>
         </div>
       </template>
       <HButton outline @click="handlerUpdateConfig">
         <SvgIcon name="i-ri:file-text-line" />
-        保存设置
+        保存設置
       </HButton>
     </PageHeader>
 
@@ -127,7 +127,7 @@ onMounted(() => {
       >
         <el-row>
           <el-col :xs="24" :md="20" :lg="15" :xl="12">
-            <el-form-item label="启用当前支付" prop="payWechatStatus">
+            <el-form-item label="啟用當前支付" prop="payWechatStatus">
               <el-switch
                 v-model="formInline.payWechatStatus"
                 active-value="1"
@@ -138,10 +138,10 @@ onMounted(() => {
         </el-row>
         <el-row>
           <el-col :xs="24" :md="20" :lg="15" :xl="12">
-            <el-form-item label="商户ID" prop="payWeChatMchId">
+            <el-form-item label="商戶ID" prop="payWeChatMchId">
               <el-input
                 v-model="formInline.payWeChatMchId"
-                placeholder="请填写商户ID"
+                placeholder="請填寫商戶ID"
                 clearable
               />
             </el-form-item>
@@ -152,7 +152,7 @@ onMounted(() => {
             <el-form-item label="AppId" prop="payWeChatAppId">
               <el-input
                 v-model="formInline.payWeChatAppId"
-                placeholder="请填写AppId"
+                placeholder="請填寫AppId"
                 clearable
               />
             </el-form-item>
@@ -160,10 +160,10 @@ onMounted(() => {
         </el-row>
         <el-row>
           <el-col :xs="24" :md="20" :lg="15" :xl="12">
-            <el-form-item label="商户秘钥" prop="payWeChatSecret">
+            <el-form-item label="商戶秘鑰" prop="payWeChatSecret">
               <el-input
                 v-model="formInline.payWeChatSecret"
-                placeholder="请填写Secret秘钥"
+                placeholder="請填寫Secret秘鑰"
                 clearable
               />
             </el-form-item>
@@ -174,7 +174,7 @@ onMounted(() => {
             <el-form-item label="支付通知地址" prop="payWeChatNotifyUrl">
               <el-input
                 v-model="formInline.payWeChatNotifyUrl"
-                placeholder="请填写支付通知地址"
+                placeholder="請填寫支付通知地址"
                 clearable
               />
             </el-form-item>
@@ -182,12 +182,12 @@ onMounted(() => {
         </el-row>
         <el-row>
           <el-col :xs="24" :md="20" :lg="15" :xl="12">
-            <el-form-item label="公钥地址" prop="payWeChatPublicKey">
+            <el-form-item label="公鑰地址" prop="payWeChatPublicKey">
               <el-input
                 v-model="formInline.payWeChatPublicKey"
                 type="textarea"
                 :rows="6"
-                placeholder="请填写支付公钥信息（cert.pem文件）"
+                placeholder="請填寫支付公鑰資訊（cert.pem文件）"
                 clearable
               />
             </el-form-item>
@@ -195,12 +195,12 @@ onMounted(() => {
         </el-row>
         <el-row>
           <el-col :xs="24" :md="20" :lg="15" :xl="12">
-            <el-form-item label="私钥地址" prop="payWeChatPrivateKey">
+            <el-form-item label="私鑰地址" prop="payWeChatPrivateKey">
               <el-input
                 v-model="formInline.payWeChatPrivateKey"
                 type="textarea"
                 :rows="6"
-                placeholder="请填写支付私钥地址（key.pem文件）"
+                placeholder="請填寫支付私鑰地址（key.pem文件）"
                 clearable
               />
             </el-form-item>

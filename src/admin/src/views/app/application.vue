@@ -1,6 +1,6 @@
 <route lang="yaml">
 meta:
-  title: 应用管理
+  title: 應用管理
 </route>
 
 <script lang="ts" setup>
@@ -58,25 +58,25 @@ const formPackage = reactive({
 });
 
 const rules = reactive<FormRules>({
-  catId: [{ required: true, message: '请选择App分类', trigger: 'change' }],
-  name: [{ required: true, message: '请填写App名称', trigger: 'blur' }],
-  preset: [{ required: false, message: '请填写App预设信息', trigger: 'blur' }],
-  des: [{ required: true, message: '请填写App描述', trigger: 'blur' }],
+  catId: [{ required: true, message: '請選擇App分類', trigger: 'change' }],
+  name: [{ required: true, message: '請填寫App名稱', trigger: 'blur' }],
+  preset: [{ required: false, message: '請填寫App預設資訊', trigger: 'blur' }],
+  des: [{ required: true, message: '請填寫App描述', trigger: 'blur' }],
   coverImg: [
-    { required: false, message: '请填写App封面图片地址', trigger: 'blur' },
+    { required: false, message: '請填寫App封面圖片地址', trigger: 'blur' },
   ],
   demoData: [
-    { required: false, message: '请填写App演示数据', trigger: 'blur' },
+    { required: false, message: '請填寫App演示數據', trigger: 'blur' },
   ],
   isGPTs: [{ required: true, message: '是否GPTs', trigger: 'blur' }],
   gizmoID: [{ required: false, message: 'GPTs 的ID', trigger: 'blur' }],
-  order: [{ required: false, message: '请填写排序ID', trigger: 'blur' }],
-  status: [{ required: true, message: '请选择App状态', trigger: 'change' }],
+  order: [{ required: false, message: '請填寫排序ID', trigger: 'blur' }],
+  status: [{ required: true, message: '請選擇App狀態', trigger: 'change' }],
   isFixedModel: [
-    { required: true, message: '请选择App是否固定模型', trigger: 'blur' },
+    { required: true, message: '請選擇App是否固定模型', trigger: 'blur' },
   ],
   appModel: [
-    { required: false, message: '请选择App使用的模型', trigger: 'change' },
+    { required: false, message: '請選擇App使用的模型', trigger: 'change' },
   ],
 });
 
@@ -89,11 +89,11 @@ interface CatItem {
 const catList: Ref<CatItem[]> = ref([]);
 
 const dialogTitle = computed(() => {
-  return activeAppCatId.value ? '更新应用' : '新增应用';
+  return activeAppCatId.value ? '更新應用' : '新增應用';
 });
 
 const dialogButton = computed(() => {
-  return activeAppCatId.value ? '确认更新' : '确认新增';
+  return activeAppCatId.value ? '確認更新' : '確認新增';
 });
 
 async function queryAppList() {
@@ -161,7 +161,7 @@ function handlerCloseDialog(formEl: FormInstance | undefined) {
 
 async function handleDeletePackage(row: any) {
   await ApiApp.deleteApp({ id: row.id });
-  ElMessage.success('删除分类成功');
+  ElMessage.success('刪除分類成功');
   queryAppList();
 }
 
@@ -182,10 +182,10 @@ const beforeAvatarUpload: UploadProps['beforeUpload'] = (rawFile) => {
   const allowedTypes = ['image/png', 'image/jpeg', 'image/gif', 'image/webp'];
 
   if (!allowedTypes.includes(rawFile.type)) {
-    ElMessage.error('当前系统仅支持 PNG、JPEG、GIF、和 WebP 格式的图片!');
+    ElMessage.error('當前系統僅支持 PNG、JPEG、GIF、和 WebP 格式的圖片!');
     return false;
   } else if (rawFile.size / 1024 > 300) {
-    ElMessage.error('当前限制文件最大不超过 300KB!');
+    ElMessage.error('當前限制文件最大不超過 300KB!');
     return false;
   }
 };
@@ -209,7 +209,7 @@ function uploadFile(file: any, successHandler: any) {
       successHandler(response.data);
     })
     .catch((error) => {
-      console.error('上传失败', error);
+      console.error('上傳失敗', error);
     });
 }
 
@@ -241,14 +241,14 @@ function handlerSubmit(formEl: FormInstance | undefined) {
     if (valid) {
       if (activeAppCatId.value) {
         const params = { id: activeAppCatId.value, ...formPackage };
-        /* 如果是用户的app 不能修改状态 保持原样返回 */
+        /* 如果是用戶的app 不能修改狀態 保持原樣返回 */
         isUserApp.value &&
           Object.assign(params, { status: userAppStatus.value });
         await ApiApp.updateApp(params);
-        ElMessage({ type: 'success', message: '更新应用成功！' });
+        ElMessage({ type: 'success', message: '更新應用成功！' });
       } else {
         await ApiApp.createApp(formPackage);
-        ElMessage({ type: 'success', message: '创建新的应用成功！' });
+        ElMessage({ type: 'success', message: '創建新的應用成功！' });
       }
       visible.value = false;
       queryAppList();
@@ -266,31 +266,31 @@ onMounted(() => {
   <div>
     <PageHeader>
       <template #title>
-        <div class="flex items-center gap-4">应用配置</div>
+        <div class="flex items-center gap-4">應用配置</div>
       </template>
       <template #content>
         <div class="text-sm/6">
           <div>
-            应用一旦创建，可能会被多处使用，请保持规范命名分类，后续尽量变更而不是删除。
+            應用一旦創建，可能會被多處使用，請保持規範命名分類，後續儘量變更而不是刪除。
           </div>
           <div>
-            可自行选择应用是否固定模型。GPTs 需单独在特殊模型中配置 gpts
-            模型，并自行搜索填写 gizmoID（例如：g-alKfVrz9K）。
+            可自行選擇應用是否固定模型。GPTs 需單獨在特殊模型中配置 gpts
+            模型，並自行搜索填寫 gizmoID（例如：g-alKfVrz9K）。
           </div>
         </div>
       </template>
       <HButton outline @click="visible = true">
         <SvgIcon name="ic:baseline-plus" />
-        新增应用
+        新增應用
       </HButton>
     </PageHeader>
 
     <page-main>
       <el-form ref="formRef" :inline="true" :model="formInline">
-        <el-form-item label="App分类" prop="catId">
+        <el-form-item label="App分類" prop="catId">
           <el-select
             v-model="formInline.catId"
-            placeholder="请选择App分类"
+            placeholder="請選擇App分類"
             clearable
             style="width: 160px"
           >
@@ -303,17 +303,17 @@ onMounted(() => {
           </el-select>
         </el-form-item>
 
-        <el-form-item label="App名称" prop="name">
+        <el-form-item label="App名稱" prop="name">
           <el-input
             v-model="formInline.name"
-            placeholder="App名称[模糊搜索]"
+            placeholder="App名稱[模糊搜索]"
             clearable
             @keydown.enter.prevent="queryAppList"
           />
         </el-form-item>
 
         <el-form-item>
-          <el-button type="primary" @click="queryAppList"> 查询 </el-button>
+          <el-button type="primary" @click="queryAppList"> 查詢 </el-button>
           <el-button @click="handlerReset(formRef)"> 重置 </el-button>
         </el-form-item>
       </el-form>
@@ -327,7 +327,7 @@ onMounted(() => {
         style="width: 100%"
         size="large"
       >
-        <el-table-column prop="coverImg" label="应用封面" width="100">
+        <el-table-column prop="coverImg" label="應用封面" width="100">
           <template #default="scope">
             <el-image
               style="height: 50px"
@@ -336,9 +336,9 @@ onMounted(() => {
             />
           </template>
         </el-table-column>
-        <el-table-column prop="catName" label="应用分类" width="100" />
-        <el-table-column prop="name" label="应用名称" width="120" />
-        <el-table-column prop="status" label="应用状态" width="100">
+        <el-table-column prop="catName" label="應用分類" width="100" />
+        <el-table-column prop="name" label="應用名稱" width="120" />
+        <el-table-column prop="status" label="應用狀態" width="100">
           <template #default="scope">
             <el-tag :type="scope.row.status === 1 ? 'success' : 'danger'">
               {{ QUESTION_STATUS_MAP[scope.row.status] }}
@@ -352,15 +352,15 @@ onMounted(() => {
             </el-tag>
           </template>
         </el-table-column> -->
-        <!-- <el-table-column prop="public" label="应用创建角色" width="120">
+        <!-- <el-table-column prop="public" label="應用創建角色" width="120">
           <template #default="scope">
             <el-tag :type="scope.row.role === 'system' ? 'success' : 'info'">
-              {{ scope.row.role === 'system' ? '系统' : '用户' }}
+              {{ scope.row.role === 'system' ? '系統' : '用戶' }}
             </el-tag>
           </template>
         </el-table-column> -->
         <el-table-column prop="order" label="排序ID" /> />
-        <el-table-column prop="preset" label="预设信息" width="400">
+        <el-table-column prop="preset" label="預設資訊" width="400">
           <template #default="scope">
             <el-tooltip class="box-item" effect="dark" placement="top-start">
               <template #content>
@@ -375,7 +375,7 @@ onMounted(() => {
           </template>
         </el-table-column>
 
-        <el-table-column prop="des" label="描述信息" width="300">
+        <el-table-column prop="des" label="描述資訊" width="300">
           <template #default="scope">
             <el-tooltip class="box-item" effect="dark" placement="top-start">
               <template #content>
@@ -389,7 +389,7 @@ onMounted(() => {
             </el-tooltip>
           </template>
         </el-table-column>
-        <el-table-column prop="createdAt" label="创建时间" width="120">
+        <el-table-column prop="createdAt" label="創建時間" width="120">
           <template #default="scope">
             {{ utcToShanghaiTime(scope.row.createdAt, 'YYYY-MM-DD') }}
           </template>
@@ -403,18 +403,18 @@ onMounted(() => {
               size="small"
               @click="handleUpdatePackage(scope.row)"
             >
-              编辑
+              編輯
             </el-button>
             <el-popconfirm
               v-if="scope.row.role === 'system'"
-              title="确认删除此应用么?"
+              title="確認刪除此應用麼?"
               width="200"
               icon-color="red"
               @confirm="handleDeletePackage(scope.row)"
             >
               <template #reference>
                 <el-button link type="danger" size="small">
-                  删除应用
+                  刪除應用
                 </el-button>
               </template>
             </el-popconfirm>
@@ -448,10 +448,10 @@ onMounted(() => {
         :model="formPackage"
         :rules="rules"
       >
-        <el-form-item label="App分类" prop="catId">
+        <el-form-item label="App分類" prop="catId">
           <el-select
             v-model="formPackage.catId"
-            placeholder="请选择App分类"
+            placeholder="請選擇App分類"
             clearable
             style="width: 100%"
           >
@@ -463,10 +463,10 @@ onMounted(() => {
             />
           </el-select>
         </el-form-item>
-        <el-form-item label="App名称" prop="name">
-          <el-input v-model="formPackage.name" placeholder="请填写App名称" />
+        <el-form-item label="App名稱" prop="name">
+          <el-input v-model="formPackage.name" placeholder="請填寫App名稱" />
         </el-form-item>
-        <el-form-item v-if="!isUserApp" label="App状态" prop="status">
+        <el-form-item v-if="!isUserApp" label="App狀態" prop="status">
           <el-switch
             v-model="formPackage.status"
             :active-value="1"
@@ -477,11 +477,11 @@ onMounted(() => {
           <el-input
             v-model="formPackage.des"
             type="textarea"
-            placeholder="请填写App介绍信息、用于对外展示..."
+            placeholder="請填寫App介紹資訊、用於對外展示..."
             :rows="4"
           />
         </el-form-item>
-        <el-form-item v-if="!isUserApp" label="启用GPTs" prop="isGPTs">
+        <el-form-item v-if="!isUserApp" label="啟用GPTs" prop="isGPTs">
           <el-switch
             v-model="formPackage.isGPTs"
             :active-value="1"
@@ -495,18 +495,18 @@ onMounted(() => {
         >
           <el-input
             v-model="formPackage.gizmoID"
-            placeholder="请填写 GPTs 使用的 gizmoID"
+            placeholder="請填寫 GPTs 使用的 gizmoID"
           />
         </el-form-item>
         <el-form-item
           v-if="Number(formPackage.isGPTs) !== 1"
-          label="App预设"
+          label="App預設"
           prop="preset"
         >
           <el-input
             v-model="formPackage.preset"
             type="textarea"
-            placeholder="请填写App预设信息、用于给AI预设身份..."
+            placeholder="請填寫App預設資訊、用於給AI預設身份..."
             :rows="4"
           />
         </el-form-item>
@@ -533,7 +533,7 @@ onMounted(() => {
             v-model="formPackage.appModel"
             filterable
             allow-create
-            placeholder="请选择应用使用的模型"
+            placeholder="請選擇應用使用的模型"
             clearable
           >
             <el-option
@@ -544,19 +544,19 @@ onMounted(() => {
             />
           </el-select>
         </el-form-item>
-        <el-form-item label="示例内容" prop="demoData">
+        <el-form-item label="示例內容" prop="demoData">
           <el-input
             v-model="formPackage.demoData"
             type="textarea"
-            placeholder="请填写App的demo示例数据、每换行一次表示一个新的示例..."
+            placeholder="請填寫App的demo示例數據、每換行一次表示一個新的示例..."
             :rows="4"
           />
         </el-form-item>
 
-        <el-form-item label="应用图标" prop="coverImg">
+        <el-form-item label="應用圖標" prop="coverImg">
           <el-input
             v-model="formPackage.coverImg"
-            placeholder="请填写或上传应用图标"
+            placeholder="請填寫或上傳應用圖標"
             clearable
           >
             <template #append>
@@ -599,14 +599,14 @@ onMounted(() => {
         <!-- <el-form-item label="Logo地址" prop="coverImg">
           <el-input
             v-model="formPackage.coverImg"
-            placeholder="请填写应用Logo 或点击 上传按钮/图片预览 上传图片"
+            placeholder="請填寫應用Logo 或點擊 上傳按鈕/圖片預覽 上傳圖片"
           />
         </el-form-item>
         <el-icon>
           <i class="el-icon-refresh" />
         </el-icon>
 
-        <el-form-item label="应用Logo" prop="coverImg">
+        <el-form-item label="應用Logo" prop="coverImg">
           <el-upload
             class="avatar-uploader"
             :action="uploadUrl"
@@ -629,7 +629,7 @@ onMounted(() => {
         <el-form-item label="排序ID" prop="order">
           <el-input
             v-model.number="formPackage.order"
-            placeholder="请填写排序ID[数字越大越靠前]"
+            placeholder="請填寫排序ID[數字越大越靠前]"
           />
         </el-form-item>
       </el-form>

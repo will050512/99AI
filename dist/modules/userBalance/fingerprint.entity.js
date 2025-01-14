@@ -15,19 +15,19 @@ const baseEntity_1 = require("../../common/entity/baseEntity");
 let FingerprintLogEntity = class FingerprintLogEntity extends baseEntity_1.BaseEntity {
 };
 __decorate([
-    (0, typeorm_1.Column)({ comment: '指纹ID' }),
+    (0, typeorm_1.Column)({ comment: '指紋ID' }),
     __metadata("design:type", String)
 ], FingerprintLogEntity.prototype, "fingerprint", void 0);
 __decorate([
-    (0, typeorm_1.Column)({ comment: '模型3对话次数' }),
+    (0, typeorm_1.Column)({ comment: '模型3對話次數' }),
     __metadata("design:type", Number)
 ], FingerprintLogEntity.prototype, "model3Count", void 0);
 __decorate([
-    (0, typeorm_1.Column)({ comment: '模型4对话次数' }),
+    (0, typeorm_1.Column)({ comment: '模型4對話次數' }),
     __metadata("design:type", Number)
 ], FingerprintLogEntity.prototype, "model4Count", void 0);
 __decorate([
-    (0, typeorm_1.Column)({ comment: 'MJ绘画次数' }),
+    (0, typeorm_1.Column)({ comment: 'MJ繪畫次數' }),
     __metadata("design:type", Number)
 ], FingerprintLogEntity.prototype, "drawMjCount", void 0);
 FingerprintLogEntity = __decorate([

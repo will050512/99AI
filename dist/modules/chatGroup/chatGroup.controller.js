@@ -42,7 +42,7 @@ let ChatGroupController = class ChatGroupController {
 };
 __decorate([
     (0, common_1.Post)('create'),
-    (0, swagger_1.ApiOperation)({ summary: '创建对话组' }),
+    (0, swagger_1.ApiOperation)({ summary: '創建對話組' }),
     (0, common_1.UseGuards)(jwtAuth_guard_1.JwtAuthGuard),
     (0, swagger_1.ApiBearerAuth)(),
     __param(0, (0, common_1.Body)()),
@@ -53,7 +53,7 @@ __decorate([
 ], ChatGroupController.prototype, "create", null);
 __decorate([
     (0, common_1.Get)('query'),
-    (0, swagger_1.ApiOperation)({ summary: '查询对话组' }),
+    (0, swagger_1.ApiOperation)({ summary: '查詢對話組' }),
     (0, common_1.UseGuards)(jwtAuth_guard_1.JwtAuthGuard),
     (0, swagger_1.ApiBearerAuth)(),
     __param(0, (0, common_1.Req)()),
@@ -63,7 +63,7 @@ __decorate([
 ], ChatGroupController.prototype, "query", null);
 __decorate([
     (0, common_1.Post)('update'),
-    (0, swagger_1.ApiOperation)({ summary: '更新对话组' }),
+    (0, swagger_1.ApiOperation)({ summary: '更新對話組' }),
     (0, common_1.UseGuards)(jwtAuth_guard_1.JwtAuthGuard),
     (0, swagger_1.ApiBearerAuth)(),
     __param(0, (0, common_1.Body)()),
@@ -74,7 +74,7 @@ __decorate([
 ], ChatGroupController.prototype, "update", null);
 __decorate([
     (0, common_1.Post)('del'),
-    (0, swagger_1.ApiOperation)({ summary: '删除对话组' }),
+    (0, swagger_1.ApiOperation)({ summary: '刪除對話組' }),
     (0, common_1.UseGuards)(jwtAuth_guard_1.JwtAuthGuard),
     (0, swagger_1.ApiBearerAuth)(),
     __param(0, (0, common_1.Body)()),
@@ -85,7 +85,7 @@ __decorate([
 ], ChatGroupController.prototype, "del", null);
 __decorate([
     (0, common_1.Post)('delAll'),
-    (0, swagger_1.ApiOperation)({ summary: '删除对话组' }),
+    (0, swagger_1.ApiOperation)({ summary: '刪除對話組' }),
     (0, common_1.UseGuards)(jwtAuth_guard_1.JwtAuthGuard),
     (0, swagger_1.ApiBearerAuth)(),
     __param(0, (0, common_1.Req)()),

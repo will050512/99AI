@@ -33,7 +33,7 @@ const bulkVisible = ref(false);
 const formInline = reactive({
   keyType: '',
   model: '',
-  status: null,
+  status: '' as string, // 修改類型定義
   page: 1,
   size: 10,
 });
@@ -73,110 +73,110 @@ const uploadUrl = ref(
 );
 
 const rules = reactive<FormRules>({
-  keyType: [{ required: true, message: '请选择调用模型类型', trigger: 'blur' }],
+  keyType: [{ required: true, message: '請選擇調用模型類型', trigger: 'blur' }],
   modelName: [
-    { required: true, message: '请填写您的模型名称', trigger: 'blur' },
+    { required: true, message: '請填寫您的模型名稱', trigger: 'blur' },
   ],
-  key: [{ required: false, message: '请填写您的调用模型key', trigger: 'blur' }],
+  key: [{ required: false, message: '請填寫您的調用模型key', trigger: 'blur' }],
   // secret: [
-  //   { required: true, message: '请填写您的调用模型的secret', trigger: 'blur' },
+  //   { required: true, message: '請填寫您的調用模型的secret', trigger: 'blur' },
   // ],
   status: [
-    { required: true, message: '请选择key的启用状态', trigger: 'change' },
+    { required: true, message: '請選擇key的啟用狀態', trigger: 'change' },
   ],
   // isDraw: [
   //   {
   //     required: true,
-  //     message: '请选择当前key是否作为基础绘画key',
+  //     message: '請選擇當前key是否作為基礎繪畫key',
   //     trigger: 'change',
   //   },
   // ],
   isFileUpload: [
     {
       required: false,
-      message: '请选择当前模型是否开启文件上传及支持种类',
+      message: '請選擇當前模型是否開啟文件上傳及支持種類',
       trigger: 'change',
     },
   ],
   isTokenBased: [
     {
       required: true,
-      message: '请选择当前key是否基于token计费',
+      message: '請選擇當前key是否基於token計費',
       trigger: 'change',
     },
   ],
   tokenFeeRatio: [
-    { required: false, message: 'token计费比例', trigger: 'change' },
+    { required: false, message: 'token計費比例', trigger: 'change' },
   ],
   model: [
     {
       required: true,
-      message: '请选择当前key需要绑定的模型',
+      message: '請選擇當前key需要綁定的模型',
       trigger: 'change',
     },
   ],
   modelOrder: [
-    { required: true, message: '请填写当前模型排序', trigger: 'blur' },
+    { required: true, message: '請填寫當前模型排序', trigger: 'blur' },
   ],
 
   // keyWeight: [
-  //   { required: true, message: '请填写key的权重值', trigger: 'blur' },
+  //   { required: true, message: '請填寫key的權重值', trigger: 'blur' },
   // ],
   maxModelTokens: [
-    { required: true, message: '请填写模型最大token数', trigger: 'blur' },
+    { required: true, message: '請填寫模型最大token數', trigger: 'blur' },
   ],
   // maxResponseTokens: [
   //   {
   //     required: true,
-  //     message: '请填写允许用户使用的最大回复token数',
+  //     message: '請填寫允許用戶使用的最大回復token數',
   //     trigger: 'blur',
   //   },
   // ],
   proxyUrl: [
-    { required: false, message: '请填写指定代理地址', trigger: 'blur' },
+    { required: false, message: '請填寫指定代理地址', trigger: 'blur' },
   ],
   modelAvatar: [
     {
       required: false,
-      message: '请填写AI模型使用的头像, 不填写使用系统默认',
+      message: '請填寫AI模型使用的頭像, 不填寫使用系統默認',
       trigger: 'blur',
     },
   ],
   timeout: [
     {
       required: true,
-      message: '请填写超时时间 默认 60 单位（秒）',
+      message: '請填寫超時時間 默認 60 單位（秒）',
       trigger: 'blur',
     },
   ],
   deductType: [
-    { required: true, message: '请选择当前模型扣费类型', trigger: 'change' },
+    { required: true, message: '請選擇當前模型扣費類型', trigger: 'change' },
   ],
   deduct: [
     {
       required: true,
-      message: '请填写当前模型扣费金额（需要是正整数）',
+      message: '請填寫當前模型扣費金額（需要是正整數）',
       trigger: 'blur',
     },
   ],
   maxRounds: [
     {
       required: true,
-      message: '请填写允许用户选择的最大上下文轮次',
+      message: '請填寫允許用戶選擇的最大上下文輪次',
       trigger: 'blur',
     },
   ],
   modelLimits: [
     {
       required: true,
-      message: '请填写模型调用频率限制',
+      message: '請填寫模型調用頻率限制',
       trigger: 'blur',
     },
   ],
   modelDescription: [
     {
       required: false,
-      message: '请填写模型描述',
+      message: '請填寫模型描述',
       trigger: 'blur',
     },
   ],
@@ -198,7 +198,7 @@ const dialogTitle = computed(() => {
 // const labelKeyName = computed(() => ModelTypeLabelMap[formPackage.keyType]);
 
 const dialogButton = computed(() => {
-  return activeModelKeyId.value ? '确认更新' : '确认新增';
+  return activeModelKeyId.value ? '確認更新' : '確認新增';
 });
 
 const tableData = ref([]);
@@ -302,7 +302,7 @@ function uploadFile(file: any, successHandler: any) {
       successHandler(response.data);
     })
     .catch((error) => {
-      console.error('上传失败', error);
+      console.error('上傳失敗', error);
     });
 }
 
@@ -361,10 +361,10 @@ const beforeAvatarUpload: UploadProps['beforeUpload'] = (rawFile) => {
   const allowedTypes = ['image/png', 'image/jpeg', 'image/gif', 'image/webp'];
 
   if (!allowedTypes.includes(rawFile.type)) {
-    ElMessage.error('当前系统仅支持 PNG、JPEG、GIF 和 WebP 格式的图片!');
+    ElMessage.error('當前系統僅支持 PNG、JPEG、GIF 和 WebP 格式的圖片!');
     return false;
   } else if (rawFile.size / 1024 > 300) {
-    ElMessage.error('当前限制文件最大不超过 300KB!');
+    ElMessage.error('當前限制文件最大不超過 300KB!');
     return false;
   }
 };
@@ -378,26 +378,26 @@ onMounted(() => {
   <div>
     <PageHeader>
       <template #title>
-        <div class="flex items-center gap-4">模型配置说明</div>
+        <div class="flex items-center gap-4">模型配置說明</div>
       </template>
       <template #content>
         <div class="text-sm/6">
-          <div>模型分为（基础对话｜创意模型｜特殊模型三类）。</div>
+          <div>模型分為（基礎對話｜創意模型｜特殊模型三類）。</div>
           <div>
-            基础对话：用户可以在用户端选择的模型，用于对话、问答、聊天等功能，仅支持
-            OpenAI Chat 格式，其他模型需自行使用分发程序适配。
+            基礎對話：用戶可以在用戶端選擇的模型，用於對話、問答、聊天等功能，僅支持
+            OpenAI Chat 格式，其他模型需自行使用分發程式適配。
           </div>
           <div>
-            创意模型：用户端不展示，包含【Midjourney 绘图】【Dalle 绘图】【SDXL
-            绘图】【Suno音乐】，用于插件调用。
+            創意模型：用戶端不展示，包含【Midjourney 繪圖】【Dalle 繪圖】【SDXL
+            繪圖】【Suno音樂】，用於外掛調用。
           </div>
           <div>
-            其中，其中 Midjourney 对接 Midjourney-Proxy-Plus
-            格式，SDXL、LumaVideo 及 SunoMusic 适配
+            其中，其中 Midjourney 對接 Midjourney-Proxy-Plus
+            格式，SDXL、LumaVideo 及 SunoMusic 適配
             <a href="https://api.openai.com" target="_blank">LightAi API</a>
             格式。
           </div>
-          <div>特殊模型：用户端不展示，包含【TTS朗读】【GPTs】。</div>
+          <div>特殊模型：用戶端不展示，包含【TTS朗讀】【GPTs】。</div>
         </div>
       </template>
       <HButton outline type="success" @click="visible = true">
@@ -407,12 +407,12 @@ onMounted(() => {
     </PageHeader>
     <page-main>
       <el-form ref="formRef" :inline="true" :model="formInline">
-        <el-form-item label="模型类型" prop="model">
+        <el-form-item label="模型類型" prop="model">
           <el-select
             v-model="formInline.keyType"
             filterable
             allow-create
-            placeholder="请选择或填写绑定的模型"
+            placeholder="請選擇或填寫綁定的模型"
             clearable
             style="width: 160px"
           >
@@ -429,7 +429,7 @@ onMounted(() => {
             v-model="formInline.model"
             filterable
             allow-create
-            placeholder="请选择或填写绑定的模型"
+            placeholder="請選擇或填寫綁定的模型"
             clearable
             style="width: 160px"
           >
@@ -441,10 +441,10 @@ onMounted(() => {
             />
           </el-select>
         </el-form-item>
-        <el-form-item label="启用状态" prop="status">
+        <el-form-item label="啟用狀態" prop="status">
           <el-select
             v-model="formInline.status"
-            placeholder="请选择key启用状态"
+            placeholder="請選擇key啟用狀態"
             clearable
             style="width: 160px"
           >
@@ -457,7 +457,7 @@ onMounted(() => {
           </el-select>
         </el-form-item>
         <el-form-item>
-          <el-button type="primary" @click="queryModelsList"> 查询 </el-button>
+          <el-button type="primary" @click="queryModelsList"> 查詢 </el-button>
           <el-button @click="handlerReset(formRef)"> 重置 </el-button>
         </el-form-item>
       </el-form>
@@ -470,7 +470,7 @@ onMounted(() => {
         style="width: 100%"
         size="large"
       >
-        <el-table-column prop="keyType" label="模型类型" width="120">
+        <el-table-column prop="keyType" label="模型類型" width="120">
           <template #default="scope">
             <el-tag type="success">
               {{ MODELTYPEMAP[scope.row.keyType as keyof typeof MODELTYPEMAP] }}
@@ -485,20 +485,20 @@ onMounted(() => {
         />
         <el-table-column
           prop="modelLimits"
-          label="频率限制"
+          label="頻率限制"
           width="90"
           align="center"
         />
-        <el-table-column prop="modelName" label="模型名称" width="180" />
+        <el-table-column prop="modelName" label="模型名稱" width="180" />
         <el-table-column
           prop="status"
           align="center"
-          label="启用状态"
+          label="啟用狀態"
           width="90"
         >
           <template #default="scope">
             <el-tag :type="scope.row.status ? 'success' : 'danger'">
-              {{ scope.row.status ? '使用中' : '已暂停' }}
+              {{ scope.row.status ? '使用中' : '已暫停' }}
             </el-tag>
           </template>
         </el-table-column>
@@ -512,7 +512,7 @@ onMounted(() => {
         <el-table-column
           prop="model"
           align="center"
-          label="绑定模型"
+          label="綁定模型"
           width="180"
         >
           <template #default="scope">
@@ -526,7 +526,7 @@ onMounted(() => {
         <el-table-column
           prop="isTokenBased"
           align="center"
-          label="Token计费"
+          label="Token計費"
           width="120"
         >
           <template #default="scope">
@@ -538,7 +538,7 @@ onMounted(() => {
         <el-table-column
           prop="deductType"
           align="center"
-          label="扣费类型"
+          label="扣費類型"
           width="90"
         >
           <template #default="scope">
@@ -553,10 +553,10 @@ onMounted(() => {
             >
               {{
                 scope.row.deductType === 1
-                  ? '普通积分'
+                  ? '普通積分'
                   : scope.row.deductType === 2
-                  ? '高级积分'
-                  : '绘画积分'
+                  ? '高級積分'
+                  : '繪畫積分'
               }}
             </el-tag>
           </template>
@@ -564,19 +564,19 @@ onMounted(() => {
         <el-table-column
           prop="deduct"
           align="center"
-          label="单次扣除"
+          label="單次扣除"
           width="90"
         >
           <template #default="scope">
             <el-tag :type="scope.row.deductType === 1 ? 'success' : 'warning'">
-              {{ `${scope.row.deduct} 积分` }}
+              {{ `${scope.row.deduct} 積分` }}
             </el-tag>
           </template>
         </el-table-column>
         <el-table-column
           prop="useCount"
           align="center"
-          label="调用次数"
+          label="調用次數"
           width="90"
         />
         <el-table-column
@@ -588,7 +588,7 @@ onMounted(() => {
         <el-table-column
           prop="keyStatus"
           align="center"
-          label="key状态"
+          label="key狀態"
           width="110"
         >
           <template #default="scope">
@@ -598,7 +598,7 @@ onMounted(() => {
                   ? '正常工作'
                   : scope.row.keyStatus === -1
                   ? '已被封禁'
-                  : '余额耗尽 '
+                  : '餘額耗盡 '
               }}
             </el-tag>
           </template>
@@ -619,7 +619,7 @@ onMounted(() => {
         <el-table-column
           prop="proxyUrl"
           align="center"
-          label="绑定的代理地址"
+          label="綁定的代理地址"
           width="140"
         >
           <template #default="scope">
@@ -631,7 +631,7 @@ onMounted(() => {
         <el-table-column
           prop="proxyUrl"
           align="center"
-          label="变更提示信息"
+          label="變更提示資訊"
           width="180"
         >
           <template #default="scope">
@@ -641,7 +641,7 @@ onMounted(() => {
         <el-table-column
           prop="createdAt"
           align="center"
-          label="添加时间"
+          label="添加時間"
           width="120"
         >
           <template #default="scope">
@@ -656,17 +656,17 @@ onMounted(() => {
               size="small"
               @click="handleEditKey(scope.row)"
             >
-              变更
+              變更
             </el-button>
             <el-popconfirm
-              title="确认删除此秘钥么?"
+              title="確認刪除此秘鑰麼?"
               width="180"
               icon-color="red"
               @confirm="handleDeleteKey(scope.row)"
             >
               <template #reference>
                 <el-button link type="danger" size="small">
-                  删除秘钥
+                  刪除秘鑰
                 </el-button>
               </template>
             </el-popconfirm>
@@ -703,10 +703,10 @@ onMounted(() => {
         :model="formPackage"
         :rules="rules"
       >
-        <el-form-item label="模型类型选择" prop="keyType">
+        <el-form-item label="模型類型選擇" prop="keyType">
           <el-select
             v-model="formPackage.keyType"
-            placeholder="请选择模型类型"
+            placeholder="請選擇模型類型"
             style="width: 100%"
           >
             <el-option
@@ -720,14 +720,14 @@ onMounted(() => {
 
         <el-form-item
           v-if="[1].includes(Number(formPackage.keyType))"
-          label="用户端显示"
+          label="用戶端顯示"
           prop="status"
         >
           <el-switch v-model="formPackage.status" />
           <el-tooltip class="box-item" effect="dark" placement="right">
             <template #content>
               <div style="width: 250px">
-                关闭将在用户端隐藏此模型、但不会影响后台的调用
+                關閉將在用戶端隱藏此模型、但不會影響後臺的調用
               </div>
             </template>
             <el-icon class="ml-3 cursor-pointer">
@@ -736,31 +736,31 @@ onMounted(() => {
           </el-tooltip>
         </el-form-item>
 
-        <el-form-item label="模型显示名称" prop="modelName">
+        <el-form-item label="模型顯示名稱" prop="modelName">
           <el-input
             v-model="formPackage.modelName"
-            placeholder="请填写模型显示名称（用户端看到的）"
+            placeholder="請填寫模型顯示名稱（用戶端看到的）"
           />
         </el-form-item>
         <el-form-item
           v-if="[1].includes(Number(formPackage.keyType))"
-          label="模型简介"
+          label="模型簡介"
           prop="key"
         >
           <el-input
             v-model="formPackage.modelDescription"
             type="text"
-            placeholder="请填写模型简介"
+            placeholder="請填寫模型簡介"
           />
         </el-form-item>
         <el-form-item
           v-if="[1].includes(Number(formPackage.keyType))"
-          label="模型图标"
+          label="模型圖標"
           prop="modelAvatar"
         >
           <el-input
             v-model="formPackage.modelAvatar"
-            placeholder="请填写或上传网站模型图标"
+            placeholder="請填寫或上傳網站模型圖標"
             clearable
           >
             <template #append>
@@ -822,7 +822,7 @@ onMounted(() => {
           </div>
         </el-form-item>
 
-        <el-form-item label="模型调用频率" prop="modelLimits">
+        <el-form-item label="模型調用頻率" prop="modelLimits">
           <div class="input-with-text">
             <el-input-number
               v-model="formPackage.modelLimits"
@@ -832,30 +832,30 @@ onMounted(() => {
               class="input-number"
               style="margin-right: 10px"
             />
-            <span class="unit-text">次/小时</span>
+            <span class="unit-text">次/小時</span>
           </div>
         </el-form-item>
 
         <el-form-item label="指定代理地址" prop="proxyUrl">
           <el-input
             v-model.number="formPackage.proxyUrl"
-            placeholder="如需使用代理请填写、不填写默认使用全局配置！"
+            placeholder="如需使用代理請填寫、不填寫默認使用全局配置！"
           />
         </el-form-item>
-        <el-form-item label="模型密钥" prop="key">
+        <el-form-item label="模型密鑰" prop="key">
           <el-input
             v-model="formPackage.key"
             type="text"
-            placeholder="请填写模型Key"
+            placeholder="請填寫模型Key"
           />
         </el-form-item>
 
-        <el-form-item label="账号关联模型" prop="model">
+        <el-form-item label="賬號關聯模型" prop="model">
           <el-select
             v-model="formPackage.model"
             filterable
             clearable
-            placeholder="请选用或填写绑定的模型"
+            placeholder="請選用或填寫綁定的模型"
             allow-create
           >
             <el-option
@@ -868,7 +868,7 @@ onMounted(() => {
           <!-- <el-tooltip class="box-item" effect="dark" placement="right">
             <template #content>
               <div style="width: 250px">
-                给定了部分可选的模型列表、你可以可以手动填写您需要调用的模型、请确保填写的模型是当前key支持的类型、否则可能会在调用中出现不可预知错误！
+                給定了部分可選的模型列表、你可以可以手動填寫您需要調用的模型、請確保填寫的模型是當前key支持的類型、否則可能會在調用中出現不可預知錯誤！
               </div>
             </template>
             <el-icon class="ml-3 cursor-pointer">
@@ -876,13 +876,13 @@ onMounted(() => {
             </el-icon>
           </el-tooltip> -->
         </el-form-item>
-        <el-form-item label="模型扣费类型" prop="deductType">
+        <el-form-item label="模型扣費類型" prop="deductType">
           <el-select
             v-model="formPackage.deductType"
             filterable
             allow-create
             clearable
-            placeholder="请选用模型扣费类型"
+            placeholder="請選用模型扣費類型"
           >
             <el-option
               v-for="item in DEDUCTTYPELIST"
@@ -894,7 +894,7 @@ onMounted(() => {
           <!-- <el-tooltip class="box-item" effect="dark" placement="right">
             <template #content>
               <div style="width: 250px">
-                设置当前key的扣费类型、扣除普通积分或是高级积分。
+                設置當前key的扣費類型、扣除普通積分或是高級積分。
               </div>
             </template>
             <el-icon class="ml-3 cursor-pointer">
@@ -903,15 +903,15 @@ onMounted(() => {
           </el-tooltip> -->
         </el-form-item>
 
-        <el-form-item label="单次扣除金额" prop="deduct">
+        <el-form-item label="單次扣除金額" prop="deduct">
           <el-input
             v-model.number="formPackage.deduct"
-            placeholder="请填写单次调用此key的扣费金额！"
+            placeholder="請填寫單次調用此key的扣費金額！"
           />
           <!-- <el-tooltip class="box-item" effect="dark" placement="right">
             <template #content>
               <div style="width: 250px">
-                设置当前key的单次调用扣除积分、建议同模型或名称key设置相同的金额、避免扣费发生异常！
+                設置當前key的單次調用扣除積分、建議同模型或名稱key設置相同的金額、避免扣費發生異常！
               </div>
             </template>
             <el-icon class="ml-3 cursor-pointer">
@@ -926,13 +926,13 @@ onMounted(() => {
         >
           <el-input
             v-model.number="formPackage.maxRounds"
-            placeholder="请填写允许用户选择的最高上下文条数！"
+            placeholder="請填寫允許用戶選擇的最高上下文條數！"
           />
           <!-- <el-tooltip class="box-item" effect="dark" placement="right">
             <template #content>
               <div style="width: 250px">
-                填写此配置可以限制用户在选择模型时候的高级配置中的最大上下文轮次、可以通过限制此数量减少token的损耗、减低上下文的损耗量、
-                如果设置了模型的最大token和返回量、那么两个限制会同时生效！
+                填寫此配置可以限制用戶在選擇模型時候的高級配置中的最大上下文輪次、可以通過限制此數量減少token的損耗、減低上下文的損耗量、
+                如果設置了模型的最大token和返回量、那麼兩個限制會同時生效！
               </div>
             </template>
             <el-icon class="ml-3 cursor-pointer">
@@ -942,19 +942,19 @@ onMounted(() => {
         </el-form-item>
         <!-- <el-form-item
           v-if="[1].includes(Number(formPackage.keyType))"
-          label="调用轮询权重"
+          label="調用輪詢權重"
           prop="keyWeight"
         >
           <el-input
             v-model.number="formPackage.keyWeight"
-            placeholder="请填写key的权重、数字越大使用评率越高！"
+            placeholder="請填寫key的權重、數字越大使用評率越高！"
             style="width: 80%"
           />
           <el-tooltip class="box-item" effect="dark" placement="right">
             <template #content>
               <div style="width: 250px">
-                当前轮询是根据模型下的列表按顺序调用、如果权重为2则表示轮到此key的时候会调用两次之后再轮询下一个key
-                保证每个key的调用顺序以及限制每次调用的准确次数
+                當前輪詢是根據模型下的列表按順序調用、如果權重為2則表示輪到此key的時候會調用兩次之後再輪詢下一個key
+                保證每個key的調用順序以及限制每次調用的準確次數
               </div>
             </template>
             <el-icon class="ml-3 cursor-pointer">
@@ -969,20 +969,20 @@ onMounted(() => {
         >
           <el-input
             v-model.number="formPackage.maxModelTokens"
-            placeholder="请填写模型最大Token、不填写默认使用默认！"
+            placeholder="請填寫模型最大Token、不填寫默認使用默認！"
           />
         </el-form-item>
 
-        <el-form-item label="调用超时时间" prop="timeout">
+        <el-form-item label="調用超時時間" prop="timeout">
           <el-input
             v-model.number="formPackage.timeout"
-            placeholder="请填写key的超时时间单位（秒）！"
+            placeholder="請填寫key的超時時間單位（秒）！"
           />
         </el-form-item>
 
         <el-form-item
           v-if="[1, 3].includes(Number(formPackage.keyType))"
-          label="文件上传"
+          label="文件上傳"
           prop="isFileUpload"
         >
           <el-radio-group v-model="formPackage.isFileUpload">
@@ -994,9 +994,9 @@ onMounted(() => {
           <el-tooltip class="box-item" effect="dark" placement="right">
             <template #content>
               <div style="width: 250px">
-                选择是否开启文件上传及其格式，逆向格式【直接附带链接，仅支持逆向渠道】，4o格式【OpenAI
+                選擇是否開啟文件上傳及其格式，逆向格式【直接附帶鏈接，僅支持逆向渠道】，4o格式【OpenAI
                 Chat
-                的识图格式，仅支持图片】，文件分析【内置方式的文件分析，支持全模型分析带文字的文件】
+                的識圖格式，僅支持圖片】，文件分析【內置方式的文件分析，支持全模型分析帶文字的文件】
               </div>
             </template>
             <el-icon class="ml-3 cursor-pointer">
@@ -1006,17 +1006,17 @@ onMounted(() => {
         </el-form-item>
         <el-form-item
           v-if="[1, 3].includes(Number(formPackage.keyType))"
-          label="token 关联计费"
+          label="token 關聯計費"
           prop="isTokenBased"
         >
           <el-switch v-model="formPackage.isTokenBased" />
           <el-tooltip class="box-item" effect="dark" placement="right">
             <template #content>
               <div style="width: 250px">
-                关联 token 的梯度计费模型，每次扣除的积分 = 单次扣除金额
-                *（token 消耗 / token 计费比例）结果向上取整【例如单次扣除金额为
-                3 积分，token 计费比例为 1000，用户调用消耗 2500
-                token，那么扣除的积分为 3 *（2500 / 1000）向上取整 9 积分】
+                關聯 token 的梯度計費模型，每次扣除的積分 = 單次扣除金額
+                *（token 消耗 / token 計費比例）結果向上取整【例如單次扣除金額為
+                3 積分，token 計費比例為 1000，用戶調用消耗 2500
+                token，那麼扣除的積分為 3 *（2500 / 1000）向上取整 9 積分】
               </div>
             </template>
             <el-icon class="ml-3 cursor-pointer">
@@ -1027,18 +1027,18 @@ onMounted(() => {
 
         <el-form-item
           v-if="[1, 3].includes(Number(formPackage.keyType))"
-          label="token计费比例"
+          label="token計費比例"
           prop="tokenFeeRatio"
         >
           <el-input
             v-model.number="formPackage.tokenFeeRatio"
-            placeholder="请填写token计费比例"
+            placeholder="請填寫token計費比例"
             style="width: 80%"
           />
           <!-- <el-tooltip class="box-item" effect="dark" placement="right">
             <template #content>
               <div style="width: 250px">
-                开启 Token 计费后生效，每积分等价于多少 Token
+                開啟 Token 計費後生效，每積分等價於多少 Token
               </div>
             </template>
             <el-icon class="ml-3 cursor-pointer"><QuestionFilled /></el-icon>

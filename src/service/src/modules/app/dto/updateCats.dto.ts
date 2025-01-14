@@ -4,7 +4,7 @@ import { Type } from 'class-transformer';
 import { CreateCatsDto } from './createCats.dto';
 
 export class UpdateCatsDto extends CreateCatsDto {
-  @ApiProperty({ example: 1, description: '要修改的分类Id', required: true })
-  @IsNumber({}, { message: '分类ID必须是Number' })
+  @ApiProperty({ example: 1, description: '要修改的分類Id', required: true })
+  @IsNumber({}, { message: '分類ID必須是Number' })
   id: number;
 }

@@ -16,7 +16,7 @@ class CollectAppDto {
 }
 __decorate([
     (0, swagger_1.ApiProperty)({ example: 1, description: '要收藏的appId', required: true }),
-    (0, class_validator_1.IsNumber)({}, { message: 'ID必须是Number' }),
+    (0, class_validator_1.IsNumber)({}, { message: 'ID必須是Number' }),
     __metadata("design:type", Number)
 ], CollectAppDto.prototype, "appId", void 0);
 exports.CollectAppDto = CollectAppDto;

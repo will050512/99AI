@@ -15,24 +15,24 @@ const class_validator_1 = require("class-validator");
 class UserRegisterDto {
 }
 __decorate([
-    (0, swagger_1.ApiProperty)({ example: 'cooper', description: '用户名称' }),
+    (0, swagger_1.ApiProperty)({ example: 'cooper', description: '用戶名稱' }),
     __metadata("design:type", String)
 ], UserRegisterDto.prototype, "username", void 0);
 __decorate([
-    (0, swagger_1.ApiProperty)({ example: '123456', description: '用户密码' }),
-    (0, class_validator_1.IsNotEmpty)({ message: '用户密码不能为空' }),
-    (0, class_validator_1.MinLength)(6, { message: '用户密码最低需要大于6位数！' }),
-    (0, class_validator_1.MaxLength)(30, { message: '用户密码最长不能超过30位数！' }),
+    (0, swagger_1.ApiProperty)({ example: '123456', description: '用戶密碼' }),
+    (0, class_validator_1.IsNotEmpty)({ message: '用戶密碼不能為空' }),
+    (0, class_validator_1.MinLength)(6, { message: '用戶密碼最低需要大於6位數！' }),
+    (0, class_validator_1.MaxLength)(30, { message: '用戶密碼最長不能超過30位數！' }),
     __metadata("design:type", String)
 ], UserRegisterDto.prototype, "password", void 0);
 __decorate([
-    (0, swagger_1.ApiProperty)({ example: 'ai@aiweb.com', description: '用户邮箱' }),
+    (0, swagger_1.ApiProperty)({ example: 'ai@aiweb.com', description: '用戶郵箱' }),
     __metadata("design:type", String)
 ], UserRegisterDto.prototype, "email", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)({
         example: '',
-        description: '用户头像',
+        description: '用戶頭像',
         required: false,
     }),
     (0, class_validator_1.IsOptional)(),
@@ -41,7 +41,7 @@ __decorate([
 __decorate([
     (0, swagger_1.ApiProperty)({
         example: 'default',
-        description: '用户注册来源',
+        description: '用戶註冊來源',
         required: false,
     }),
     (0, class_validator_1.IsOptional)(),

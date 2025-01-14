@@ -15,8 +15,8 @@ const swagger_1 = require("@nestjs/swagger");
 class UseCramiDto {
 }
 __decorate([
-    (0, swagger_1.ApiProperty)({ example: 'ffar684rv254fs4f', description: '卡密信息', required: true }),
-    (0, class_validator_1.IsDefined)({ message: '套餐名称是必传参数' }),
+    (0, swagger_1.ApiProperty)({ example: 'ffar684rv254fs4f', description: '序號資訊', required: true }),
+    (0, class_validator_1.IsDefined)({ message: '套餐名稱是必傳參數' }),
     __metadata("design:type", String)
 ], UseCramiDto.prototype, "code", void 0);
 exports.UseCramiDto = UseCramiDto;

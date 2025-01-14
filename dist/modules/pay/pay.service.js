@@ -56,13 +56,13 @@ let PayService = class PayService {
             where: { userId, orderId },
         });
         if (!order)
-            throw new common_1.HttpException('订单不存在!', common_1.HttpStatus.BAD_REQUEST);
+            throw new common_1.HttpException('訂單不存在!', common_1.HttpStatus.BAD_REQUEST);
         const goods = await this.cramiPackageEntity.findOne({
             where: { id: order.goodsId },
         });
         if (!goods)
             throw new common_1.HttpException('套餐不存在!', common_1.HttpStatus.BAD_REQUEST);
-        common_1.Logger.log('本次支付类型: ', order.payPlatform);
+        common_1.Logger.log('本次支付類型: ', order.payPlatform);
         try {
             if (order.payPlatform == 'wechat') {
                 return this.payWeChat(userId, orderId, payType);
@@ -81,14 +81,14 @@ let PayService = class PayService {
             }
         }
         catch (error) {
-            common_1.Logger.log('支付请求失败: ', error);
-            throw new common_1.HttpException('支付请求失败!', common_1.HttpStatus.BAD_REQUEST);
+            common_1.Logger.log('支付請求失敗: ', error);
+            throw new common_1.HttpException('支付請求失敗!', common_1.HttpStatus.BAD_REQUEST);
         }
     }
     async query(orderId) {
         const order = await this.orderEntity.findOne({ where: { orderId } });
         if (!order)
-            throw new common_1.HttpException('订单不存在!', common_1.HttpStatus.BAD_REQUEST);
+            throw new common_1.HttpException('訂單不存在!', common_1.HttpStatus.BAD_REQUEST);
         return order;
     }
     async notifyHupi(params) {
@@ -115,7 +115,7 @@ let PayService = class PayService {
             where: { userId, orderId },
         });
         if (!order)
-            throw new common_1.HttpException('订单不存在!', common_1.HttpStatus.BAD_REQUEST);
+            throw new common_1.HttpException('訂單不存在!', common_1.HttpStatus.BAD_REQUEST);
         const goods = await this.cramiPackageEntity.findOne({
             where: { id: order.goodsId },
         });
@@ -171,7 +171,7 @@ let PayService = class PayService {
         ]);
         if (this.sign(params, payEpaySecret) != sign)
             return 'failed';
-        common_1.Logger.log('校验签名通过');
+        common_1.Logger.log('校驗簽名通過');
         const order = await this.orderEntity.findOne({
             where: { orderId: params['out_trade_no'], status: 0 },
         });
@@ -191,7 +191,7 @@ let PayService = class PayService {
             where: { userId, orderId },
         });
         if (!order)
-            throw new common_1.HttpException('订单不存在!', common_1.HttpStatus.BAD_REQUEST);
+            throw new common_1.HttpException('訂單不存在!', common_1.HttpStatus.BAD_REQUEST);
         const goods = await this.cramiPackageEntity.findOne({
             where: { id: order.goodsId },
         });
@@ -276,10 +276,10 @@ let PayService = class PayService {
         const payMpaySecret = await this.globalConfigService.getConfigs([
             'payMpaySecret',
         ]);
-        common_1.Logger.log('校验签名');
+        common_1.Logger.log('校驗簽名');
         if (this.sign(params, payMpaySecret) != sign)
             return 'failed';
-        common_1.Logger.log('校验签名通过');
+        common_1.Logger.log('校驗簽名通過');
         const order = await this.orderEntity.findOne({
             where: { orderId: params['out_trade_no'], status: 0 },
         });
@@ -300,7 +300,7 @@ let PayService = class PayService {
             where: { userId, orderId },
         });
         if (!order)
-            throw new common_1.HttpException('订单不存在!', common_1.HttpStatus.BAD_REQUEST);
+            throw new common_1.HttpException('訂單不存在!', common_1.HttpStatus.BAD_REQUEST);
         const goods = await this.cramiPackageEntity.findOne({
             where: { id: order.goodsId },
         });
@@ -383,7 +383,7 @@ let PayService = class PayService {
         }
         catch (error) {
             common_1.Logger.log('error: ', error);
-            common_1.Logger.log('支付通知验证失败: ', error);
+            common_1.Logger.log('支付通知驗證失敗: ', error);
             return 'failed';
         }
     }
@@ -394,7 +394,7 @@ let PayService = class PayService {
             where: { userId, orderId },
         });
         if (!order)
-            throw new common_1.HttpException('订单不存在!', common_1.HttpStatus.BAD_REQUEST);
+            throw new common_1.HttpException('訂單不存在!', common_1.HttpStatus.BAD_REQUEST);
         const goods = await this.cramiPackageEntity.findOne({
             where: { id: order.goodsId },
         });
@@ -425,15 +425,15 @@ let PayService = class PayService {
         };
         common_1.Logger.log('wechat-pay: ', params);
         if (payType == 'jsapi') {
-            common_1.Logger.log(`[WeChat Pay JSAPI] 开始JSAPI支付流程，用户ID: ${userId}, 订单ID: ${orderId}`);
+            common_1.Logger.log(`[WeChat Pay JSAPI] 開始JSAPI支付流程，用戶ID: ${userId}, 訂單ID: ${orderId}`);
             const openid = await this.userService.getOpenIdByUserId(userId);
-            common_1.Logger.log(`[WeChat Pay JSAPI] 用户OpenID: ${openid}`);
+            common_1.Logger.log(`[WeChat Pay JSAPI] 用戶OpenID: ${openid}`);
             params['payer'] = { openid: openid };
-            common_1.Logger.log(`[WeChat Pay JSAPI] 发送支付请求参数: `, JSON.stringify(params, null, 2));
+            common_1.Logger.log(`[WeChat Pay JSAPI] 發送支付請求參數: `, JSON.stringify(params, null, 2));
             try {
                 const response = await pay.transactions_jsapi(params);
                 const result = response.data ? response.data : response;
-                common_1.Logger.log(`[WeChat Pay JSAPI] 支付请求成功，返回结果: `, JSON.stringify(result, null, 2));
+                common_1.Logger.log(`[WeChat Pay JSAPI] 支付請求成功，返回結果: `, JSON.stringify(result, null, 2));
                 return {
                     status: response.status || 'unknown',
                     appId: result.appId || ((_a = result.data) === null || _a === void 0 ? void 0 : _a.appId),
@@ -445,33 +445,33 @@ let PayService = class PayService {
                 };
             }
             catch (error) {
-                console.error(`[WeChat Pay JSAPI] 支付请求过程中发生错误: ${error.message}`, error);
-                console.error('[WeChat Pay JSAPI] 完整的错误对象：', error);
-                throw new common_1.HttpException('JSAPI支付失败', common_1.HttpStatus.BAD_REQUEST);
+                console.error(`[WeChat Pay JSAPI] 支付請求過程中發生錯誤: ${error.message}`, error);
+                console.error('[WeChat Pay JSAPI] 完整的錯誤對象：', error);
+                throw new common_1.HttpException('JSAPI支付失敗', common_1.HttpStatus.BAD_REQUEST);
             }
         }
         if (payType == 'native') {
-            common_1.Logger.log(`开始进行微信Native支付流程，订单ID: ${orderId}, 用户ID: ${userId}`);
+            common_1.Logger.log(`開始進行微信Native支付流程，訂單ID: ${orderId}, 用戶ID: ${userId}`);
             try {
                 const res = await pay.transactions_native(params);
-                common_1.Logger.log(`微信Native支付响应数据: `, JSON.stringify(res, null, 2));
+                common_1.Logger.log(`微信Native支付響應數據: `, JSON.stringify(res, null, 2));
                 let url_qrcode = res.code_url || ((_g = res.data) === null || _g === void 0 ? void 0 : _g.code_url);
                 if (!url_qrcode) {
-                    console.error(`微信Native支付请求成功，但未返回code_url，响应数据: `, JSON.stringify(res, null, 2));
+                    console.error(`微信Native支付請求成功，但未返回code_url，響應數據: `, JSON.stringify(res, null, 2));
                 }
                 else {
-                    common_1.Logger.log(`微信Native支付请求成功，code_url: ${url_qrcode}`);
+                    common_1.Logger.log(`微信Native支付請求成功，code_url: ${url_qrcode}`);
                 }
                 return { url_qrcode, isRedirect: false };
             }
             catch (error) {
-                console.error(`微信Native支付过程中发生错误，错误信息: ${error.message}`, error);
-                console.error('完整的错误对象：', error);
-                throw new common_1.HttpException('微信Native支付失败', common_1.HttpStatus.BAD_REQUEST);
+                console.error(`微信Native支付過程中發生錯誤，錯誤資訊: ${error.message}`, error);
+                console.error('完整的錯誤對象：', error);
+                throw new common_1.HttpException('微信Native支付失敗', common_1.HttpStatus.BAD_REQUEST);
             }
         }
         else {
-            console.warn(`支付请求使用了不支持的支付类型: ${payType}`);
+            console.warn(`支付請求使用了不支持的支付類型: ${payType}`);
             throw new common_1.HttpException('unsupported pay type', common_1.HttpStatus.BAD_REQUEST);
         }
     }
@@ -514,7 +514,7 @@ let PayService = class PayService {
             where: { userId, orderId },
         });
         if (!order)
-            throw new common_1.HttpException('订单不存在!', common_1.HttpStatus.BAD_REQUEST);
+            throw new common_1.HttpException('訂單不存在!', common_1.HttpStatus.BAD_REQUEST);
         const goods = await this.cramiPackageEntity.findOne({
             where: { id: order.goodsId },
         });

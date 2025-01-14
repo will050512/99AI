@@ -21,7 +21,7 @@ export class OfficialController {
   constructor(private readonly officialService: OfficialService) {}
 
   @Get('notify')
-  @ApiOperation({ summary: '公众号通知接口GET' })
+  @ApiOperation({ summary: '公眾號通知介面GET' })
   async notify(@Req() req, @Query() query, @Body() body) {
     console.log('get 通知>>>', query, body);
     const result = await this.officialService.verify(
@@ -33,20 +33,20 @@ export class OfficialController {
   }
 
   @Post('notify')
-  @ApiOperation({ summary: '公众号通知接口POST' })
+  @ApiOperation({ summary: '公眾號通知介面POST' })
   async notifyPost(@Req() req, @Query() query, @Body() xmlData, @Res() res) {
     const { xml } = xmlData;
     console.log('xml: ', xml);
-    /* 扫码 */
+    /* 掃碼 */
     if (xml.msgtype[0] == 'event') {
       if (xml.event[0] == 'VIEW' || xml.event[0] == 'CLICK') {
         return res.status(200).send('');
       }
-      /* 扫码 */
+      /* 掃碼 */
       if (xml.event[0] == 'SCAN') {
-        console.log('扫码');
+        console.log('掃碼');
         const sceneStr = xml.eventkey[0];
-        /* 绑定微信以/区分 */
+        /* 綁定微信以/區分 */
         if (sceneStr.includes('/')) {
           this.officialService.scanBindWx(xml.fromusername[0], sceneStr);
           const xmlMsg = await this.officialService.genXmlMsgByConfig(
@@ -63,12 +63,12 @@ export class OfficialController {
         return res.status(200).send(xmlMsg);
       }
 
-      /* 订阅 */
+      /* 訂閱 */
       if (xml.event[0] == 'subscribe') {
-        console.log('订阅', xml.eventkey[0]);
+        console.log('訂閱', xml.eventkey[0]);
         const sceneStr = xml.eventkey[0].split('qrscene_')[1];
         console.log('sceneStr: ', sceneStr);
-        /* 没有场景str则是单纯关注了直接返回 */
+        /* 沒有場景str則是單純關注了直接返回 */
         if (!sceneStr) {
           const xmlMsg = await this.officialService.genXmlMsgByConfig(
             xml,
@@ -76,7 +76,7 @@ export class OfficialController {
           );
           return res.status(200).send(xmlMsg);
         }
-        /* 绑定微信以/区分 */
+        /* 綁定微信以/區分 */
         if (sceneStr.includes('/')) {
           this.officialService.scanBindWx(xml.fromusername[0], sceneStr);
           const xmlMsg = await this.officialService.genXmlMsgByConfig(
@@ -93,13 +93,13 @@ export class OfficialController {
         return res.status(200).send(xmlMsg);
       }
 
-      /* 取消订阅 */
+      /* 取消訂閱 */
       if (xml.event[0] == 'unsubscribe') {
         return res.status(200).send('');
       }
     }
 
-    /* 客户端发送了文字消息 */
+    /* 客戶端發送了文字消息 */
     if (xml.msgtype[0] == 'text') {
       const aotoPlayMsg = await this.officialService.aotoPlay(xml.content[0]);
       const xmlMsg = await this.officialService.genXmlMsg(xml, aotoPlayMsg);
@@ -109,20 +109,20 @@ export class OfficialController {
   }
 
   @Post('getQRSceneStr')
-  @ApiOperation({ summary: '获取登录二维码sceneStr' })
+  @ApiOperation({ summary: '獲取登錄二維碼sceneStr' })
   async getQRSceneStr() {
     return this.officialService.getQRSceneStr();
   }
 
   @Post('getQRSceneStrByBind')
-  @ApiOperation({ summary: '获取绑定二维码的sceneStr' })
+  @ApiOperation({ summary: '獲取綁定二維碼的sceneStr' })
   @UseGuards(JwtAuthGuard)
   async getQRSceneStrByBind(@Req() req: Request) {
     return this.officialService.getQRSceneStrByBind(req);
   }
 
   @Get('getQRCode')
-  @ApiOperation({ summary: '获取二维码' })
+  @ApiOperation({ summary: '獲取二維碼' })
   async getQRCode(@Query() query: GetQrCodeDto) {
     if (process.env.ISDEV === 'TRUE') return '';
     const ticket = await this.officialService.getQRCodeTicket(query.sceneStr);
@@ -133,32 +133,32 @@ export class OfficialController {
   }
 
   @Post('loginBySceneStr')
-  @ApiOperation({ summary: '扫码登录轮询查询' })
+  @ApiOperation({ summary: '掃碼登錄輪詢查詢' })
   async loginBySceneStr(@Req() req: Request, @Body() body: any) {
     return this.officialService.loginBySceneStr(req, body);
   }
 
   @Post('bindWxBySceneStr')
-  @ApiOperation({ summary: '扫码绑定轮询查询' })
+  @ApiOperation({ summary: '掃碼綁定輪詢查詢' })
   @UseGuards(JwtAuthGuard)
   async bindWxBySceneStr(@Req() req: Request, @Body() body: GetQrCodeDto) {
     return this.officialService.bindWxBySceneStr(req, body.sceneStr);
   }
 
   @Post('getRedirectUrl')
-  @ApiOperation({ summary: '获取登录跳转地址' })
+  @ApiOperation({ summary: '獲取登錄跳轉地址' })
   async getRedirectUrl(@Body() body: { url: string }) {
     return this.officialService.getRedirectUrl(body.url);
   }
 
   @Post('getJsapiTicket')
-  @ApiOperation({ summary: '获取注册配置' })
+  @ApiOperation({ summary: '獲取註冊配置' })
   async getJsapiTicket(@Body() body: { url: string }) {
     return this.officialService.getJsapiTicket(body.url);
   }
 
   @Post('loginByCode')
-  @ApiOperation({ summary: '公众号静默登录' })
+  @ApiOperation({ summary: '公眾號靜默登錄' })
   async loginByCode(@Req() req: Request, @Body() body: { code: string }) {
     return this.officialService.loginByCode(req, body.code);
   }

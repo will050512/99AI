@@ -2,7 +2,7 @@ import { handleError } from '@/common/utils';
 import { Injectable, Logger } from '@nestjs/common';
 import axios, { AxiosRequestConfig } from 'axios';
 import { GlobalConfigService } from '../globalConfig/globalConfig.service';
-// 引入其他需要的模块或服务
+// 引入其他需要的模塊或服務
 
 @Injectable()
 export class OpenAIChatService {
@@ -54,7 +54,7 @@ export class OpenAIChatService {
       modelAvatar: modelAvatar,
     };
 
-    // 请求数据的构建
+    // 請求數據的構建
     const data: any = {
       model,
       messages: messagesHistory,
@@ -76,17 +76,17 @@ export class OpenAIChatService {
       data: data,
     };
 
-    // 在打印日志之前，对请求配置进行清理
+    // 在打印日誌之前，對請求配置進行清理
     const sanitizedOptions = await this.sanitizeOptionsForLogging(options);
 
-    // 打印清理后的请求配置
+    // 打印清理後的請求配置
     console.log(
-      '请求配置:',
+      '請求配置:',
       JSON.stringify(sanitizedOptions, null, 2),
       'ChatService'
     );
     console.log(
-      '请求配置:',
+      '請求配置:',
       JSON.stringify(sanitizedOptions, null, 2),
       'ChatService'
     );
@@ -106,7 +106,7 @@ export class OpenAIChatService {
 
           lines.forEach((line) => {
             if (line.trim() === 'data: [DONE]') {
-              console.log('处理结束信号 [DONE]');
+              console.log('處理結束信號 [DONE]');
               resolve(result);
               return;
             }
@@ -132,7 +132,7 @@ export class OpenAIChatService {
           reject(error);
         });
         abortController.signal.addEventListener('abort', () => {
-          // Logger.log('用户终止请求', 'ChatService');
+          // Logger.log('用戶終止請求', 'ChatService');
           resolve(result);
         });
       });
@@ -146,20 +146,20 @@ export class OpenAIChatService {
     }
   }
 
-  // 对请求配置进行清理，移除或替换敏感数据
+  // 對請求配置進行清理，移除或替換敏感數據
   async sanitizeOptionsForLogging(
     options: AxiosRequestConfig
   ): Promise<AxiosRequestConfig> {
-    // 深拷贝 options 对象
+    // 深拷貝 options 對象
     const sanitizedOptions = JSON.parse(JSON.stringify(options));
 
-    // 清理 Authorization 头中的敏感数据
+    // 清理 Authorization 頭中的敏感數據
     if (sanitizedOptions.headers && sanitizedOptions.headers.Authorization) {
       const authHeader = sanitizedOptions.headers.Authorization;
       if (authHeader.startsWith('Bearer ')) {
-        const token = authHeader.slice(7); // 移除 'Bearer ' 前缀
+        const token = authHeader.slice(7); // 移除 'Bearer ' 前綴
         if (token.length > 10) {
-          // 只显示首尾部分字符，中间用****代替
+          // 只顯示首尾部分字符，中間用****代替
           sanitizedOptions.headers.Authorization = `Bearer ${token.slice(
             0,
             5
@@ -168,7 +168,7 @@ export class OpenAIChatService {
       }
     }
 
-    // 遍历 messages，检查是否存在 base64 数据或 URL，并替换它们
+    // 遍歷 messages，檢查是否存在 base64 數據或 URL，並替換它們
     if (
       sanitizedOptions.data &&
       sanitizedOptions.data.messages &&
@@ -183,7 +183,7 @@ export class OpenAIChatService {
                 content.image_url &&
                 content.image_url.url
               ) {
-                content.image_url.url = 'data:image/***;base64 ... ...'; // 隐藏 Base64 数据或 URL
+                content.image_url.url = 'data:image/***;base64 ... ...'; // 隱藏 Base64 數據或 URL
               }
               return content;
             });
@@ -215,7 +215,7 @@ export class OpenAIChatService {
 
     let requestData = [];
 
-    // 如果存在systemMessage，首先添加系统消息
+    // 如果存在systemMessage，首先添加系統消息
     if (systemMessage) {
       requestData.push({
         role: 'system',
@@ -223,11 +223,11 @@ export class OpenAIChatService {
       });
     }
 
-    // 根据messagesHistory存在与否构建请求数据
+    // 根據messagesHistory存在與否構建請求數據
     if (messagesHistory && messagesHistory.length > 0) {
-      requestData = requestData.concat(messagesHistory); // 使用concat合并，避免直接修改messagesHistory
+      requestData = requestData.concat(messagesHistory); // 使用concat合併，避免直接修改messagesHistory
     } else {
-      // 如果没有提供messagesHistory，添加用户的prompt
+      // 如果沒有提供messagesHistory，添加用戶的prompt
       requestData.push({
         role: 'user',
         content: prompt,
@@ -250,7 +250,7 @@ export class OpenAIChatService {
     try {
       const response: any = await axios(options);
       Logger.log(
-        `全局模型调用成功, 返回结果: ${response?.data.choices[0].message.content}`,
+        `全局模型調用成功, 返回結果: ${response?.data.choices[0].message.content}`,
         'ChatService'
       );
       return response?.data.choices[0].message.content;

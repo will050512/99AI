@@ -1,17 +1,17 @@
 /**
- * @desc 处理不同模型返回的最后一次汇总内容 输出为相同格式  方便后面使用
- * @param keyType 模型key类型
- * @param response 模型返回的整体内容
+ * @desc 處理不同模型返回的最後一次彙總內容 輸出為相同格式  方便後面使用
+ * @param keyType 模型key類型
+ * @param response 模型返回的整體內容
  */
 export function unifiedFormattingResponse(keyType, response, others) {
   let formatRes = {
-    keyType, // 模型类型
-    parentMessageId: '', // 父级对话id
-    text: '', //本次回复内容
+    keyType, // 模型類型
+    parentMessageId: '', // 父級對話id
+    text: '', //本次回覆內容
     usage: {
-      prompt_tokens: 0, //提问token
+      prompt_tokens: 0, //提問token
       completion_tokens: 0, // 回答token
-      total_tokens: 0, // 总消耗token
+      total_tokens: 0, // 總消耗token
     }
   }
   /* openai */
@@ -59,7 +59,7 @@ export function unifiedFormattingResponse(keyType, response, others) {
   return formatRes;
 }
 
-/*百度的模型不允许传入偶数的message数组  让round为奇数的时候 加一 */
+/*百度的模型不允許傳入偶數的message數組  讓round為奇數的時候 加一 */
 export function addOneIfOdd(num) {
   if (num % 2 !== 0) {
     return num + 1;

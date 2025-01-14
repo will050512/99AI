@@ -4,15 +4,15 @@ import { Type } from 'class-transformer';
 import { BaseEntity } from 'typeorm';
 
 export class QueryByAppIdDto {
-  @ApiProperty({ example: 1, description: '应用Id', required: true })
+  @ApiProperty({ example: 1, description: '應用Id', required: true })
   @IsOptional()
   appId: number;
 
-  @ApiProperty({ example: 1, description: '查询页数', required: false })
+  @ApiProperty({ example: 1, description: '查詢頁數', required: false })
   @IsOptional()
   page: number;
 
-  @ApiProperty({ example: 10, description: '每页数量', required: false })
+  @ApiProperty({ example: 10, description: '每頁數量', required: false })
   @IsOptional()
   size: number;
 }

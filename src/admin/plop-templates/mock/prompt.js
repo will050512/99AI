@@ -15,12 +15,12 @@ function getFolder(path) {
 }
 
 export default {
-  description: '创建标准模块 Mock',
+  description: '創建標準模塊 Mock',
   prompts: [
     {
       type: 'list',
       name: 'path',
-      message: '请选择模块目录',
+      message: '請選擇模塊目錄',
       choices: getFolder('src/views'),
     },
   ],

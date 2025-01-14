@@ -48,11 +48,11 @@ const uploadData = ref({
   },
 })
 
-// 预览
+// 預覽
 function preview() {
   uploadData.value.imageViewerVisible = true
 }
-// 关闭预览
+// 關閉預覽
 function previewClose() {
   uploadData.value.imageViewerVisible = false
 }
@@ -66,10 +66,10 @@ const beforeUpload: UploadProps['beforeUpload'] = (file) => {
   const isTypeOk = props.ext.includes(fileExt)
   const isSizeOk = file.size / 1024 / 1024 < props.size
   if (!isTypeOk) {
-    ElMessage.error(`上传图片只支持 ${props.ext.join(' / ')} 格式！`)
+    ElMessage.error(`上傳圖片只支持 ${props.ext.join(' / ')} 格式！`)
   }
   if (!isSizeOk) {
-    ElMessage.error(`上传图片大小不能超过 ${props.size}MB！`)
+    ElMessage.error(`上傳圖片大小不能超過 ${props.size}MB！`)
   }
   if (isTypeOk && isSizeOk) {
     uploadData.value.progress.preview = URL.createObjectURL(file)
@@ -111,7 +111,7 @@ const onSuccess: UploadProps['onSuccess'] = (res) => {
         <ElImage :src="url" :style="`width:${width}px;height:${height}px;`" fit="fill" />
         <div class="mask">
           <div class="actions">
-            <span title="预览" @click.stop="preview">
+            <span title="預覽" @click.stop="preview">
               <SvgIcon name="i-ep:zoom-in" class="icon" />
             </span>
             <span title="移除" @click.stop="remove">
@@ -127,7 +127,7 @@ const onSuccess: UploadProps['onSuccess'] = (res) => {
     </ElUpload>
     <div v-if="!notip" class="el-upload__tip">
       <div style="display: inline-block;">
-        <ElAlert :title="`上传图片支持 ${ext.join(' / ')} 格式，且图片大小不超过 ${size}MB，建议图片尺寸为 ${width}*${height}`" type="info" show-icon :closable="false" />
+        <ElAlert :title="`上傳圖片支持 ${ext.join(' / ')} 格式，且圖片大小不超過 ${size}MB，建議圖片尺寸為 ${width}*${height}`" type="info" show-icon :closable="false" />
       </div>
     </div>
     <ElImageViewer v-if="uploadData.imageViewerVisible" :url-list="[url]" teleported @close="previewClose" />

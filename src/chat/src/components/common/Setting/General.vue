@@ -55,7 +55,7 @@ const themeOptions: { label: string; key: Theme; icon: string }[] = [
 ]
 
 const languageOptions: { label: string; key: Language; value: Language }[] = [
-  { label: '简体中文', key: 'zh-CN', value: 'zh-CN' },
+  { label: '簡體中文', key: 'zh-CN', value: 'zh-CN' },
   // { label: '繁體中文', key: 'zh-TW', value: 'zh-TW' },
   // { label: 'English', key: 'en-US', value: 'en-US' },
 ]
@@ -131,7 +131,7 @@ function handleImportButtonClick(): void {
       <div class="flex items-center space-x-4">
         <span class="flex-shrink-0 w-[100px]">{{ $t('setting.avatarLink') }}</span>
         <div class="flex-1">
-          <NInput v-model:value="avatar" placeholder="请填写头像地址" />
+          <NInput v-model:value="avatar" placeholder="請填寫頭像地址" />
         </div>
         <NButton size="tiny" :disabled="btnDisabled" text type="primary" @click="updateUserInfo({ avatar })">
           {{ $t('common.update') }}
@@ -140,7 +140,7 @@ function handleImportButtonClick(): void {
       <div class="flex items-center space-x-4">
         <span class="flex-shrink-0 w-[100px]">{{ $t('setting.name') }}</span>
         <div class="w-[200px]">
-          <NInput v-model:value="username" placeholder="请填写用户名" />
+          <NInput v-model:value="username" placeholder="請填寫用戶名" />
         </div>
         <NButton size="tiny" :disabled="btnDisabled" text type="primary" @click="updateUserInfo({ username })">
           {{ $t('common.update') }}

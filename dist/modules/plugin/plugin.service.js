@@ -54,7 +54,7 @@ let PluginService = class PluginService {
             where: { name },
         });
         if (existingPlugin) {
-            throw new common_1.HttpException('该插件名称已存在！', common_1.HttpStatus.BAD_REQUEST);
+            throw new common_1.HttpException('該外掛名稱已存在！', common_1.HttpStatus.BAD_REQUEST);
         }
         const newPlugin = this.PluginEntity.create({
             name,
@@ -73,13 +73,13 @@ let PluginService = class PluginService {
             where: { id },
         });
         if (!existingPlugin) {
-            throw new common_1.HttpException('插件不存在！', common_1.HttpStatus.BAD_REQUEST);
+            throw new common_1.HttpException('外掛不存在！', common_1.HttpStatus.BAD_REQUEST);
         }
         const duplicatePlugin = await this.PluginEntity.findOne({
             where: { name, id: (0, typeorm_2.Not)(id) },
         });
         if (duplicatePlugin) {
-            throw new common_1.HttpException('该插件名称已存在！', common_1.HttpStatus.BAD_REQUEST);
+            throw new common_1.HttpException('該外掛名稱已存在！', common_1.HttpStatus.BAD_REQUEST);
         }
         existingPlugin.name = name;
         existingPlugin.pluginImg = pluginImg;
@@ -94,7 +94,7 @@ let PluginService = class PluginService {
         existingPlugin.sortOrder =
             sortOrder !== undefined ? sortOrder : existingPlugin.sortOrder;
         await this.PluginEntity.save(existingPlugin);
-        return '修改插件信息成功';
+        return '修改外掛資訊成功';
     }
     async delPlugin(body) {
         const { id } = body;
@@ -102,14 +102,14 @@ let PluginService = class PluginService {
             where: { id },
         });
         if (!existingPlugin) {
-            throw new common_1.HttpException('该插件不存在！', common_1.HttpStatus.BAD_REQUEST);
+            throw new common_1.HttpException('該外掛不存在！', common_1.HttpStatus.BAD_REQUEST);
         }
         const deleteResult = await this.PluginEntity.delete(id);
         if (deleteResult.affected > 0) {
-            return '删除插件成功';
+            return '刪除外掛成功';
         }
         else {
-            throw new common_1.HttpException('删除插件失败！', common_1.HttpStatus.BAD_REQUEST);
+            throw new common_1.HttpException('刪除外掛失敗！', common_1.HttpStatus.BAD_REQUEST);
         }
     }
 };

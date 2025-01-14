@@ -3,7 +3,7 @@ import settingsDefault from '@/settings.default';
 import { defaultsDeep } from 'lodash-es';
 
 const globalSettings: Settings.all = {
-  // 请在此处编写或粘贴配置代码
+  // 請在此處編寫或粘貼配置代碼
   menu: {
     menuMode: 'single',
     enableSubMenuCollapseButton: true,
@@ -14,9 +14,9 @@ const globalSettings: Settings.all = {
   },
   topbar: {
     /**
-     * static 默认，静止，跟随页面滚动
-     * fixed 固定，不跟随页面滚动，始终固定在顶部
-     * sticky 粘性，页面往下滚动时隐藏，往上滚动时显示
+     * static 默認，靜止，跟隨頁面滾動
+     * fixed 固定，不跟隨頁面滾動，始終固定在頂部
+     * sticky 粘性，頁面往下滾動時隱藏，往上滾動時顯示
      */
     mode: 'static',
   },

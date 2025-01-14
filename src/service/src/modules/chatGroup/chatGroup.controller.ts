@@ -13,7 +13,7 @@ export class ChatGroupController {
   constructor(private readonly chatGroupService: ChatGroupService) {}
 
   @Post('create')
-  @ApiOperation({ summary: '创建对话组' })
+  @ApiOperation({ summary: '創建對話組' })
   @UseGuards(JwtAuthGuard)
   @ApiBearerAuth()
   create(@Body() body: CreateGroupDto, @Req() req: Request) {
@@ -21,7 +21,7 @@ export class ChatGroupController {
   }
 
   @Get('query')
-  @ApiOperation({ summary: '查询对话组' })
+  @ApiOperation({ summary: '查詢對話組' })
   @UseGuards(JwtAuthGuard)
   @ApiBearerAuth()
   query(@Req() req: Request) {
@@ -29,7 +29,7 @@ export class ChatGroupController {
   }
 
   @Post('update')
-  @ApiOperation({ summary: '更新对话组' })
+  @ApiOperation({ summary: '更新對話組' })
   @UseGuards(JwtAuthGuard)
   @ApiBearerAuth()
   update(@Body() body: UpdateGroupDto, @Req() req: Request) {
@@ -37,7 +37,7 @@ export class ChatGroupController {
   }
 
   @Post('del')
-  @ApiOperation({ summary: '删除对话组' })
+  @ApiOperation({ summary: '刪除對話組' })
   @UseGuards(JwtAuthGuard)
   @ApiBearerAuth()
   del(@Body() body: DelGroupDto, @Req() req: Request) {
@@ -45,7 +45,7 @@ export class ChatGroupController {
   }
 
   @Post('delAll')
-  @ApiOperation({ summary: '删除对话组' })
+  @ApiOperation({ summary: '刪除對話組' })
   @UseGuards(JwtAuthGuard)
   @ApiBearerAuth()
   delAll(@Req() req: Request) {

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-// 行政区划数据来源于 https://github.com/modood/Administrative-divisions-of-China
+// 行政區劃數據來源於 https://github.com/modood/Administrative-divisions-of-China
 import pcasRaw from './pcas-code.json'
 
 defineOptions({
@@ -49,7 +49,7 @@ const pcasData = computed(() => {
       }
       if (['pca', 'pcas'].includes(props.type)) {
         const tempChildrenA: pcasItem[] = []
-        // 区县
+        // 區縣
         c.children.forEach((a) => {
           const tempA: pcasItem = {
             code: a.code,
@@ -80,11 +80,11 @@ const pcasData = computed(() => {
 })
 
 const myValue = computed({
-  // 将入参数据转成 code 码
+  // 將入參數據轉成 code 碼
   get: () => {
     return anyToCode(value.value)
   },
-  // 将 code 码转成出参数据
+  // 將 code 碼轉成出參數據
   set: (val) => {
     value.value = val ? codeToAny(val) : []
   },

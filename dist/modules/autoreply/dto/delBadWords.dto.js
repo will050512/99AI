@@ -14,7 +14,7 @@ const swagger_1 = require("@nestjs/swagger");
 class DelAutoReplyDto {
 }
 __decorate([
-    (0, swagger_1.ApiProperty)({ example: 1, description: '自动回复id', required: true }),
+    (0, swagger_1.ApiProperty)({ example: 1, description: '自動回覆id', required: true }),
     __metadata("design:type", Number)
 ], DelAutoReplyDto.prototype, "id", void 0);
 exports.DelAutoReplyDto = DelAutoReplyDto;

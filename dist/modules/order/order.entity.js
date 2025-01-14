@@ -15,19 +15,19 @@ const baseEntity_1 = require("../../common/entity/baseEntity");
 let OrderEntity = class OrderEntity extends baseEntity_1.BaseEntity {
 };
 __decorate([
-    (0, typeorm_1.Column)({ unique: true, comment: '订单ID', length: 64 }),
+    (0, typeorm_1.Column)({ unique: true, comment: '訂單ID', length: 64 }),
     __metadata("design:type", String)
 ], OrderEntity.prototype, "orderId", void 0);
 __decorate([
-    (0, typeorm_1.Column)({ unique: true, comment: '交易ID（服务商）', length: 32, nullable: true }),
+    (0, typeorm_1.Column)({ unique: true, comment: '交易ID（服務商）', length: 32, nullable: true }),
     __metadata("design:type", String)
 ], OrderEntity.prototype, "tradeId", void 0);
 __decorate([
-    (0, typeorm_1.Column)({ comment: '支付平台【epay|hupi|ltzf】）', length: 32, nullable: true }),
+    (0, typeorm_1.Column)({ comment: '支付平臺【epay|hupi|ltzf】）', length: 32, nullable: true }),
     __metadata("design:type", String)
 ], OrderEntity.prototype, "payPlatform", void 0);
 __decorate([
-    (0, typeorm_1.Column)({ comment: '用户ID', nullable: true }),
+    (0, typeorm_1.Column)({ comment: '用戶ID', nullable: true }),
     __metadata("design:type", Number)
 ], OrderEntity.prototype, "userId", void 0);
 __decorate([
@@ -35,23 +35,23 @@ __decorate([
     __metadata("design:type", Number)
 ], OrderEntity.prototype, "goodsId", void 0);
 __decorate([
-    (0, typeorm_1.Column)({ comment: '数量', default: 1 }),
+    (0, typeorm_1.Column)({ comment: '數量', default: 1 }),
     __metadata("design:type", Number)
 ], OrderEntity.prototype, "count", void 0);
 __decorate([
-    (0, typeorm_1.Column)({ comment: '套餐价格￥', type: 'decimal', scale: 2, precision: 10 }),
+    (0, typeorm_1.Column)({ comment: '套餐價格NT$', type: 'decimal', scale: 0, precision: 10 }),
     __metadata("design:type", Number)
 ], OrderEntity.prototype, "price", void 0);
 __decorate([
-    (0, typeorm_1.Column)({ comment: '订单总金额', type: 'decimal', scale: 2, precision: 10 }),
+    (0, typeorm_1.Column)({ comment: '訂單總金額', type: 'decimal', scale: 0, precision: 10 }),
     __metadata("design:type", Number)
 ], OrderEntity.prototype, "total", void 0);
 __decorate([
-    (0, typeorm_1.Column)({ comment: '订单状态（0：未支付、1：已支付、2、支付失败、3：支付超时）', default: 0 }),
+    (0, typeorm_1.Column)({ comment: '訂單狀態（0：未支付、1：已支付、2、支付失敗、3：支付超時）', default: 0 }),
     __metadata("design:type", Number)
 ], OrderEntity.prototype, "status", void 0);
 __decorate([
-    (0, typeorm_1.Column)({ type: 'datetime', length: 0, nullable: true, comment: '支付时间' }),
+    (0, typeorm_1.Column)({ type: 'datetime', length: 0, nullable: true, comment: '支付時間' }),
     __metadata("design:type", Date)
 ], OrderEntity.prototype, "paydAt", void 0);
 __decorate([

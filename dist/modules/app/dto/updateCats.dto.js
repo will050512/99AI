@@ -16,8 +16,8 @@ const createCats_dto_1 = require("./createCats.dto");
 class UpdateCatsDto extends createCats_dto_1.CreateCatsDto {
 }
 __decorate([
-    (0, swagger_1.ApiProperty)({ example: 1, description: '要修改的分类Id', required: true }),
-    (0, class_validator_1.IsNumber)({}, { message: '分类ID必须是Number' }),
+    (0, swagger_1.ApiProperty)({ example: 1, description: '要修改的分類Id', required: true }),
+    (0, class_validator_1.IsNumber)({}, { message: '分類ID必須是Number' }),
     __metadata("design:type", Number)
 ], UpdateCatsDto.prototype, "id", void 0);
 exports.UpdateCatsDto = UpdateCatsDto;

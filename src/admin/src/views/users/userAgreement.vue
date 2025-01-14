@@ -1,6 +1,6 @@
 <route lang="yaml">
 meta:
-  title: 用户协议
+  title: 用戶協議
 </route>
 
 <script lang="ts" setup>
@@ -26,10 +26,10 @@ const theme = computed(() => {
 
 const rules = ref<FormRules>({
   agreementTitle: [
-    { required: true, trigger: 'blur', message: '请填写用户协议标题' },
+    { required: true, trigger: 'blur', message: '請填寫用戶協議標題' },
   ],
   agreementInfo: [
-    { required: true, trigger: 'blur', message: '请填写用户协议具体内容' },
+    { required: true, trigger: 'blur', message: '請填寫用戶協議具體內容' },
   ],
 });
 const formRef = ref<FormInstance>();
@@ -52,11 +52,11 @@ function handlerUpdateConfig() {
     if (valid) {
       try {
         await apiConfig.setConfig({ settings: fotmatSetting(formInline) });
-        ElMessage.success('变更用户协议信息成功');
+        ElMessage.success('變更用戶協議資訊成功');
       } catch (error) {}
       queryAllconfig();
     } else {
-      ElMessage.error('请填写完整信息');
+      ElMessage.error('請填寫完整資訊');
     }
   });
 }
@@ -92,18 +92,18 @@ async function onUploadImg(
             headers: { 'Content-Type': 'multipart/form-data' },
           });
           if (!res?.data?.data) {
-            ElMessage.error('图片上传失败，请检查您的配置信息！');
+            ElMessage.error('圖片上傳失敗，請檢查您的配置資訊！');
           }
           resovle(res.data.data);
         } catch (error) {
-          ElMessage.error(error || '图片上传失败，请检查您的配置信息！');
+          ElMessage.error(error || '圖片上傳失敗，請檢查您的配置資訊！');
           reject(error);
         }
       });
     })
   );
   callback(res.map((item) => item));
-  ElMessage({ message: '图片上传成功！', type: 'success' });
+  ElMessage({ message: '圖片上傳成功！', type: 'success' });
 }
 
 onMounted(() => {
@@ -115,18 +115,18 @@ onMounted(() => {
   <div>
     <PageHeader>
       <template #title>
-        <div class="flex items-center gap-4">用户协议设置</div>
+        <div class="flex items-center gap-4">用戶協議設置</div>
       </template>
       <template #content>
         <div class="text-sm/6">
           <div>
-            用户协议设置用于配置用户端显示的用户协议页面。支持使用Markdown语法或HTML标签来创建内容，为灵活的内容格式提供便利。
+            用戶協議設置用於配置用戶端顯示的用戶協議頁面。支持使用Markdown語法或HTML標籤來創建內容，為靈活的內容格式提供便利。
           </div>
         </div>
       </template>
       <HButton outline @click="handlerUpdateConfig">
         <SvgIcon name="i-ri:file-text-line" />
-        保存设置
+        保存設置
       </HButton>
     </PageHeader>
     <el-card style="margin: 20px">
@@ -138,19 +138,19 @@ onMounted(() => {
       >
         <el-row>
           <el-col :xs="24" :md="20" :lg="15" :xl="10">
-            <el-form-item label="用户协议标题" prop="agreementTitle">
+            <el-form-item label="用戶協議標題" prop="agreementTitle">
               <el-input
                 v-model="formInline.agreementTitle"
                 :rows="1"
-                placeholder="用户协议标题"
+                placeholder="用戶協議標題"
                 clearable
               />
             </el-form-item>
           </el-col>
           <el-col :xs="24" :md="20" :lg="15" :xl="10">
-            <el-form-item label="开启用户协议" prop="isAutoOpenAgreement">
+            <el-form-item label="開啟用戶協議" prop="isAutoOpenAgreement">
               <el-tooltip
-                content="开启后，用户在注册时将会弹出用户协议页面"
+                content="開啟後，用戶在註冊時將會彈出用戶協議頁面"
                 placement="top"
                 :show-after="500"
               >
@@ -166,7 +166,7 @@ onMounted(() => {
         </el-row>
         <el-row>
           <el-col :span="24">
-            <el-form-item label="用户协议内容" prop="agreementInfo">
+            <el-form-item label="用戶協議內容" prop="agreementInfo">
               <MdEditor
                 v-model="formInline.agreementInfo"
                 style="min-height: 80vh"

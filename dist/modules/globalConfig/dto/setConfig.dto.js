@@ -18,7 +18,7 @@ class SetConfigDto {
 __decorate([
     (0, swagger_1.ApiProperty)({
         example: [{ configKey: 'siteName', configVal: 'AIWeb' }],
-        description: '设置配置信息',
+        description: '設置配置資訊',
     }),
     (0, class_validator_1.IsArray)(),
     (0, class_validator_1.ArrayNotEmpty)(),

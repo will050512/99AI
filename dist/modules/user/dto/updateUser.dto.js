@@ -15,26 +15,26 @@ const swagger_1 = require("@nestjs/swagger");
 class UpdateUserDto {
 }
 __decorate([
-    (0, swagger_1.ApiProperty)({ example: 'cooper', nullable: true, description: '用户名称', required: false }),
-    (0, class_validator_1.MinLength)(2, { message: '用户名最低需要大于2位数！' }),
-    (0, class_validator_1.MaxLength)(12, { message: '用户名不得超过12位！' }),
-    (0, class_validator_1.IsNotEmpty)({ message: '用户名不能为空！' }),
+    (0, swagger_1.ApiProperty)({ example: 'cooper', nullable: true, description: '用戶名稱', required: false }),
+    (0, class_validator_1.MinLength)(2, { message: '用戶名最低需要大於2位數！' }),
+    (0, class_validator_1.MaxLength)(12, { message: '用戶名不得超過12位！' }),
+    (0, class_validator_1.IsNotEmpty)({ message: '用戶名不能為空！' }),
     (0, class_validator_1.IsOptional)(),
     __metadata("design:type", String)
 ], UpdateUserDto.prototype, "username", void 0);
 __decorate([
-    (0, swagger_1.ApiProperty)({ example: '', description: '用户头像', required: false }),
-    (0, class_validator_1.IsNotEmpty)({ message: '用户头像不能为空！' }),
+    (0, swagger_1.ApiProperty)({ example: '', description: '用戶頭像', required: false }),
+    (0, class_validator_1.IsNotEmpty)({ message: '用戶頭像不能為空！' }),
     (0, class_validator_1.IsOptional)(),
     __metadata("design:type", String)
 ], UpdateUserDto.prototype, "avatar", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)({
-        example: '我是一台基于深度学习和自然语言处理技术的 AI 机器人，旨在为用户提供高效、精准、个性化的智能服务。',
-        description: '用户签名',
+        example: '我是一臺基於深度學習和自然語言處理技術的 AI 機器人，旨在為用戶提供高效、精準、個性化的智能服務。',
+        description: '用戶簽名',
         required: false,
     }),
-    (0, class_validator_1.IsNotEmpty)({ message: '用户签名不能为空！' }),
+    (0, class_validator_1.IsNotEmpty)({ message: '用戶簽名不能為空！' }),
     (0, class_validator_1.IsOptional)(),
     __metadata("design:type", String)
 ], UpdateUserDto.prototype, "sign", void 0);

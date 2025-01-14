@@ -15,31 +15,31 @@ const baseEntity_1 = require("../../common/entity/baseEntity");
 let BalanceEntity = class BalanceEntity extends baseEntity_1.BaseEntity {
 };
 __decorate([
-    (0, typeorm_1.Column)({ comment: '用户ID' }),
+    (0, typeorm_1.Column)({ comment: '用戶ID' }),
     __metadata("design:type", Number)
 ], BalanceEntity.prototype, "userId", void 0);
 __decorate([
-    (0, typeorm_1.Column)({ comment: '用户账户余额' }),
+    (0, typeorm_1.Column)({ comment: '用戶賬戶餘額' }),
     __metadata("design:type", Number)
 ], BalanceEntity.prototype, "balance", void 0);
 __decorate([
-    (0, typeorm_1.Column)({ comment: '用户使用次数余额' }),
+    (0, typeorm_1.Column)({ comment: '用戶使用次數餘額' }),
     __metadata("design:type", Number)
 ], BalanceEntity.prototype, "usesLeft", void 0);
 __decorate([
-    (0, typeorm_1.Column)({ comment: '绘画使用次数余额' }),
+    (0, typeorm_1.Column)({ comment: '繪畫使用次數餘額' }),
     __metadata("design:type", Number)
 ], BalanceEntity.prototype, "paintCount", void 0);
 __decorate([
-    (0, typeorm_1.Column)({ default: 0, comment: '用户总计使用的token数量' }),
+    (0, typeorm_1.Column)({ default: 0, comment: '用戶總計使用的token數量' }),
     __metadata("design:type", Number)
 ], BalanceEntity.prototype, "useTokens", void 0);
 __decorate([
-    (0, typeorm_1.Column)({ default: 0, comment: '用户总计使用的对话次数' }),
+    (0, typeorm_1.Column)({ default: 0, comment: '用戶總計使用的對話次數' }),
     __metadata("design:type", Number)
 ], BalanceEntity.prototype, "useChats", void 0);
 __decorate([
-    (0, typeorm_1.Column)({ default: 0, comment: '用户总计使用的绘画次数' }),
+    (0, typeorm_1.Column)({ default: 0, comment: '用戶總計使用的繪畫次數' }),
     __metadata("design:type", Number)
 ], BalanceEntity.prototype, "usePaints", void 0);
 BalanceEntity = __decorate([

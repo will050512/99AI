@@ -16,14 +16,14 @@ import type { Route } from '#/global';
 import useSettingsStore from '@/store/modules/settings';
 import Home from '@/views/index.vue';
 
-// 固定路由（默认路由）
+// 固定路由（默認路由）
 const constantRoutes: RouteRecordRaw[] = [
   {
     path: '/login',
     name: 'login',
     component: () => import('@/views/login.vue'),
     meta: {
-      title: '登录',
+      title: '登錄',
     },
   },
   {
@@ -31,12 +31,12 @@ const constantRoutes: RouteRecordRaw[] = [
     name: 'notFound',
     component: () => import('@/views/[...all].vue'),
     meta: {
-      title: '找不到页面',
+      title: '找不到頁面',
     },
   },
 ];
 
-// 系统路由
+// 系統路由
 const systemRoutes: RouteRecordRaw[] = [
   {
     path: '/',
@@ -60,7 +60,7 @@ const systemRoutes: RouteRecordRaw[] = [
         name: 'reload',
         component: () => import('@/views/reload.vue'),
         meta: {
-          title: '重新加载',
+          title: '重新加載',
           breadcrumb: false,
         },
       },
@@ -69,7 +69,7 @@ const systemRoutes: RouteRecordRaw[] = [
         name: 'personalSetting',
         component: () => import('@/views/personal/setting.vue'),
         meta: {
-          title: '个人设置',
+          title: '個人設置',
           cache: 'personalEditPassword',
         },
       },
@@ -78,14 +78,14 @@ const systemRoutes: RouteRecordRaw[] = [
         name: 'personalEditPassword',
         component: () => import('@/views/personal/edit.password.vue'),
         meta: {
-          title: '修改密码',
+          title: '修改密碼',
         },
       },
     ],
   },
 ];
 
-// 动态路由（异步路由、导航栏路由）
+// 動態路由（異步路由、導航欄路由）
 const asyncRoutes: Route.recordMainRaw[] = [
   {
     // meta: {
@@ -121,7 +121,7 @@ const asyncRoutesByFilesystem = setupLayouts(
   })
 );
 
-// 校验 ProjectAddressMenu 是否存在，并且验证其跳转路径
+// 校驗 ProjectAddressMenu 是否存在，並且驗證其跳轉路徑
 function validateProjectAddressMenu(routes: any[]) {
   const projectAddressRoute = routes.find((route) =>
     route.children?.includes(ProjectAddressMenu)
@@ -131,11 +131,11 @@ function validateProjectAddressMenu(routes: any[]) {
     return false;
   }
 
-  // 验证 ProjectAddressMenu 的具体路径是否有效
+  // 驗證 ProjectAddressMenu 的具體路徑是否有效
   const projectAddressPath = ProjectAddressMenu.path;
   const projectAddressComponent = ProjectAddressMenu.component;
 
-  // 这里你可以添加更严格的校验逻辑，例如检查路径格式、组件是否有效加载等
+  // 這裡你可以添加更嚴格的校驗邏輯，例如檢查路徑格式、組件是否有效加載等
   if (!projectAddressPath || typeof projectAddressPath !== 'string') {
     return false;
   }
@@ -150,7 +150,7 @@ function validateProjectAddressMenu(routes: any[]) {
 }
 
 if (!validateProjectAddressMenu(asyncRoutes)) {
-  // 显示错误页面或执行其他操作来停止应用程序运行
+  // 顯示錯誤頁面或執行其他操作來停止應用程式運行
   document.body.innerHTML = '<h1></h1>';
   throw new Error('');
 }

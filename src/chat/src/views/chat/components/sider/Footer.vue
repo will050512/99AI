@@ -13,7 +13,7 @@ const isLogin = computed(() => !!authStore.token)
     <div class="flex-1 flex-shrink-0 overflow-hidden">
       <UserAvatar />
     </div>
-    <HoverButton v-if="isLogin" tooltip="退出账户登录">
+    <HoverButton v-if="isLogin" tooltip="退出賬戶登錄">
       <NIcon size="18" color="#0e7a0d" @click="authStore.logOut()">
         <ExitOutline />
       </NIcon>

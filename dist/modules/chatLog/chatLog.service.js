@@ -141,14 +141,14 @@ let ChatLogService = class ChatLogService {
             where: { id, type: balance_constant_1.ChatType.PAINT },
         });
         if (!l) {
-            throw new common_1.HttpException('你推荐的图片不存在、请检查！', common_1.HttpStatus.BAD_REQUEST);
+            throw new common_1.HttpException('你推薦的圖片不存在、請檢查！', common_1.HttpStatus.BAD_REQUEST);
         }
         const rec = l.rec === 1 ? 0 : 1;
         const res = await this.chatLogEntity.update({ id }, { rec });
         if (res.affected > 0) {
-            return `${rec ? '推荐' : '取消推荐'}图片成功！`;
+            return `${rec ? '推薦' : '取消推薦'}圖片成功！`;
         }
-        throw new common_1.HttpException('你操作的图片不存在、请检查！', common_1.HttpStatus.BAD_REQUEST);
+        throw new common_1.HttpException('你操作的圖片不存在、請檢查！', common_1.HttpStatus.BAD_REQUEST);
     }
     async exportExcel(body, res) {
         const where = { type: balance_constant_1.ChatType.NORMAL_CHAT };
@@ -181,10 +181,10 @@ let ChatLogService = class ChatLogService {
         const workbook = new exceljs_1.default.Workbook();
         const worksheet = workbook.addWorksheet('chatlog');
         worksheet.columns = [
-            { header: '用户名', key: 'username', width: 20 },
-            { header: '用户邮箱', key: 'email', width: 20 },
-            { header: '提问时间', key: 'createdAt', width: 20 },
-            { header: '提问问题', key: 'prompt', width: 80 },
+            { header: '用戶名', key: 'username', width: 20 },
+            { header: '用戶郵箱', key: 'email', width: 20 },
+            { header: '提問時間', key: 'createdAt', width: 20 },
+            { header: '提問問題', key: 'prompt', width: 80 },
             { header: '回答答案', key: 'answer', width: 150 },
         ];
         data.forEach((row) => worksheet.addRow(row));
@@ -218,7 +218,7 @@ let ChatLogService = class ChatLogService {
             rows.forEach((t) => (t.email = (0, utils_1.maskEmail)(t.email)));
         rows.forEach((item) => {
             !item.email && (item.email = `${item === null || item === void 0 ? void 0 : item.userId}@aiweb.com`);
-            !item.username && (item.username = `游客${item === null || item === void 0 ? void 0 : item.userId}`);
+            !item.username && (item.username = `遊客${item === null || item === void 0 ? void 0 : item.userId}`);
         });
         return { rows, count };
     }
@@ -291,14 +291,14 @@ let ChatLogService = class ChatLogService {
         const { id } = body;
         const c = await this.chatLogEntity.findOne({ where: { id, userId } });
         if (!c) {
-            throw new common_1.HttpException('你删除的对话记录不存在、请检查！', common_1.HttpStatus.BAD_REQUEST);
+            throw new common_1.HttpException('你刪除的對話記錄不存在、請檢查！', common_1.HttpStatus.BAD_REQUEST);
         }
         const r = await this.chatLogEntity.update({ id }, { isDelete: true });
         if (r.affected > 0) {
-            return '删除对话记录成功！';
+            return '刪除對話記錄成功！';
         }
         else {
-            throw new common_1.HttpException('你删除的对话记录不存在、请检查！', common_1.HttpStatus.BAD_REQUEST);
+            throw new common_1.HttpException('你刪除的對話記錄不存在、請檢查！', common_1.HttpStatus.BAD_REQUEST);
         }
     }
     async delByGroupId(req, body) {
@@ -308,14 +308,14 @@ let ChatLogService = class ChatLogService {
             where: { id: groupId, userId: id },
         });
         if (!g) {
-            throw new common_1.HttpException('你删除的对话记录不存在、请检查！', common_1.HttpStatus.BAD_REQUEST);
+            throw new common_1.HttpException('你刪除的對話記錄不存在、請檢查！', common_1.HttpStatus.BAD_REQUEST);
         }
         const r = await this.chatLogEntity.update({ groupId }, { isDelete: true });
         if (r.affected > 0) {
-            return '删除对话记录成功！';
+            return '刪除對話記錄成功！';
         }
         if (r.affected === 0) {
-            throw new common_1.HttpException('当前页面已经没有东西可以删除了！', common_1.HttpStatus.BAD_REQUEST);
+            throw new common_1.HttpException('當前頁面已經沒有東西可以刪除了！', common_1.HttpStatus.BAD_REQUEST);
         }
     }
     async deleteChatsAfterId(req, body) {
@@ -323,15 +323,15 @@ let ChatLogService = class ChatLogService {
         const { id: userId } = req.user;
         const chatLog = await this.chatLogEntity.findOne({ where: { id, userId } });
         if (!chatLog) {
-            throw new common_1.HttpException('你删除的对话记录不存在、请检查！', common_1.HttpStatus.BAD_REQUEST);
+            throw new common_1.HttpException('你刪除的對話記錄不存在、請檢查！', common_1.HttpStatus.BAD_REQUEST);
         }
         const { groupId } = chatLog;
         const result = await this.chatLogEntity.update({ groupId, id: (0, typeorm_2.MoreThanOrEqual)(id) }, { isDelete: true });
         if (result.affected > 0) {
-            return '删除对话记录成功！';
+            return '刪除對話記錄成功！';
         }
         else {
-            throw new common_1.HttpException('当前页面已经没有东西可以删除了！', common_1.HttpStatus.BAD_REQUEST);
+            throw new common_1.HttpException('當前頁面已經沒有東西可以刪除了！', common_1.HttpStatus.BAD_REQUEST);
         }
     }
     async byAppId(req, body) {
@@ -357,7 +357,7 @@ let ChatLogService = class ChatLogService {
                 },
             });
             const adjustedUsageCount = Math.ceil(usageCount / 2);
-            common_1.Logger.log(`用户ID: ${userId.id} 一小时内调用 ${model} 模型 ${adjustedUsageCount + 1} 次`, 'ChatLogService');
+            common_1.Logger.log(`用戶ID: ${userId.id} 一小時內調用 ${model} 模型 ${adjustedUsageCount + 1} 次`, 'ChatLogService');
             let modelInfo;
             if (model.startsWith('gpt-4-gizmo')) {
                 modelInfo = await this.modelsService.getCurrentModelKeyInfo('gpts');
@@ -366,14 +366,14 @@ let ChatLogService = class ChatLogService {
                 modelInfo = await this.modelsService.getCurrentModelKeyInfo(model);
             }
             const modelLimits = Number(modelInfo.modelLimits);
-            common_1.Logger.log(`模型 ${model} 的使用次数限制为 ${modelLimits}`, 'ChatLogService');
+            common_1.Logger.log(`模型 ${model} 的使用次數限制為 ${modelLimits}`, 'ChatLogService');
             if (adjustedUsageCount > modelLimits) {
                 return true;
             }
             return false;
         }
         catch (error) {
-            common_1.Logger.error(`查询数据库出错 - 用户ID: ${userId.id}, 模型: ${model}, 错误信息: ${error.message}`, error.stack, 'ChatLogService');
+            common_1.Logger.error(`查詢數據庫出錯 - 用戶ID: ${userId.id}, 模型: ${model}, 錯誤資訊: ${error.message}`, error.stack, 'ChatLogService');
         }
     }
 };

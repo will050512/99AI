@@ -15,37 +15,37 @@ const swagger_1 = require("@nestjs/swagger");
 class QueryAllUserDto {
 }
 __decorate([
-    (0, swagger_1.ApiProperty)({ example: 1, description: '查询页数', required: false }),
+    (0, swagger_1.ApiProperty)({ example: 1, description: '查詢頁數', required: false }),
     (0, class_validator_1.IsOptional)(),
     __metadata("design:type", Number)
 ], QueryAllUserDto.prototype, "page", void 0);
 __decorate([
-    (0, swagger_1.ApiProperty)({ example: 10, description: '每页数量', required: false }),
+    (0, swagger_1.ApiProperty)({ example: 10, description: '每頁數量', required: false }),
     (0, class_validator_1.IsOptional)(),
     __metadata("design:type", Number)
 ], QueryAllUserDto.prototype, "size", void 0);
 __decorate([
-    (0, swagger_1.ApiProperty)({ example: '小九', description: '用户姓名', required: false }),
+    (0, swagger_1.ApiProperty)({ example: '小九', description: '用戶姓名', required: false }),
     (0, class_validator_1.IsOptional)(),
     __metadata("design:type", String)
 ], QueryAllUserDto.prototype, "username", void 0);
 __decorate([
-    (0, swagger_1.ApiProperty)({ example: 'J_longyan@163.com', description: '用户邮箱', required: false }),
+    (0, swagger_1.ApiProperty)({ example: 'J_longyan@163.com', description: '用戶郵箱', required: false }),
     (0, class_validator_1.IsOptional)(),
     __metadata("design:type", String)
 ], QueryAllUserDto.prototype, "email", void 0);
 __decorate([
-    (0, swagger_1.ApiProperty)({ example: '18888888888', description: '用户手机号码', required: false }),
+    (0, swagger_1.ApiProperty)({ example: '18888888888', description: '用戶手機號碼', required: false }),
     (0, class_validator_1.IsOptional)(),
     __metadata("design:type", String)
 ], QueryAllUserDto.prototype, "phone", void 0);
 __decorate([
-    (0, swagger_1.ApiProperty)({ example: 2, description: '用户状态', required: false }),
+    (0, swagger_1.ApiProperty)({ example: 2, description: '用戶狀態', required: false }),
     (0, class_validator_1.IsOptional)(),
     __metadata("design:type", Number)
 ], QueryAllUserDto.prototype, "status", void 0);
 __decorate([
-    (0, swagger_1.ApiProperty)({ example: 'super', description: '关键字查询', required: false }),
+    (0, swagger_1.ApiProperty)({ example: 'super', description: '關鍵字查詢', required: false }),
     (0, class_validator_1.IsOptional)(),
     __metadata("design:type", String)
 ], QueryAllUserDto.prototype, "keyword", void 0);

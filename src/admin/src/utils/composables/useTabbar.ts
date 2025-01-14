@@ -37,7 +37,7 @@ export default function useTabbar() {
     const activedTabId = getId()
     if (tabbarStore.list.some(item => item.tabId === tabId)) {
       if (tabbarStore.list.length > 1) {
-        // 如果关闭的标签正好是当前路由
+        // 如果關閉的標籤正好是當前路由
         if (tabId === activedTabId) {
           const index = tabbarStore.list.findIndex(item => item.tabId === tabId)
           if (index < tabbarStore.list.length - 1) {
@@ -52,24 +52,24 @@ export default function useTabbar() {
         }
       }
       else {
-        Message.error('当前只有一个标签页，已阻止关闭', {
+        Message.error('當前只有一個標籤頁，已阻止關閉', {
           zIndex: 2000,
         })
       }
     }
     else {
-      Message.error('关闭的页面不存在', {
+      Message.error('關閉的頁面不存在', {
         zIndex: 2000,
       })
     }
   }
 
   /**
-   * 关闭两侧标签页
+   * 關閉兩側標籤頁
    */
   function closeOtherSide(tabId = getId()) {
     const activedTabId = getId()
-    // 如果操作的是非当前路由标签页，则先跳转到指定路由标签页
+    // 如果操作的是非當前路由標籤頁，則先跳轉到指定路由標籤頁
     if (tabId !== activedTabId) {
       const index = tabbarStore.list.findIndex(item => item.tabId === tabId)
       router.push(tabbarStore.list[index].fullPath)
@@ -78,11 +78,11 @@ export default function useTabbar() {
   }
 
   /**
-   * 关闭左侧标签页
+   * 關閉左側標籤頁
    */
   function closeLeftSide(tabId = getId()) {
     const activedTabId = getId()
-    // 如果操作的是非当前路由标签页，需要判断当前标签页是否在指定标签页左侧，如果是则先跳转到指定路由标签页
+    // 如果操作的是非當前路由標籤頁，需要判斷當前標籤頁是否在指定標籤頁左側，如果是則先跳轉到指定路由標籤頁
     if (tabId !== activedTabId) {
       const index = tabbarStore.list.findIndex(item => item.tabId === tabId)
       const activedIndex = tabbarStore.list.findIndex(item => item.tabId === activedTabId)
@@ -94,11 +94,11 @@ export default function useTabbar() {
   }
 
   /**
-   * 关闭右侧标签页
+   * 關閉右側標籤頁
    */
   function closeRightSide(tabId = getId()) {
     const activedTabId = getId()
-    // 如果操作的是非当前路由标签页，需要判断当前标签页是否在指定标签页右侧，如果是则先跳转到指定路由标签页
+    // 如果操作的是非當前路由標籤頁，需要判斷當前標籤頁是否在指定標籤頁右側，如果是則先跳轉到指定路由標籤頁
     if (tabId !== activedTabId) {
       const index = tabbarStore.list.findIndex(item => item.tabId === tabId)
       const activedIndex = tabbarStore.list.findIndex(item => item.tabId === activedTabId)
@@ -110,7 +110,7 @@ export default function useTabbar() {
   }
 
   /**
-   * 校验指定标签两侧是否有可关闭的标签
+   * 校驗指定標籤兩側是否有可關閉的標籤
    */
   function checkCloseOtherSide(tabId = getId()) {
     return tabbarStore.list.some((item) => {
@@ -119,7 +119,7 @@ export default function useTabbar() {
   }
 
   /**
-   * 校验指定标签左侧是否有可关闭的标签
+   * 校驗指定標籤左側是否有可關閉的標籤
    */
   function checkCloseLeftSide(tabId = getId()) {
     let flag = true
@@ -136,7 +136,7 @@ export default function useTabbar() {
   }
 
   /**
-   * 校验指定标签右侧是否有可关闭的标签
+   * 校驗指定標籤右側是否有可關閉的標籤
    */
   function checkCloseRightSide(tabId = getId()) {
     let flag = true

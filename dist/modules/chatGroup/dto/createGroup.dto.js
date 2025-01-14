@@ -15,14 +15,14 @@ const class_validator_1 = require("class-validator");
 class CreateGroupDto {
 }
 __decorate([
-    (0, swagger_1.ApiProperty)({ example: 10, description: '应用ID', required: false }),
+    (0, swagger_1.ApiProperty)({ example: 10, description: '應用ID', required: false }),
     (0, class_validator_1.IsOptional)(),
     __metadata("design:type", Number)
 ], CreateGroupDto.prototype, "appId", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)({
         example: '',
-        description: '对话模型配置项序列化的字符串',
+        description: '對話模型配置項序列化的字串',
         required: false,
     }),
     __metadata("design:type", Object)
@@ -30,7 +30,7 @@ __decorate([
 __decorate([
     (0, swagger_1.ApiProperty)({
         example: '',
-        description: '对话组参数序列化的字符串',
+        description: '對話組參數序列化的字串',
         required: false,
     }),
     __metadata("design:type", String)

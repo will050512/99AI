@@ -1,5 +1,5 @@
 <template>
-  <!-- 本体部分 -->
+  <!-- 本體部分 -->
   <div
     :class="['vue-puzzle-vcode', { show_: show }]"
     @mousedown="onCloseMouseDown"
@@ -13,14 +13,14 @@
       @touchstart.stop
     >
       <div class="auth-body_" :style="`height: ${canvasHeight}px`">
-        <!-- 主图，有缺口 -->
+        <!-- 主圖，有缺口 -->
         <canvas
           ref="canvas1"
           :width="canvasWidth"
           :height="canvasHeight"
           :style="`width:${canvasWidth}px;height:${canvasHeight}px`"
         />
-        <!-- 成功后显示的完整图 -->
+        <!-- 成功後顯示的完整圖 -->
         <canvas
           ref="canvas3"
           :class="['auth-canvas3_', { show: isSuccess }]"
@@ -28,7 +28,7 @@
           :height="canvasHeight"
           :style="`width:${canvasWidth}px;height:${canvasHeight}px`"
         />
-        <!-- 小图 -->
+        <!-- 小圖 -->
         <canvas
           :width="puzzleBaseSize"
           class="auth-canvas2_"
@@ -96,55 +96,55 @@
 import resetSvg from '@/assets/reset.png';
 export default {
   props: {
-    canvasWidth: { type: Number, default: 310 }, // 主canvas的宽
+    canvasWidth: { type: Number, default: 310 }, // 主canvas的寬
     canvasHeight: { type: Number, default: 160 }, // 主canvas的高
-    // 是否出现，由父级控制
+    // 是否出現，由父級控制
     show: { type: Boolean, default: false },
-    puzzleScale: { type: Number, default: 1 }, // 拼图块的大小缩放比例
-    sliderSize: { type: Number, default: 40 }, // 滑块的大小
-    range: { type: Number, default: 10 }, // 允许的偏差值
-    // 所有的背景图片
+    puzzleScale: { type: Number, default: 1 }, // 拼圖塊的大小縮放比例
+    sliderSize: { type: Number, default: 40 }, // 滑塊的大小
+    range: { type: Number, default: 10 }, // 允許的偏差值
+    // 所有的背景圖片
     imgs: {
       type: Array,
     },
     successText: {
       type: String,
-      default: '验证通过！',
+      default: '驗證通過！',
     },
     failText: {
       type: String,
-      default: '验证失败，请重试',
+      default: '驗證失敗，請重試',
     },
     sliderText: {
       type: String,
-      default: '拖动滑块完成拼图',
+      default: '拖動滑塊完成拼圖',
     },
   },
 
   data() {
     return {
-      mouseDown: false, // 鼠标是否在按钮上按下
-      startWidth: 50, // 鼠标点下去时父级的width
-      startX: 0, // 鼠标按下时的X
-      newX: 0, // 鼠标当前的偏移X
-      pinX: 0, // 拼图的起始X
-      pinY: 0, // 拼图的起始Y
-      loading: false, // 是否正在加在中，主要是等图片onload
-      isCanSlide: false, // 是否可以拉动滑动条
-      error: false, // 图片加在失败会出现这个，提示用户手动刷新
-      infoBoxShow: false, // 提示信息是否出现
-      infoText: '', // 提示等信息
-      infoBoxFail: false, // 是否验证失败
+      mouseDown: false, // 鼠標是否在按鈕上按下
+      startWidth: 50, // 鼠標點下去時父級的width
+      startX: 0, // 鼠標按下時的X
+      newX: 0, // 鼠標當前的偏移X
+      pinX: 0, // 拼圖的起始X
+      pinY: 0, // 拼圖的起始Y
+      loading: false, // 是否正在加在中，主要是等圖片onload
+      isCanSlide: false, // 是否可以拉動滑動條
+      error: false, // 圖片加在失敗會出現這個，提示用戶手動刷新
+      infoBoxShow: false, // 提示資訊是否出現
+      infoText: '', // 提示等資訊
+      infoBoxFail: false, // 是否驗證失敗
       timer1: null, // setTimout1
-      closeDown: false, // 为了解决Mac上的click BUG
-      isSuccess: false, // 验证成功
-      imgIndex: -1, // 用于自定义图片时不会随机到重复的图片
-      isSubmting: false, // 是否正在判定，主要用于判定中不能点击重置按钮
+      closeDown: false, // 為了解決Mac上的click BUG
+      isSuccess: false, // 驗證成功
+      imgIndex: -1, // 用於自定義圖片時不會隨機到重複的圖片
+      isSubmting: false, // 是否正在判定，主要用於判定中不能點擊重置按鈕
       resetSvg,
     };
   },
 
-  /** 生命周期 **/
+  /** 生命週期 **/
   mounted() {
     document.body.appendChild(this.$el);
     document.addEventListener('mousemove', this.onRangeMouseMove, false);
@@ -171,10 +171,10 @@ export default {
     document.removeEventListener('touchend', this.onRangeMouseUp, false);
   },
 
-  /** 监听 **/
+  /** 監聽 **/
   watch: {
     show(newV) {
-      // 每次出现都应该重新初始化
+      // 每次出現都應該重新初始化
       if (newV) {
         document.body.classList.add('vue-puzzle-overflow');
         this.reset();
@@ -187,9 +187,9 @@ export default {
     },
   },
 
-  /** 计算属性 **/
+  /** 計算屬性 **/
   computed: {
-    // styleWidth是底部用户操作的滑块的父级，就是轨道在鼠标的作用下应该具有的宽度
+    // styleWidth是底部用戶操作的滑塊的父級，就是軌道在鼠標的作用下應該具有的寬度
     styleWidth() {
       const w = this.startWidth + this.newX - this.startX;
       return w < this.sliderBaseSize
@@ -198,13 +198,13 @@ export default {
         ? this.canvasWidth
         : w;
     },
-    // 图中拼图块的60 * 用户设定的缩放比例计算之后的值 0.2~2
+    // 圖中拼圖塊的60 * 用戶設定的縮放比例計算之後的值 0.2~2
     puzzleBaseSize() {
       return Math.round(
         Math.max(Math.min(this.puzzleScale, 2), 0.2) * 52.5 + 6
       );
     },
-    // 处理一下sliderSize，弄成整数，以免计算有偏差
+    // 處理一下sliderSize，弄成整數，以免計算有偏差
     sliderBaseSize() {
       return Math.max(
         Math.min(
@@ -218,7 +218,7 @@ export default {
 
   /** 方法 **/
   methods: {
-    // 关闭
+    // 關閉
     onClose() {
       if (!this.mouseDown && !this.isSubmting) {
         clearTimeout(this.timer1);
@@ -234,7 +234,7 @@ export default {
       }
       this.closeDown = false;
     },
-    // 鼠标按下准备拖动
+    // 鼠標按下準備拖動
     onRangeMouseDown(e) {
       if (this.isCanSlide) {
         this.mouseDown = true;
@@ -243,14 +243,14 @@ export default {
         this.startX = e.clientX || e.changedTouches[0].clientX;
       }
     },
-    // 鼠标移动
+    // 鼠標移動
     onRangeMouseMove(e) {
       if (this.mouseDown) {
         e.preventDefault();
         this.newX = e.clientX || e.changedTouches[0].clientX;
       }
     },
-    // 鼠标抬起
+    // 鼠標抬起
     onRangeMouseUp() {
       if (this.mouseDown) {
         this.mouseDown = false;
@@ -258,11 +258,11 @@ export default {
       }
     },
     /**
-     * 开始进行
-     * @param withCanvas 是否强制使用canvas随机作图
+     * 開始進行
+     * @param withCanvas 是否強制使用canvas隨機作圖
      */
     init(withCanvas) {
-      // 防止重复加载导致的渲染错误
+      // 防止重複加載導致的渲染錯誤
       if (this.loading && !withCanvas) {
         return;
       }
@@ -283,20 +283,20 @@ export default {
       ctx.clearRect(0, 0, this.canvasWidth, this.canvasHeight);
       ctx2.clearRect(0, 0, this.canvasWidth, this.canvasHeight);
 
-      // 取一个随机坐标，作为拼图块的位置
+      // 取一個隨機座標，作為拼圖塊的位置
       this.pinX = this.getRandom(
         this.puzzleBaseSize,
         this.canvasWidth - this.puzzleBaseSize - 20
-      ); // 留20的边距
+      ); // 留20的邊距
       this.pinY = this.getRandom(
         20,
         this.canvasHeight - this.puzzleBaseSize - 20
-      ); // 主图高度 - 拼图块自身高度 - 20边距
-      img.crossOrigin = 'anonymous'; // 匿名，想要获取跨域的图片
+      ); // 主圖高度 - 拼圖塊自身高度 - 20邊距
+      img.crossOrigin = 'anonymous'; // 匿名，想要獲取跨域的圖片
       img.onload = () => {
         const [x, y, w, h] = this.makeImgSize(img);
         ctx.save();
-        // 先画小图
+        // 先畫小圖
         this.paintBrick(ctx);
         ctx.closePath();
         if (!isFirefox) {
@@ -321,7 +321,7 @@ export default {
         ctx3.fillRect(0, 0, this.canvasWidth, this.canvasHeight);
         ctx3.drawImage(img, x, y, w, h);
 
-        // 设置小图的内阴影
+        // 設置小圖的內陰影
         ctx.globalCompositeOperation = 'source-atop';
 
         this.paintBrick(ctx);
@@ -342,9 +342,9 @@ export default {
         ctx.fillStyle = '#ffffaa';
         ctx.fill();
 
-        // 将小图赋值给ctx2
+        // 將小圖賦值給ctx2
         const imgData = ctx.getImageData(
-          this.pinX - 3, // 为了阴影 是从-3px开始截取，判定的时候要+3px
+          this.pinX - 3, // 為了陰影 是從-3px開始截取，判定的時候要+3px
           this.pinY - 20,
           this.pinX + this.puzzleBaseSize + 5,
           this.pinY + this.puzzleBaseSize + 5
@@ -358,7 +358,7 @@ export default {
         ctx.restore();
         ctx.clearRect(0, 0, this.canvasWidth, this.canvasHeight);
 
-        // 画缺口
+        // 畫缺口
         ctx.save();
         this.paintBrick(ctx);
         ctx.globalAlpha = 0.8;
@@ -366,7 +366,7 @@ export default {
         ctx.fill();
         ctx.restore();
 
-        // 画缺口的内阴影
+        // 畫缺口的內陰影
         ctx.save();
         ctx.globalCompositeOperation = 'source-atop';
         this.paintBrick(ctx);
@@ -385,7 +385,7 @@ export default {
         ctx.fill();
         ctx.restore();
 
-        // 画整体背景图
+        // 畫整體背景圖
         ctx.save();
         ctx.globalCompositeOperation = 'destination-over';
         ctx.drawImage(img, x, y, w, h);
@@ -395,7 +395,7 @@ export default {
         this.isCanSlide = true;
       };
       img.onerror = () => {
-        this.init(true); // 如果图片加载错误就重新来，并强制用canvas随机作图
+        this.init(true); // 如果圖片加載錯誤就重新來，並強制用canvas隨機作圖
       };
 
       if (!withCanvas && this.imgs && this.imgs.length) {
@@ -413,11 +413,11 @@ export default {
         img.src = this.makeImgWithCanvas();
       }
     },
-    // 工具 - 范围随机数
+    // 工具 - 範圍隨機數
     getRandom(min, max) {
       return Math.ceil(Math.random() * (max - min) + min);
     },
-    // 工具 - 设置图片尺寸cover方式贴合canvas尺寸 w/h
+    // 工具 - 設置圖片尺寸cover方式貼合canvas尺寸 w/h
     makeImgSize(img) {
       const imgScale = img.width / img.height;
       const canvasScale = this.canvasWidth / this.canvasHeight;
@@ -438,9 +438,9 @@ export default {
       }
       return [x, y, w, h];
     },
-    // 绘制拼图块的路径
+    // 繪製拼圖塊的路徑
     paintBrick(ctx) {
-      const moveL = Math.ceil(15 * this.puzzleScale); // 直线移动的基础距离
+      const moveL = Math.ceil(15 * this.puzzleScale); // 直線移動的基礎距離
       ctx.beginPath();
       ctx.moveTo(this.pinX, this.pinY);
       ctx.lineTo(this.pinX + moveL, this.pinY);
@@ -497,7 +497,7 @@ export default {
       );
       ctx.lineTo(this.pinX, this.pinY);
     },
-    // 用canvas随机生成图片
+    // 用canvas隨機生成圖片
     makeImgWithCanvas() {
       const canvas = document.createElement('canvas');
       const ctx = canvas.getContext('2d');
@@ -508,7 +508,7 @@ export default {
         255
       )},${this.getRandom(100, 255)})`;
       ctx.fillRect(0, 0, this.canvasWidth, this.canvasHeight);
-      // 随机画10个图形
+      // 隨機畫10個圖形
       for (let i = 0; i < 12; i++) {
         ctx.fillStyle = `rgb(${this.getRandom(100, 255)},${this.getRandom(
           100,
@@ -531,7 +531,7 @@ export default {
           );
           ctx.restore();
         } else {
-          // 圆
+          // 圓
           ctx.beginPath();
           const ran = this.getRandom(-Math.PI, Math.PI);
           ctx.arc(
@@ -547,11 +547,11 @@ export default {
       }
       return canvas.toDataURL('image/png');
     },
-    // 开始判定
+    // 開始判定
     submit() {
       this.isSubmting = true;
-      // 偏差 x = puzzle的起始X - (用户真滑动的距离) + (puzzle的宽度 - 滑块的宽度) * （用户真滑动的距离/canvas总宽度）
-      // 最后+ 的是补上slider和滑块宽度不一致造成的缝隙
+      // 偏差 x = puzzle的起始X - (用戶真滑動的距離) + (puzzle的寬度 - 滑塊的寬度) * （用戶真滑動的距離/canvas總寬度）
+      // 最後+ 的是補上slider和滑塊寬度不一致造成的縫隙
       const x = Math.abs(
         this.pinX -
           (this.styleWidth - this.sliderBaseSize) +
@@ -567,22 +567,22 @@ export default {
         this.infoBoxShow = true;
         this.isCanSlide = false;
         this.isSuccess = true;
-        // 成功后准备关闭
+        // 成功後準備關閉
         clearTimeout(this.timer1);
         this.timer1 = setTimeout(() => {
-          // 成功的回调
+          // 成功的回調
           this.isSubmting = false;
           this.$emit('success', x);
         }, 800);
       } else {
-        // 失败
+        // 失敗
         this.infoText = this.failText;
         this.infoBoxFail = true;
         this.infoBoxShow = true;
         this.isCanSlide = false;
-        // 失败的回调
+        // 失敗的回調
         this.$emit('fail', x);
-        // 800ms后重置
+        // 800ms後重置
         clearTimeout(this.timer1);
         this.timer1 = setTimeout(() => {
           this.isSubmting = false;
@@ -590,15 +590,15 @@ export default {
         }, 800);
       }
     },
-    // 重置 - 重新设置初始状态
+    // 重置 - 重新設置初始狀態
     resetState() {
       this.infoBoxFail = false;
       this.infoBoxShow = false;
       this.isCanSlide = false;
       this.isSuccess = false;
-      this.startWidth = this.sliderBaseSize; // 鼠标点下去时父级的width
-      this.startX = 0; // 鼠标按下时的X
-      this.newX = 0; // 鼠标当前的偏移X
+      this.startWidth = this.sliderBaseSize; // 鼠標點下去時父級的width
+      this.startX = 0; // 鼠標按下時的X
+      this.newX = 0; // 鼠標當前的偏移X
     },
 
     // 重置

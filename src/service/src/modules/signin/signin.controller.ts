@@ -10,7 +10,7 @@ export class SigninController {
   constructor(private readonly signinService: SigninService) {}
 
   @Post('sign')
-  @ApiOperation({ summary: '用户签到' })
+  @ApiOperation({ summary: '用戶簽到' })
   @UseGuards(JwtAuthGuard)
   @ApiBearerAuth()
   async sign(@Req() req: Request) {
@@ -18,7 +18,7 @@ export class SigninController {
   }
 
   @Get('signinLog')
-  @ApiOperation({ summary: '获取用户签到信息' })
+  @ApiOperation({ summary: '獲取用戶簽到資訊' })
   @UseGuards(JwtAuthGuard)
   @ApiBearerAuth()
   async getSigninLog(@Req() req: Request) {

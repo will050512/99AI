@@ -25,7 +25,7 @@ const isItemActive = computed(() => {
   return isActived.value && (!props.subMenu || rootMenu.isMenuPopup)
 })
 
-// 缩进样式
+// 縮進樣式
 const indentStyle = computed(() => {
   return !rootMenu.isMenuPopup
     ? `padding-left: ${20 * (props.level ?? 0)}px`
@@ -44,7 +44,12 @@ defineExpose({
     }"
   >
     <router-link v-slot="{ href, navigate }" custom :to="uniqueKey.at(-1) ?? ''">
-      <HTooltip :enable="rootMenu.isMenuPopup && level === 0 && !subMenu" :text="typeof item.meta?.title === 'function' ? item.meta?.title() : item.meta?.title" placement="right" class="h-full w-full">
+      <HTooltip
+        :enable="rootMenu.isMenuPopup && level === 0 && !subMenu"
+        :text="(typeof item.meta?.title === 'function' ? item.meta?.title() : item.meta?.title) || ''"
+        placement="right"
+        class="h-full w-full"
+      >
         <component
           :is="subMenu ? 'div' : 'a'" v-bind="{
             ...(!subMenu && {

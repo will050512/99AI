@@ -43,7 +43,7 @@ export class RedisCacheService {
     return;
   }
 
-  /* 登录记录token */
+  /* 登錄記錄token */
   async saveToken(userId, token) {
     const tokens = await this.redisClient.zRange(`tokens:${userId}`, 0, -1);
     await this.invalidateTokens(userId, tokens);
@@ -57,7 +57,7 @@ export class RedisCacheService {
     });
   }
 
-  /* 检测token是否有效 */
+  /* 檢測token是否有效 */
   async checkTokenAuth(token, req) {
     const { id: userId, role } = req.user;
     if (role === 'visitor') return true;
@@ -71,11 +71,11 @@ export class RedisCacheService {
 
     /* token invalid  */
     if (storedToken !== token) {
-      /* 管理员属于白名单 */
+      /* 管理員屬於白名單 */
       if (['super', 'admin'].includes(role)) return true;
-      // 如果 Token 不存在或者不匹配，则认为验证失败
+      // 如果 Token 不存在或者不匹配，則認為驗證失敗
       throw new HttpException(
-        '您已在其他设备覆盖登录、请您重新登录！',
+        '您已在其他設備覆蓋登錄、請您重新登錄！',
         HttpStatus.UNAUTHORIZED
       );
       // throw new HttpException('You have been logged in on another device, please log in again!', HttpStatus.UNAUTHORIZED);

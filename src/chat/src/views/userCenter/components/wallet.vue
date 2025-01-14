@@ -202,7 +202,7 @@ onMounted(() => {
           <b class="text-3xl text-[#555]">
             {{
               userBalance.sumModel3Count > 99999
-                ? '无限额度'
+                ? '無限額度'
                 : userBalance.sumModel3Count ?? 0
             }}
           </b>
@@ -219,7 +219,7 @@ onMounted(() => {
           </div>
           <b class="text-3xl text-[#555]">{{
             userBalance.sumModel4Count > 99999
-              ? '无限额度'
+              ? '無限額度'
               : userBalance.sumModel4Count ?? 0
           }}</b>
           <span class="ml-4 text-[#989898]">{{
@@ -235,7 +235,7 @@ onMounted(() => {
           </div>
           <b class="text-3xl text-[#555]">{{
             userBalance.sumDrawMjCount > 99999
-              ? '无限额度'
+              ? '無限額度'
               : userBalance.sumDrawMjCount ?? 0
           }}</b>
           <span class="ml-4 text-[#989898]">{{
@@ -312,7 +312,7 @@ onMounted(() => {
                 </div>
                 <div class="flex justify-between items-end mt-5">
                   <i class="text-xl text-[red] font-bold">{{
-                    `￥${item.price}`
+                    `NT$${item.price}`
                   }}</i>
                   <NButton
                     type="primary"

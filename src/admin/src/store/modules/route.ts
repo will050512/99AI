@@ -16,7 +16,7 @@ const useRouteStore = defineStore(
     const filesystemRoutesRaw = ref<RouteRecordRaw[]>([]);
     const currentRemoveRoutes = ref<(() => void)[]>([]);
 
-    // 将多层嵌套路由处理成两层，保留顶层和最子层路由，中间层级将被拍平
+    // 將多層嵌套路由處理成兩層，保留頂層和最子層路由，中間層級將被拍平
     function flatAsyncRoutes<T extends RouteRecordRaw>(route: T): T {
       if (route.children) {
         route.children = flatAsyncRoutesRecursive(
@@ -64,7 +64,7 @@ const useRouteStore = defineStore(
             childrenBaseUrl
           );
           childrenRoutes.forEach((item) => {
-            // 如果 path 一样则覆盖，因为子路由的 path 可能设置为空，导致和父路由一样，直接注册会提示路由重复
+            // 如果 path 一樣則覆蓋，因為子路由的 path 可能設置為空，導致和父路由一樣，直接註冊會提示路由重複
             if (res.some((v) => v.path === item.path)) {
               res.forEach((v, i) => {
                 if (v.path === item.path) {
@@ -78,7 +78,7 @@ const useRouteStore = defineStore(
         } else {
           const tmpRoute = cloneDeep(route);
           tmpRoute.path = resolveRoutePath(baseUrl, tmpRoute.path);
-          // 处理面包屑导航
+          // 處理麵包屑導航
           const tmpBreadcrumb = cloneDeep(breadcrumb);
           tmpBreadcrumb.push({
             path: tmpRoute.path,
@@ -96,7 +96,7 @@ const useRouteStore = defineStore(
       });
       return res;
     }
-    // 扁平化路由（将三级及以上路由数据拍平成二级）
+    // 扁平化路由（將三級及以上路由數據拍平成二級）
     const flatRoutes = computed(() => {
       const returnRoutes: RouteRecordRaw[] = [];
       if (settingsStore.settings.app.routeBaseOn !== 'filesystem') {
@@ -127,7 +127,7 @@ const useRouteStore = defineStore(
       return routes;
     });
 
-    // TODO 将设置 meta.sidebar 的属性转换成 meta.menu ，过渡处理，未来将被弃用
+    // TODO 將設置 meta.sidebar 的屬性轉換成 meta.menu ，過渡處理，未來將被棄用
     let isUsedDeprecatedAttribute = false;
     function converDeprecatedAttribute<T extends Route.recordMainRaw[]>(
       routes: T
@@ -138,7 +138,7 @@ const useRouteStore = defineStore(
       if (isUsedDeprecatedAttribute) {
         // turbo-console-disable-next-line
         console.warn(
-          '[Fantastic-admin] 路由配置中的 "sidebar" 属性即将被弃用, 请尽快替换为 "menu" 属性'
+          '[Fantastic-admin] 路由配置中的 "sidebar" 屬性即將被棄用, 請儘快替換為 "menu" 屬性'
         );
       }
       return routes;
@@ -161,13 +161,13 @@ const useRouteStore = defineStore(
 
     // 生成路由（前端生成）
     function generateRoutesAtFront(asyncRoutes: Route.recordMainRaw[]) {
-      // 设置 routes 数据
+      // 設置 routes 數據
       routesRaw.value = converDeprecatedAttribute(
         cloneDeep(asyncRoutes) as any
       );
       isGenerate.value = true;
     }
-    // 格式化后端路由数据
+    // 格式化後端路由數據
     function formatBackRoutes(
       routes: any,
       views = import.meta.glob('../../views/**/*.vue')
@@ -190,25 +190,25 @@ const useRouteStore = defineStore(
         return route;
       });
     }
-    // 生成路由（后端获取）
+    // 生成路由（後端獲取）
     // async function generateRoutesAtBack() {
     //   await apiApp.routeList().then((res) => {
-    //     // 设置 routes 数据
+    //     // 設置 routes 數據
     //     routesRaw.value = converDeprecatedAttribute(formatBackRoutes(res.data) as any)
     //     isGenerate.value = true
     //   }).catch(() => {})
     // }
-    // 生成路由（文件系统生成）
+    // 生成路由（文件系統生成）
     function generateRoutesAtFilesystem(asyncRoutes: RouteRecordRaw[]) {
-      // 设置 routes 数据
+      // 設置 routes 數據
       filesystemRoutesRaw.value = cloneDeep(asyncRoutes) as any;
       isGenerate.value = true;
     }
-    // 记录 accessRoutes 路由，用于登出时删除路由
+    // 記錄 accessRoutes 路由，用於登出時刪除路由
     function setCurrentRemoveRoutes(routes: (() => void)[]) {
       currentRemoveRoutes.value = routes;
     }
-    // 清空动态路由
+    // 清空動態路由
     function removeRoutes() {
       isGenerate.value = false;
       routesRaw.value = [];

@@ -1,6 +1,6 @@
 <route lang="yaml">
 meta:
-  title: 违规记录
+  title: 違規記錄
 </route>
 
 <script lang="ts" setup>
@@ -55,7 +55,7 @@ function handleUpdateStatus(row: any) {
 
 async function handlerUpateUserStatus() {
   const res: any = await ApiUsre.updateUserStatus(form);
-  res.success && ElMessage({ type: 'success', message: '变更用户状态成功！' });
+  res.success && ElMessage({ type: 'success', message: '變更用戶狀態成功！' });
   visible.value = false;
 }
 
@@ -90,12 +90,12 @@ onMounted(() => {
   <div>
     <PageHeader>
       <template #title>
-        <div class="flex items-center gap-4">违规检测记录</div>
+        <div class="flex items-center gap-4">違規檢測記錄</div>
       </template>
       <!-- <template #content>
         <div class="text-sm/6">
           <div>
-            触发敏感词将自动拦截，如配置过三方平台、自定义检测将在三方平台通过后最后进行检测！
+            觸發敏感詞將自動攔截，如配置過三方平臺、自定義檢測將在三方平臺通過後最後進行檢測！
           </div>
         </div>
       </template> -->
@@ -103,14 +103,14 @@ onMounted(() => {
 
     <page-main>
       <el-form ref="formRef" :inline="true" :model="formInline">
-        <el-form-item label="用户名称" prop="userId">
+        <el-form-item label="用戶名稱" prop="userId">
           <el-select
             v-model="formInline.userId"
             filterable
             clearable
             remote
             reserve-keyword
-            placeholder="用户姓名[模糊搜索]"
+            placeholder="用戶姓名[模糊搜索]"
             remote-show-suffix
             :remote-method="handlerSearchUser"
             style="width: 160px"
@@ -124,10 +124,10 @@ onMounted(() => {
           </el-select>
         </el-form-item>
 
-        <el-form-item label="检测平台" prop="typeOriginCn">
+        <el-form-item label="檢測平臺" prop="typeOriginCn">
           <el-select
             v-model="formInline.typeOriginCn"
-            placeholder="请选择检测平台"
+            placeholder="請選擇檢測平臺"
             clearable
             style="width: 160px"
           >
@@ -140,7 +140,7 @@ onMounted(() => {
           </el-select>
         </el-form-item>
         <el-form-item>
-          <el-button type="primary" @click="queryAllLog"> 查询 </el-button>
+          <el-button type="primary" @click="queryAllLog"> 查詢 </el-button>
           <el-button @click="handlerReset(formRef)"> 重置 </el-button>
         </el-form-item>
       </el-form>
@@ -158,18 +158,18 @@ onMounted(() => {
         <el-table-column
           fixed
           prop="userInfo.username"
-          label="用户名称"
+          label="用戶名稱"
           width="150"
         />
-        <el-table-column prop="userInfo.avatar" label="头像" width="120">
+        <el-table-column prop="userInfo.avatar" label="頭像" width="120">
           <template #default="scope">
             <img :src="scope.row?.userInfo?.avatar" style="height: 50px" />
           </template>
         </el-table-column>
-        <el-table-column prop="userInfo.email" label="邮箱" width="200" />
+        <el-table-column prop="userInfo.email" label="郵箱" width="200" />
         <el-table-column
           prop="status"
-          label="用户状态"
+          label="用戶狀態"
           width="120"
           align="center"
         >
@@ -183,11 +183,11 @@ onMounted(() => {
         </el-table-column>
         <el-table-column
           prop="userInfo.violationCount"
-          label="累计次数"
+          label="累計次數"
           width="90"
           align="center"
         />
-        <el-table-column label="违规类型">
+        <el-table-column label="違規類型">
           <template #default="scope">
             <el-tag type="danger">
               {{
@@ -199,21 +199,21 @@ onMounted(() => {
           </template>
         </el-table-column>
 
-        <el-table-column label="违规关键词">
+        <el-table-column label="違規關鍵詞">
           <template #default="scope">
             {{
               scope.row?.words ? JSON.parse(scope.row?.words).join('  |  ') : ''
             }}
           </template>
         </el-table-column>
-        <el-table-column prop="typeOriginCn" label="违规检测来源" width="120">
+        <el-table-column prop="typeOriginCn" label="違規檢測來源" width="120">
           <template #default="scope">
             <el-tag type="success">
               {{ scope.row.typeOriginCn }}
             </el-tag>
           </template>
         </el-table-column>
-        <el-table-column prop="answer" label="违规内容" width="200">
+        <el-table-column prop="answer" label="違規內容" width="200">
           <template #default="scope">
             <el-popover placement="top" :width="400" trigger="click">
               <template #reference>
@@ -228,7 +228,7 @@ onMounted(() => {
             </el-popover>
           </template>
         </el-table-column>
-        <el-table-column prop="createdAt" label="违规时间" width="200">
+        <el-table-column prop="createdAt" label="違規時間" width="200">
           <template #default="scope">
             {{ utcToShanghaiTime(scope.row.createdAt, 'YYYY-MM-DD hh:mm:ss') }}
           </template>
@@ -241,7 +241,7 @@ onMounted(() => {
               size="small"
               @click="handleUpdateStatus(scope.row)"
             >
-              变更用户状态
+              變更用戶狀態
             </el-button>
           </template>
         </el-table-column>
@@ -260,12 +260,12 @@ onMounted(() => {
       </el-row>
     </page-main>
 
-    <el-dialog v-model="visible" title="变更用户状态" width="500px">
+    <el-dialog v-model="visible" title="變更用戶狀態" width="500px">
       <el-form :model="form" :inline="true">
-        <el-form-item label="用户状态" label-width="90px">
+        <el-form-item label="用戶狀態" label-width="90px">
           <el-select
             v-model="form.status"
-            placeholder="请选择用户状态"
+            placeholder="請選擇用戶狀態"
             clearable
             style="width: 160px"
           >
@@ -279,7 +279,7 @@ onMounted(() => {
         </el-form-item>
         <el-form-item>
           <el-button type="primary" @click="handlerUpateUserStatus">
-            确认变更
+            確認變更
           </el-button>
         </el-form-item>
       </el-form>

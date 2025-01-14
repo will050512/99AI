@@ -15,8 +15,8 @@ const swagger_1 = require("@nestjs/swagger");
 class GetQrCodeDto {
 }
 __decorate([
-    (0, swagger_1.ApiProperty)({ example: 'dasdasg2441lk1o24bk', description: '1-64位的字符参数', required: true }),
-    (0, class_validator_1.IsDefined)({ message: 'sceneStr是必传参数' }),
+    (0, swagger_1.ApiProperty)({ example: 'dasdasg2441lk1o24bk', description: '1-64位的字符參數', required: true }),
+    (0, class_validator_1.IsDefined)({ message: 'sceneStr是必傳參數' }),
     __metadata("design:type", String)
 ], GetQrCodeDto.prototype, "sceneStr", void 0);
 exports.GetQrCodeDto = GetQrCodeDto;

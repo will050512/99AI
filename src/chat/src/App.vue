@@ -64,7 +64,7 @@ function noticeInit() {
   }
 }
 
-/* 动态设置网站ico svg格式 */
+/* 動態設置網站ico svg格式 */
 const link = document.createElement('link');
 link.rel = 'shortcut icon';
 link.href = faviconPath.value;

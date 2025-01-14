@@ -9,22 +9,22 @@
 import { ref,onMounted } from 'vue';
 
 const props = defineProps({
-	/* 图片地址 如果不是同源跨域 传入base64 */
+	/* 圖片地址 如果不是同源跨域 傳入base64 */
   src: String,
-	/* 图片 高度 宽度 不传就是用图片宽高、如果是缩略图 使用尺寸导出到原始尺寸 */
+	/* 圖片 高度 寬度 不傳就是用圖片寬高、如果是縮略圖 使用尺寸導出到原始尺寸 */
   width: Number,
   height: Number,
-	/* 允许的画布最大宽度 限制区域 */
+	/* 允許的畫布最大寬度 限制區域 */
   max: {
     type: Number,
     default: 500
   },
-	/*导出蒙版的底色背景色 */
+	/*導出蒙版的底色背景色 */
 	exportMaskBackgroundColor: {
 		type: String,
 		default: 'black'
 	},
-	/* 导出蒙版的绘制颜色 */
+	/* 導出蒙版的繪製顏色 */
 	exportMaskColor: {
 		type: String,
 		default: 'white'
@@ -40,7 +40,7 @@ const props = defineProps({
 	updateFileInfo: Function
 });
 
-// TODO  如果动态变更了线宽颜色等 在导出的时候没有记录每一步的线宽 而是使用了最后的
+// TODO  如果動態變更了線寬顏色等 在導出的時候沒有記錄每一步的線寬 而是使用了最後的
 
 const canvas = ref<any>(null);
 const backgroundCanvas = ref<any>(null);
@@ -80,7 +80,7 @@ onMounted(() => {
   canvas.value.addEventListener('mouseup', stopDrawing);
 });
 
-/* 开始绘制 */
+/* 開始繪製 */
 const startDrawing = (e: any) => {
   isDrawing = true;
   const ctx = canvas.value.getContext('2d');
@@ -89,18 +89,18 @@ const startDrawing = (e: any) => {
 	currentPath = [{ type: isEraserEnabled.value ? 'erase' : 'draw', x: e.offsetX, y: e.offsetY }];
 };
 
-/* 绘制过程 */
+/* 繪製過程 */
 const draw = (e: any) => {
   if (!isDrawing) return;
   const ctx = canvas.value.getContext('2d');
   ctx.lineTo(e.offsetX, e.offsetY);
 
   if (isEraserEnabled.value) {
-    // 橡皮擦模式：清除画布上的内容
+    // 橡皮擦模式：清除畫布上的內容
     ctx.globalCompositeOperation = 'destination-out';
-    ctx.lineWidth = props.penWidth * 2; // 橡皮擦宽度可以调整
+    ctx.lineWidth = props.penWidth * 2; // 橡皮擦寬度可以調整
   } else {
-    // 正常绘制模式
+    // 正常繪製模式
     ctx.globalCompositeOperation = 'source-over';
     ctx.strokeStyle = props.penColor;
     ctx.lineWidth = props.penWidth;
@@ -108,14 +108,14 @@ const draw = (e: any) => {
   ctx.stroke();
 	currentPath.push({ type: isEraserEnabled.value ? 'erase' : 'draw', x: e.offsetX, y: e.offsetY });
 };
-/* 完成单词绘制 */
+/* 完成單詞繪製 */
 const stopDrawing = () => {
   isDrawing = false;
 	paths.value.push([...currentPath, { type: 'end' }]);
   currentPath = [];
 };
 
-/* 获取Base图片 */
+/* 獲取Base圖片 */
 const exportImage = (): Promise<string> => {
   return new Promise((resolve, reject) => {
     const exportCanvas = document.createElement('canvas');
@@ -145,14 +145,14 @@ const exportImage = (): Promise<string> => {
 							exportCtx.beginPath();
 						}
 						exportCtx.lineTo(path.x * xRatio, path.y * yRatio);
-						exportCtx.strokeStyle = props.exportMaskBackgroundColor; // 擦除路径使用的颜色（黑色）
+						exportCtx.strokeStyle = props.exportMaskBackgroundColor; // 擦除路徑使用的顏色（黑色）
 					}
-					// 每当一个 'draw' 或 'erase' 类型的路径结束时，结束当前的路径
+					// 每當一個 'draw' 或 'erase' 類型的路徑結束時，結束當前的路徑
 					if (index < pathArr.length - 1 && pathArr[index + 1].type !== path.type) {
 						exportCtx.stroke();
 					}
 				});
-				// 如果最后一个路径元素是 'draw' 或 'erase'，确保路径被结束
+				// 如果最後一個路徑元素是 'draw' 或 'erase'，確保路徑被結束
 				if (pathArr[pathArr.length - 1].type !== 'begin') {
 					exportCtx.stroke();
 				}
@@ -160,19 +160,19 @@ const exportImage = (): Promise<string> => {
 			const base64Image = exportCanvas.toDataURL('image/png');
 			resolve(base64Image);
 		} else {
-			reject(new Error('无法获取canvas的2D渲染上下文'));
+			reject(new Error('無法獲取canvas的2D渲染上下文'));
 		}
   });
 }
 
-/* 清空画布并重置 */
+/* 清空畫布並重置 */
 function clear() {
   paths.value = [];
 	const ctx = canvas.value.getContext('2d');
   ctx.clearRect(0, 0, canvas.value.width, canvas.value.height);
 };
 
-/* 获取绘制后的蒙版图片 */
+/* 獲取繪製後的蒙版圖片 */
 async function getBase(){
 	return await exportImage()
 }
@@ -185,7 +185,7 @@ function undo(){
   }
 };
 
-/* 重新绘制 */
+/* 重新繪製 */
 function redrawCanvas() {
   const ctx = canvas.value.getContext('2d');
   ctx.clearRect(0, 0, canvas.value.width, canvas.value.height);
@@ -216,7 +216,7 @@ function redrawCanvas() {
 
 
 
-/* 切换橡皮擦模式 */
+/* 切換橡皮擦模式 */
 const toggleEraser = () => {
   isEraserEnabled.value = !isEraserEnabled.value;
 };

@@ -97,7 +97,7 @@ let UserBalanceService = class UserBalanceService {
         }
         catch (error) {
             console.log('error: ', error);
-            throw new common_1.HttpException('注册赠送失败,请联系管理员！', common_1.HttpStatus.BAD_REQUEST);
+            throw new common_1.HttpException('註冊贈送失敗,請聯繫管理員！', common_1.HttpStatus.BAD_REQUEST);
         }
     }
     async validateBalance(req, type, amount) {
@@ -125,11 +125,11 @@ let UserBalanceService = class UserBalanceService {
                     : null;
         if (b.packageId && b[memberKey] + b[baseKey] < amount) {
             if (b[baseKey] < amount) {
-                throw new common_1.HttpException(`积分不足，继续体验服务，请按需选购套餐！`, common_1.HttpStatus.PAYMENT_REQUIRED);
+                throw new common_1.HttpException(`積分不足，繼續體驗服務，請按需選購套餐！`, common_1.HttpStatus.PAYMENT_REQUIRED);
             }
         }
         if (!b.packageId && b[baseKey] < amount) {
-            throw new common_1.HttpException(`积分不足，继续体验服务，请按需选购套餐！`, common_1.HttpStatus.PAYMENT_REQUIRED);
+            throw new common_1.HttpException(`積分不足，繼續體驗服務，請按需選購套餐！`, common_1.HttpStatus.PAYMENT_REQUIRED);
         }
         return b;
     }
@@ -165,7 +165,7 @@ let UserBalanceService = class UserBalanceService {
             };
             data[baseKey] = data[baseKey] + amount;
             if (data[baseKey] > settings[baseKey]) {
-                throw new common_1.HttpException(`今日体验额度使用完毕，请注册使用完整服务！`, common_1.HttpStatus.PAYMENT_REQUIRED);
+                throw new common_1.HttpException(`今日體驗額度使用完畢，請註冊使用完整服務！`, common_1.HttpStatus.PAYMENT_REQUIRED);
             }
             else {
                 await this.fingerprintLogEntity.save(data);
@@ -193,7 +193,7 @@ let UserBalanceService = class UserBalanceService {
                 data[baseKey] = data[baseKey] + amount;
             }
             if (data[baseKey] > settings[baseKey]) {
-                throw new common_1.HttpException(`今日体验额度使用完毕，请注册使用完整服务！`, common_1.HttpStatus.PAYMENT_REQUIRED);
+                throw new common_1.HttpException(`今日體驗額度使用完畢，請註冊使用完整服務！`, common_1.HttpStatus.PAYMENT_REQUIRED);
             }
             else {
                 await this.fingerprintLogEntity.update({ fingerprint: id }, data);
@@ -209,7 +209,7 @@ let UserBalanceService = class UserBalanceService {
     async deductFromBalance(userId, deductionType, amount, UseAmount = 0) {
         const b = await this.userBalanceEntity.findOne({ where: { userId } });
         if (!b) {
-            throw new common_1.HttpException('缺失当前用户账户记录！', common_1.HttpStatus.BAD_REQUEST);
+            throw new common_1.HttpException('缺失當前用戶賬戶記錄！', common_1.HttpStatus.BAD_REQUEST);
         }
         const keys = {
             1: {
@@ -248,7 +248,7 @@ let UserBalanceService = class UserBalanceService {
         }
         const result = await this.userBalanceEntity.update({ userId }, updateBalance);
         if (result.affected === 0) {
-            throw new common_1.HttpException('消费余额失败！', common_1.HttpStatus.BAD_REQUEST);
+            throw new common_1.HttpException('消費餘額失敗！', common_1.HttpStatus.BAD_REQUEST);
         }
     }
     async queryUserBalance(userId) {
@@ -277,7 +277,7 @@ let UserBalanceService = class UserBalanceService {
                     return await this.queryUserBalance(userId);
                 }
                 else {
-                    throw new common_1.HttpException('查询当前用户余额失败！', common_1.HttpStatus.BAD_REQUEST);
+                    throw new common_1.HttpException('查詢當前用戶餘額失敗！', common_1.HttpStatus.BAD_REQUEST);
                 }
             }
             res.sumModel3Count = res.packageId
@@ -301,7 +301,7 @@ let UserBalanceService = class UserBalanceService {
     async saveRecordRechargeLog(logInfo) {
         const { userId, rechargeType, model3Count, model4Count, drawMjCount, days = -1, pkgName = '', extent = '', } = logInfo;
         if (!userId) {
-            throw new common_1.HttpException('当前用户不存在,记录充值日志异常', common_1.HttpStatus.BAD_REQUEST);
+            throw new common_1.HttpException('當前用戶不存在,記錄充值日誌異常', common_1.HttpStatus.BAD_REQUEST);
         }
         const uid = (0, utils_1.createRandomUid)();
         return await this.accountLogEntity.save({
@@ -320,7 +320,7 @@ let UserBalanceService = class UserBalanceService {
         const { model3Count = 0, model4Count = 0, drawMjCount = 0, } = userBalanceInfo;
         const balance = await this.userBalanceEntity.findOne({ where: { userId } });
         if (balance) {
-            throw new common_1.HttpException('当前用户无需创建账户信息！', common_1.HttpStatus.BAD_REQUEST);
+            throw new common_1.HttpException('當前用戶無需創建賬戶資訊！', common_1.HttpStatus.BAD_REQUEST);
         }
         return await this.userBalanceEntity.save({
             userId,
@@ -334,20 +334,20 @@ let UserBalanceService = class UserBalanceService {
             const userBalanceInfo = (await this.userBalanceEntity.findOne({ where: { userId } })) ||
                 (await this.createBaseUserBalance(userId));
             if (!userBalanceInfo) {
-                throw new common_1.HttpException('查询用户账户信息失败！', common_1.HttpStatus.BAD_REQUEST);
+                throw new common_1.HttpException('查詢用戶賬戶資訊失敗！', common_1.HttpStatus.BAD_REQUEST);
             }
             const { model3Count, model4Count, drawMjCount, memberModel3Count, memberModel4Count, memberDrawMjCount, } = userBalanceInfo;
             let params = {};
             if (days > 0) {
                 const { packageId } = balance;
                 if (!packageId) {
-                    throw new common_1.HttpException('缺失当前套餐ID、充值失败！', common_1.HttpStatus.BAD_REQUEST);
+                    throw new common_1.HttpException('缺失當前套餐ID、充值失敗！', common_1.HttpStatus.BAD_REQUEST);
                 }
                 const pkgInfo = await this.cramiPackageEntity.findOne({
                     where: { id: packageId },
                 });
                 if (!pkgInfo) {
-                    throw new common_1.HttpException('当前套餐不存在！', common_1.HttpStatus.BAD_REQUEST);
+                    throw new common_1.HttpException('當前套餐不存在！', common_1.HttpStatus.BAD_REQUEST);
                 }
                 const { weight } = pkgInfo;
                 if (!userBalanceInfo.packageId) {
@@ -394,23 +394,23 @@ let UserBalanceService = class UserBalanceService {
             }
             const result = await this.userBalanceEntity.update({ userId }, params);
             if (result.affected === 0) {
-                throw new common_1.HttpException(`${userId}充值失败`, common_1.HttpStatus.BAD_REQUEST);
+                throw new common_1.HttpException(`${userId}充值失敗`, common_1.HttpStatus.BAD_REQUEST);
             }
         }
         catch (error) {
             console.log('error: ', error);
-            throw new common_1.HttpException('用户充值失败！', common_1.HttpStatus.BAD_REQUEST);
+            throw new common_1.HttpException('用戶充值失敗！', common_1.HttpStatus.BAD_REQUEST);
         }
     }
     async addBalanceToOrder(order) {
-        console.log('充值的工单信息:', order);
+        console.log('充值的工單資訊:', order);
         try {
             const { userId, goodsId } = order;
             const pkg = await this.cramiPackageEntity.findOne({
                 where: { id: order.goodsId, status: 1 },
             });
             if (!pkg) {
-                throw new common_1.HttpException('非法操作、当前充值套餐暂不存在！', common_1.HttpStatus.BAD_REQUEST);
+                throw new common_1.HttpException('非法操作、當前充值套餐暫不存在！', common_1.HttpStatus.BAD_REQUEST);
             }
             const { model3Count, model4Count, drawMjCount, days, name: pkgName, } = pkg;
             const money = {
@@ -433,7 +433,7 @@ let UserBalanceService = class UserBalanceService {
         }
         catch (error) {
             console.log('error: ', error);
-            throw new common_1.HttpException('充值失败！', common_1.HttpStatus.BAD_REQUEST);
+            throw new common_1.HttpException('充值失敗！', common_1.HttpStatus.BAD_REQUEST);
         }
     }
     async getRechargeLog(req, params) {
@@ -486,7 +486,7 @@ let UserBalanceService = class UserBalanceService {
         }
         catch (error) {
             console.log('error: ', error);
-            throw new common_1.HttpException('查询用户账户失败！', common_1.HttpStatus.BAD_REQUEST);
+            throw new common_1.HttpException('查詢用戶賬戶失敗！', common_1.HttpStatus.BAD_REQUEST);
         }
     }
     async queryUserBalanceByIds(ids) {
@@ -536,12 +536,12 @@ let UserBalanceService = class UserBalanceService {
         if (openPhoneValidation === '1' &&
             totalTokens >= phoneValidationCount &&
             !userInfo.phone) {
-            throw new common_1.HttpException('请完成手机号绑定', common_1.HttpStatus.BAD_REQUEST);
+            throw new common_1.HttpException('請完成手機號綁定', common_1.HttpStatus.BAD_REQUEST);
         }
         if (openIdentity === '1' &&
             totalTokens >= identityValidationCount &&
             (!userInfo.realName || !userInfo.idCard)) {
-            throw new common_1.HttpException('请完成实名认证', common_1.HttpStatus.BAD_REQUEST);
+            throw new common_1.HttpException('請完成實名認證', common_1.HttpStatus.BAD_REQUEST);
         }
     }
 };

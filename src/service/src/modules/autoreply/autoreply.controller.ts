@@ -14,7 +14,7 @@ export class AutoreplyController {
   constructor(private readonly autoreplyService: AutoreplyService) {}
 
   @Get('query')
-  @ApiOperation({ summary: '查询自动回复' })
+  @ApiOperation({ summary: '查詢自動回覆' })
   @UseGuards(AdminAuthGuard)
   @ApiBearerAuth()
   queryAutoreply(@Query() query: QueryAutoReplyDto) {
@@ -22,7 +22,7 @@ export class AutoreplyController {
   }
 
   @Post('add')
-  @ApiOperation({ summary: '添加自动回复' })
+  @ApiOperation({ summary: '添加自動回覆' })
   @UseGuards(SuperAuthGuard)
   @ApiBearerAuth()
   addAutoreply(@Body() body: AddAutoReplyDto) {
@@ -30,7 +30,7 @@ export class AutoreplyController {
   }
 
   @Post('update')
-  @ApiOperation({ summary: '修改自动回复' })
+  @ApiOperation({ summary: '修改自動回覆' })
   @UseGuards(SuperAuthGuard)
   @ApiBearerAuth()
   updateAutoreply(@Body() body: UpdateAutoReplyDto) {
@@ -38,7 +38,7 @@ export class AutoreplyController {
   }
 
   @Post('del')
-  @ApiOperation({ summary: '删除自动回复' })
+  @ApiOperation({ summary: '刪除自動回覆' })
   @UseGuards(SuperAuthGuard)
   @ApiBearerAuth()
   delAutoreply(@Body() body: DelAutoReplyDto) {

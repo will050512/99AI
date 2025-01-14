@@ -15,8 +15,8 @@ const swagger_1 = require("@nestjs/swagger");
 class ResetUserPassDto {
 }
 __decorate([
-    (0, swagger_1.ApiProperty)({ example: 1, nullable: true, description: '用户id', required: false }),
-    (0, class_validator_1.IsDefined)({ message: '用户id是必传参数' }),
+    (0, swagger_1.ApiProperty)({ example: 1, nullable: true, description: '用戶id', required: false }),
+    (0, class_validator_1.IsDefined)({ message: '用戶id是必傳參數' }),
     __metadata("design:type", Number)
 ], ResetUserPassDto.prototype, "id", void 0);
 exports.ResetUserPassDto = ResetUserPassDto;

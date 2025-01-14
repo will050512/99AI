@@ -10,7 +10,7 @@ const routes: RouteRecordRaw = {
   redirect: '/storage/config',
   name: 'StorageMenu',
   meta: {
-    title: '存储配置',
+    title: '儲存配置',
     icon: 'mingcute:storage-line',
   },
   children: [
@@ -19,7 +19,7 @@ const routes: RouteRecordRaw = {
       name: 'LocalStorage',
       component: () => import('@/views/storage/localStorage.vue'),
       meta: {
-        title: '本地存储',
+        title: '本地儲存',
         icon: 'icon-park-outline:cloud-storage',
       },
     },
@@ -28,7 +28,7 @@ const routes: RouteRecordRaw = {
       name: 'StorageTencent',
       component: () => import('@/views/storage/tencent.vue'),
       meta: {
-        title: '腾讯云COS',
+        title: '騰訊雲COS',
         icon: 'teenyicons:cost-estimate-outline',
       },
     },
@@ -37,7 +37,7 @@ const routes: RouteRecordRaw = {
       name: 'StorageAli',
       component: () => import('@/views/storage/ali.vue'),
       meta: {
-        title: '阿里云OSS',
+        title: '阿里雲OSS',
         icon: 'material-symbols:home-storage-outline',
       },
     },
@@ -46,7 +46,7 @@ const routes: RouteRecordRaw = {
       name: 'StorageChevereto',
       component: () => import('@/views/storage/chevereto.vue'),
       meta: {
-        title: 'chevereto图床',
+        title: 'chevereto圖床',
         icon: 'material-symbols:image-outline',
       },
     },

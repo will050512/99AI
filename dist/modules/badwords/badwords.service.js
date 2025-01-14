@@ -42,7 +42,7 @@ let BadWordsService = class BadWordsService {
             }
         }
         if (triggeredWords.length) {
-            await this.recordUserBadWords(userId, content, triggeredWords, ['自定义'], '自定义检测');
+            await this.recordUserBadWords(userId, content, triggeredWords, ['自定義'], '自定義檢測');
         }
         return triggeredWords;
     }
@@ -59,7 +59,7 @@ let BadWordsService = class BadWordsService {
             (await this.baiduCheckBadWords(content, config.baiduTextAccessToken, userId));
     }
     extractContent(str) {
-        const pattern = /存在(.*?)不合规/;
+        const pattern = /存在(.*?)不合規/;
         const match = str.match(pattern);
         return match ? match[1] : '';
     }
@@ -74,21 +74,21 @@ let BadWordsService = class BadWordsService {
         const response = await axios_1.default.post(url, { text: content }, { headers });
         const { conclusion, error_code, error_msg, conclusionType, data } = response.data;
         if (error_code) {
-            console.log('百度文本检测出现错误、请查看配置信息: ', error_msg);
+            console.log('百度文本檢測出現錯誤、請查看配置資訊: ', error_msg);
         }
         if (conclusionType !== 1) {
             const types = [
                 ...new Set(data.map((item) => this.extractContent(item.msg))),
             ];
-            await this.recordUserBadWords(userId, content, ['***'], types, '百度云检测');
-            const tips = `您提交的信息中包含${types.join(',')}的内容、我们已对您的账户进行标记、请合规使用！`;
+            await this.recordUserBadWords(userId, content, ['***'], types, '百度雲檢測');
+            const tips = `您遞交的資訊中包含${types.join(',')}的內容、我們已對您的賬戶進行標記、請合規使用！`;
             throw new common_1.HttpException(tips, common_1.HttpStatus.BAD_REQUEST);
         }
     }
     formarTips(wordList) {
         const categorys = wordList.map((t) => t.category);
         const unSet = [...new Set(categorys)];
-        return `您提交的内容中包含${unSet.join(',')}的信息、我们已对您账号进行标记、请合规使用！`;
+        return `您遞交的內容中包含${unSet.join(',')}的資訊、我們已對您賬號進行標記、請合規使用！`;
     }
     async loadBadWords() {
         const data = await this.badWordsEntity.find({
@@ -113,41 +113,41 @@ let BadWordsService = class BadWordsService {
     async delBadWords(body) {
         const b = await this.badWordsEntity.findOne({ where: { id: body.id } });
         if (!b) {
-            throw new common_1.HttpException('敏感词不存在,请检查您的提交信息', common_1.HttpStatus.BAD_REQUEST);
+            throw new common_1.HttpException('敏感詞不存在,請檢查您的遞交資訊', common_1.HttpStatus.BAD_REQUEST);
         }
         const res = await this.badWordsEntity.delete({ id: body.id });
         if (res.affected > 0) {
             await this.loadBadWords();
-            return '删除敏感词成功';
+            return '刪除敏感詞成功';
         }
         else {
-            throw new common_1.HttpException('删除敏感词失败', common_1.HttpStatus.BAD_REQUEST);
+            throw new common_1.HttpException('刪除敏感詞失敗', common_1.HttpStatus.BAD_REQUEST);
         }
     }
     async updateBadWords(body) {
         const { id, word, status } = body;
         const b = await this.badWordsEntity.findOne({ where: { word } });
         if (b) {
-            throw new common_1.HttpException('敏感词已经存在了、请勿重复添加', common_1.HttpStatus.BAD_REQUEST);
+            throw new common_1.HttpException('敏感詞已經存在了、請勿重複添加', common_1.HttpStatus.BAD_REQUEST);
         }
         const res = await this.badWordsEntity.update({ id }, { word, status });
         if (res.affected > 0) {
             await this.loadBadWords();
-            return '更新敏感词成功';
+            return '更新敏感詞成功';
         }
         else {
-            throw new common_1.HttpException('更新敏感词失败', common_1.HttpStatus.BAD_REQUEST);
+            throw new common_1.HttpException('更新敏感詞失敗', common_1.HttpStatus.BAD_REQUEST);
         }
     }
     async addBadWord(body) {
         const { word } = body;
         const b = await this.badWordsEntity.findOne({ where: { word } });
         if (b) {
-            throw new common_1.HttpException('敏感词已存在,请检查您的提交信息', common_1.HttpStatus.BAD_REQUEST);
+            throw new common_1.HttpException('敏感詞已存在,請檢查您的遞交資訊', common_1.HttpStatus.BAD_REQUEST);
         }
         await this.badWordsEntity.save({ word });
         await this.loadBadWords();
-        return '添加敏感词成功';
+        return '添加敏感詞成功';
     }
     async recordUserBadWords(userId, content, words, typeCn, typeOriginCn) {
         const data = {

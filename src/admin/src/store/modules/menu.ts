@@ -18,7 +18,7 @@ const useMenuStore = defineStore(
     const filesystemMenusRaw = ref<Menu.recordMainRaw[]>([]);
     const actived = ref(0);
 
-    // 将原始路由转换成导航菜单
+    // 將原始路由轉換成導航菜單
     function convertRouteToMenu(
       routes: Route.recordMainRaw[]
     ): Menu.recordMainRaw[] {
@@ -76,7 +76,7 @@ const useMenuStore = defineStore(
       return returnMenus;
     }
 
-    // 完整导航数据
+    // 完整導航數據
     const allMenus = computed(() => {
       let returnMenus: Menu.recordMainRaw[] = [];
       if (settingsStore.settings.app.routeBaseOn !== 'filesystem') {
@@ -84,13 +84,13 @@ const useMenuStore = defineStore(
       } else {
         returnMenus = filesystemMenusRaw.value;
       }
-      // 如果权限功能开启，则需要对导航数据进行筛选过滤
+      // 如果權限功能開啟，則需要對導航數據進行篩選過濾
       if (settingsStore.settings.app.enablePermission) {
         returnMenus = filterAsyncMenus(returnMenus, userStore.permissions);
       }
       return returnMenus;
     });
-    // 次导航数据
+    // 次導航數據
     const sidebarMenus = computed<Menu.recordMainRaw['children']>(() => {
       return allMenus.value.length > 0
         ? allMenus.value.length > 1
@@ -98,7 +98,7 @@ const useMenuStore = defineStore(
           : allMenus.value[0].children
         : [];
     });
-    // 次导航第一层最深路径
+    // 次導航第一層最深路徑
     const sidebarMenusFirstDeepestPath = computed(() => {
       return sidebarMenus.value.length > 0
         ? getDeepestPath(sidebarMenus.value[0])
@@ -124,7 +124,7 @@ const useMenuStore = defineStore(
       }
       return retnPath;
     }
-    // 默认展开的导航路径
+    // 默認展開的導航路徑
     const defaultOpenedPaths = computed(() => {
       const defaultOpenedPaths: string[] = [];
       if (settingsStore.settings.app.routeBaseOn !== 'filesystem') {
@@ -151,7 +151,7 @@ const useMenuStore = defineStore(
       return defaultOpenedPaths;
     }
 
-    // 判断是否有权限
+    // 判斷是否有權限
     function hasPermission(
       permissions: string[],
       menu: Menu.recordMainRaw | Menu.recordRaw
@@ -174,7 +174,7 @@ const useMenuStore = defineStore(
       }
       return isAuth;
     }
-    // 根据权限过滤导航
+    // 根據權限過濾導航
     function filterAsyncMenus<
       T extends Menu.recordMainRaw[] | Menu.recordRaw[]
     >(menus: T, permissions: string[]): T {
@@ -196,25 +196,25 @@ const useMenuStore = defineStore(
       });
       return res;
     }
-    // 生成导航（前端生成）
+    // 生成導航（前端生成）
     async function generateMenusAtFront() {
       filesystemMenusRaw.value = menu.filter(
         (item) => item.children.length !== 0
       );
     }
-    // // 生成导航（后端生成）
+    // // 生成導航（後端生成）
     // async function generateMenusAtBack() {
     //   await apiApp.menuList().then(async (res) => {
     //     filesystemMenusRaw.value = (res.data as Menu.recordMainRaw[]).filter(item => item.children.length !== 0)
     //   }).catch(() => {})
     // }
-    // 设置主导航
+    // 設置主導航
     function setActived(data: number | string) {
       if (typeof data === 'number') {
-        // 如果是 number 类型，则认为是主导航的索引
+        // 如果是 number 類型，則認為是主導航的索引
         actived.value = data;
       } else {
-        // 如果是 string 类型，则认为是路由，需要查找对应的主导航索引
+        // 如果是 string 類型，則認為是路由，需要查找對應的主導航索引
         const findIndex = allMenus.value.findIndex((item) =>
           item.children.some(
             (r) => data.indexOf(`${r.path}/`) === 0 || data === r.path

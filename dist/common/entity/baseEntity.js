@@ -18,15 +18,15 @@ __decorate([
     __metadata("design:type", Number)
 ], BaseEntity.prototype, "id", void 0);
 __decorate([
-    (0, typeorm_1.CreateDateColumn)({ type: 'datetime', length: 0, nullable: false, name: 'createdAt', comment: '创建时间' }),
+    (0, typeorm_1.CreateDateColumn)({ type: 'datetime', length: 0, nullable: false, name: 'createdAt', comment: '創建時間' }),
     __metadata("design:type", Date)
 ], BaseEntity.prototype, "createdAt", void 0);
 __decorate([
-    (0, typeorm_1.UpdateDateColumn)({ type: 'datetime', length: 0, nullable: false, name: 'updatedAt', comment: '更新时间' }),
+    (0, typeorm_1.UpdateDateColumn)({ type: 'datetime', length: 0, nullable: false, name: 'updatedAt', comment: '更新時間' }),
     __metadata("design:type", Date)
 ], BaseEntity.prototype, "updatedAt", void 0);
 __decorate([
-    (0, typeorm_1.DeleteDateColumn)({ type: 'datetime', length: 0, nullable: false, name: 'deletedAt', comment: '删除时间' }),
+    (0, typeorm_1.DeleteDateColumn)({ type: 'datetime', length: 0, nullable: false, name: 'deletedAt', comment: '刪除時間' }),
     __metadata("design:type", Date)
 ], BaseEntity.prototype, "deletedAt", void 0);
 BaseEntity = __decorate([

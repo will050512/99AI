@@ -6,28 +6,28 @@ import inquirer from 'inquirer'
 import { lookupCollection, lookupCollections } from '@iconify/json'
 
 async function generateIcons() {
-  // 拿到全部图标集的原始数据
+  // 拿到全部圖標集的原始數據
   const raw = await lookupCollections()
 
   let lastChoose = fs.readFileSync(path.resolve(process.cwd(), 'src/iconify/index.json'), 'utf-8')
   lastChoose = JSON.parse(lastChoose)
 
-  // 取出可使用的图标集数据用于 inquirer 选择，并按名称排序
+  // 取出可使用的圖標集數據用於 inquirer 選擇，並按名稱排序
   const collections = Object.entries(raw).map(([id, item]) => ({
     ...item,
     id,
   })).sort((a, b) => a.name.localeCompare(b.name))
 
   /**
-   * 分别会在对应目录下生成以下文件，其中(1)(3)用于离线下载并安装图标，(2)用于图标选择器使用
-   * (1) src/iconify/index.json    记录用户 inquirer 的交互信息
-   * (2) src/iconify/data.json     包含多个图标集数据，仅记录图标名
-   * (3) public/icons/*-raw.json   多个图标集的原始数据，独立存放，用于离线使用
+   * 分別會在對應目錄下生成以下文件，其中(1)(3)用於離線下載並安裝圖標，(2)用於圖標選擇器使用
+   * (1) src/iconify/index.json    記錄用戶 inquirer 的交互資訊
+   * (2) src/iconify/data.json     包含多個圖標集數據，僅記錄圖標名
+   * (3) public/icons/*-raw.json   多個圖標集的原始數據，獨立存放，用於離線使用
    */
   inquirer.prompt([
     {
       type: 'checkbox',
-      message: '请选择需要生成的图标集',
+      message: '請選擇需要生成的圖標集',
       name: 'collections',
       choices: collections.map(item => ({
         name: `${item.name} (${item.total} icons)`,
@@ -38,7 +38,7 @@ async function generateIcons() {
     {
       type: 'confirm',
       name: 'isOfflineUse',
-      message: '是否需要离线使用',
+      message: '是否需要離線使用',
       default: false,
     },
   ]).then(async (answers) => {

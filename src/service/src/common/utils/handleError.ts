@@ -4,45 +4,45 @@ export function handleError(error: {
   response: { status: any };
   message: string;
 }) {
-  let message = '发生未知错误，请稍后再试';
+  let message = '發生未知錯誤，請稍後再試';
 
   if (axios.isAxiosError(error) && error.response) {
     switch (error.response.status) {
       case 400:
         message =
-          '发生错误：400 Bad Request - 请求因格式错误无法被服务器处理。';
+          '發生錯誤：400 Bad Request - 請求因格式錯誤無法被服務器處理。';
         break;
       case 401:
-        message = '发生错误：401 Unauthorized - 请求要求进行身份验证。';
+        message = '發生錯誤：401 Unauthorized - 請求要求進行身份驗證。';
         break;
       case 403:
-        message = '发生错误：403 Forbidden - 服务器拒绝执行请求。';
+        message = '發生錯誤：403 Forbidden - 服務器拒絕執行請求。';
         break;
       case 404:
-        message = '发生错误：404 Not Found - 请求的资源无法在服务器上找到。';
+        message = '發生錯誤：404 Not Found - 請求的資源無法在服務器上找到。';
         break;
       case 500:
         message =
-          '发生错误：500 Internal Server Error - 服务器内部错误，无法完成请求。';
+          '發生錯誤：500 Internal Server Error - 服務器內部錯誤，無法完成請求。';
         break;
       case 502:
         message =
-          '发生错误：502 Bad Gateway - 作为网关或代理工作的服务器从上游服务器收到无效响应。';
+          '發生錯誤：502 Bad Gateway - 作為網關或代理工作的服務器從上游服務器收到無效響應。';
         break;
       case 503:
         message =
-          '发生错误：503 Service Unavailable - 服务器暂时处于超负载或维护状态，无法处理请求。';
+          '發生錯誤：503 Service Unavailable - 服務器暫時處於超負載或維護狀態，無法處理請求。';
         break;
-      // 你可以继续添加其他你认为常见的HTTP错误状态码及其解释
+      // 你可以繼續添加其他你認為常見的HTTP錯誤狀態碼及其解釋
       default:
-        // message = `发生错误：${error.response.status} - ${error.response.statusText}`;
+        // message = `發生錯誤：${error.response.status} - ${error.response.statusText}`;
         break;
     }
   } else {
-    // 处理非Axios错误
+    // 處理非Axios錯誤
     message = error.message || message;
   }
 
-  // 返回处理后的错误信息
+  // 返回處理後的錯誤資訊
   return message;
 }

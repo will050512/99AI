@@ -15,7 +15,7 @@ let TypeOrmQueryFailedFilter = class TypeOrmQueryFailedFilter {
         const response = ctx.getResponse();
         const request = ctx.getRequest();
         if (exception.code === 'ER_DUP_ENTRY') {
-            throw new common_1.BadRequestException('该记录已经存在，请勿重复添加！');
+            throw new common_1.BadRequestException('該記錄已經存在，請勿重複添加！');
         }
         else {
             console.log('other query error');

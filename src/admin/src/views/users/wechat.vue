@@ -1,6 +1,6 @@
 <route lang="yaml">
 meta:
-  title: 微信设置
+  title: 微信設置
 </route>
 
 <script lang="ts" setup>
@@ -24,28 +24,28 @@ const formInline = reactive({
 
 const rules = ref<FormRules>({
   wechatOfficialName: [
-    { required: false, trigger: 'blur', message: '请填写微信公众号名称' },
+    { required: false, trigger: 'blur', message: '請填寫微信公眾號名稱' },
   ],
 
   wechatOfficialAppId: [
     {
       required: false,
       trigger: 'blur',
-      message: '请填写微信公众号开发配置 AppId',
+      message: '請填寫微信公眾號開發配置 AppId',
     },
   ],
   wechatOfficialToken: [
     {
       required: false,
       trigger: 'blur',
-      message: '请填写微信公众号开发配置 Token',
+      message: '請填寫微信公眾號開發配置 Token',
     },
   ],
   wechatOfficialAppSecret: [
     {
       required: false,
       trigger: 'blur',
-      message: '请填写微信公众号开发配置 AppSecret',
+      message: '請填寫微信公眾號開發配置 AppSecret',
     },
   ],
 });
@@ -74,11 +74,11 @@ function handlerUpdateConfig() {
     if (valid) {
       try {
         await apiConfig.setConfig({ settings: fotmatSetting(formInline) });
-        ElMessage.success('变更配置信息成功');
+        ElMessage.success('變更配置資訊成功');
       } catch (error) {}
       queryAllconfig();
     } else {
-      ElMessage.error('请填写完整信息');
+      ElMessage.error('請填寫完整資訊');
     }
   });
 }
@@ -101,36 +101,36 @@ onMounted(() => {
   <div>
     <PageHeader>
       <template #title>
-        <div class="flex items-center gap-4">微信登录设置[仔细阅读]</div>
+        <div class="flex items-center gap-4">微信登錄設置[仔細閱讀]</div>
       </template>
       <template #content>
         <div class="text-sm/6">
           <div>
-            系统微信登录通过关联公众号实现[请务必注册为服务号、个人公众号没有二维码等此类权限]。
+            系統微信登錄通過關聯公眾號實現[請務必註冊為服務號、個人公眾號沒有二維碼等此類權限]。
           </div>
           <div>
-            请前往
-            <a href="https://mp.weixin.qq.com/" target="_blank">微信公众平台</a>
-            ，获取开发者配置信息。
+            請前往
+            <a href="https://mp.weixin.qq.com/" target="_blank">微信公眾平臺</a>
+            ，獲取開發者配置資訊。
           </div>
           <div>
-            如果用户对公众号发送消息，将会从下面设置的自定义回复默认信息。
+            如果用戶對公眾號發送消息，將會從下面設置的自定義回覆默認資訊。
           </div>
           <div>
-            同时别忘记在微信公众号平台将自己的 ip/域名
-            加入白名单，配置位置为公众号后台->基本配置：服务复制参考
-            <a href="https://域名/api/official/notify" target="_blank"
-              >https://域名/api/official/notify</a
+            同時別忘記在微信公眾號平臺將自己的 ip/網域名稱
+            加入白名單，配置位置為公眾號後臺->基本配置：服務複製參考
+            <a href="https://網域名稱/api/official/notify" target="_blank"
+              >https://網域名稱/api/official/notify</a
             >
-            将域名修改为您的域名。
+            將網域名稱修改為您的網域名稱。
           </div>
-          <div>下方Token对应自己后台设置的Token，加密秘钥随机即可。</div>
-          <div>当设置不指定首页并且配置了微信登录即可默认打开静默登录！</div>
+          <div>下方Token對應自己後臺設置的Token，加密秘鑰隨機即可。</div>
+          <div>當設置不指定首頁並且配置了微信登錄即可默認打開靜默登錄！</div>
         </div>
       </template>
       <HButton outline text @click="handlerUpdateConfig">
         <SvgIcon name="i-ri:file-text-line" />
-        保存设置
+        保存設置
       </HButton>
     </PageHeader>
 
@@ -144,13 +144,13 @@ onMounted(() => {
         <el-row>
           <el-col :xs="24" :md="20" :lg="15" :xl="12">
             <el-form-item
-              label="是否开启微信登录注册"
+              label="是否開啟微信登錄註冊"
               prop="wechatRegisterStatus"
             >
               <el-tooltip
                 class="box-item"
                 effect="dark"
-                content="如您启用微信注册、则用户端则可以通过微信扫码方式注册或登录！"
+                content="如您啟用微信註冊、則用戶端則可以通過微信掃碼方式註冊或登錄！"
                 placement="right"
               >
                 <el-switch
@@ -165,13 +165,13 @@ onMounted(() => {
         <el-row>
           <el-col :xs="24" :md="20" :lg="15" :xl="12">
             <el-form-item
-              label="是否开启微信静默"
+              label="是否開啟微信靜默"
               prop="wechatSilentLoginStatus"
             >
               <el-tooltip
                 class="box-item"
                 effect="dark"
-                content="如您启用静默登录、则用户在微信环境打开则直接自动登录！"
+                content="如您啟用靜默登錄、則用戶在微信環境打開則直接自動登錄！"
                 placement="right"
               >
                 <el-switch
@@ -185,10 +185,10 @@ onMounted(() => {
         </el-row>
         <el-row>
           <el-col :xs="24" :md="20" :lg="15" :xl="12">
-            <el-form-item label="公众号名称" prop="wechatOfficialName">
+            <el-form-item label="公眾號名稱" prop="wechatOfficialName">
               <el-input
                 v-model="formInline.wechatOfficialName"
-                placeholder="公众号名称"
+                placeholder="公眾號名稱"
                 clearable
               />
             </el-form-item>
@@ -199,7 +199,7 @@ onMounted(() => {
             <el-form-item label="Url" prop="wechatOfficialUrl">
               <el-input
                 v-model="formInline.wechatOfficialUrl"
-                placeholder="公众号自定义URL https://open.weixin.qq.com，默认无需填写"
+                placeholder="公眾號自定義URL https://open.weixin.qq.com，默認無需填寫"
                 clearable
               />
             </el-form-item>
@@ -210,7 +210,7 @@ onMounted(() => {
             <el-form-item label="AppId" prop="wechatOfficialAppId">
               <el-input
                 v-model="formInline.wechatOfficialAppId"
-                placeholder="公众号开发信息 AppId"
+                placeholder="公眾號開發資訊 AppId"
                 clearable
                 type="password"
                 show-password
@@ -223,7 +223,7 @@ onMounted(() => {
             <el-form-item label="Token" prop="wechatOfficialToken">
               <el-input
                 v-model="formInline.wechatOfficialToken"
-                placeholder="公众号Token配置"
+                placeholder="公眾號Token配置"
                 clearable
                 type="password"
                 show-password
@@ -236,7 +236,7 @@ onMounted(() => {
             <el-form-item label="AppSecret" prop="wechatOfficialAppSecret">
               <el-input
                 v-model="formInline.wechatOfficialAppSecret"
-                placeholder="公众号开发信息 AppSecret"
+                placeholder="公眾號開發資訊 AppSecret"
                 clearable
                 type="password"
                 show-password
@@ -248,14 +248,14 @@ onMounted(() => {
         <el-row>
           <el-col :xs="24" :md="20" :lg="15" :xl="12">
             <el-form-item
-              label="订阅公众号欢迎消息"
+              label="訂閱公眾號歡迎消息"
               prop="officialSubscribeText"
             >
               <el-input
                 v-model="formInline.officialSubscribeText"
                 type="textarea"
                 :rows="3"
-                placeholder="订阅你的公众号后对他的欢迎语！"
+                placeholder="訂閱你的公眾號後對他的歡迎語！"
                 clearable
               />
             </el-form-item>
@@ -264,14 +264,14 @@ onMounted(() => {
         <el-row>
           <el-col :xs="24" :md="20" :lg="15" :xl="12">
             <el-form-item
-              label="绑定账号回复消息"
+              label="綁定賬號回覆消息"
               prop="officialBindAccountText"
             >
               <el-input
                 v-model="formInline.officialBindAccountText"
                 type="textarea"
                 :rows="3"
-                placeholder="非微信登录用户首次绑定微信的欢迎语"
+                placeholder="非微信登錄用戶首次綁定微信的歡迎語"
                 clearable
               />
             </el-form-item>
@@ -279,12 +279,12 @@ onMounted(() => {
         </el-row>
         <el-row>
           <el-col :xs="24" :md="20" :lg="15" :xl="12">
-            <el-form-item label="扫码登录回复消息" prop="officialScanLoginText">
+            <el-form-item label="掃碼登錄回覆消息" prop="officialScanLoginText">
               <el-input
                 v-model="formInline.officialScanLoginText"
                 type="textarea"
                 :rows="3"
-                placeholder="用户扫码登录成功时自动回复的内容"
+                placeholder="用戶掃碼登錄成功時自動回覆的內容"
                 clearable
               />
             </el-form-item>
@@ -293,14 +293,14 @@ onMounted(() => {
         <el-row>
           <el-col :xs="24" :md="20" :lg="15" :xl="12">
             <el-form-item
-              label="自定义回复的默认信息"
+              label="自定義回覆的默認資訊"
               prop="officialAutoReplyText"
             >
               <el-input
                 v-model="formInline.officialAutoReplyText"
                 type="textarea"
                 :rows="3"
-                placeholder="当用户对公众号发了消息不在自动回复列表时回复的兜底内容"
+                placeholder="當用戶對公眾號發了消息不在自動回覆列表時回覆的兜底內容"
                 clearable
               />
             </el-form-item>

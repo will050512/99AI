@@ -45,7 +45,7 @@ const wechatSilentLoginStatus = computed(
 );
 // const homePath = computed(() => authStore.globalConfig?.clientHomePath);
 
-/* 如果在vx环境并且携带了code则静默登录 */
+/* 如果在vx環境並且攜帶了code則靜默登錄 */
 
 function handleCheckOtherLoginByToken() {
   const { token } = route.query;
@@ -53,7 +53,7 @@ function handleCheckOtherLoginByToken() {
     authStore.setToken(token);
     const name = route.name;
     router.replace({ name, query: {} });
-    ms.success('账户登录成功、开始体验吧！');
+    ms.success('賬戶登錄成功、開始體驗吧！');
     authStore.getUserInfo();
   }
 }
@@ -76,16 +76,16 @@ async function loginByWechat() {
     if (res.success) {
       authStore.setToken(res.data);
       authStore.getUserInfo();
-      authStore.setLoginDialog(false); // 关闭登录对话框
+      authStore.setLoginDialog(false); // 關閉登錄對話框
 
-      // // 清除URL中的所有code参数
+      // // 清除URL中的所有code參數
       // const newUrl =
       //   window.location.href.split('?')[0] +
       //   window.location.search
       //     .replace(new RegExp('([&?])code=[^&]*', 'g'), '$1')
       //     .replace(/^&/, '?');
       // window.history.replaceState(null, '', newUrl);
-      // 导航到 /chat 页面
+      // 導航到 /chat 頁面
       router.replace('/chat');
     }
   } else {

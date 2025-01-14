@@ -87,14 +87,14 @@ const emailLoginStatus = computed(
   () => Number(authStore.globalConfig.emailLoginStatus) === 1
 );
 
-// 使用 ref 来管理全局参数的状态
-const agreedToUserAgreement = ref(true); // 读取初始状态并转换为布尔类型
+// 使用 ref 來管理全局參數的狀態
+const agreedToUserAgreement = ref(true); // 讀取初始狀態並轉換為布爾類型
 
-// 点击“用户协议及隐私政策”时，自动同意
+// 點擊“用戶協議及隱私政策”時，自動同意
 function handleClick() {
-  agreedToUserAgreement.value = true; // 设置为同意
-  // useGlobalStore.updateNoticeDialog(true); // 假设你有一个类似的状态管理方法，用于显示对话框或进行其他操作
-  useGlobalStore.updateUserAgreementDialog(true); // 假设你有一个类似的状态管理方法，用于显示对话框或进行其他操作
+  agreedToUserAgreement.value = true; // 設置為同意
+  // useGlobalStore.updateNoticeDialog(true); // 假設你有一個類似的狀態管理方法，用於顯示對話框或進行其他操作
+  useGlobalStore.updateUserAgreementDialog(true); // 假設你有一個類似的狀態管理方法，用於顯示對話框或進行其他操作
   // console.log('User agreed to User Agreement:', ss.get('agreedToUserAgreement'));
 }
 
@@ -120,7 +120,7 @@ const loginEnterType = computed(() => {
 
 
 
-//  定时器改变倒计时时间方法
+//  定時器改變倒計時時間方法
 function changeLastSendPhoneCodeTime() {
   if (lastSendPhoneCodeTime.value > 0) {
     setTimeout(() => {
@@ -130,7 +130,7 @@ function changeLastSendPhoneCodeTime() {
   }
 }
 
-/* 发送验证码 */
+/* 發送驗證碼 */
 async function handleSendCaptcha() {
   isShow.value = false;
   formRef.value?.validate(async (errors) => {
@@ -148,7 +148,7 @@ async function handleSendCaptcha() {
         if (success) {
           Nmessage.success(res.data);
           // isSendCaptcha.value = true;
-          // 记录重新发送倒计时
+          // 記錄重新發送倒計時
           lastSendPhoneCodeTime.value = 60;
           changeLastSendPhoneCodeTime();
         } else {
@@ -161,10 +161,10 @@ async function handleSendCaptcha() {
   });
 }
 
-/* 注册登录 */
+/* 註冊登錄 */
 function handlerSubmit() {
     if (agreedToUserAgreement.value === false&&globalConfig.value.isAutoOpenAgreement === '1') {
-    return Nmessage.error(`请阅读并同意《${globalConfig.value.agreementTitle}》`);
+    return Nmessage.error(`請閱讀並同意《${globalConfig.value.agreementTitle}》`);
   }
   formRef.value?.validate(async (errors) => {
     if (!errors) {
@@ -250,7 +250,7 @@ function handlerSubmit() {
 
           />
           <p class="ml-1 text-center text-sm text-gray-500 dark:text-gray-400">
-            已阅读并同意
+            已閱讀並同意
             <a
               href="#"
               class="font-semibold leading-6 text-primary-600 hover:text-primary-500 dark:text-primary-500 dark:hover:text-primary-600"
@@ -282,7 +282,7 @@ function handlerSubmit() {
       label-width="auto" require-mark-placement="right-hanging">
       <div class="mb-8 sm:mx-auto sm:w-full sm:max-w-sm">
         <h2 class=" text-center text-2xl font-bold leading-9 tracking-tight text-gray-900 dark:text-gray-300">
-          {{ siteName }} 登录
+          {{ siteName }} 登錄
         </h2>
       </div>
 
@@ -296,9 +296,9 @@ function handlerSubmit() {
         </div>
       </div>
 
-      <!-- 密码 输入框 -->
+      <!-- 密碼 輸入框 -->
       <div class="mt-4 ">
-        <!-- 使用flex布局将标签和忘记密码链接放在同一行 -->
+        <!-- 使用flex佈局將標籤和忘記密碼鏈接放在同一行 -->
         <div class="mt-2">
                   <label for="username" class="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-300">{{
           t('login.password') }}</label>
@@ -317,7 +317,7 @@ function handlerSubmit() {
 
           />
           <p class="ml-1 text-center text-sm text-gray-500 dark:text-gray-400">
-            已阅读并同意
+            已閱讀並同意
             <a
               href="#"
               class="font-semibold leading-6 text-primary-600 hover:text-primary-500 dark:text-primary-500 dark:hover:text-primary-600"
@@ -371,7 +371,7 @@ function handlerSubmit() {
       require-mark-placement="right-hanging">
       <div class="sm:mx-auto sm:w-full sm:max-w-sm">
         <h2 class="mb-8 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900 dark:text-gray-300">
-         验证码登录
+         驗證碼登錄
         </h2>
       </div>
 
@@ -398,13 +398,13 @@ function handlerSubmit() {
       <div>
         <button @click="handlerSubmit" type="submit"
           class="flex w-full my-5 justify-center rounded-md bg-primary-500 px-3 py-2 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-primary-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
-          验证码登录
+          驗證碼登錄
         </button>
       </div>
 
       <p v-if="emailLoginStatus || phoneLoginStatus"
         class="mt-0 mb-5 text-center text-sm text-gray-500 dark:text-gray-400">
-         继续使用密码登录？
+         繼續使用密碼登錄？
         <a href="#"
           class="font-semibold leading-6 text-primary-600 hover:text-primary-500 dark:text-primary-500 dark:hover:text-primary-600"
           @click="isCaptchaLogin = !isCaptchaLogin">返回</a>

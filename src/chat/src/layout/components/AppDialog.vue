@@ -141,7 +141,7 @@ function bgRandomColor() {
   return hues[Math.floor(Math.random() * hues.length)];
 }
 
-// 确保scrollContainer是一个HTMLElement
+// 確保scrollContainer是一個HTMLElement
 const scrollContainer = ref<HTMLElement | null>(null);
 
 function scrollLeft() {
@@ -352,7 +352,7 @@ onMounted(() => {
 .modal-fade-leave-to {
   opacity: 0;
 }
-/* 隐藏滚动条的样式 */
+/* 隱藏滾動條的樣式 */
 .scrollbar-hide::-webkit-scrollbar {
   display: none;
 }
@@ -361,55 +361,55 @@ onMounted(() => {
   -ms-overflow-style: none; /* IE and Edge */
   scrollbar-width: none; /* Firefox */
 }
-/* 动画移动时增强流畅度 */
+/* 動畫移動時增強流暢度 */
 .list-move {
   transition: transform 0.5s cubic-bezier(0.5, 0, 0.5, 1);
 }
 
-/* 元素进入和离开时的动画 */
+/* 元素進入和離開時的動畫 */
 .list-enter-active,
 .list-leave-active {
   transition: opacity 0.5s, transform 0.5s cubic-bezier(0.5, 0, 0.5, 1);
 }
 
-/* 元素开始进入时的状态 */
+/* 元素開始進入時的狀態 */
 .list-enter-from,
 .list-leave-to {
   opacity: 0;
   transform: scale(0.9);
 }
 
-/* 元素进入结束时的状态 */
+/* 元素進入結束時的狀態 */
 .list-enter-to {
   opacity: 1;
   transform: scale(1);
 }
 
-/* 元素离开开始时的状态 */
+/* 元素離開開始時的狀態 */
 .list-leave-from {
   opacity: 1;
   transform: scale(1);
 }
 
-/* 元素离开结束时的状态 */
+/* 元素離開結束時的狀態 */
 .list-leave-to {
   opacity: 0;
   transform: scale(0.9);
 }
 
-/* 应用自定义样式 */
+/* 應用自定義樣式 */
 .custom-card {
   transition: all 0.5s cubic-bezier(0.5, 0, 0.5, 1);
 }
 
 .custom-card:hover {
   transform: scale(1.05);
-  transition: all 0.3s ease; /* 加快悬停放大的动画速度 */
+  transition: all 0.3s ease; /* 加快懸停放大的動畫速度 */
 }
 
 .custom-card .run-icon {
   opacity: 1;
-  transition: all 0.3s ease; /* 加快图标动画速度 */
+  transition: all 0.3s ease; /* 加快圖標動畫速度 */
 }
 
 .custom-card .run-icon:hover {

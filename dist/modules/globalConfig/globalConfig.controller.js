@@ -41,7 +41,7 @@ let GlobalConfigController = class GlobalConfigController {
     }
 };
 __decorate([
-    (0, swagger_1.ApiOperation)({ summary: '查询所有配置' }),
+    (0, swagger_1.ApiOperation)({ summary: '查詢所有配置' }),
     (0, common_1.Get)('queryAll'),
     (0, common_1.UseGuards)(adminAuth_guard_1.AdminAuthGuard),
     (0, swagger_1.ApiBearerAuth)(),
@@ -51,7 +51,7 @@ __decorate([
     __metadata("design:returntype", void 0)
 ], GlobalConfigController.prototype, "queryAllConfig", null);
 __decorate([
-    (0, swagger_1.ApiOperation)({ summary: '查询前端网站的所有配置' }),
+    (0, swagger_1.ApiOperation)({ summary: '查詢前端網站的所有配置' }),
     (0, common_1.Get)('queryFronet'),
     __param(0, (0, common_1.Query)()),
     __param(1, (0, common_1.Req)()),
@@ -60,7 +60,7 @@ __decorate([
     __metadata("design:returntype", void 0)
 ], GlobalConfigController.prototype, "queryFrontConfig", null);
 __decorate([
-    (0, swagger_1.ApiOperation)({ summary: '查询所有配置' }),
+    (0, swagger_1.ApiOperation)({ summary: '查詢所有配置' }),
     (0, common_1.Post)('query'),
     (0, common_1.UseGuards)(adminAuth_guard_1.AdminAuthGuard),
     (0, swagger_1.ApiBearerAuth)(),
@@ -71,7 +71,7 @@ __decorate([
     __metadata("design:returntype", void 0)
 ], GlobalConfigController.prototype, "queryConfig", null);
 __decorate([
-    (0, swagger_1.ApiOperation)({ summary: '设置配置信息' }),
+    (0, swagger_1.ApiOperation)({ summary: '設置配置資訊' }),
     (0, common_1.Post)('set'),
     (0, common_1.UseGuards)(superAuth_guard_1.SuperAuthGuard),
     (0, swagger_1.ApiBearerAuth)(),
@@ -81,7 +81,7 @@ __decorate([
     __metadata("design:returntype", void 0)
 ], GlobalConfigController.prototype, "setConfig", null);
 __decorate([
-    (0, swagger_1.ApiOperation)({ summary: '用户端查询公告信息' }),
+    (0, swagger_1.ApiOperation)({ summary: '用戶端查詢公告資訊' }),
     (0, common_1.Get)('notice'),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),

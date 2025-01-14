@@ -35,7 +35,7 @@ let OrderService = class OrderService {
             const { goodsId, count = 1, payType } = params;
             const { id: userId } = req.user;
             if (userId > 1000000) {
-                throw new common_1.HttpException('请先注册账号后购买商品！', common_1.HttpStatus.UNAUTHORIZED);
+                throw new common_1.HttpException('請先註冊賬號後購買商品！', common_1.HttpStatus.UNAUTHORIZED);
             }
             const order = await this.create(userId, goodsId, count, payType);
             const res = await this.payService.pay(userId, order.orderId, payType);
@@ -45,7 +45,7 @@ let OrderService = class OrderService {
             if (error.status === 401) {
                 throw new common_1.HttpException(error.message, common_1.HttpStatus.UNAUTHORIZED);
             }
-            throw new common_1.HttpException(error.message || '购买失败!', common_1.HttpStatus.BAD_REQUEST);
+            throw new common_1.HttpException(error.message || '購買失敗!', common_1.HttpStatus.BAD_REQUEST);
         }
     }
     async queryByOrderId(req, params) {
@@ -53,7 +53,7 @@ let OrderService = class OrderService {
         const { orderId } = params;
         const order = await this.orderEntity.findOne({ where: { userId, orderId } });
         if (!order)
-            throw new common_1.HttpException('订单不存在!', common_1.HttpStatus.BAD_REQUEST);
+            throw new common_1.HttpException('訂單不存在!', common_1.HttpStatus.BAD_REQUEST);
         return order;
     }
     async create(userId, goodsId, count, payType) {
@@ -106,7 +106,7 @@ let OrderService = class OrderService {
         const { orderId } = body;
         const o = await this.orderEntity.findOne({ where: { orderId } });
         if (!o) {
-            throw new common_1.HttpException('订单不存在!', common_1.HttpStatus.BAD_REQUEST);
+            throw new common_1.HttpException('訂單不存在!', common_1.HttpStatus.BAD_REQUEST);
         }
         return await this.orderEntity.delete({ orderId });
     }

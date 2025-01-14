@@ -15,20 +15,20 @@ const swagger_1 = require("@nestjs/swagger");
 class SendPhoneCodeDto {
 }
 __decorate([
-    (0, swagger_1.ApiProperty)({ example: '199999999', description: '手机号' }),
-    (0, class_validator_1.IsNotEmpty)({ message: '手机号不能为空' }),
-    (0, class_validator_1.MinLength)(11, { message: '手机号长度为11位' }),
-    (0, class_validator_1.MaxLength)(11, { message: '手机号长度为11位！' }),
+    (0, swagger_1.ApiProperty)({ example: '199999999', description: '手機號' }),
+    (0, class_validator_1.IsNotEmpty)({ message: '手機號不能為空' }),
+    (0, class_validator_1.MinLength)(11, { message: '手機號長度為11位' }),
+    (0, class_validator_1.MaxLength)(11, { message: '手機號長度為11位！' }),
     __metadata("design:type", String)
 ], SendPhoneCodeDto.prototype, "phone", void 0);
 __decorate([
-    (0, swagger_1.ApiProperty)({ example: '2b4i1b4', description: '图形验证码KEY' }),
-    (0, class_validator_1.IsNotEmpty)({ message: '验证码KEY不能为空' }),
+    (0, swagger_1.ApiProperty)({ example: '2b4i1b4', description: '圖形驗證碼KEY' }),
+    (0, class_validator_1.IsNotEmpty)({ message: '驗證碼KEY不能為空' }),
     __metadata("design:type", String)
 ], SendPhoneCodeDto.prototype, "captchaId", void 0);
 __decorate([
-    (0, swagger_1.ApiProperty)({ example: '1g4d', description: '图形验证码' }),
-    (0, class_validator_1.IsNotEmpty)({ message: '验证码不能为空' }),
+    (0, swagger_1.ApiProperty)({ example: '1g4d', description: '圖形驗證碼' }),
+    (0, class_validator_1.IsNotEmpty)({ message: '驗證碼不能為空' }),
     __metadata("design:type", String)
 ], SendPhoneCodeDto.prototype, "captchaCode", void 0);
 exports.SendPhoneCodeDto = SendPhoneCodeDto;

@@ -21,7 +21,7 @@ export default defineFakeRoute([
                 redirect: '/multilevel_menu_example/page',
                 name: 'multilevelMenuExample',
                 meta: {
-                  title: '多级导航',
+                  title: '多級導航',
                   icon: 'heroicons-solid:menu-alt-3',
                 },
                 children: [
@@ -30,7 +30,7 @@ export default defineFakeRoute([
                     name: 'multilevelMenuExample1',
                     component: 'multilevel_menu_example/page.vue',
                     meta: {
-                      title: '导航1',
+                      title: '導航1',
                     },
                   },
                   {
@@ -38,7 +38,7 @@ export default defineFakeRoute([
                     name: 'multilevelMenuExample2',
                     redirect: '/multilevel_menu_example/level2/page',
                     meta: {
-                      title: '导航2',
+                      title: '導航2',
                     },
                     children: [
                       {
@@ -46,7 +46,7 @@ export default defineFakeRoute([
                         name: 'multilevelMenuExample2-1',
                         component: 'multilevel_menu_example/level2/page.vue',
                         meta: {
-                          title: '导航2-1',
+                          title: '導航2-1',
                         },
                       },
                       {
@@ -54,7 +54,7 @@ export default defineFakeRoute([
                         name: 'multilevelMenuExample2-2',
                         redirect: '/multilevel_menu_example/level2/level3/page1',
                         meta: {
-                          title: '导航2-2',
+                          title: '導航2-2',
                         },
                         children: [
                           {
@@ -62,7 +62,7 @@ export default defineFakeRoute([
                             name: 'multilevelMenuExample2-2-1',
                             component: 'multilevel_menu_example/level2/level3/page1.vue',
                             meta: {
-                              title: '导航2-2-1',
+                              title: '導航2-2-1',
                             },
                           },
                           {
@@ -70,7 +70,7 @@ export default defineFakeRoute([
                             name: 'multilevelMenuExample2-2-2',
                             component: 'multilevel_menu_example/level2/level3/page2.vue',
                             meta: {
-                              title: '导航2-2-2',
+                              title: '導航2-2-2',
                             },
                           },
                         ],
@@ -101,42 +101,42 @@ export default defineFakeRoute([
             children: [
               {
                 meta: {
-                  title: '多级导航',
+                  title: '多級導航',
                   icon: 'heroicons-solid:menu-alt-3',
                 },
                 children: [
                   {
                     path: '/multilevel_menu_example/page',
                     meta: {
-                      title: '导航1',
+                      title: '導航1',
                     },
                   },
                   {
                     meta: {
-                      title: '导航2',
+                      title: '導航2',
                     },
                     children: [
                       {
                         path: '/multilevel_menu_example/level2/page',
                         meta: {
-                          title: '导航2-1',
+                          title: '導航2-1',
                         },
                       },
                       {
                         meta: {
-                          title: '导航2-2',
+                          title: '導航2-2',
                         },
                         children: [
                           {
                             path: '/multilevel_menu_example/level2/level3/page1',
                             meta: {
-                              title: '导航2-2-1',
+                              title: '導航2-2-1',
                             },
                           },
                           {
                             path: '/multilevel_menu_example/level2/level3/page2',
                             meta: {
-                              title: '导航2-2-2',
+                              title: '導航2-2-2',
                             },
                           },
                         ],

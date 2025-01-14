@@ -15,21 +15,21 @@ function getFolder(path) {
 }
 
 export default {
-  description: '创建页面',
+  description: '創建頁面',
   prompts: [
     {
       type: 'list',
       name: 'path',
-      message: '请选择页面创建目录',
+      message: '請選擇頁面創建目錄',
       choices: getFolder('src/views'),
     },
     {
       type: 'input',
       name: 'name',
-      message: '请输入文件名',
+      message: '請輸入文件名',
       validate: (v) => {
         if (!v || v.trim === '') {
-          return '文件名不能为空'
+          return '文件名不能為空'
         }
         else {
           return true
@@ -39,7 +39,7 @@ export default {
     {
       type: 'confirm',
       name: 'isFilesystem',
-      message: '是否为基于文件系统的路由页面',
+      message: '是否為基於文件系統的路由頁面',
       default: false,
     },
   ],

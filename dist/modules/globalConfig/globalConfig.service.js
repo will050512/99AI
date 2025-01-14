@@ -90,7 +90,7 @@ let GlobalConfigService = class GlobalConfigService {
     async getWechatAccessToken(isInit = false) {
         const { wechatOfficialAppId: appId, wechatOfficialAppSecret: secret } = await this.getConfigs(['wechatOfficialAppId', 'wechatOfficialAppSecret']);
         if (!appId || !secret) {
-            return common_1.Logger.error('还未配置微信的appId和secret、配置后才可进行微信扫码登录！！！', 'OfficialService');
+            return common_1.Logger.error('還未配置微信的appId和secret、配置後才可進行微信掃碼登錄！！！', 'OfficialService');
         }
         this.wechatAccessToken = await this.fetchBaseAccessToken(appId, secret, isInit);
         this.wechatJsapiTicket = await this.fetchJsapiTicket(this.wechatAccessToken);
@@ -105,10 +105,10 @@ let GlobalConfigService = class GlobalConfigService {
         const { data: { errmsg, access_token }, } = await axios_1.default.get(`${Url}/cgi-bin/token?grant_type=client_credential&appid=${appId}&secret=${secret}`);
         if (errmsg) {
             if (isInit) {
-                common_1.Logger.error(`获取微信access_token失败、错误信息：${errmsg}`, 'OfficialService');
+                common_1.Logger.error(`獲取微信access_token失敗、錯誤資訊：${errmsg}`, 'OfficialService');
             }
             else {
-                throw new common_1.HttpException('请配置正确的秘钥、当前秘钥检测不通过！', common_1.HttpStatus.BAD_REQUEST);
+                throw new common_1.HttpException('請配置正確的秘鑰、當前秘鑰檢測不通過！', common_1.HttpStatus.BAD_REQUEST);
             }
             return '';
         }
@@ -239,7 +239,7 @@ let GlobalConfigService = class GlobalConfigService {
                     item.configKey === 'openaiBaseUrl') {
                     const longKeys = ['payWeChatPublicKey', 'payWeChatPrivateKey'];
                     if (longKeys.includes(item.configKey)) {
-                        return (item.configVal = (0, utils_1.hideString)(item.configVal, '隐私内容、非超级管理员无权查看'));
+                        return (item.configVal = (0, utils_1.hideString)(item.configVal, '隱私內容、非超級管理員無權查看'));
                     }
                     const whiteListKey = [
                         'payEpayStatus',
@@ -275,7 +275,7 @@ let GlobalConfigService = class GlobalConfigService {
                 keys.includes('wechatOfficialAppSecret')) {
                 await this.getWechatAccessToken();
             }
-            return '设置完成！';
+            return '設置完成！';
         }
         catch (error) {
             console.log('error: ', error);
@@ -298,7 +298,7 @@ let GlobalConfigService = class GlobalConfigService {
         }
         catch (error) {
             console.log('error: ', error);
-            throw new common_1.HttpException('设置配置信息错误！', common_1.HttpStatus.BAD_REQUEST);
+            throw new common_1.HttpException('設置配置資訊錯誤！', common_1.HttpStatus.BAD_REQUEST);
         }
     }
     async queryNotice() {
@@ -319,7 +319,7 @@ let GlobalConfigService = class GlobalConfigService {
             payMpayStatus,
             payLtzfStatus,
         ].every((status) => status === 0)) {
-            throw new common_1.HttpException('支付功能暂未开放!', common_1.HttpStatus.BAD_REQUEST);
+            throw new common_1.HttpException('支付功能暫未開放!', common_1.HttpStatus.BAD_REQUEST);
         }
         if (Number(payWechatStatus) === 1) {
             return 'wechat';
@@ -354,7 +354,7 @@ let GlobalConfigService = class GlobalConfigService {
             'aliPhoneTemplateCode',
         ]);
         if (Number(phoneLoginStatus) !== 1) {
-            throw new common_1.HttpException('手机验证码功能暂未开放!', common_1.HttpStatus.BAD_REQUEST);
+            throw new common_1.HttpException('手機驗證碼功能暫未開放!', common_1.HttpStatus.BAD_REQUEST);
         }
         return {
             accessKeyId: aliPhoneAccessKeyId,
@@ -374,7 +374,7 @@ let GlobalConfigService = class GlobalConfigService {
             'signInMjDrawToken',
         ]);
         if (Number(signInStatus) !== 1) {
-            throw new common_1.HttpException('签到功能暂未开放!', common_1.HttpStatus.BAD_REQUEST);
+            throw new common_1.HttpException('簽到功能暫未開放!', common_1.HttpStatus.BAD_REQUEST);
         }
         return {
             model3Count: Number(signInModel3Count),
@@ -387,7 +387,7 @@ let GlobalConfigService = class GlobalConfigService {
         const response = await fetch(api, {});
         const responseData = await response.json();
         const { success = true, message } = responseData;
-        common_1.Logger.debug('感谢您使用AIWeb，祝您使用愉快~');
+        common_1.Logger.debug('感謝您使用AIWeb，祝您使用愉快~');
     }
     async getSensitiveConfig() {
         const { baiduTextStatus = 0, baiduTextAccessToken } = await this.getConfigs(['baiduTextStatus', 'baiduTextAccessToken']);

@@ -3,7 +3,7 @@ import axios, { AxiosResponse } from 'axios';
 import { ChatLogService } from '../chatLog/chatLog.service';
 import { GlobalConfigService } from '../globalConfig/globalConfig.service';
 import { UploadService } from '../upload/upload.service';
-// 引入其他需要的模块或服务
+// 引入其他需要的模塊或服務
 
 @Injectable()
 export class MidjourneyService {
@@ -13,7 +13,7 @@ export class MidjourneyService {
     private readonly chatLogService: ChatLogService
   ) {}
 
-  /* MJ 绘画 */
+  /* MJ 繪畫 */
   async midjourneyDraw(inputs) {
     const {
       id,
@@ -36,12 +36,12 @@ export class MidjourneyService {
       status: 2,
     };
 
-    /* 提交绘画任务 */
+    /* 遞交繪畫任務 */
     let response: AxiosResponse<any, any>;
     let retryCount = 0;
     let url = '';
     const headers = { 'mj-api-secret': apiKey };
-    Logger.debug(`当前任务类型: ${action}`, 'MidjourneyService');
+    Logger.debug(`當前任務類型: ${action}`, 'MidjourneyService');
     while (retryCount < 3) {
       let payloadJson = {};
       try {
@@ -73,9 +73,9 @@ export class MidjourneyService {
           payloadJson = { taskId: drawId, customId: customId };
         }
 
-        // 在发送请求之前记录请求的详细信息
+        // 在發送請求之前記錄請求的詳細資訊
         Logger.log(
-          `正在准备发送请求到 ${url}，payload: ${JSON.stringify(
+          `正在準備發送請求到 ${url}，payload: ${JSON.stringify(
             payloadJson
           )}, headers: ${JSON.stringify(headers)}`,
           'MidjourneyService'
@@ -85,27 +85,27 @@ export class MidjourneyService {
 
         if (response?.status === 200 && response?.data?.result) {
           Logger.debug(
-            `收到响应: ${JSON.stringify(response.data)}`,
+            `收到響應: ${JSON.stringify(response.data)}`,
             'MidjourneyService'
           );
           result.drawId = response?.data?.result;
           result.state = 2;
-          result.answer = '绘画任务提交成功';
+          result.answer = '繪畫任務遞交成功';
           Logger.log(
-            `绘画任务提交成功, 绘画ID: ${response.data.result}`,
+            `繪畫任務遞交成功, 繪畫ID: ${response.data.result}`,
             'MidjourneyService'
           );
           break;
         } else {
-          throw new Error('未能获取结果数据, 即将重试');
+          throw new Error('未能獲取結果數據, 即將重試');
         }
       } catch (error) {
         retryCount++;
         if (retryCount >= 3) {
-          result.answer = '任务提交失败，请检查提示词后重试';
+          result.answer = '任務遞交失敗，請檢查提示詞後重試';
           result.status = 5;
           Logger.log(
-            `绘画任务提交失败, 请检查后台配置或者稍后重试! ${error}`,
+            `繪畫任務遞交失敗, 請檢查後臺配置或者稍後重試! ${error}`,
             'MidjourneyService'
           );
         }
@@ -119,7 +119,7 @@ export class MidjourneyService {
       timeout,
       prompt,
       onSuccess: async (data) => {
-        // 处理成功获取绘图结果的逻辑
+        // 處理成功獲取繪圖結果的邏輯
         await this.chatLogService.updateChatLog(assistantLogId, {
           fileInfo: data?.fileInfo,
           answer: data?.answer || prompt,
@@ -128,27 +128,27 @@ export class MidjourneyService {
           drawId: data?.drawId,
           customId: data?.customId,
         });
-        Logger.log('绘图成功！', 'MidjourneyService');
+        Logger.log('繪圖成功！', 'MidjourneyService');
       },
       onDrawing: async (data) => {
-        // 处理成功获取绘图结果的逻辑
+        // 處理成功獲取繪圖結果的邏輯
         await this.chatLogService.updateChatLog(assistantLogId, {
-          answer: data?.answer || '绘制中',
+          answer: data?.answer || '繪製中',
           progress: data?.progress,
           status: 2,
         });
-        Logger.log(`绘制中！绘制进度${data?.progress}`, 'MidjourneyService');
+        Logger.log(`繪製中！繪製進度${data?.progress}`, 'MidjourneyService');
       },
       onFailure: async (data) => {
-        // 处理失败逻辑
+        // 處理失敗邏輯
         await this.chatLogService.updateChatLog(assistantLogId, {
-          answer: '绘图失败',
+          answer: '繪圖失敗',
           status: data.status,
         });
-        Logger.log('绘图失败', 'MidjourneyService');
+        Logger.log('繪圖失敗', 'MidjourneyService');
       },
     }).catch((error) => {
-      Logger.error('查询绘图结果时发生错误:', error, 'MidjourneyService');
+      Logger.error('查詢繪圖結果時發生錯誤:', error, 'MidjourneyService');
     });
 
     return result;
@@ -181,7 +181,7 @@ export class MidjourneyService {
     };
     const startTime = Date.now();
     const POLL_INTERVAL = 5000; // 每5秒查一次
-    let retryCount = 0; // 当前重试次数
+    let retryCount = 0; // 當前重試次數
     try {
       while (Date.now() - startTime < timeout) {
         await new Promise((resolve) => setTimeout(resolve, POLL_INTERVAL));
@@ -194,40 +194,40 @@ export class MidjourneyService {
           const res = await axios.get(url, { headers });
           const responses = res.data;
           Logger.debug(
-            `查询结果: ${JSON.stringify(responses)}`,
+            `查詢結果: ${JSON.stringify(responses)}`,
             'MidjourneyService'
           );
           if (responses.status === 'SUCCESS') {
             Logger.log(
-              `绘制成功, 获取到的URL: ${responses.imageUrl}`,
+              `繪製成功, 獲取到的URL: ${responses.imageUrl}`,
               'MidjourneyService'
             );
 
-            let processedUrl = responses.imageUrl; // 初始化处理后的URL为原始URL
-            const shouldReplaceUrl = mjNotUseProxy === '0' && mjProxyImgUrl; // 判断是否需要替换URL
-            let logMessage = ''; // 初始化日志消息变量
+            let processedUrl = responses.imageUrl; // 初始化處理後的URL為原始URL
+            const shouldReplaceUrl = mjNotUseProxy === '0' && mjProxyImgUrl; // 判斷是否需要替換URL
+            let logMessage = ''; // 初始化日誌消息變量
 
             if (shouldReplaceUrl) {
               const newUrlBase = new URL(mjProxyImgUrl);
               const parsedUrl = new URL(responses.imageUrl);
-              // 替换协议和域名
+              // 替換協議和網域名稱
               parsedUrl.protocol = newUrlBase.protocol;
               parsedUrl.hostname = newUrlBase.hostname;
               parsedUrl.port = newUrlBase.port ? newUrlBase.port : '';
               processedUrl = parsedUrl.toString();
-              logMessage = `使用代理替换后的 URL: ${processedUrl}`;
+              logMessage = `使用代理替換後的 URL: ${processedUrl}`;
               Logger.log(logMessage, 'MidjourneyService');
             }
 
-            // 根据 mjNotSaveImg 来判断是否存图
+            // 根據 mjNotSaveImg 來判斷是否存圖
             if (mjNotSaveImg !== '1') {
               try {
-                Logger.log(`------> 开始上传图片！！！`, 'MidjourneyService');
+                Logger.log(`------> 開始上傳圖片！！！`, 'MidjourneyService');
 
-                // 使用 Date 对象获取当前日期并格式化为 YYYYMM/DD
+                // 使用 Date 對象獲取當前日期並格式化為 YYYYMM/DD
                 const now = new Date();
                 const year = now.getFullYear();
-                const month = String(now.getMonth() + 1).padStart(2, '0'); // 月份从0开始，所以+1
+                const month = String(now.getMonth() + 1).padStart(2, '0'); // 月份從0開始，所以+1
                 const day = String(now.getDate()).padStart(2, '0');
                 const currentDate = `${year}${month}/${day}`;
 
@@ -235,16 +235,16 @@ export class MidjourneyService {
                   url: processedUrl,
                   dir: `images/midjourney/${currentDate}`,
                 });
-                logMessage = `上传成功 URL: ${processedUrl}`;
+                logMessage = `上傳成功 URL: ${processedUrl}`;
               } catch (uploadError) {
-                Logger.error('存储图片失败，使用原始/代理图片链接');
-                // 如果上传失败，processedUrl 已经是最新的URL，无需再次赋值
-                logMessage = `存储图片失败，使用原始/代理图片链接 ${processedUrl}`;
+                Logger.error('儲存圖片失敗，使用原始/代理圖片鏈接');
+                // 如果上傳失敗，processedUrl 已經是最新的URL，無需再次賦值
+                logMessage = `儲存圖片失敗，使用原始/代理圖片鏈接 ${processedUrl}`;
               }
               Logger.log(logMessage, 'MidjourneyService');
             } else {
-              // 如果不保存图片，则直接使用处理后的URL
-              logMessage = `不保存图片，使用 URL: ${processedUrl}`;
+              // 如果不保存圖片，則直接使用處理後的URL
+              logMessage = `不保存圖片，使用 URL: ${processedUrl}`;
               Logger.log(logMessage, 'MidjourneyService');
             }
 
@@ -259,23 +259,23 @@ export class MidjourneyService {
             return;
           }
           result.progress = responses?.progress;
-          result.answer = `当前绘制进度 ${responses?.progress}`;
+          result.answer = `當前繪製進度 ${responses?.progress}`;
           if (result.progress) {
             onDrawing(result);
           }
         } catch (error) {
           retryCount++;
-          Logger.error(`轮询过程中发生错误: ${error}`, 'MidjourneyService');
+          Logger.error(`輪詢過程中發生錯誤: ${error}`, 'MidjourneyService');
         }
       }
       Logger.error(
-        `超过 ${startTime / 1000} s 未完成绘画, 请稍后再试! MidjourneyService`
+        `超過 ${startTime / 1000} s 未完成繪畫, 請稍後再試! MidjourneyService`
       );
       result.status = 4;
       onFailure(result);
-      throw new HttpException('绘画超时，请稍后再试！', HttpStatus.BAD_REQUEST);
+      throw new HttpException('繪畫超時，請稍後再試！', HttpStatus.BAD_REQUEST);
     } catch (error) {
-      Logger.error(`绘画失败: ${error} MidjourneyService`);
+      Logger.error(`繪畫失敗: ${error} MidjourneyService`);
       result.status = 5;
       onFailure(result);
     }

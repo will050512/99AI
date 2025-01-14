@@ -2,23 +2,23 @@ import { ApiProperty } from '@nestjs/swagger';
 import { IsOptional } from 'class-validator';
 
 export class QuerAppDto {
-  @ApiProperty({ example: 1, description: '查询页数', required: false })
+  @ApiProperty({ example: 1, description: '查詢頁數', required: false })
   @IsOptional()
   page: number;
 
-  @ApiProperty({ example: 10, description: '每页数量', required: false })
+  @ApiProperty({ example: 10, description: '每頁數量', required: false })
   @IsOptional()
   size: number;
 
-  @ApiProperty({ example: 'name', description: 'app名称', required: false })
+  @ApiProperty({ example: 'name', description: 'app名稱', required: false })
   @IsOptional()
   name: string;
 
-  @ApiProperty({ example: 1, description: 'app状态 0：禁用 1：启用 3:审核加入广场中 4：已拒绝加入广场', required: false })
+  @ApiProperty({ example: 1, description: 'app狀態 0：禁用 1：啟用 3:審核加入廣場中 4：已拒絕加入廣場', required: false })
   @IsOptional()
   status: number;
 
-  @ApiProperty({ example: 2, description: 'app分类Id', required: false })
+  @ApiProperty({ example: 2, description: 'app分類Id', required: false })
   @IsOptional()
   catId: number;
 
@@ -26,7 +26,7 @@ export class QuerAppDto {
   @IsOptional()
   role: string;
 
-  @ApiProperty({ example: '关键词', description: '搜索关键词', required: false })
+  @ApiProperty({ example: '關鍵詞', description: '搜索關鍵詞', required: false })
   @IsOptional()
   keyword: string;
 }

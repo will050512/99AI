@@ -1,6 +1,6 @@
 <route lang="yaml">
 meta:
-  title: 基础配置
+  title: 基礎配置
 </route>
 
 <script lang="ts" setup>
@@ -24,7 +24,7 @@ const formInline = reactive({
   clientLogoPath: '',
 });
 const rules = ref<FormRules>({
-  siteName: [{ required: true, trigger: 'blur', message: '请填写网站名称' }],
+  siteName: [{ required: true, trigger: 'blur', message: '請填寫網站名稱' }],
 });
 const formRef = ref<FormInstance>();
 // const uploadUrl = ref(`${import.meta.env.VITE_APP_API_BASEURL}/upload/file`);
@@ -56,11 +56,11 @@ function handlerUpdateConfig() {
     if (valid) {
       try {
         await apiConfig.setConfig({ settings: fotmatSetting(formInline) });
-        ElMessage.success('变更配置信息成功');
+        ElMessage.success('變更配置資訊成功');
       } catch (error) {}
       queryAllconfig();
     } else {
-      ElMessage.error('请填写完整信息');
+      ElMessage.error('請填寫完整資訊');
     }
   });
 }
@@ -100,7 +100,7 @@ function uploadFile(file: any, successHandler: any) {
       successHandler(response.data);
     })
     .catch((error) => {
-      console.error('上传失败', error);
+      console.error('上傳失敗', error);
     });
 }
 
@@ -165,10 +165,10 @@ const beforeLogoUpload: UploadProps['beforeUpload'] = (rawFile) => {
   const allowedTypes = ['image/png', 'image/jpeg', 'image/gif', 'image/webp'];
 
   if (!allowedTypes.includes(rawFile.type)) {
-    ElMessage.error('当前系统仅支持 PNG、JPEG、GIF、和 WebP 格式的图片!');
+    ElMessage.error('當前系統僅支持 PNG、JPEG、GIF、和 WebP 格式的圖片!');
     return false;
   } else if (rawFile.size / 1024 > 300) {
-    ElMessage.error('当前限制文件最大不超过 300KB!');
+    ElMessage.error('當前限制文件最大不超過 300KB!');
     return false;
   }
 };
@@ -191,19 +191,19 @@ onMounted(() => {
   <div>
     <PageHeader>
       <template #title>
-        <div class="flex items-center gap-4">网站基础配置</div>
+        <div class="flex items-center gap-4">網站基礎配置</div>
       </template>
       <template #content>
         <div class="text-sm/6">
           <div>
-            网站基础配置支持即时更新网站的主要视觉与功能元素。配置内容包括网站名称、备案号、版权信息、LOGO与ICO、默认AI头像与用户头像，以及首页设置等。
+            網站基礎配置支持即時更新網站的主要視覺與功能元素。配置內容包括網站名稱、備案號、版權資訊、LOGO與ICO、默認AI頭像與用戶頭像，以及首頁設置等。
           </div>
-          <div>请认真填写各项配置，确保提供给用户的信息准确无误。</div>
+          <div>請認真填寫各項配置，確保提供給用戶的資訊準確無誤。</div>
         </div>
       </template>
       <HButton outline @click="handlerUpdateConfig">
         <SvgIcon name="i-ri:file-text-line" />
-        保存设置
+        保存設置
       </HButton>
     </PageHeader>
 
@@ -216,10 +216,10 @@ onMounted(() => {
       >
         <el-row>
           <el-col :xs="24" :md="20" :lg="15" :xl="12">
-            <el-form-item label="网站名称" prop="siteName">
+            <el-form-item label="網站名稱" prop="siteName">
               <el-input
                 v-model="formInline.siteName"
-                placeholder="网站名称"
+                placeholder="網站名稱"
                 clearable
               />
             </el-form-item>
@@ -227,10 +227,10 @@ onMounted(() => {
         </el-row>
         <el-row>
           <el-col :xs="24" :md="20" :lg="15" :xl="12">
-            <el-form-item label="网站地址" prop="siteUrl">
+            <el-form-item label="網站地址" prop="siteUrl">
               <el-input
                 v-model="formInline.siteUrl"
-                placeholder="网站地址"
+                placeholder="網站地址"
                 clearable
               />
             </el-form-item>
@@ -238,10 +238,10 @@ onMounted(() => {
         </el-row>
         <el-row>
           <el-col :xs="24" :md="20" :lg="15" :xl="12">
-            <el-form-item label="公司/组织名称" prop="companyName">
+            <el-form-item label="公司/組織名稱" prop="companyName">
               <el-input
                 v-model="formInline.companyName"
-                placeholder="填入具体的公司或组织名称"
+                placeholder="填入具體的公司或組織名稱"
                 clearable
               />
             </el-form-item>
@@ -249,10 +249,10 @@ onMounted(() => {
         </el-row>
         <el-row>
           <el-col :xs="24" :md="20" :lg="15" :xl="12">
-            <el-form-item label="网站备案号" prop="filingNumber">
+            <el-form-item label="網站備案號" prop="filingNumber">
               <el-input
                 v-model="formInline.filingNumber"
-                placeholder="填写网站备案信息的备案号"
+                placeholder="填寫網站備案資訊的備案號"
                 clearable
               />
             </el-form-item>
@@ -260,10 +260,10 @@ onMounted(() => {
         </el-row>
         <el-row>
           <el-col :xs="24" :md="20" :lg="15" :xl="12">
-            <el-form-item label="用户端LOGO" prop="clientLogoPath">
+            <el-form-item label="用戶端LOGO" prop="clientLogoPath">
               <el-input
                 v-model="formInline.clientLogoPath"
-                placeholder="请填写或上传网站 LOGO 图片 URL"
+                placeholder="請填寫或上傳網站 LOGO 圖片 URL"
                 clearable
               >
                 <template #append>
@@ -307,10 +307,10 @@ onMounted(() => {
         </el-row>
         <el-row>
           <el-col :xs="24" :md="20" :lg="15" :xl="12">
-            <el-form-item label="网站 ico" prop="clientFavoIconPath">
+            <el-form-item label="網站 ico" prop="clientFavoIconPath">
               <el-input
                 v-model="formInline.clientFavoIconPath"
-                placeholder="请填写或上传网站 ico URL"
+                placeholder="請填寫或上傳網站 ico URL"
                 clearable
               >
                 <template #append>
@@ -354,10 +354,10 @@ onMounted(() => {
         </el-row>
         <el-row>
           <el-col :xs="24" :md="20" :lg="15" :xl="12">
-            <el-form-item label="AI头像" prop="robotAvatar">
+            <el-form-item label="AI頭像" prop="robotAvatar">
               <el-input
                 v-model="formInline.robotAvatar"
-                placeholder="请填写或上传网站 AI 头像 URL、为空将根据模型自动显示"
+                placeholder="請填寫或上傳網站 AI 頭像 URL、為空將根據模型自動顯示"
                 clearable
               >
                 <template #append>
@@ -401,10 +401,10 @@ onMounted(() => {
         </el-row>
         <el-row>
           <el-col :xs="24" :md="20" :lg="15" :xl="12">
-            <el-form-item label="用户默认头像" prop="userDefautlAvatar">
+            <el-form-item label="用戶默認頭像" prop="userDefautlAvatar">
               <el-input
                 v-model="formInline.userDefautlAvatar"
-                placeholder="请填写或上传网站新用户默认的头像 URL"
+                placeholder="請填寫或上傳網站新用戶默認的頭像 URL"
                 clearable
               >
                 <template #append>

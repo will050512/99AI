@@ -26,7 +26,7 @@ export class UserController {
   constructor(private readonly userService: UserService) {}
 
   @Post('update')
-  @ApiOperation({ summary: '更新用户信息' })
+  @ApiOperation({ summary: '更新用戶資訊' })
   @UseGuards(JwtAuthGuard)
   @ApiBearerAuth()
   async update(@Body() body: UpdateUserDto, @Req() req: Request) {
@@ -34,7 +34,7 @@ export class UserController {
   }
 
   @Post('recharge')
-  @ApiOperation({ summary: '用户充值' })
+  @ApiOperation({ summary: '用戶充值' })
   @UseGuards(SuperAuthGuard)
   @ApiBearerAuth()
   async userRecharge(@Body() body: UserRechargeDto) {
@@ -42,7 +42,7 @@ export class UserController {
   }
 
   @Get('queryAll')
-  @ApiOperation({ summary: '查询所有用户' })
+  @ApiOperation({ summary: '查詢所有用戶' })
   @UseGuards(AdminAuthGuard)
   @ApiBearerAuth()
   async queryAll(@Query() query: QueryAllUserDto, @Req() req: Request) {
@@ -50,7 +50,7 @@ export class UserController {
   }
 
   @Get('queryOne')
-  @ApiOperation({ summary: '查询单个用户' })
+  @ApiOperation({ summary: '查詢單個用戶' })
   @UseGuards(AdminAuthGuard)
   @ApiBearerAuth()
   async queryOne(@Query() params: QueryOneUserDto) {
@@ -58,7 +58,7 @@ export class UserController {
   }
 
   @Post('updateStatus')
-  @ApiOperation({ summary: '更新用户状态' })
+  @ApiOperation({ summary: '更新用戶狀態' })
   @UseGuards(SuperAuthGuard)
   @ApiBearerAuth()
   async updateStatus(@Body() body: UpdateUserStatusDto) {
@@ -66,7 +66,7 @@ export class UserController {
   }
 
   @Post('resetUserPass')
-  @ApiOperation({ summary: '重置用户密码' })
+  @ApiOperation({ summary: '重置用戶密碼' })
   @UseGuards(SuperAuthGuard)
   @ApiBearerAuth()
   async resetUserPass(@Body() body: ResetUserPassDto) {

@@ -40,7 +40,7 @@ const buttons = computed(() => {
     const extendObj = JSON.parse(props.customId);
     return extendObj.buttons || [];
   } catch (e) {
-    return []; // 解析失败时返回空数组
+    return []; // 解析失敗時返回空數組
   }
 });
 
@@ -55,33 +55,33 @@ let intervalId: number | undefined;
 watch(
   () => props.status,
   (currentStatus) => {
-    // 清除可能已经存在的定时器
+    // 清除可能已經存在的定時器
     if (intervalId !== undefined) {
       clearInterval(intervalId);
       intervalId = undefined;
     }
 
-    // 当status为2时，启动定时器
+    // 當status為2時，啟動定時器
     if (currentStatus === 2) {
       intervalId = window.setInterval(async () => {
-        // 这里替换为你想要定期执行的操作
+        // 這裡替換為你想要定期執行的操作
 
         await chatStore.queryActiveChatLogList();
-        // 例如，可以在这里调用 chatStore.queryActiveChatLogList();
-      }, 5000); // 每5秒执行一次
+        // 例如，可以在這裡調用 chatStore.queryActiveChatLogList();
+      }, 5000); // 每5秒執行一次
     }
   },
   { immediate: true }
 );
 
-// 组件卸载时清除定时器
+// 組件卸載時清除定時器
 onUnmounted(() => {
   if (intervalId !== undefined) {
     clearInterval(intervalId);
   }
 });
 
-// 组件卸载时清除定时器，避免内存泄露
+// 組件卸載時清除定時器，避免內存洩露
 onUnmounted(() => {
   clearInterval(intervalId);
 });
@@ -131,7 +131,7 @@ function handleDelete() {
   emit('delete');
 }
 
-/* 提交放大绘制任务 */
+/* 遞交放大繪製任務 */
 async function handleUpsample(order: number) {
   try {
     let extendObj;
@@ -141,7 +141,7 @@ async function handleUpsample(order: number) {
     );
     if (button) {
       const drawCustomId = button.customId;
-      // ms.success('提交放大绘制任务成功、请等待绘制结束！');
+      // ms.success('遞交放大繪製任務成功、請等待繪製結束！');
       await onConversation({
         msg:
           t('chat.enlargeImagePrefix') + order + t('chat.enlargeImageSuffix'),
@@ -155,11 +155,11 @@ async function handleUpsample(order: number) {
     } else {
     }
   } catch (error) {
-    // ms.error('提交放大绘制任务失败');
+    // ms.error('遞交放大繪製任務失敗');
   }
 }
 
-/* 提交变换绘制任务 */
+/* 遞交變換繪製任務 */
 async function handleVariation(order: number) {
   try {
     let extendObj;
@@ -169,7 +169,7 @@ async function handleVariation(order: number) {
     );
     if (button) {
       const drawCustomId = button.customId;
-      // ms.success('提交变换绘制任务成功、请等待绘制结束！');
+      // ms.success('遞交變換繪製任務成功、請等待繪製結束！');
       await onConversation({
         msg:
           t('chat.transformImagePrefix') +
@@ -185,11 +185,11 @@ async function handleVariation(order: number) {
     } else {
     }
   } catch (error) {
-    // ms.error('提交变换绘制任务失败');
+    // ms.error('遞交變換繪製任務失敗');
   }
 }
 
-/* 提交绘制任务 */
+/* 遞交繪製任務 */
 async function handlePicReader(order: number) {
   try {
     let extendObj;
@@ -199,9 +199,9 @@ async function handlePicReader(order: number) {
     );
     if (button) {
       const drawCustomId = button.customId;
-      // ms.success('提交变换绘制任务成功、请等待绘制结束！');
+      // ms.success('遞交變換繪製任務成功、請等待繪製結束！');
       await onConversation({
-        msg: `绘制第 ${order}张图片`,
+        msg: `繪製第 ${order}張圖片`,
         action: 'PICREADER',
         drawId: props.drawId,
         customId: drawCustomId,
@@ -210,14 +210,14 @@ async function handlePicReader(order: number) {
         modelName: props.modelName,
       });
     } else {
-      console.error(`未找到适配的绘制任务按钮：MJ::Job::PicReader::${order}`);
+      console.error(`未找到適配的繪製任務按鈕：MJ::Job::PicReader::${order}`);
     }
   } catch (error) {
-    console.error('提交变换绘制任务失败', error);
+    console.error('遞交變換繪製任務失敗', error);
   }
 }
 
-/* 提交扩图绘制任务 */
+/* 遞交擴圖繪製任務 */
 async function handleOutpaint(order: number) {
   try {
     let extendObj;
@@ -227,7 +227,7 @@ async function handleOutpaint(order: number) {
     );
     if (button) {
       const drawCustomId = button.customId;
-      // ms.success('提交扩图绘制任务成功、请等待绘制结束！');
+      // ms.success('遞交擴圖繪製任務成功、請等待繪製結束！');
       await onConversation({
         msg: t('chat.expandDrawing'),
         action: 'UPSCALE',
@@ -240,11 +240,11 @@ async function handleOutpaint(order: number) {
     } else {
     }
   } catch (error) {
-    // ms.error('提交扩图绘制任务失败');
+    // ms.error('遞交擴圖繪製任務失敗');
   }
 }
 
-/* 提交高级变换绘制任务 */
+/* 遞交高級變換繪製任務 */
 async function handleSuperVariation(order: string) {
   try {
     let extendObj;
@@ -252,7 +252,7 @@ async function handleSuperVariation(order: string) {
     const button = extendObj.find((btn) => btn.customId.includes(`${order}`));
     if (button) {
       const drawCustomId = button.customId;
-      // ms.success('提交变换绘制任务成功、请等待绘制结束！');
+      // ms.success('遞交變換繪製任務成功、請等待繪製結束！');
       await onConversation({
         msg: t('chat.advancedTransform'),
         action: 'UPSCALE',
@@ -265,11 +265,11 @@ async function handleSuperVariation(order: string) {
     } else {
     }
   } catch (error) {
-    // ms.error('提交变换绘制任务失败');
+    // ms.error('遞交變換繪製任務失敗');
   }
 }
 
-/* 提交平移绘制任务 */
+/* 遞交平移繪製任務 */
 async function handlePan(order: string) {
   try {
     let extendObj;
@@ -340,7 +340,7 @@ defineExpose({ textRef });
                 :key="index"
                 :src="imageSrc"
                 :preview-src="imageSrc"
-                alt="图片"
+                alt="圖片"
                 class="rounded-md flex mb-1 mr-4"
                 :style="{
                   maxWidth: '100%',
@@ -429,25 +429,25 @@ defineExpose({ textRef });
                     @click="handlePicReader(1)"
                     class="w-24 shadow-sm rounded-md py-1 text-sm hover:bg-gray-50 dark:hover:bg-gray-700 text-gray-800 dark:text-gray-400 ring-1 ring-inset ring-gray-100 dark:bg-gray-800 dark:ring-gray-800"
                   >
-                    绘制 1️⃣
+                    繪製 1️⃣
                   </button>
                   <button
                     @click="handlePicReader(2)"
                     class="w-24 shadow-sm rounded-md py-1 text-sm hover:bg-gray-50 dark:hover:bg-gray-700 text-gray-800 dark:text-gray-400 ring-1 ring-inset ring-gray-100 dark:bg-gray-800 dark:ring-gray-800"
                   >
-                    绘制 2️⃣
+                    繪製 2️⃣
                   </button>
                   <button
                     @click="handlePicReader(3)"
                     class="w-24 shadow-sm rounded-md py-1 text-sm hover:bg-gray-50 dark:hover:bg-gray-700 text-gray-800 dark:text-gray-400 ring-1 ring-inset ring-gray-100 dark:bg-gray-800 dark:ring-gray-800"
                   >
-                    绘制 3️⃣
+                    繪製 3️⃣
                   </button>
                   <button
                     @click="handlePicReader(4)"
                     class="w-24 shadow-sm rounded-md py-1 text-sm hover:bg-gray-50 dark:hover:bg-gray-700 text-gray-800 dark:text-gray-400 ring-1 ring-inset ring-gray-100 dark:bg-gray-800 dark:ring-gray-800"
                   >
-                    绘制 4️⃣
+                    繪製 4️⃣
                   </button>
                 </div>
               </div>
@@ -525,7 +525,7 @@ defineExpose({ textRef });
                     @click="handleVariation(drawItemInfo, 1)"
                     class="w-24 shadow-sm rounded-md py-1 text-sm hover:bg-gray-50 dark:hover:bg-gray-700 text-gray-800 dark:text-gray-400 ring-1 ring-inset ring-gray-100 dark:bg-gray-800 dark:ring-gray-800 "
                   >
-                    区域重绘
+                    區域重繪
                   </button> -->
                 </div>
               </div>
@@ -540,13 +540,13 @@ defineExpose({ textRef });
                     @click="handleUpsample(1)"
                     class="w-24 shadow-sm rounded-md py-1 text-sm hover:bg-gray-50 dark:hover:bg-gray-700 text-gray-800 dark:text-gray-400 ring-1 ring-inset ring-gray-100 dark:bg-gray-800 dark:ring-gray-800 "
                   >
-                    🔄 再画一张
+                    🔄 再畫一張
                   </button>
                   <button
                     @click="handleUpsample(2)"
                     class="w-24 shadow-sm rounded-md py-1 text-sm hover:bg-gray-50 dark:hover:bg-gray-700 text-gray-800 dark:text-gray-400 ring-1 ring-inset ring-gray-100 dark:bg-gray-800 dark:ring-gray-800 "
                   >
-                    🔀 换种风格
+                    🔀 換種風格
                   </button>
                 </div>
               </div>

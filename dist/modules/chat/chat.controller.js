@@ -47,7 +47,7 @@ let ChatController = class ChatController {
 };
 __decorate([
     (0, common_1.Post)('chat-process'),
-    (0, swagger_1.ApiOperation)({ summary: 'gpt聊天对话' }),
+    (0, swagger_1.ApiOperation)({ summary: 'gpt聊天對話' }),
     (0, common_1.UseGuards)(jwtAuth_guard_1.JwtAuthGuard),
     (0, swagger_1.ApiBearerAuth)(),
     __param(0, (0, common_1.Body)()),
@@ -59,7 +59,7 @@ __decorate([
 ], ChatController.prototype, "chatProcess", null);
 __decorate([
     (0, common_1.Post)('chat-sync'),
-    (0, swagger_1.ApiOperation)({ summary: 'gpt聊天对话' }),
+    (0, swagger_1.ApiOperation)({ summary: 'gpt聊天對話' }),
     (0, common_1.UseGuards)(jwtAuth_guard_1.JwtAuthGuard),
     (0, swagger_1.ApiBearerAuth)(),
     __param(0, (0, common_1.Body)()),
@@ -70,7 +70,7 @@ __decorate([
 ], ChatController.prototype, "chatProcessSync", null);
 __decorate([
     (0, common_1.Post)('mj-fy'),
-    (0, swagger_1.ApiOperation)({ summary: 'gpt描述词绘画翻译' }),
+    (0, swagger_1.ApiOperation)({ summary: 'gpt描述詞繪畫翻譯' }),
     (0, common_1.UseGuards)(jwtAuth_guard_1.JwtAuthGuard),
     (0, swagger_1.ApiBearerAuth)(),
     __param(0, (0, common_1.Body)()),
@@ -81,7 +81,7 @@ __decorate([
 ], ChatController.prototype, "mjFanyi", null);
 __decorate([
     (0, common_1.Post)('chat-mind'),
-    (0, swagger_1.ApiOperation)({ summary: 'mind思维导图提示' }),
+    (0, swagger_1.ApiOperation)({ summary: 'mind思維導圖提示' }),
     (0, common_1.UseGuards)(jwtAuth_guard_1.JwtAuthGuard),
     (0, swagger_1.ApiBearerAuth)(),
     __param(0, (0, common_1.Body)()),
@@ -93,7 +93,7 @@ __decorate([
 ], ChatController.prototype, "chatmind", null);
 __decorate([
     (0, common_1.Post)('tts-process'),
-    (0, swagger_1.ApiOperation)({ summary: 'tts语音播报' }),
+    (0, swagger_1.ApiOperation)({ summary: 'tts語音播報' }),
     (0, common_1.UseGuards)(jwtAuth_guard_1.JwtAuthGuard),
     (0, swagger_1.ApiBearerAuth)(),
     __param(0, (0, common_1.Body)()),
@@ -105,7 +105,7 @@ __decorate([
 ], ChatController.prototype, "ttsProcess", null);
 __decorate([
     (0, common_1.Post)('ppt-cover'),
-    (0, swagger_1.ApiOperation)({ summary: 'ppt封面获取' }),
+    (0, swagger_1.ApiOperation)({ summary: 'ppt封面獲取' }),
     (0, common_1.UseGuards)(jwtAuth_guard_1.JwtAuthGuard),
     (0, swagger_1.ApiBearerAuth)(),
     __param(0, (0, common_1.Body)()),

@@ -61,22 +61,22 @@ export class UserBalanceService {
     private readonly globalConfigService: GlobalConfigService
   ) {}
 
-  /* 新注册用户赠送消费 */
+  /* 新註冊用戶贈送消費 */
   async addBalanceToNewUser(userId: number) {
     try {
-      // TODO 直接从globalConfig中获取配置
+      // TODO 直接從globalConfig中獲取配置
       const registerConfigs = await this.configEntity.find({
         where: {
           configKey: In([
-            'registerSendStatus', // 开启注册赠送
-            'registerSendModel3Count', // 注册赠送模型3聊天次数
-            'registerSendModel4Count', // 注册赠送模型4聊天次数
-            'registerSendDrawMjCount', // 注册赠送MJ绘画次数
-            'firstRegisterSendStatus', // 开启优先注册赠送
-            'firstRegisterSendRank', // 优先注册赠送名次
-            'firstRregisterSendModel3Count', // 优先注册赠送模型3聊天次数
-            'firstRregisterSendModel4Count', // 优先注册赠送模型4聊天次数
-            'firstRregisterSendDrawMjCount', // 优先注册赠送MJ绘画次数
+            'registerSendStatus', // 開啟註冊贈送
+            'registerSendModel3Count', // 註冊贈送模型3聊天次數
+            'registerSendModel4Count', // 註冊贈送模型4聊天次數
+            'registerSendDrawMjCount', // 註冊贈送MJ繪畫次數
+            'firstRegisterSendStatus', // 開啟優先註冊贈送
+            'firstRegisterSendRank', // 優先註冊贈送名次
+            'firstRregisterSendModel3Count', // 優先註冊贈送模型3聊天次數
+            'firstRregisterSendModel4Count', // 優先註冊贈送模型4聊天次數
+            'firstRregisterSendDrawMjCount', // 優先註冊贈送MJ繪畫次數
           ]),
         },
       });
@@ -90,14 +90,14 @@ export class UserBalanceService {
       let model4Count = 0;
       let drawMjCount = 0;
 
-      /* 开启注册增送 */
+      /* 開啟註冊增送 */
       if (configMap.registerSendStatus === 1) {
         model3Count = model3Count + configMap.registerSendModel3Count;
         model4Count = model4Count + configMap.registerSendModel4Count;
         drawMjCount = drawMjCount + configMap.registerSendDrawMjCount;
       }
 
-      /* 开启优先注册赠送并且在赠送范围内 */
+      /* 開啟優先註冊贈送並且在贈送範圍內 */
       if (
         configMap.registerSendStatus === 1 &&
         configMap.firstRegisterSendStatus === 1 &&
@@ -108,7 +108,7 @@ export class UserBalanceService {
         drawMjCount = drawMjCount + configMap.firstRregisterSendDrawMjCount;
       }
 
-      /* 受邀人注册赠送日志 */
+      /* 受邀人註冊贈送日誌 */
       await this.saveRecordRechargeLog({
         userId,
         rechargeType: RechargeType.REG_GIFT,
@@ -116,7 +116,7 @@ export class UserBalanceService {
         drawMjCount,
         model4Count,
       });
-      /* 受邀人初次注册 一次领取所有额度 */
+      /* 受邀人初次註冊 一次領取所有額度 */
       await this.userBalanceEntity.save({
         userId,
         model3Count,
@@ -127,13 +127,13 @@ export class UserBalanceService {
     } catch (error) {
       console.log('error: ', error);
       throw new HttpException(
-        '注册赠送失败,请联系管理员！',
+        '註冊贈送失敗,請聯繫管理員！',
         HttpStatus.BAD_REQUEST
       );
     }
   }
 
-  /* 检查余额 */
+  /* 檢查餘額 */
   async validateBalance(req, type, amount) {
     const { id: userId, role } = req.user;
     let b = await this.userBalanceEntity.findOne({ where: { userId } });
@@ -143,7 +143,7 @@ export class UserBalanceService {
     if (role === 'visitor') {
       return this.validateVisitorBalance(req, type, amount);
     }
-    /* 会员扣费key */
+    /* 會員扣費key */
     const memberKey =
       type === 1
         ? 'memberModel3Count'
@@ -152,7 +152,7 @@ export class UserBalanceService {
         : type === 3
         ? 'memberDrawMjCount'
         : null;
-    /* 非会员扣费key */
+    /* 非會員扣費key */
     const baseKey =
       type === 1
         ? 'model3Count'
@@ -162,30 +162,30 @@ export class UserBalanceService {
         ? 'drawMjCount'
         : null;
 
-    // 打印到日志
-    // Logger.debug(`操作类型type: ${type}`, 'ValidateBalance');
-    // Logger.debug(`会员扣费key(memberKey): ${memberKey}`, 'ValidateBalance');
-    // Logger.debug(`非会员扣费key(baseKey): ${baseKey}`, 'ValidateBalance');
-    /* 如果是会员 */
+    // 打印到日誌
+    // Logger.debug(`操作類型type: ${type}`, 'ValidateBalance');
+    // Logger.debug(`會員扣費key(memberKey): ${memberKey}`, 'ValidateBalance');
+    // Logger.debug(`非會員扣費key(baseKey): ${baseKey}`, 'ValidateBalance');
+    /* 如果是會員 */
     if (b.packageId && b[memberKey] + b[baseKey] < amount) {
       if (b[baseKey] < amount) {
         throw new HttpException(
-          `积分不足，继续体验服务，请按需选购套餐！`,
+          `積分不足，繼續體驗服務，請按需選購套餐！`,
           HttpStatus.PAYMENT_REQUIRED
         );
       }
     }
-    /* 如果不是会员 */
+    /* 如果不是會員 */
     if (!b.packageId && b[baseKey] < amount) {
       throw new HttpException(
-        `积分不足，继续体验服务，请按需选购套餐！`,
+        `積分不足，繼續體驗服務，請按需選購套餐！`,
         HttpStatus.PAYMENT_REQUIRED
       );
     }
     return b;
   }
 
-  /* 检查游客的余额 */
+  /* 檢查遊客的餘額 */
   async validateVisitorBalance(req, type, amount) {
     const { id } = req.user;
     const baseKey =
@@ -200,7 +200,7 @@ export class UserBalanceService {
     const log = await this.fingerprintLogEntity.findOne({
       where: { fingerprint: id },
     });
-    /* 判断余额 */
+    /* 判斷餘額 */
     const { visitorModel3Num, visitorModel4Num, visitorMJNum } =
       await this.globalConfigService.getConfigs([
         'visitorModel3Num',
@@ -212,7 +212,7 @@ export class UserBalanceService {
       model4Count: visitorModel4Num ? Number(visitorModel4Num) : 0,
       drawMjCount: visitorMJNum ? Number(visitorMJNum) : 0,
     };
-    /* 如果没有 */
+    /* 如果沒有 */
     if (!log) {
       let data = {
         fingerprint: id,
@@ -221,10 +221,10 @@ export class UserBalanceService {
         drawMjCount: 0,
       };
       data[baseKey] = data[baseKey] + amount;
-      /* 判断余额 */
+      /* 判斷餘額 */
       if (data[baseKey] > settings[baseKey]) {
         throw new HttpException(
-          `今日体验额度使用完毕，请注册使用完整服务！`,
+          `今日體驗額度使用完畢，請註冊使用完整服務！`,
           HttpStatus.PAYMENT_REQUIRED
         );
       } else {
@@ -238,7 +238,7 @@ export class UserBalanceService {
         model4Count,
         drawMjCount,
       };
-      /* 判断是否是昨天 */
+      /* 判斷是否是昨天 */
       // const isUpdateLastDay = this.isUpdatedToday(log.updatedAt)
       // const date = Number(new Date(log.updatedAt)) + 8 * 60 * 60 * 1000
       const date = Number(new Date(log.updatedAt));
@@ -255,7 +255,7 @@ export class UserBalanceService {
       }
       if (data[baseKey] > settings[baseKey]) {
         throw new HttpException(
-          `今日体验额度使用完毕，请注册使用完整服务！`,
+          `今日體驗額度使用完畢，請註冊使用完整服務！`,
           HttpStatus.PAYMENT_REQUIRED
         );
       } else {
@@ -265,7 +265,7 @@ export class UserBalanceService {
     }
   }
 
-  /* 判读上次更新是不是今天  */
+  /* 判讀上次更新是不是今天  */
   isUpdatedToday(date) {
     const now = new Date();
     const todayStart = new Date(
@@ -277,15 +277,15 @@ export class UserBalanceService {
   }
 
   async deductFromBalance(userId, deductionType, amount, UseAmount = 0) {
-    // 从数据库中查找特定用户的账户余额记录
+    // 從數據庫中查找特定用戶的賬戶餘額記錄
     const b = await this.userBalanceEntity.findOne({ where: { userId } });
 
-    // 如果没有找到用户账户记录，则抛出异常
+    // 如果沒有找到用戶賬戶記錄，則拋出異常
     if (!b) {
-      throw new HttpException('缺失当前用户账户记录！', HttpStatus.BAD_REQUEST);
+      throw new HttpException('缺失當前用戶賬戶記錄！', HttpStatus.BAD_REQUEST);
     }
 
-    // 确定会员和非会员账户的 keys
+    // 確定會員和非會員賬戶的 keys
     const keys = {
       1: {
         member: 'memberModel3Count',
@@ -305,7 +305,7 @@ export class UserBalanceService {
     };
     const { member, nonMember, token } = keys[deductionType];
 
-    // 计算需要扣除的余额
+    // 計算需要扣除的餘額
     let remainingAmount = amount;
     let newMemberBalance = Math.max(b[member] - remainingAmount, 0);
     remainingAmount -= b[member] - newMemberBalance;
@@ -315,32 +315,32 @@ export class UserBalanceService {
       remainingAmount -= b[nonMember] - newNonMemberBalance;
     }
 
-    // 更新余额对象
+    // 更新餘額對象
     const updateBalance = {
       [member]: newMemberBalance,
       [nonMember]: newNonMemberBalance,
       [token]: (b[token] || 0) + UseAmount,
     };
 
-    // 特定类型的额外处理（如记录使用次数）
+    // 特定類型的額外處理（如記錄使用次數）
     if (token === 'useModel3Token' || token === 'useModel4Token') {
       updateBalance[token.replace('Token', 'Count')] =
         (b[token.replace('Token', 'Count')] || 0) + amount;
     }
 
-    // 更新数据库中的用户账户余额
+    // 更新數據庫中的用戶賬戶餘額
     const result = await this.userBalanceEntity.update(
       { userId },
       updateBalance
     );
 
-    // 如果没有记录被更新，则抛出异常
+    // 如果沒有記錄被更新，則拋出異常
     if (result.affected === 0) {
-      throw new HttpException('消费余额失败！', HttpStatus.BAD_REQUEST);
+      throw new HttpException('消費餘額失敗！', HttpStatus.BAD_REQUEST);
     }
   }
 
-  /* 查询用户余额 */
+  /* 查詢用戶餘額 */
   async queryUserBalance(userId: number) {
     try {
       const res: any = await this.userBalanceEntity.findOne({
@@ -367,7 +367,7 @@ export class UserBalanceService {
           return await this.queryUserBalance(userId);
         } else {
           throw new HttpException(
-            '查询当前用户余额失败！',
+            '查詢當前用戶餘額失敗！',
             HttpStatus.BAD_REQUEST
           );
         }
@@ -390,7 +390,7 @@ export class UserBalanceService {
     }
   }
 
-  /* 记录充值日志 */
+  /* 記錄充值日誌 */
   async saveRecordRechargeLog(logInfo: LogInfo) {
     const {
       userId,
@@ -404,7 +404,7 @@ export class UserBalanceService {
     } = logInfo;
     if (!userId) {
       throw new HttpException(
-        '当前用户不存在,记录充值日志异常',
+        '當前用戶不存在,記錄充值日誌異常',
         HttpStatus.BAD_REQUEST
       );
     }
@@ -422,7 +422,7 @@ export class UserBalanceService {
     });
   }
 
-  /* 创建一条基础的用户余额记录 */
+  /* 創建一條基礎的用戶餘額記錄 */
   async createBaseUserBalance(
     userId: number,
     userBalanceInfo: UserBalanceInfo = {}
@@ -435,7 +435,7 @@ export class UserBalanceService {
     const balance = await this.userBalanceEntity.findOne({ where: { userId } });
     if (balance) {
       throw new HttpException(
-        '当前用户无需创建账户信息！',
+        '當前用戶無需創建賬戶資訊！',
         HttpStatus.BAD_REQUEST
       );
     }
@@ -447,7 +447,7 @@ export class UserBalanceService {
     });
   }
 
-  /* 给用户增加固定次数额度 */
+  /* 給用戶增加固定次數額度 */
   async addBalanceToUser(userId, balance, days = -1) {
     try {
       const userBalanceInfo =
@@ -455,7 +455,7 @@ export class UserBalanceService {
         (await this.createBaseUserBalance(userId));
       if (!userBalanceInfo) {
         throw new HttpException(
-          '查询用户账户信息失败！',
+          '查詢用戶賬戶資訊失敗！',
           HttpStatus.BAD_REQUEST
         );
       }
@@ -468,12 +468,12 @@ export class UserBalanceService {
         memberDrawMjCount,
       } = userBalanceInfo;
       let params = {};
-      /* 是否充值会员套餐 大于0的时间天数都属于套餐 */
+      /* 是否充值會員套餐 大於0的時間天數都屬於套餐 */
       if (days > 0) {
         const { packageId } = balance;
         if (!packageId) {
           throw new HttpException(
-            '缺失当前套餐ID、充值失败！',
+            '缺失當前套餐ID、充值失敗！',
             HttpStatus.BAD_REQUEST
           );
         }
@@ -481,10 +481,10 @@ export class UserBalanceService {
           where: { id: packageId },
         });
         if (!pkgInfo) {
-          throw new HttpException('当前套餐不存在！', HttpStatus.BAD_REQUEST);
+          throw new HttpException('當前套餐不存在！', HttpStatus.BAD_REQUEST);
         }
-        const { weight } = pkgInfo; // 套餐的权重 = 会员等级
-        /* 如果不是会员那么则直接充值进入并修改会员信息为会员身份 */
+        const { weight } = pkgInfo; // 套餐的權重 = 會員等級
+        /* 如果不是會員那麼則直接充值進入並修改會員資訊為會員身份 */
         if (!userBalanceInfo.packageId) {
           params = {
             memberModel3Count: memberModel3Count + balance.model3Count,
@@ -496,12 +496,12 @@ export class UserBalanceService {
             packageId: packageId,
           };
         } else {
-          /* 我当前使用的套餐信息 */
+          /* 我當前使用的套餐資訊 */
           const curPackageInfo = await this.cramiPackageEntity.findOne({
             where: { id: userBalanceInfo.packageId },
           });
-          /* 如果是会员则  充值更高或当前等级的套餐会进行时间覆盖充值余额叠加  充值低等级套餐只会叠加次数 不更新到期时间 */
-          /* pkgLevel： 我当前的套餐等级 weight： 充值套餐的等级高于或等于当前套餐 则叠加时间并合并额度 */
+          /* 如果是會員則  充值更高或當前等級的套餐會進行時間覆蓋充值餘額疊加  充值低等級套餐只會疊加次數 不更新到期時間 */
+          /* pkgLevel： 我當前的套餐等級 weight： 充值套餐的等級高於或等於當前套餐 則疊加時間併合並額度 */
           if (weight >= curPackageInfo.weight) {
             params = {
               memberModel3Count: memberModel3Count + balance.model3Count,
@@ -513,7 +513,7 @@ export class UserBalanceService {
               packageId: packageId,
             };
           }
-          /* 如果充值套餐小于当前套餐等级 只叠加次数 不延长时间 也不变更会员等级 */
+          /* 如果充值套餐小於當前套餐等級 只疊加次數 不延長時間 也不變更會員等級 */
           if (weight < curPackageInfo.weight) {
             params = {
               memberModel3Count: memberModel3Count + balance.model3Count,
@@ -523,7 +523,7 @@ export class UserBalanceService {
           }
         }
       }
-      /* 充值不限时卡直接叠加 */
+      /* 充值不限時卡直接疊加 */
       if (days <= 0) {
         params = {
           model3Count: model3Count + balance.model3Count,
@@ -533,17 +533,17 @@ export class UserBalanceService {
       }
       const result = await this.userBalanceEntity.update({ userId }, params);
       if (result.affected === 0) {
-        throw new HttpException(`${userId}充值失败`, HttpStatus.BAD_REQUEST);
+        throw new HttpException(`${userId}充值失敗`, HttpStatus.BAD_REQUEST);
       }
     } catch (error) {
       console.log('error: ', error);
-      throw new HttpException('用户充值失败！', HttpStatus.BAD_REQUEST);
+      throw new HttpException('用戶充值失敗！', HttpStatus.BAD_REQUEST);
     }
   }
 
-  /* 支付成功给用户充值套餐 */
+  /* 支付成功給用戶充值套餐 */
   async addBalanceToOrder(order) {
-    console.log('充值的工单信息:', order);
+    console.log('充值的工單資訊:', order);
     try {
       const { userId, goodsId } = order;
       const pkg = await this.cramiPackageEntity.findOne({
@@ -551,7 +551,7 @@ export class UserBalanceService {
       });
       if (!pkg) {
         throw new HttpException(
-          '非法操作、当前充值套餐暂不存在！',
+          '非法操作、當前充值套餐暫不存在！',
           HttpStatus.BAD_REQUEST
         );
       }
@@ -569,9 +569,9 @@ export class UserBalanceService {
         days,
         packageId: order.goodsId,
       };
-      /* 充值进账户 */
+      /* 充值進賬戶 */
       await this.addBalanceToUser(userId, money, days);
-      /* 记录充值日志 */
+      /* 記錄充值日誌 */
       await this.saveRecordRechargeLog({
         userId,
         rechargeType: RechargeType.SCAN_PAY,
@@ -583,11 +583,11 @@ export class UserBalanceService {
       });
     } catch (error) {
       console.log('error: ', error);
-      throw new HttpException('充值失败！', HttpStatus.BAD_REQUEST);
+      throw new HttpException('充值失敗！', HttpStatus.BAD_REQUEST);
     }
   }
 
-  /* 查询用户充值日志 */
+  /* 查詢用戶充值日誌 */
   async getRechargeLog(req: Request, params) {
     const { page = 1, size = 20 } = params;
     const { id } = req.user;
@@ -604,7 +604,7 @@ export class UserBalanceService {
     return { rows: formatCreateOrUpdateDate(rows), count };
   }
 
-  /* 管理端查询用户账户变更记录 */
+  /* 管理端查詢用戶賬戶變更記錄 */
   async getAccountLog(req, params) {
     try {
       const { page = 1, size = 10, userId, rechargeType, packageId } = params;
@@ -640,16 +640,16 @@ export class UserBalanceService {
       return { rows, count };
     } catch (error) {
       console.log('error: ', error);
-      throw new HttpException('查询用户账户失败！', HttpStatus.BAD_REQUEST);
+      throw new HttpException('查詢用戶賬戶失敗！', HttpStatus.BAD_REQUEST);
     }
   }
 
-  /* 通过用户id批量查询用户 */
+  /* 通過用戶id批量查詢用戶 */
   async queryUserBalanceByIds(ids: number[]) {
     return await this.userBalanceEntity.find({ where: { userId: In(ids) } });
   }
 
-  /* MJ绘画失败退款 */
+  /* MJ繪畫失敗退款 */
   async refundMjBalance(userId, amount) {
     return await this.deductFromBalance(userId, 'mjDraw', -amount);
   }
@@ -681,8 +681,8 @@ export class UserBalanceService {
   }
 
   /**
-   * 检查用户是否需要进行认证
-   * @param userId 用户ID
+   * 檢查用戶是否需要進行認證
+   * @param userId 用戶ID
    */
   async checkUserCertification(userId: number): Promise<void> {
     const userInfo = await this.userEntity.findOne({
@@ -695,12 +695,12 @@ export class UserBalanceService {
     if (!userInfo || !userBalance) {
       return;
       // throw new HttpException(
-      //   '用户信息或用户余额信息不存在',
+      //   '用戶資訊或用戶餘額資訊不存在',
       //   HttpStatus.NOT_FOUND
       // );
     }
 
-    // 获取配置项
+    // 獲取配置項
     const {
       phoneValidationMessageCount,
       identityVerificationMessageCount,
@@ -713,7 +713,7 @@ export class UserBalanceService {
       'openPhoneValidation',
     ]);
 
-    // 格式化配置项为数字类型
+    // 格式化配置項為數字類型
     const phoneValidationCount = Number(phoneValidationMessageCount);
     const identityValidationCount = Number(identityVerificationMessageCount);
 
@@ -721,24 +721,24 @@ export class UserBalanceService {
     const model4Count = Number(userBalance.useModel4Count) || 0;
     const totalTokens = model3Count + model4Count;
 
-    // 检查是否开启手机号验证并且是否已经绑定手机号
+    // 檢查是否開啟手機號驗證並且是否已經綁定手機號
     if (
       openPhoneValidation === '1' &&
       totalTokens >= phoneValidationCount &&
       !userInfo.phone
     ) {
-      throw new HttpException('请完成手机号绑定', HttpStatus.BAD_REQUEST);
+      throw new HttpException('請完成手機號綁定', HttpStatus.BAD_REQUEST);
     }
 
-    // 检查是否开启实名认证并且是否已经完成实名认证
+    // 檢查是否開啟實名認證並且是否已經完成實名認證
     if (
       openIdentity === '1' &&
       totalTokens >= identityValidationCount &&
       (!userInfo.realName || !userInfo.idCard)
     ) {
-      throw new HttpException('请完成实名认证', HttpStatus.BAD_REQUEST);
+      throw new HttpException('請完成實名認證', HttpStatus.BAD_REQUEST);
     }
 
-    // 如果不需要任何认证，方法直接结束，无需返回值
+    // 如果不需要任何認證，方法直接結束，無需返回值
   }
 }

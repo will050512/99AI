@@ -14,7 +14,7 @@ const swagger_1 = require("@nestjs/swagger");
 class DelDto {
 }
 __decorate([
-    (0, swagger_1.ApiProperty)({ example: 1, description: '对话Id', required: true }),
+    (0, swagger_1.ApiProperty)({ example: 1, description: '對話Id', required: true }),
     __metadata("design:type", Number)
 ], DelDto.prototype, "id", void 0);
 exports.DelDto = DelDto;

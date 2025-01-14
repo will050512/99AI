@@ -21,7 +21,7 @@ let AdminAuthGuard = class AdminAuthGuard extends jwtAuth_guard_1.JwtAuthGuard {
             return true;
         }
         else {
-            throw new common_1.UnauthorizedException('非法操作、您的权限等级不足、无法执行当前请求！');
+            throw new common_1.UnauthorizedException('非法操作、您的權限等級不足、無法執行當前請求！');
         }
     }
 };

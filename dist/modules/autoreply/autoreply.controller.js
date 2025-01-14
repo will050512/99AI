@@ -41,7 +41,7 @@ let AutoreplyController = class AutoreplyController {
 };
 __decorate([
     (0, common_1.Get)('query'),
-    (0, swagger_1.ApiOperation)({ summary: '查询自动回复' }),
+    (0, swagger_1.ApiOperation)({ summary: '查詢自動回覆' }),
     (0, common_1.UseGuards)(adminAuth_guard_1.AdminAuthGuard),
     (0, swagger_1.ApiBearerAuth)(),
     __param(0, (0, common_1.Query)()),
@@ -51,7 +51,7 @@ __decorate([
 ], AutoreplyController.prototype, "queryAutoreply", null);
 __decorate([
     (0, common_1.Post)('add'),
-    (0, swagger_1.ApiOperation)({ summary: '添加自动回复' }),
+    (0, swagger_1.ApiOperation)({ summary: '添加自動回覆' }),
     (0, common_1.UseGuards)(superAuth_guard_1.SuperAuthGuard),
     (0, swagger_1.ApiBearerAuth)(),
     __param(0, (0, common_1.Body)()),
@@ -61,7 +61,7 @@ __decorate([
 ], AutoreplyController.prototype, "addAutoreply", null);
 __decorate([
     (0, common_1.Post)('update'),
-    (0, swagger_1.ApiOperation)({ summary: '修改自动回复' }),
+    (0, swagger_1.ApiOperation)({ summary: '修改自動回覆' }),
     (0, common_1.UseGuards)(superAuth_guard_1.SuperAuthGuard),
     (0, swagger_1.ApiBearerAuth)(),
     __param(0, (0, common_1.Body)()),
@@ -71,7 +71,7 @@ __decorate([
 ], AutoreplyController.prototype, "updateAutoreply", null);
 __decorate([
     (0, common_1.Post)('del'),
-    (0, swagger_1.ApiOperation)({ summary: '删除自动回复' }),
+    (0, swagger_1.ApiOperation)({ summary: '刪除自動回覆' }),
     (0, common_1.UseGuards)(superAuth_guard_1.SuperAuthGuard),
     (0, swagger_1.ApiBearerAuth)(),
     __param(0, (0, common_1.Body)()),

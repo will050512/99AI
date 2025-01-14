@@ -29,7 +29,7 @@ let AppService = class AppService {
         const { name } = body;
         const c = await this.appCatsEntity.findOne({ where: { name } });
         if (c) {
-            throw new common_1.HttpException('该分类名称已存在！', common_1.HttpStatus.BAD_REQUEST);
+            throw new common_1.HttpException('該分類名稱已存在！', common_1.HttpStatus.BAD_REQUEST);
         }
         return await this.appCatsEntity.save(body);
     }
@@ -37,16 +37,16 @@ let AppService = class AppService {
         const { id } = body;
         const c = await this.appCatsEntity.findOne({ where: { id } });
         if (!c) {
-            throw new common_1.HttpException('该分类不存在！', common_1.HttpStatus.BAD_REQUEST);
+            throw new common_1.HttpException('該分類不存在！', common_1.HttpStatus.BAD_REQUEST);
         }
         const count = await this.appEntity.count({ where: { catId: id } });
         if (count > 0) {
-            throw new common_1.HttpException('该分类下存在App，不可删除！', common_1.HttpStatus.BAD_REQUEST);
+            throw new common_1.HttpException('該分類下存在App，不可刪除！', common_1.HttpStatus.BAD_REQUEST);
         }
         const res = await this.appCatsEntity.delete(id);
         if (res.affected > 0)
-            return '删除成功';
-        throw new common_1.HttpException('删除失败！', common_1.HttpStatus.BAD_REQUEST);
+            return '刪除成功';
+        throw new common_1.HttpException('刪除失敗！', common_1.HttpStatus.BAD_REQUEST);
     }
     async updateAppCats(body) {
         const { id, name } = body;
@@ -54,17 +54,17 @@ let AppService = class AppService {
             where: { name, id: (0, typeorm_2.Not)(id) },
         });
         if (c) {
-            throw new common_1.HttpException('该分类名称已存在！', common_1.HttpStatus.BAD_REQUEST);
+            throw new common_1.HttpException('該分類名稱已存在！', common_1.HttpStatus.BAD_REQUEST);
         }
         const res = await this.appCatsEntity.update({ id }, body);
         if (res.affected > 0)
             return '修改成功';
-        throw new common_1.HttpException('修改失败！', common_1.HttpStatus.BAD_REQUEST);
+        throw new common_1.HttpException('修改失敗！', common_1.HttpStatus.BAD_REQUEST);
     }
     async queryOneCat(params) {
         const { id } = params;
         if (!id) {
-            throw new common_1.HttpException('缺失必要参数！', common_1.HttpStatus.BAD_REQUEST);
+            throw new common_1.HttpException('缺失必要參數！', common_1.HttpStatus.BAD_REQUEST);
         }
         const app = await this.appEntity.findOne({ where: { id } });
         const { demoData: demo, coverImg, des, name, isFixedModel, isGPTs, appModel, } = app;
@@ -164,7 +164,7 @@ let AppService = class AppService {
     async searchAppList(body) {
         console.log('搜索App列表', body);
         const { page = 1, size = 1000, keyword } = body;
-        console.log(`搜索关键词：${keyword}`);
+        console.log(`搜索關鍵詞：${keyword}`);
         let baseWhere = [
             {
                 status: (0, typeorm_2.In)([1, 4]),
@@ -174,10 +174,10 @@ let AppService = class AppService {
             },
             { userId: (0, typeorm_2.MoreThan)(0), public: true },
         ];
-        console.log('初始查询条件：', JSON.stringify(baseWhere));
+        console.log('初始查詢條件：', JSON.stringify(baseWhere));
         if (keyword) {
             baseWhere = baseWhere.map((condition) => (Object.assign(Object.assign({}, condition), { name: (0, typeorm_2.Like)(`%${keyword}%`) })));
-            console.log('更新后的查询条件：', JSON.stringify(baseWhere));
+            console.log('更新後的查詢條件：', JSON.stringify(baseWhere));
         }
         try {
             const [rows, count] = await this.appEntity.findAndCount({
@@ -185,15 +185,15 @@ let AppService = class AppService {
                 skip: (page - 1) * size,
                 take: size,
             });
-            console.log(`查询返回 ${count} 条结果，显示第 ${page} 页的结果。`);
+            console.log(`查詢返回 ${count} 條結果，顯示第 ${page} 頁的結果。`);
             rows.forEach((item) => {
                 delete item.preset;
             });
-            console.log('完成查询，准备返回结果');
+            console.log('完成查詢，準備返回結果');
             return { rows, count };
         }
         catch (error) {
-            console.error('查询数据库时出错：', error);
+            console.error('查詢數據庫時出錯：', error);
             throw new Error('Database query failed');
         }
     }
@@ -202,11 +202,11 @@ let AppService = class AppService {
         body.role = 'system';
         const a = await this.appEntity.findOne({ where: { name } });
         if (a) {
-            throw new common_1.HttpException('该应用名称已存在！', common_1.HttpStatus.BAD_REQUEST);
+            throw new common_1.HttpException('該應用名稱已存在！', common_1.HttpStatus.BAD_REQUEST);
         }
         const c = await this.appCatsEntity.findOne({ where: { id: catId } });
         if (!c) {
-            throw new common_1.HttpException('该分类不存在！', common_1.HttpStatus.BAD_REQUEST);
+            throw new common_1.HttpException('該分類不存在！', common_1.HttpStatus.BAD_REQUEST);
         }
         return await this.appEntity.save(body);
     }
@@ -214,11 +214,11 @@ let AppService = class AppService {
         const { id, name, catId, status } = body;
         const a = await this.appEntity.findOne({ where: { name, id: (0, typeorm_2.Not)(id) } });
         if (a) {
-            throw new common_1.HttpException('该应用名称已存在！', common_1.HttpStatus.BAD_REQUEST);
+            throw new common_1.HttpException('該應用名稱已存在！', common_1.HttpStatus.BAD_REQUEST);
         }
         const c = await this.appCatsEntity.findOne({ where: { id: catId } });
         if (!c) {
-            throw new common_1.HttpException('该分类不存在！', common_1.HttpStatus.BAD_REQUEST);
+            throw new common_1.HttpException('該分類不存在！', common_1.HttpStatus.BAD_REQUEST);
         }
         const curApp = await this.appEntity.findOne({ where: { id } });
         if (curApp.status !== body.status) {
@@ -226,40 +226,40 @@ let AppService = class AppService {
         }
         const res = await this.appEntity.update({ id }, body);
         if (res.affected > 0)
-            return '修改App信息成功';
-        throw new common_1.HttpException('修改App信息失败！', common_1.HttpStatus.BAD_REQUEST);
+            return '修改App資訊成功';
+        throw new common_1.HttpException('修改App資訊失敗！', common_1.HttpStatus.BAD_REQUEST);
     }
     async delApp(body) {
         const { id } = body;
         const a = await this.appEntity.findOne({ where: { id } });
         if (!a) {
-            throw new common_1.HttpException('该应用不存在！', common_1.HttpStatus.BAD_REQUEST);
+            throw new common_1.HttpException('該應用不存在！', common_1.HttpStatus.BAD_REQUEST);
         }
         const useApp = await this.userAppsEntity.count({ where: { appId: id } });
         const res = await this.appEntity.delete(id);
         if (res.affected > 0)
-            return '删除App成功';
-        throw new common_1.HttpException('删除App失败！', common_1.HttpStatus.BAD_REQUEST);
+            return '刪除App成功';
+        throw new common_1.HttpException('刪除App失敗！', common_1.HttpStatus.BAD_REQUEST);
     }
     async auditPass(body) {
         const { id } = body;
         const a = await this.appEntity.findOne({ where: { id, status: 3 } });
         if (!a) {
-            throw new common_1.HttpException('该应用不存在！', common_1.HttpStatus.BAD_REQUEST);
+            throw new common_1.HttpException('該應用不存在！', common_1.HttpStatus.BAD_REQUEST);
         }
         await this.appEntity.update({ id }, { status: 4 });
         await this.userAppsEntity.update({ appId: id }, { status: 4 });
-        return '应用审核通过';
+        return '應用審核通過';
     }
     async auditFail(body) {
         const { id } = body;
         const a = await this.appEntity.findOne({ where: { id, status: 3 } });
         if (!a) {
-            throw new common_1.HttpException('该应用不存在！', common_1.HttpStatus.BAD_REQUEST);
+            throw new common_1.HttpException('該應用不存在！', common_1.HttpStatus.BAD_REQUEST);
         }
         await this.appEntity.update({ id }, { status: 5 });
         await this.userAppsEntity.update({ appId: id }, { status: 5 });
-        return '应用审核拒绝完成';
+        return '應用審核拒絕完成';
     }
     async collect(body, req) {
         const { appId } = body;
@@ -273,7 +273,7 @@ let AppService = class AppService {
                 return '取消收藏成功!';
             }
             else {
-                throw new common_1.HttpException('取消收藏失败！', common_1.HttpStatus.BAD_REQUEST);
+                throw new common_1.HttpException('取消收藏失敗！', common_1.HttpStatus.BAD_REQUEST);
             }
         }
         const app = await this.appEntity.findOne({ where: { id: appId } });
@@ -287,7 +287,7 @@ let AppService = class AppService {
             status: 1,
         };
         await this.userAppsEntity.save(collectInfo);
-        return '已将应用加入到我的收藏！';
+        return '已將應用加入到我的收藏！';
     }
     async mineApps(req, query = { page: 1, size: 30 }) {
         const { id } = req.user;
@@ -313,7 +313,7 @@ let AppService = class AppService {
             });
         }
         catch (error) {
-            console.error(`处理用户ID: ${id} 的mineApps请求时发生错误`, error);
+            console.error(`處理用戶ID: ${id} 的mineApps請求時發生錯誤`, error);
             throw error;
         }
         return { rows, count };

@@ -1,6 +1,6 @@
 <route lang="yaml">
 meta:
-  title: 蓝兔支付设置
+  title: 藍兔支付設置
 </route>
 
 <script lang="ts" setup>
@@ -19,14 +19,14 @@ const formInline = reactive({
 
 const rules = ref<FormRules>({
   payLtzfStatus: [
-    { required: true, trigger: 'change', message: '请选择当前支付开启状态' },
+    { required: true, trigger: 'change', message: '請選擇當前支付開啟狀態' },
   ],
   payLtzfSecret: [
-    { required: true, trigger: 'blur', message: '请填写商户秘钥' },
+    { required: true, trigger: 'blur', message: '請填寫商戶秘鑰' },
   ],
-  payLtzfMchId: [{ required: true, trigger: 'blur', message: '请填写商户号' }],
+  payLtzfMchId: [{ required: true, trigger: 'blur', message: '請填寫商戶號' }],
   payLtzfNotifyUrl: [
-    { required: true, trigger: 'blur', message: '请填写支付通知地址' },
+    { required: true, trigger: 'blur', message: '請填寫支付通知地址' },
   ],
 });
 
@@ -50,11 +50,11 @@ function handlerUpdateConfig() {
     if (valid) {
       try {
         await apiConfig.setConfig({ settings: fotmatSetting(formInline) });
-        ElMessage.success('变更配置信息成功');
+        ElMessage.success('變更配置資訊成功');
       } catch (error) {}
       queryAllconfig();
     } else {
-      ElMessage.error('请填写完整信息');
+      ElMessage.error('請填寫完整資訊');
     }
   });
 }
@@ -77,20 +77,20 @@ onMounted(() => {
   <div>
     <PageHeader>
       <template #title>
-        <div class="flex items-center gap-4">蓝兔支付设置</div>
+        <div class="flex items-center gap-4">藍兔支付設置</div>
       </template>
       <template #content>
         <div class="text-sm/6">
           <div>
-            <a href="https://www.ltzf.cn/" target="_blank">蓝兔支付</a>
-            为第三方支付，接入请购买微信渠道。
+            <a href="https://www.ltzf.cn/" target="_blank">藍兔支付</a>
+            為第三方支付，接入請購買微信渠道。
           </div>
-          <div>支付通知地址为： https://您的域名/api/pay/notify。</div>
+          <div>支付通知地址為： https://您的網域名稱/api/pay/notify。</div>
         </div>
       </template>
       <HButton outline @click="handlerUpdateConfig">
         <SvgIcon name="i-ri:file-text-line" />
-        保存设置
+        保存設置
       </HButton>
     </PageHeader>
 
@@ -103,7 +103,7 @@ onMounted(() => {
       >
         <el-row>
           <el-col :xs="24" :md="20" :lg="15" :xl="12">
-            <el-form-item label="启用当前支付" prop="payLtzfMchId">
+            <el-form-item label="啟用當前支付" prop="payLtzfMchId">
               <el-switch
                 v-model="formInline.payLtzfStatus"
                 active-value="1"
@@ -114,10 +114,10 @@ onMounted(() => {
         </el-row>
         <el-row>
           <el-col :xs="24" :md="20" :lg="15" :xl="12">
-            <el-form-item label="商户号" prop="payLtzfMchId">
+            <el-form-item label="商戶號" prop="payLtzfMchId">
               <el-input
                 v-model="formInline.payLtzfMchId"
-                placeholder="请填写商户号"
+                placeholder="請填寫商戶號"
                 clearable
               />
             </el-form-item>
@@ -125,10 +125,10 @@ onMounted(() => {
         </el-row>
         <el-row>
           <el-col :xs="24" :md="20" :lg="15" :xl="12">
-            <el-form-item label="商户密钥" prop="payLtzfSecret">
+            <el-form-item label="商戶密鑰" prop="payLtzfSecret">
               <el-input
                 v-model="formInline.payLtzfSecret"
-                placeholder="请填写商户秘钥"
+                placeholder="請填寫商戶秘鑰"
                 clearable
               />
             </el-form-item>
@@ -139,7 +139,7 @@ onMounted(() => {
             <el-form-item label="支付通知地址" prop="payLtzfSecret">
               <el-input
                 v-model="formInline.payLtzfNotifyUrl"
-                placeholder="请填写支付通知地址"
+                placeholder="請填寫支付通知地址"
                 clearable
               />
             </el-form-item>
@@ -147,10 +147,10 @@ onMounted(() => {
         </el-row>
         <el-row>
           <el-col :xs="24" :md="20" :lg="15" :xl="12">
-            <el-form-item label="支付回调地址" prop="payLtzfSecret">
+            <el-form-item label="支付回調地址" prop="payLtzfSecret">
               <el-input
                 v-model="formInline.payLtzfReturnUrl"
-                placeholder="请填写支付成功后的回跳地址"
+                placeholder="請填寫支付成功後的回跳地址"
                 clearable
               />
             </el-form-item>

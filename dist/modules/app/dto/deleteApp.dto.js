@@ -15,8 +15,8 @@ const class_validator_1 = require("class-validator");
 class OperateAppDto {
 }
 __decorate([
-    (0, swagger_1.ApiProperty)({ example: 1, description: '要删除的appId', required: true }),
-    (0, class_validator_1.IsNumber)({}, { message: 'ID必须是Number' }),
+    (0, swagger_1.ApiProperty)({ example: 1, description: '要刪除的appId', required: true }),
+    (0, class_validator_1.IsNumber)({}, { message: 'ID必須是Number' }),
     __metadata("design:type", Number)
 ], OperateAppDto.prototype, "id", void 0);
 exports.OperateAppDto = OperateAppDto;

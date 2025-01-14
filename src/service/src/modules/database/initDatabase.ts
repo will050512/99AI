@@ -13,7 +13,7 @@ const dataSourceOptions: DataSourceOptions = {
   database: process.env.DB_DATABASE,
   entities: [__dirname + '/../**/*.entity{.ts,.js}'],
   logging: false,
-  synchronize: true, // 启用自动同步
+  synchronize: true, // 啟用自動同步
   charset: 'utf8mb4',
   timezone: '+08:00',
 };
@@ -32,9 +32,9 @@ async function validateDatabase() {
     )) as mysql.RowDataPacket[][];
     if (Array.isArray(rows) && rows.length === 0) {
       await conn.execute(`CREATE DATABASE ${process.env.DB_DATABASE}`);
-      Logger.log(`数据库创建成功[${process.env.DB_DATABASE}]`, 'Database');
+      Logger.log(`數據庫創建成功[${process.env.DB_DATABASE}]`, 'Database');
     } else {
-      Logger.log(`数据库已存在[${process.env.DB_DATABASE}]`, 'Database');
+      Logger.log(`數據庫已存在[${process.env.DB_DATABASE}]`, 'Database');
     }
   } catch (error) {
     Logger.error('Error during database validation:', error, 'Database');
@@ -99,7 +99,7 @@ export async function initDatabase() {
   try {
     await dataSource.initialize();
     Logger.log('Database connected and synchronized successfully', 'Database');
-    // 进行其他必要的操作，例如插入初始数据等
+    // 進行其他必要的操作，例如插入初始數據等
   } catch (error) {
     Logger.error('Error during TypeORM initialization:', error);
   } finally {

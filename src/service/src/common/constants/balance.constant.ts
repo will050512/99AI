@@ -1,13 +1,13 @@
 export const ChatType = {
-  NORMAL_CHAT: 1, // 普通对话
-  PAINT: 2, // 绘图
-  EXTENDED_CHAT: 3, // 拓展性对话
+  NORMAL_CHAT: 1, // 普通對話
+  PAINT: 2, // 繪圖
+  EXTENDED_CHAT: 3, // 拓展性對話
 };
 
 /**
- * @description: 扣费类型
+ * @description: 扣費類型
  * @param {type}
- * 1: 模型3 模型4 MJ  TODO 新版更新已经修改了 TYPE 这里暂不处理
+ * 1: 模型3 模型4 MJ  TODO 新版更新已經修改了 TYPE 這裡暫不處理
  */
 // export const DeductionKey = {
 //   BALANCE_TYPE: 'balance',
@@ -16,9 +16,9 @@ export const ChatType = {
 // };
 
 /**
- * @description: 账户充值类型
+ * @description: 賬戶充值類型
  * @param {type}
- * 1: 注册赠送  2: 受邀请赠送  3: 邀请人赠送  4: 购买套餐赠送  5: 管理员赠送 6：扫码支付 7: 绘画失败退款 8: 签到奖励
+ * 1: 註冊贈送  2: 受邀請贈送  3: 邀請人贈送  4: 購買套餐贈送  5: 管理員贈送 6：掃碼支付 7: 繪畫失敗退款 8: 簽到獎勵
  */
 export const RechargeType = {
   REG_GIFT: 1,

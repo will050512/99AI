@@ -40,7 +40,7 @@ export class AutoreplyService implements OnModuleInit {
         answer: t.answer,
         isAIReplyEnabled: t.isAIReplyEnabled,
       };
-      const keywords = t.prompt.split(' ').map((k) => k.trim()); // 关键词以空格分词
+      const keywords = t.prompt.split(' ').map((k) => k.trim()); // 關鍵詞以空格分詞
       this.autoReplyKes.push({ prompt: t.prompt, keywords });
     });
   }
@@ -102,11 +102,11 @@ export class AutoreplyService implements OnModuleInit {
   }
 
   async addAutoreply(body: AddAutoReplyDto) {
-    // 直接保存新的自动回复
+    // 直接保存新的自動回覆
     await this.autoReplyEntity.save(body);
-    // 重新加载自动回复列表
+    // 重新加載自動回覆列表
     await this.loadAutoReplyList();
-    return '添加问题成功！';
+    return '添加問題成功！';
   }
 
   async updateAutoreply(body: UpdateAutoReplyDto) {
@@ -114,9 +114,9 @@ export class AutoreplyService implements OnModuleInit {
     const res = await this.autoReplyEntity.update({ id }, body);
     if (res.affected > 0) {
       await this.loadAutoReplyList();
-      return '更新问题成功';
+      return '更新問題成功';
     }
-    throw new HttpException('更新失败', HttpStatus.BAD_REQUEST);
+    throw new HttpException('更新失敗', HttpStatus.BAD_REQUEST);
   }
 
   async delAutoreply(body: DelAutoReplyDto) {
@@ -124,15 +124,15 @@ export class AutoreplyService implements OnModuleInit {
     const z = await this.autoReplyEntity.findOne({ where: { id } });
     if (!z) {
       throw new HttpException(
-        '该问题不存在,请检查您的提交信息',
+        '該問題不存在,請檢查您的遞交資訊',
         HttpStatus.BAD_REQUEST
       );
     }
     const res = await this.autoReplyEntity.delete({ id });
     if (res.affected > 0) {
       await this.loadAutoReplyList();
-      return '删除问题成功';
+      return '刪除問題成功';
     }
-    throw new HttpException('删除失败', HttpStatus.BAD_REQUEST);
+    throw new HttpException('刪除失敗', HttpStatus.BAD_REQUEST);
   }
 }

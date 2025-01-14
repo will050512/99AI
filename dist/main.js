@@ -47,7 +47,7 @@ async function bootstrap() {
     app.getHttpAdapter().getInstance().set('view engine', 'hbs');
     const PORT = process.env.PORT || 3000;
     const server = await app.listen(PORT, () => {
-        common_1.Logger.log(`服务启动成功: http://localhost:${PORT}`, 'Main');
+        common_1.Logger.log(`服務啟動成功: http://localhost:${PORT}`, 'Main');
     });
     server.timeout = 5 * 60 * 1000;
 }

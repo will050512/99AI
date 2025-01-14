@@ -15,7 +15,7 @@ const swagger_1 = require("@nestjs/swagger");
 class PayDto {
 }
 __decorate([
-    (0, swagger_1.ApiProperty)({ example: 1, description: '订单号', required: true }),
+    (0, swagger_1.ApiProperty)({ example: 1, description: '訂單號', required: true }),
     (0, class_validator_1.IsOptional)(),
     __metadata("design:type", String)
 ], PayDto.prototype, "orderId", void 0);

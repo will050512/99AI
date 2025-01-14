@@ -15,22 +15,22 @@ const swagger_1 = require("@nestjs/swagger");
 class UserRechargeDto {
 }
 __decorate([
-    (0, swagger_1.ApiProperty)({ example: 1, description: '用户id', required: true }),
-    (0, class_validator_1.IsDefined)({ message: '用户id是必传参数' }),
+    (0, swagger_1.ApiProperty)({ example: 1, description: '用戶id', required: true }),
+    (0, class_validator_1.IsDefined)({ message: '用戶id是必傳參數' }),
     __metadata("design:type", Number)
 ], UserRechargeDto.prototype, "userId", void 0);
 __decorate([
-    (0, swagger_1.ApiProperty)({ example: 100, description: '用户对话模型3次数', required: false }),
+    (0, swagger_1.ApiProperty)({ example: 100, description: '用戶對話模型3次數', required: false }),
     (0, class_validator_1.IsOptional)(),
     __metadata("design:type", Number)
 ], UserRechargeDto.prototype, "model3Count", void 0);
 __decorate([
-    (0, swagger_1.ApiProperty)({ example: 5, description: '用户对话模型4次数', required: false }),
+    (0, swagger_1.ApiProperty)({ example: 5, description: '用戶對話模型4次數', required: false }),
     (0, class_validator_1.IsOptional)(),
     __metadata("design:type", Number)
 ], UserRechargeDto.prototype, "model4Count", void 0);
 __decorate([
-    (0, swagger_1.ApiProperty)({ example: 0, description: '用户MJ额度', required: false }),
+    (0, swagger_1.ApiProperty)({ example: 0, description: '用戶MJ額度', required: false }),
     (0, class_validator_1.IsOptional)(),
     __metadata("design:type", Number)
 ], UserRechargeDto.prototype, "drawMjCount", void 0);

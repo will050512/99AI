@@ -4,7 +4,7 @@ import { Type } from 'class-transformer';
 import { BaseEntity } from 'typeorm';
 
 export class PayDto {
-  @ApiProperty({ example: 1, description: '订单号', required: true })
+  @ApiProperty({ example: 1, description: '訂單號', required: true })
   @IsOptional()
   orderId: string;
 }

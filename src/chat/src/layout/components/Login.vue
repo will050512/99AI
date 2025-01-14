@@ -28,7 +28,7 @@ const phoneLoginStatus = computed(
   () => Number(authStore.globalConfig.phoneLoginStatus) === 1
 );
 
-/* 没有打开任何登录 */
+/* 沒有打開任何登錄 */
 const disabledReg = computed(() => {
   return (
     !wechatRegisterStatus.value &&
@@ -42,7 +42,7 @@ interface Props {
 }
 
 function openDialog() {
-  /* 没打开微信的话使用邮箱或者手机号 */
+  /* 沒打開微信的話使用郵箱或者手機號 */
   if (!wechatRegisterStatus.value) {
     showWxLogin.value = false;
     if (phoneLoginStatus.value) {
@@ -61,7 +61,7 @@ function handleCloseDialog() {
   activeCount.value = false;
 }
 
-/* 切换登录类型 */
+/* 切換登錄類型 */
 function changeLoginType(type: string) {
   if (type === 'wechat') {
     showWxLogin.value = true;
@@ -96,8 +96,8 @@ function changeLoginType(type: string) {
         <NResult
           size="small"
           status="403"
-          title="网站已经关闭注册通道"
-          description="请联系管理员开通吧"
+          title="網站已經關閉註冊通道"
+          description="請聯繫管理員開通吧"
         >
           <template #footer>
             <NButton size="small" @click="authStore.setLoginDialog(false)">

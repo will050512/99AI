@@ -15,18 +15,18 @@ const class_validator_1 = require("class-validator");
 class UpdateAutoReplyDto {
 }
 __decorate([
-    (0, swagger_1.ApiProperty)({ example: 1, description: '自动回复id', required: true }),
+    (0, swagger_1.ApiProperty)({ example: 1, description: '自動回覆id', required: true }),
     (0, class_validator_1.IsOptional)(),
     __metadata("design:type", Number)
 ], UpdateAutoReplyDto.prototype, "id", void 0);
 __decorate([
-    (0, swagger_1.ApiProperty)({ example: '你可以干嘛', description: '问题', required: false }),
+    (0, swagger_1.ApiProperty)({ example: '你可以幹嘛', description: '問題', required: false }),
     (0, class_validator_1.IsOptional)(),
     __metadata("design:type", String)
 ], UpdateAutoReplyDto.prototype, "prompt", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)({
-        example: '我可以干很多事情.......',
+        example: '我可以幹很多事情.......',
         description: '答案',
         required: false,
     }),
@@ -34,7 +34,7 @@ __decorate([
     __metadata("design:type", String)
 ], UpdateAutoReplyDto.prototype, "answer", void 0);
 __decorate([
-    (0, swagger_1.ApiProperty)({ example: 0, description: '状态', required: false }),
+    (0, swagger_1.ApiProperty)({ example: 0, description: '狀態', required: false }),
     (0, class_validator_1.IsOptional)(),
     __metadata("design:type", Number)
 ], UpdateAutoReplyDto.prototype, "status", void 0);

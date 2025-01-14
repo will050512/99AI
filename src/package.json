@@ -1,7 +1,7 @@
 {
   "name": "AIWEB",
   "version": "1.0.0",
-  "description": "使用 Nestjs 和 Vue3 搭建的 AIGC 生态社区 持续集成AI能力到社区之中",
+  "description": "使用 Nestjs 和 Vue3 搭建的 AIGC 生態社區 持續集成AI能力到社區之中",
   "main": "index.js",
   "author": "aiweb",
   "keywords": [

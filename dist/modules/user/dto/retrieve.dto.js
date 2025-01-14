@@ -14,7 +14,7 @@ const swagger_1 = require("@nestjs/swagger");
 class RetrieveUserDto {
 }
 __decorate([
-    (0, swagger_1.ApiProperty)({ example: 100, nullable: true, description: '查询用户的id', required: false }),
+    (0, swagger_1.ApiProperty)({ example: 100, nullable: true, description: '查詢用戶的id', required: false }),
     __metadata("design:type", Number)
 ], RetrieveUserDto.prototype, "id", void 0);
 __decorate([

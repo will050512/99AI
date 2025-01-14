@@ -19,7 +19,7 @@ const routes: RouteRecordRaw = {
       name: 'OrderMenuList',
       component: () => import('@/views/order/index.vue'),
       meta: {
-        title: '订单列表',
+        title: '訂單列表',
         icon: 'lets-icons:order',
       },
     },
@@ -28,7 +28,7 @@ const routes: RouteRecordRaw = {
       name: 'AccountLogMenu',
       component: () => import('@/views/users/accountLog.vue'),
       meta: {
-        title: '账户明细',
+        title: '賬戶明細',
         icon: 'carbon:account',
       },
     },
@@ -37,7 +37,7 @@ const routes: RouteRecordRaw = {
       name: 'packageMenuList',
       component: () => import('@/views/package/package.vue'),
       meta: {
-        title: '套餐设置',
+        title: '套餐設置',
         icon: 'icon-park-outline:commodity',
       },
     },
@@ -46,7 +46,7 @@ const routes: RouteRecordRaw = {
       name: 'cramiMenuList',
       component: () => import('@/views/package/crami.vue'),
       meta: {
-        title: '卡密管理',
+        title: '序號管理',
         icon: 'solar:passport-broken',
       },
     },

@@ -271,7 +271,7 @@ header:not(.header-leave-active) + .wrapper {
   }
 }
 
-// 主内容区动画
+// 主內容區動畫
 .slide-right-enter-active {
   transition: 0.2s;
 }

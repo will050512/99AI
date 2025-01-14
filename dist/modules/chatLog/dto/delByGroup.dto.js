@@ -14,7 +14,7 @@ const swagger_1 = require("@nestjs/swagger");
 class DelByGroupDto {
 }
 __decorate([
-    (0, swagger_1.ApiProperty)({ example: 1, description: '对话组Id', required: true }),
+    (0, swagger_1.ApiProperty)({ example: 1, description: '對話組Id', required: true }),
     __metadata("design:type", Number)
 ], DelByGroupDto.prototype, "groupId", void 0);
 exports.DelByGroupDto = DelByGroupDto;

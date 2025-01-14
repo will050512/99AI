@@ -15,15 +15,15 @@ const api = axios.create({
 api.interceptors.request.use((request) => {
   const userStore = useUserStore();
   /**
-   * 全局拦截请求发送前提交的参数
-   * 以下代码为示例，在请求头里带上 token 信息
+   * 全局攔截請求發送前遞交的參數
+   * 以下代碼為示例，在請求頭裡帶上 token 資訊
    */
   if (userStore.isLogin && request.headers) {
     request.headers.Authorization = userStore.token
       ? `Bearer ${userStore.token}`
       : '';
   }
-  // 是否将 POST 请求参数进行字符串化处理
+  // 是否將 POST 請求參數進行字串化處理
   if (request.method === 'post') {
     // request.data = qs.stringify(request.data, {
     //   arrayFormat: 'brackets',
@@ -35,10 +35,10 @@ api.interceptors.request.use((request) => {
 api.interceptors.response.use(
   (response) => {
     /**
-     * 全局拦截请求发送后返回的数据，如果数据有报错则在这做全局的错误提示
-     * 假设返回数据格式为：{ status: 1, error: '', data: '' }
-     * 规则是当 status 为 1 时表示请求成功，为 0 时表示接口需要登录或者登录状态失效，需要重新登录
-     * 请求出错时 error 会返回错误信息
+     * 全局攔截請求發送後返回的數據，如果數據有報錯則在這做全局的錯誤提示
+     * 假設返回數據格式為：{ status: 1, error: '', data: '' }
+     * 規則是當 status 為 1 時表示請求成功，為 0 時表示介面需要登錄或者登錄狀態失效，需要重新登錄
+     * 請求出錯時 error 會返回錯誤資訊
      */
     return Promise.resolve(response.data);
   },
@@ -47,9 +47,9 @@ api.interceptors.response.use(
     if (error?.response) {
       const { data, status } = error.response;
       if (status === 401) {
-        msg = '权限验证失败，请重新登录';
+        msg = '權限驗證失敗，請重新登錄';
         // loginout
-        if (data.code === 401 && data.message.includes('请登录后继续操作')) {
+        if (data.code === 401 && data.message.includes('請登錄後繼續操作')) {
           const userStore = useUserStore();
           userStore.logout().then(() => {
             router.push({ name: 'login' });
@@ -59,7 +59,7 @@ api.interceptors.response.use(
       const { message, code } = data;
       message && (msg = message);
     } else {
-      msg = '接口请求异常，请稍后再试';
+      msg = '介面請求異常，請稍後再試';
     }
 
     ElMessage({

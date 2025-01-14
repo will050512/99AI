@@ -3,16 +3,16 @@ import { IsDefined, IsIn, IsNumber, IsOptional } from 'class-validator';
 
 export class CreateCatsDto {
   @ApiProperty({
-    example: '编程助手',
-    description: 'app分类名称',
+    example: '編程助手',
+    description: 'app分類名稱',
     required: true,
   })
-  @IsDefined({ message: 'app分类名称是必传参数' })
+  @IsDefined({ message: 'app分類名稱是必傳參數' })
   name: string;
 
   @ApiProperty({
     example: 100,
-    description: '分类排序、数字越大越靠前',
+    description: '分類排序、數字越大越靠前',
     required: false,
   })
   @IsOptional()
@@ -20,10 +20,10 @@ export class CreateCatsDto {
 
   @ApiProperty({
     example: 1,
-    description: '分类状态 0：禁用 1：启用',
+    description: '分類狀態 0：禁用 1：啟用',
     required: true,
   })
-  @IsNumber({}, { message: '状态必须是Number' })
-  @IsIn([0, 1, 3, 4, 5], { message: '套餐状态错误' })
+  @IsNumber({}, { message: '狀態必須是Number' })
+  @IsIn([0, 1, 3, 4, 5], { message: '套餐狀態錯誤' })
   status: number;
 }

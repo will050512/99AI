@@ -15,29 +15,29 @@ const typeorm_1 = require("typeorm");
 let ConfigEntity = class ConfigEntity extends baseEntity_1.BaseEntity {
 };
 __decorate([
-    (0, typeorm_1.Column)({ length: 255, comment: '配置名称', nullable: true }),
+    (0, typeorm_1.Column)({ length: 255, comment: '配置名稱', nullable: true }),
     __metadata("design:type", String)
 ], ConfigEntity.prototype, "configKey", void 0);
 __decorate([
-    (0, typeorm_1.Column)({ type: 'text', comment: '配置内容', nullable: true }),
+    (0, typeorm_1.Column)({ type: 'text', comment: '配置內容', nullable: true }),
     __metadata("design:type", String)
 ], ConfigEntity.prototype, "configVal", void 0);
 __decorate([
     (0, typeorm_1.Column)({
         default: 0,
-        comment: '配置是否公开，公开内容对前端项目展示  0：不公开 1：公开',
+        comment: '配置是否公開，公開內容對前端項目展示  0：不公開 1：公開',
     }),
     __metadata("design:type", Number)
 ], ConfigEntity.prototype, "public", void 0);
 __decorate([
     (0, typeorm_1.Column)({
         default: 0,
-        comment: '配置是否加密，加密内容仅仅super权限可看 0：不加 1：加',
+        comment: '配置是否加密，加密內容僅僅super權限可看 0：不加 1：加',
     }),
     __metadata("design:type", Number)
 ], ConfigEntity.prototype, "encry", void 0);
 __decorate([
-    (0, typeorm_1.Column)({ default: 1, comment: '配置状态 0:关闭 1：启用' }),
+    (0, typeorm_1.Column)({ default: 1, comment: '配置狀態 0:關閉 1：啟用' }),
     __metadata("design:type", Number)
 ], ConfigEntity.prototype, "status", void 0);
 ConfigEntity = __decorate([

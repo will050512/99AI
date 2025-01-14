@@ -1,11 +1,11 @@
 import { ApiProperty } from '@nestjs/swagger';
 
 export class AddAutoReplyDto {
-  @ApiProperty({ example: '你是谁', description: '提问的问题', required: true })
+  @ApiProperty({ example: '你是誰', description: '提問的問題', required: true })
   prompt: string;
 
   @ApiProperty({
-    example: '我是AIWeb提供的Ai服务机器人',
+    example: '我是AIWeb提供的Ai服務機器人',
     description: '回答的答案',
     required: true,
   })

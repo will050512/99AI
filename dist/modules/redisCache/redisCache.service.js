@@ -71,7 +71,7 @@ let RedisCacheService = class RedisCacheService {
         if (storedToken !== token) {
             if (['super', 'admin'].includes(role))
                 return true;
-            throw new common_1.HttpException('您已在其他设备覆盖登录、请您重新登录！', common_1.HttpStatus.UNAUTHORIZED);
+            throw new common_1.HttpException('您已在其他設備覆蓋登錄、請您重新登錄！', common_1.HttpStatus.UNAUTHORIZED);
         }
     }
 };

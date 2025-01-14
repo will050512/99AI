@@ -20,19 +20,19 @@ export class CramiController {
   constructor(private readonly cramiService: CramiService) {}
 
   @Get('queryOnePackage')
-  @ApiOperation({ summary: '查询单个套餐' })
+  @ApiOperation({ summary: '查詢單個套餐' })
   async queryOnePackage(@Query('id') id: number) {
     return this.cramiService.queryOnePackage(id);
   }
 
   @Get('queryAllPackage')
-  @ApiOperation({ summary: '查询所有套餐' })
+  @ApiOperation({ summary: '查詢所有套餐' })
   async queryAllPackage(@Query() query: QuerAllPackageDto) {
     return this.cramiService.queryAllPackage(query);
   }
 
   @Post('createPackage')
-  @ApiOperation({ summary: '创建套餐' })
+  @ApiOperation({ summary: '創建套餐' })
   @UseGuards(SuperAuthGuard)
   @ApiBearerAuth()
   async createPackage(@Body() body: CreatePackageDto) {
@@ -48,7 +48,7 @@ export class CramiController {
   }
 
   @Post('delPackage')
-  @ApiOperation({ summary: '删除套餐' })
+  @ApiOperation({ summary: '刪除套餐' })
   @UseGuards(SuperAuthGuard)
   @ApiBearerAuth()
   async delPackage(@Body() body: DeletePackageDto) {
@@ -56,7 +56,7 @@ export class CramiController {
   }
 
   @Post('createCrami')
-  @ApiOperation({ summary: '生成卡密' })
+  @ApiOperation({ summary: '生成序號' })
   @UseGuards(SuperAuthGuard)
   @ApiBearerAuth()
   async createCrami(@Body() body: CreatCramiDto) {
@@ -64,7 +64,7 @@ export class CramiController {
   }
 
   @Post('useCrami')
-  @ApiOperation({ summary: '使用卡密' })
+  @ApiOperation({ summary: '使用序號' })
   @UseGuards(JwtAuthGuard)
   @ApiBearerAuth()
   async useCrami(@Req() req: Request, @Body() body: UseCramiDto) {
@@ -72,7 +72,7 @@ export class CramiController {
   }
 
   @Get('queryAllCrami')
-  @ApiOperation({ summary: '查询所有卡密' })
+  @ApiOperation({ summary: '查詢所有序號' })
   @UseGuards(AdminAuthGuard)
   @ApiBearerAuth()
   async queryAllCrami(@Query() params: QuerAllCramiDto, @Req() req: Request) {
@@ -80,7 +80,7 @@ export class CramiController {
   }
 
   @Post('delCrami')
-  @ApiOperation({ summary: '删除卡密' })
+  @ApiOperation({ summary: '刪除序號' })
   @UseGuards(SuperAuthGuard)
   @ApiBearerAuth()
   async delCrami(@Body('id') id: number) {
@@ -88,7 +88,7 @@ export class CramiController {
   }
 
   @Post('batchDelCrami')
-  @ApiOperation({ summary: '批量删除卡密' })
+  @ApiOperation({ summary: '批量刪除序號' })
   @UseGuards(SuperAuthGuard)
   @ApiBearerAuth()
   async batchDelCrami(@Body() body: BatchDelCramiDto) {

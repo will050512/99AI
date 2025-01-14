@@ -14,18 +14,18 @@ import { QuerAllOrderDto } from './dto/queryAllOrder.dto';
 export class OrderController {
   constructor(private readonly orderService: OrderService) {}
 
-  /* 购买商品 */
+  /* 購買商品 */
   @Post('buy')
-  @ApiOperation({ summary: '购买商品' })
+  @ApiOperation({ summary: '購買商品' })
   @UseGuards(JwtAuthGuard)
   @ApiBearerAuth()
   async buy(@Body() body: BuyDto, @Req() req: Request) {
     return this.orderService.buy(body, req);
   }
 
-  /* 查询订单状态 */
+  /* 查詢訂單狀態 */
   @Get('queryByOrderId')
-  @ApiOperation({ summary: '查询订单' })
+  @ApiOperation({ summary: '查詢訂單' })
   @UseGuards(JwtAuthGuard)
   @ApiBearerAuth()
   async queryByOrderId(@Req() req: Request, @Query() query: QueryByOrderIdDto) {
@@ -33,25 +33,25 @@ export class OrderController {
     return this.orderService.queryByOrderId(req, query);
   }
 
-  /* 查询所有订单 */
+  /* 查詢所有訂單 */
   @Get('queryAll')
-  @ApiOperation({ summary: '查询所有订单' })
+  @ApiOperation({ summary: '查詢所有訂單' })
   @UseGuards(AdminAuthGuard)
   async queryAllOrder(@Query() query: QuerAllOrderDto) {
     return this.orderService.queryAllOrder(query);
   }
 
-  /* 删除订单 */
+  /* 刪除訂單 */
   @Post('delete')
-  @ApiOperation({ summary: '删除订单' })
+  @ApiOperation({ summary: '刪除訂單' })
   @UseGuards(SuperAuthGuard)
   async deleteOrder(@Body() body: QueryByOrderIdDto) {
     return this.orderService.deleteOrder(body);
   }
 
-   /* 删除订单 */
+   /* 刪除訂單 */
    @Post('deleteNotPay')
-   @ApiOperation({ summary: '删除未支付订单' })
+   @ApiOperation({ summary: '刪除未支付訂單' })
    @UseGuards(SuperAuthGuard)
    async deleteNotPay() {
      return this.orderService.deleteNotPay();

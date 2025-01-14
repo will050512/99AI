@@ -64,7 +64,7 @@ let JwtAuthGuard = class JwtAuthGuard extends (0, passport_1.AuthGuard)('jwt') {
             return decoded;
         }
         catch (error) {
-            throw new common_1.HttpException('亲爱的用户,请登录后继续操作,我们正在等您的到来！', common_1.HttpStatus.UNAUTHORIZED);
+            throw new common_1.HttpException('親愛的用戶,請登錄後繼續操作,我們正在等您的到來！', common_1.HttpStatus.UNAUTHORIZED);
         }
     }
     handleRequest(err, user, info) {

@@ -13,7 +13,7 @@ export class AdminAuthGuard extends JwtAuthGuard {
     if (user && ['admin', 'super'].includes(user.role)) {
       return true;
     } else {
-      throw new UnauthorizedException('非法操作、您的权限等级不足、无法执行当前请求！');
+      throw new UnauthorizedException('非法操作、您的權限等級不足、無法執行當前請求！');
     }
   }
 }

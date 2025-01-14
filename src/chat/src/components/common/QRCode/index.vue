@@ -1,24 +1,24 @@
 <script setup lang="ts">
 import { useQRCode } from '@vueuse/integrations/useQRCode'
 /*
-  参考文档：https://vueuse.org/integrations/useQRCode/
+  參考文檔：https://vueuse.org/integrations/useQRCode/
   https://www.npmjs.com/package/qrcode#qr-code-options
 */
 interface Props {
-  value?: string // 扫描后的文本或地址
-  size?: number // 二维码大小
-  color?: string // 二维码颜色，Value must be in hex format (十六进制颜色值)
-  backgroundColor?: string // 二维码背景色，Value must be in hex format (十六进制颜色值)
-  bordered?: boolean // 是否有边框
-  borderColor?: string // 边框颜色
-  scale?: number // 每个black dots多少像素
+  value?: string // 掃描後的文本或地址
+  size?: number // 二維碼大小
+  color?: string // 二維碼顏色，Value must be in hex format (十六進制顏色值)
+  backgroundColor?: string // 二維碼背景色，Value must be in hex format (十六進制顏色值)
+  bordered?: boolean // 是否有邊框
+  borderColor?: string // 邊框顏色
+  scale?: number // 每個black dots多少像素
   /*
-    纠错等级也叫纠错率，就是指二维码可以被遮挡后还能正常扫描，而这个能被遮挡的最大面积就是纠错率。
-    通常情况下二维码分为 4 个纠错级别：L级 可纠正约 7% 错误、M级 可纠正约 15% 错误、Q级 可纠正约 25% 错误、H级 可纠正约30% 错误。
-    并不是所有位置都可以缺损，像最明显的三个角上的方框，直接影响初始定位。中间零散的部分是内容编码，可以容忍缺损。
-    当二维码的内容编码携带信息比较少的时候，也就是链接比较短的时候，设置不同的纠错等级，生成的图片不会发生变化。
+    糾錯等級也叫糾錯率，就是指二維碼可以被遮擋後還能正常掃描，而這個能被遮擋的最大面積就是糾錯率。
+    通常情況下二維碼分為 4 個糾錯級別：L級 可糾正約 7% 錯誤、M級 可糾正約 15% 錯誤、Q級 可糾正約 25% 錯誤、H級 可糾正約30% 錯誤。
+    並不是所有位置都可以缺損，像最明顯的三個角上的方框，直接影響初始定位。中間零散的部分是內容編碼，可以容忍缺損。
+    當二維碼的內容編碼攜帶資訊比較少的時候，也就是鏈接比較短的時候，設置不同的糾錯等級，生成的圖片不會發生變化。
   */
-  errorLevel?: string // 二维码纠错等级
+  errorLevel?: string // 二維碼糾錯等級
 }
 const props = withDefaults(defineProps<Props>(), {
   value: '',
@@ -28,7 +28,7 @@ const props = withDefaults(defineProps<Props>(), {
   bordered: true,
   borderColor: '#0505050f',
   scale: 8,
-  errorLevel: 'H', // 可选 L M Q H
+  errorLevel: 'H', // 可選 L M Q H
 })
 
 // `qrcode` will be a ref of data URL
@@ -39,7 +39,7 @@ const qrcode = useQRCode(props.value, {
   margin: 3,
   scale: props.scale, // 8px per modules(black dots)
   color: {
-    dark: props.color, // 像素点颜色
+    dark: props.color, // 像素點顏色
     light: props.backgroundColor, // 背景色
   },
 })

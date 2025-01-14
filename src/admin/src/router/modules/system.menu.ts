@@ -10,7 +10,7 @@ const routes: RouteRecordRaw = {
   redirect: '/system/base',
   name: 'systemMenu',
   meta: {
-    title: '系统管理',
+    title: '系統管理',
     icon: 'tdesign:system-2',
   },
   children: [
@@ -19,7 +19,7 @@ const routes: RouteRecordRaw = {
       name: 'ClientBaseConfig',
       component: () => import('@/views/system/baseConfiguration.vue'),
       meta: {
-        title: '基础配置',
+        title: '基礎配置',
         icon: 'uil:setting',
       },
     },
@@ -28,7 +28,7 @@ const routes: RouteRecordRaw = {
       name: 'PointsDisplay',
       component: () => import('@/views/package/points.vue'),
       meta: {
-        title: '显示设置',
+        title: '顯示設置',
         icon: 'mdi:show-outline',
       },
     },
@@ -37,7 +37,7 @@ const routes: RouteRecordRaw = {
       name: 'systemMenuNotice',
       component: () => import('@/views/system/notice.vue'),
       meta: {
-        title: '公告设置',
+        title: '公告設置',
         icon: 'mdi:notice-board',
       },
     },
@@ -46,7 +46,7 @@ const routes: RouteRecordRaw = {
       name: 'systemMenuWelcome',
       component: () => import('@/views/system/welcomePageSettings.vue'),
       meta: {
-        title: '欢迎页设置',
+        title: '歡迎頁設置',
         icon: 'mdi:human-welcome',
       },
     },
@@ -55,7 +55,7 @@ const routes: RouteRecordRaw = {
       name: 'systemMenuBase',
       component: () => import('@/views/system/baiduStatistics.vue'),
       meta: {
-        title: '统计设置',
+        title: '統計設置',
         icon: 'wpf:statistics',
       },
     },

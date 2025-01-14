@@ -1,6 +1,6 @@
 import { get, post } from '@/utils/request';
 
-/* 创建新的对话组 */
+/* 創建新的對話組 */
 export function fetchCreateGroupAPI<T>(data?: {
   appId?: number;
   modelConfig?: any;
@@ -12,17 +12,17 @@ export function fetchCreateGroupAPI<T>(data?: {
   });
 }
 
-/* 查询对话组列表 */
+/* 查詢對話組列表 */
 export function fetchQueryGroupAPI<T>(): Promise<T> {
   return get<T>({ url: '/group/query' });
 }
 
-/* 通过groupId查询当前对话组的详细信息 */
+/* 通過groupId查詢當前對話組的詳細資訊 */
 export function fetchGroupInfoById<T>(groupId: number | string): Promise<T> {
   return get<T>({ url: `/group/info/${groupId}` });
 }
 
-/* 修改对话组 */
+/* 修改對話組 */
 export function fetchUpdateGroupAPI<T>(data?: {
   groupId?: number;
   title?: string;
@@ -36,7 +36,7 @@ export function fetchUpdateGroupAPI<T>(data?: {
   });
 }
 
-/* 删除对话组 */
+/* 刪除對話組 */
 export function fetchDelGroupAPI<T>(data?: { groupId: number }): Promise<T> {
   return post<T>({
     url: '/group/del',
@@ -44,7 +44,7 @@ export function fetchDelGroupAPI<T>(data?: { groupId: number }): Promise<T> {
   });
 }
 
-/* 删除全部对话组 */
+/* 刪除全部對話組 */
 export function fetchDelAllGroupAPI<T>(data?: { groupId: number }): Promise<T> {
   return post<T>({
     url: '/group/delAll',

@@ -78,7 +78,7 @@ let AppController = class AppController {
 };
 __decorate([
     (0, common_1.Get)('queryAppCats'),
-    (0, swagger_1.ApiOperation)({ summary: '获取App分类列表' }),
+    (0, swagger_1.ApiOperation)({ summary: '獲取App分類列表' }),
     (0, common_1.UseGuards)(adminAuth_guard_1.AdminAuthGuard),
     (0, swagger_1.ApiBearerAuth)(),
     __param(0, (0, common_1.Query)()),
@@ -88,14 +88,14 @@ __decorate([
 ], AppController.prototype, "appCatsList", null);
 __decorate([
     (0, common_1.Get)('queryCats'),
-    (0, swagger_1.ApiOperation)({ summary: '用户端获取App分类列表' }),
+    (0, swagger_1.ApiOperation)({ summary: '用戶端獲取App分類列表' }),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", void 0)
 ], AppController.prototype, "catsList", null);
 __decorate([
     (0, common_1.Get)('queryOneCat'),
-    (0, swagger_1.ApiOperation)({ summary: '用户端获取App分类列表' }),
+    (0, swagger_1.ApiOperation)({ summary: '用戶端獲取App分類列表' }),
     __param(0, (0, common_1.Query)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Object]),
@@ -103,7 +103,7 @@ __decorate([
 ], AppController.prototype, "queryOneCats", null);
 __decorate([
     (0, common_1.Post)('createAppCats'),
-    (0, swagger_1.ApiOperation)({ summary: '添加App分类' }),
+    (0, swagger_1.ApiOperation)({ summary: '添加App分類' }),
     (0, common_1.UseGuards)(superAuth_guard_1.SuperAuthGuard),
     (0, swagger_1.ApiBearerAuth)(),
     __param(0, (0, common_1.Body)()),
@@ -113,7 +113,7 @@ __decorate([
 ], AppController.prototype, "createAppCat", null);
 __decorate([
     (0, common_1.Post)('updateAppCats'),
-    (0, swagger_1.ApiOperation)({ summary: '修改App分类' }),
+    (0, swagger_1.ApiOperation)({ summary: '修改App分類' }),
     (0, common_1.UseGuards)(superAuth_guard_1.SuperAuthGuard),
     (0, swagger_1.ApiBearerAuth)(),
     __param(0, (0, common_1.Body)()),
@@ -123,7 +123,7 @@ __decorate([
 ], AppController.prototype, "updateAppCats", null);
 __decorate([
     (0, common_1.Post)('delAppCats'),
-    (0, swagger_1.ApiOperation)({ summary: '删除App分类' }),
+    (0, swagger_1.ApiOperation)({ summary: '刪除App分類' }),
     (0, common_1.UseGuards)(superAuth_guard_1.SuperAuthGuard),
     (0, swagger_1.ApiBearerAuth)(),
     __param(0, (0, common_1.Body)()),
@@ -133,7 +133,7 @@ __decorate([
 ], AppController.prototype, "delAppCat", null);
 __decorate([
     (0, common_1.Get)('queryApp'),
-    (0, swagger_1.ApiOperation)({ summary: '获取App列表' }),
+    (0, swagger_1.ApiOperation)({ summary: '獲取App列表' }),
     (0, common_1.UseGuards)(adminAuth_guard_1.AdminAuthGuard),
     (0, swagger_1.ApiBearerAuth)(),
     __param(0, (0, common_1.Req)()),
@@ -144,7 +144,7 @@ __decorate([
 ], AppController.prototype, "appList", null);
 __decorate([
     (0, common_1.Get)('list'),
-    (0, swagger_1.ApiOperation)({ summary: '客户端获取App' }),
+    (0, swagger_1.ApiOperation)({ summary: '客戶端獲取App' }),
     __param(0, (0, common_1.Req)()),
     __param(1, (0, common_1.Query)()),
     __metadata("design:type", Function),
@@ -153,7 +153,7 @@ __decorate([
 ], AppController.prototype, "list", null);
 __decorate([
     (0, common_1.Post)('searchList'),
-    (0, swagger_1.ApiOperation)({ summary: '客户端获取App' }),
+    (0, swagger_1.ApiOperation)({ summary: '客戶端獲取App' }),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Object]),
@@ -181,7 +181,7 @@ __decorate([
 ], AppController.prototype, "updateApp", null);
 __decorate([
     (0, common_1.Post)('delApp'),
-    (0, swagger_1.ApiOperation)({ summary: '删除App' }),
+    (0, swagger_1.ApiOperation)({ summary: '刪除App' }),
     (0, common_1.UseGuards)(superAuth_guard_1.SuperAuthGuard),
     (0, swagger_1.ApiBearerAuth)(),
     __param(0, (0, common_1.Body)()),

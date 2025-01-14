@@ -118,10 +118,10 @@ onMounted(() => {
     overflow: hidden auto;
     overscroll-behavior: contain;
 
-    // firefox隐藏滚动条
+    // firefox隱藏滾動條
     scrollbar-width: none;
 
-    // chrome隐藏滚动条
+    // chrome隱藏滾動條
     &::-webkit-scrollbar {
       display: none;
     }
@@ -144,7 +144,7 @@ onMounted(() => {
   }
 }
 
-// 次侧边栏动画
+// 次側邊欄動畫
 .sub-sidebar-enter-active {
   transition: 0.2s;
 }

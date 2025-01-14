@@ -20,7 +20,7 @@ export function useScroll(): ScrollReturn {
   const scrollToBottom = async () => {
     await nextTick();
     if (scrollRef.value) {
-      scrollRef.value.scrollTop = scrollRef.value.scrollHeight; // 滚动到底部
+      scrollRef.value.scrollTop = scrollRef.value.scrollHeight; // 滾動到底部
     }
   };
 
@@ -53,18 +53,18 @@ export function useScroll(): ScrollReturn {
 
     interactionTimeoutId = window.setTimeout(() => {
       isInteracting = false;
-    }, 2000); // 停止交互2秒后重置isInteracting
+    }, 2000); // 停止交互2秒後重置isInteracting
   };
 
   const handleScroll = () => {
     if (scrollRef.value) {
       const currentScrollTop = scrollRef.value.scrollTop;
       if (currentScrollTop < lastScrollTop) {
-        // 用户向上滚动，暂停自动滚动
+        // 用戶向上滾動，暫停自動滾動
         isInteracting = true;
-        handleInteractionEnd(); // 2秒后重置isInteracting
+        handleInteractionEnd(); // 2秒後重置isInteracting
       }
-      lastScrollTop = currentScrollTop <= 0 ? 0 : currentScrollTop; // 防止负值
+      lastScrollTop = currentScrollTop <= 0 ? 0 : currentScrollTop; // 防止負值
     }
   };
 

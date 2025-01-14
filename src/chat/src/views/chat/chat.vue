@@ -56,17 +56,17 @@ const getContainerClass = computed(() => {
   return ['h-full', { 'pl-[260px]': !isMobile.value && !collapsed.value }];
 });
 
-/* 新增一个对话 */
+/* 新增一個對話 */
 async function createNewChatGroup(appId?: number) {
   if (isStreamIn.value) {
-    ms.info('AI回复中，请稍后再试');
+    ms.info('AI回覆中，請稍後再試');
     return;
   }
 
   chatStore.setStreamIn(false);
   try {
     // addLoading.value = true;
-    // 检查 activeConfig 是否存在
+    // 檢查 activeConfig 是否存在
     if (appId && appId > 0) {
       await chatStore.addNewChatGroup(appId);
     } else {
@@ -104,7 +104,7 @@ function handleTouchStart(event: any) {
 function handleTouchEnd(event: any) {
   endX.value = event.changedTouches[0].clientX;
   if (endX.value - startX.value > 100) {
-    // 判断向右滑动的最小距离（可以根据需要调整）
+    // 判斷向右滑動的最小距離（可以根據需要調整）
     if (isMobile.value) {
       appStore.setSiderCollapsed(false);
     }
@@ -134,14 +134,14 @@ watch(
   appId,
   async (newVal, oldVal) => {
     if (newVal) {
-      const id = +newVal; // 转换appId为数字类型
+      const id = +newVal; // 轉換appId為數字類型
       router.replace('/chat');
-      // await router.replace({ path: '/chat', query: {} }); // 清除当前查询参数
-      await nextTick(); // 等待导航完成
-      createNewChatGroup(id); // 调用创建新对话组的方法
+      // await router.replace({ path: '/chat', query: {} }); // 清除當前查詢參數
+      await nextTick(); // 等待導航完成
+      createNewChatGroup(id); // 調用創建新對話組的方法
     }
   },
-  { immediate: true } // 立即执行，处理组件加载时的逻辑
+  { immediate: true } // 立即執行，處理組件加載時的邏輯
 );
 </script>
 

@@ -67,7 +67,7 @@ export function fetchWxLoginRedirectAPI<T>(data: { url: string }): Promise<T> {
   });
 }
 
-/* 实名认证 */
+/* 實名認證 */
 export function fetchVerifyIdentityAPI<T>(data: {
   name: string;
   idCard: string;
@@ -78,7 +78,7 @@ export function fetchVerifyIdentityAPI<T>(data: {
   });
 }
 
-/* 手机认证 */
+/* 手機認證 */
 export function fetchVerifyPhoneIdentityAPI<T>(data: {
   phone: string;
   username: string;

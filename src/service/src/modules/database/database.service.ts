@@ -25,7 +25,7 @@ export class DatabaseService implements OnModuleInit {
     await this.checkSiteBaseConfig();
   }
 
-  /* 默认创建一个超级管理员账户 */
+  /* 默認創建一個超級管理員賬戶 */
   async checkSuperAdmin() {
     const user = await this.connection.query(
       `SELECT * FROM users WHERE role = 'super'`
@@ -56,7 +56,7 @@ export class DatabaseService implements OnModuleInit {
     }
   }
 
-  /* 初始化创建 超级管理员和管理员 */
+  /* 初始化創建 超級管理員和管理員 */
   async createDefaultUser(userInfo: UserInfo) {
     try {
       const { username, password, status, email, role } = userInfo;
@@ -68,21 +68,21 @@ export class DatabaseService implements OnModuleInit {
         `INSERT INTO balance (userId, balance, usesLeft, paintCount) VALUES ('${userId}', 0, 1000, 100)`
       );
       Logger.log(
-        `初始化创建${role}用户成功、用户名为[${username}]、初始密码为[${
+        `初始化創建${role}用戶成功、用戶名為[${username}]、初始密碼為[${
           username === 'super' ? 'super' : '123456'
-        }] ==============> 请注意查阅`,
+        }] ==============> 請注意查閱`,
         'DatabaseService'
       );
     } catch (error) {
       console.log('error: ', error);
       throw new HttpException(
-        '创建默认超级管理员失败！',
+        '創建默認超級管理員失敗！',
         HttpStatus.INTERNAL_SERVER_ERROR
       );
     }
   }
 
-  /* 检测有没有网站基础配置 */
+  /* 檢測有沒有網站基礎配置 */
   async checkSiteBaseConfig() {
     const keys = ['siteName', 'robotAvatar'];
     const result = await this.connection.query(`
@@ -96,16 +96,16 @@ export class DatabaseService implements OnModuleInit {
     }
   }
 
-  /* 创建基础的网站数据 */
+  /* 創建基礎的網站數據 */
   async createBaseSiteConfig() {
     try {
       const code = ``;
 
       const noticeInfo = `
-#### AIWeb 欢迎您
- - 欢迎使用 AIWeb
- - 初始管理员账号密码  super  123456 【前台后台登录都可以修改】
- - 初始预览账号密码  admin  123456 【为后台查看账号 仅可查看部分非敏感数据】
+#### AIWeb 歡迎您
+ - 歡迎使用 AIWeb
+ - 初始管理員賬號密碼  super  123456 【前臺後臺登錄都可以修改】
+ - 初始預覽賬號密碼  admin  123456 【為後臺查看賬號 僅可查看部分非敏感數據】
 `;
 
       const defaultConfig = [
@@ -136,7 +136,7 @@ export class DatabaseService implements OnModuleInit {
         { configKey: 'openaiBaseKey', configVal: 'sk-', public: 0, encry: 0 },
         {
           configKey: 'mjTranslatePrompt',
-          configVal: `Translate any given phrase from any language into English. For instance, when I input '{可爱的熊猫}', you should output '{cute panda}', with no period at the end.`,
+          configVal: `Translate any given phrase from any language into English. For instance, when I input '{可愛的熊貓}', you should output '{cute panda}', with no period at the end.`,
           public: 0,
           encry: 0,
         },
@@ -197,13 +197,13 @@ export class DatabaseService implements OnModuleInit {
           encry: 0,
         },
         { configKey: 'isVerifyEmail', configVal: '1', public: 1, encry: 0 },
-        { configKey: 'model3Name', configVal: '普通积分', public: 1, encry: 0 },
-        { configKey: 'model4Name', configVal: '高级积分', public: 1, encry: 0 },
-        { configKey: 'drawMjName', configVal: '绘画积分', public: 1, encry: 0 },
+        { configKey: 'model3Name', configVal: '普通積分', public: 1, encry: 0 },
+        { configKey: 'model4Name', configVal: '高級積分', public: 1, encry: 0 },
+        { configKey: 'drawMjName', configVal: '繪畫積分', public: 1, encry: 0 },
         {
           configKey: 'drawingStyles',
           configVal:
-            '油画风格,像素风格,赛博朋克,动漫,日系,超现实主义,油画,卡通,插画,海报,写实,扁平,中国风,水墨画,唯美二次元,印象派,炫彩插画,像素艺术,艺术创想,色彩主义,数字艺术',
+            '油畫風格,像素風格,賽博朋克,動漫,日系,超現實主義,油畫,卡通,插畫,海報,寫實,扁平,中國風,水墨畫,唯美二次元,印象派,炫彩插畫,像素藝術,藝術創想,色彩主義,數字藝術',
           public: 1,
           encry: 0,
         },
@@ -220,13 +220,13 @@ export class DatabaseService implements OnModuleInit {
           .join(', ')}`
       );
       Logger.log(
-        `初始化网站配置信息成功、如您需要修改网站配置信息，请前往管理系统系统配置设置 ==============> 请注意查阅`,
+        `初始化網站配置資訊成功、如您需要修改網站配置資訊，請前往管理系統系統配置設置 ==============> 請注意查閱`,
         'DatabaseService'
       );
     } catch (error) {
       console.log('error: ', error);
       throw new HttpException(
-        '创建默认网站配置失败！',
+        '創建默認網站配置失敗！',
         HttpStatus.INTERNAL_SERVER_ERROR
       );
     }

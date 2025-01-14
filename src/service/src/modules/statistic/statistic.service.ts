@@ -24,7 +24,7 @@ export class StatisticService {
     private readonly globalConfigService: GlobalConfigService
   ) {}
 
-  /* 基础数据统计 */
+  /* 基礎數據統計 */
   async getBaseStatistic() {
     const userCount = await this.countUsers();
     const newUserCount = await this.countNewUsersToday();
@@ -46,7 +46,7 @@ export class StatisticService {
     };
   }
 
-  /* 聊天记录统计 */
+  /* 聊天記錄統計 */
   async getChatStatistic({ days = 7 }) {
     const chatData = await this.countChatsByTimeRange(days);
     const drawData = await this.countDrawsByTimeRange(days);
@@ -59,19 +59,19 @@ export class StatisticService {
     };
   }
 
-  /* 查询百度统计数据 */
+  /* 查詢百度統計數據 */
   async getBaiduVisit({ days = 7 }) {
     const data = await this.getBaiduStatistics(days);
     return data;
   }
 
-  /* 查询用户总数 */
+  /* 查詢用戶總數 */
   async countUsers(): Promise<number> {
     const userCount = await this.userEntity.count();
     return userCount;
   }
 
-  /* 当天新增用户 */
+  /* 當天新增用戶 */
   async countNewUsersToday(): Promise<number> {
     const today = new Date();
     today.setHours(0, 0, 0, 0);
@@ -84,7 +84,7 @@ export class StatisticService {
     return userCount;
   }
 
-  /* 聊天次数总数 */
+  /* 聊天次數總數 */
   async countChats(): Promise<number> {
     const chatCount = await this.chatLogEntity.count({
       where: { type: ChatType.NORMAL_CHAT },
@@ -92,7 +92,7 @@ export class StatisticService {
     return chatCount;
   }
 
-  /* 当日聊天新增次数 */
+  /* 當日聊天新增次數 */
   async countNewChatsToday(): Promise<number> {
     const today = new Date();
     today.setHours(0, 0, 0, 0);
@@ -106,7 +106,7 @@ export class StatisticService {
     return chatCount;
   }
 
-  /* 绘画次数总数 */
+  /* 繪畫次數總數 */
   async countDraws(): Promise<number> {
     const drawCount = await this.chatLogEntity.count({
       where: { type: ChatType.PAINT },
@@ -114,7 +114,7 @@ export class StatisticService {
     return drawCount;
   }
 
-  /* 当日新增绘画次数 */
+  /* 當日新增繪畫次數 */
   async countNewDrawsToday(): Promise<number> {
     const today = new Date();
     today.setHours(0, 0, 0, 0);
@@ -128,7 +128,7 @@ export class StatisticService {
     return drawCount;
   }
 
-  /* 统计一段时间内的聊天数据 */
+  /* 統計一段時間內的聊天數據 */
   async countChatsByTimeRange(
     days: number
   ): Promise<{ date: string; count: number }[]> {
@@ -163,7 +163,7 @@ export class StatisticService {
     return dailyData;
   }
 
-  /* 统计一段时间内的绘画次数 */
+  /* 統計一段時間內的繪畫次數 */
   async countDrawsByTimeRange(
     days: number
   ): Promise<{ date: string; count: number }[]> {
@@ -204,7 +204,7 @@ export class StatisticService {
     baiduRefreshToken: string
   ): Promise<{ accessToken: string; refreshToken: string }> {
     const tokenUrl = `http://openapi.baidu.com/oauth/2.0/token?grant_type=refresh_token&refresh_token=${baiduRefreshToken}&client_id=${baiduApiKey}&client_secret=${baiduSecretKey}`;
-    Logger.log('获取新 accessToken', tokenUrl);
+    Logger.log('獲取新 accessToken', tokenUrl);
 
     try {
       const tokenRes = await axios.get(tokenUrl);
@@ -217,7 +217,7 @@ export class StatisticService {
         throw new Error('Failed to get new access token');
       }
     } catch (tokenError) {
-      Logger.error('获取新 accessToken 失败', {
+      Logger.error('獲取新 accessToken 失敗', {
         message: tokenError.message,
         stack: tokenError.stack,
         response: tokenError.response
@@ -225,7 +225,7 @@ export class StatisticService {
           : 'No response data',
       });
       throw new HttpException(
-        '获取新 accessToken 失败',
+        '獲取新 accessToken 失敗',
         HttpStatus.BAD_REQUEST
       );
     }
@@ -316,22 +316,22 @@ export class StatisticService {
 
     if (error_code && error_code !== 200) {
       throw new HttpException(
-        message || '获取百度统计数据失败',
+        message || '獲取百度統計數據失敗',
         HttpStatus.BAD_REQUEST
       );
     }
 
-    // 格式化数据
+    // 格式化數據
     return res.data.result;
   }
 
-  /* 订单总次数  */
+  /* 訂單總次數  */
   async countOrders(): Promise<number> {
     const orderCount = await this.orderEntity.count();
     return orderCount;
   }
 
-  /* 今日新增订单 */
+  /* 今日新增訂單 */
   async countNewOrdersToday(): Promise<number> {
     const today = new Date();
     today.setHours(0, 0, 0, 0);

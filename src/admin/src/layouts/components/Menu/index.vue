@@ -28,7 +28,7 @@ const isMenuPopup = computed<MenuInjection['isMenuPopup']>(() => {
   return props.mode === 'horizontal' || (props.mode === 'vertical' && props.collapse)
 })
 
-// 解析传入的 menu 数据，并保存到 items 和 subMenus 对象中
+// 解析傳入的 menu 數據，並保存到 items 和 subMenus 對象中
 function initItems(menu: MenuProps['menu'], parentPaths: string[] = []) {
   menu.forEach((item) => {
     const index = item.path ?? JSON.stringify(item)
@@ -109,7 +109,7 @@ function initMenu() {
   if (!activeItem || props.collapse) {
     return
   }
-  // 展开该菜单项的路径上所有子菜单
+  // 展開該菜單項的路徑上所有子菜單
   activeItem.indexPath.forEach((index) => {
     const subMenu = subMenus.value[index]
     subMenu && openMenu(index, subMenu.indexPath)

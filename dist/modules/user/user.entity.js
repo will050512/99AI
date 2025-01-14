@@ -15,27 +15,27 @@ const typeorm_1 = require("typeorm");
 let UserEntity = class UserEntity extends baseEntity_1.BaseEntity {
 };
 __decorate([
-    (0, typeorm_1.Column)({ length: 12, comment: '用户昵称' }),
+    (0, typeorm_1.Column)({ length: 12, comment: '用戶暱稱' }),
     __metadata("design:type", String)
 ], UserEntity.prototype, "username", void 0);
 __decorate([
-    (0, typeorm_1.Column)({ length: 64, comment: '用户密码', nullable: true }),
+    (0, typeorm_1.Column)({ length: 64, comment: '用戶密碼', nullable: true }),
     __metadata("design:type", String)
 ], UserEntity.prototype, "password", void 0);
 __decorate([
-    (0, typeorm_1.Column)({ default: 0, comment: '用户状态' }),
+    (0, typeorm_1.Column)({ default: 0, comment: '用戶狀態' }),
     __metadata("design:type", Number)
 ], UserEntity.prototype, "status", void 0);
 __decorate([
-    (0, typeorm_1.Column)({ default: 1, comment: '用户性别' }),
+    (0, typeorm_1.Column)({ default: 1, comment: '用戶性別' }),
     __metadata("design:type", Number)
 ], UserEntity.prototype, "sex", void 0);
 __decorate([
-    (0, typeorm_1.Column)({ length: 64, unique: true, comment: '用户邮箱' }),
+    (0, typeorm_1.Column)({ length: 64, unique: true, comment: '用戶郵箱' }),
     __metadata("design:type", String)
 ], UserEntity.prototype, "email", void 0);
 __decorate([
-    (0, typeorm_1.Column)({ length: 64, nullable: true, comment: '用户手机号' }),
+    (0, typeorm_1.Column)({ length: 64, nullable: true, comment: '用戶手機號' }),
     __metadata("design:type", String)
 ], UserEntity.prototype, "phone", void 0);
 __decorate([
@@ -43,7 +43,7 @@ __decorate([
         length: 300,
         nullable: true,
         default: '',
-        comment: '用户头像',
+        comment: '用戶頭像',
     }),
     __metadata("design:type", String)
 ], UserEntity.prototype, "avatar", void 0);
@@ -51,34 +51,34 @@ __decorate([
     (0, typeorm_1.Column)({
         length: 300,
         nullable: true,
-        default: '我是一台基于深度学习和自然语言处理技术的 AI 机器人，旨在为用户提供高效、精准、个性化的智能服务。',
-        comment: '用户签名',
+        default: '我是一臺基於深度學習和自然語言處理技術的 AI 機器人，旨在為用戶提供高效、精準、個性化的智能服務。',
+        comment: '用戶簽名',
     }),
     __metadata("design:type", String)
 ], UserEntity.prototype, "sign", void 0);
 __decorate([
-    (0, typeorm_1.Column)({ length: 64, default: '', comment: '注册IP', nullable: true }),
+    (0, typeorm_1.Column)({ length: 64, default: '', comment: '註冊IP', nullable: true }),
     __metadata("design:type", String)
 ], UserEntity.prototype, "registerIp", void 0);
 __decorate([
     (0, typeorm_1.Column)({
         length: 64,
         default: '',
-        comment: '最后一次登录IP',
+        comment: '最後一次登錄IP',
         nullable: true,
     }),
     __metadata("design:type", String)
 ], UserEntity.prototype, "lastLoginIp", void 0);
 __decorate([
-    (0, typeorm_1.Column)({ length: 10, default: '', comment: '用户邀请码' }),
+    (0, typeorm_1.Column)({ length: 10, default: '', comment: '用戶邀請碼' }),
     __metadata("design:type", String)
 ], UserEntity.prototype, "inviteCode", void 0);
 __decorate([
-    (0, typeorm_1.Column)({ length: 10, default: '', comment: '用户填写的别人的邀请码' }),
+    (0, typeorm_1.Column)({ length: 10, default: '', comment: '用戶填寫的別人的邀請碼' }),
     __metadata("design:type", String)
 ], UserEntity.prototype, "invitedBy", void 0);
 __decorate([
-    (0, typeorm_1.Column)({ length: 10, default: 'viewer', comment: '用户角色' }),
+    (0, typeorm_1.Column)({ length: 10, default: 'viewer', comment: '用戶角色' }),
     __metadata("design:type", String)
 ], UserEntity.prototype, "role", void 0);
 __decorate([
@@ -86,27 +86,27 @@ __decorate([
     __metadata("design:type", String)
 ], UserEntity.prototype, "openId", void 0);
 __decorate([
-    (0, typeorm_1.Column)({ length: 64, comment: '用户注册来源', nullable: true }),
+    (0, typeorm_1.Column)({ length: 64, comment: '用戶註冊來源', nullable: true }),
     __metadata("design:type", String)
 ], UserEntity.prototype, "client", void 0);
 __decorate([
-    (0, typeorm_1.Column)({ comment: '用户邀请链接被点击次数', default: 0 }),
+    (0, typeorm_1.Column)({ comment: '用戶邀請鏈接被點擊次數', default: 0 }),
     __metadata("design:type", Number)
 ], UserEntity.prototype, "inviteLinkCount", void 0);
 __decorate([
-    (0, typeorm_1.Column)({ comment: '用户连续签到天数', default: 0 }),
+    (0, typeorm_1.Column)({ comment: '用戶連續簽到天數', default: 0 }),
     __metadata("design:type", Number)
 ], UserEntity.prototype, "consecutiveDays", void 0);
 __decorate([
-    (0, typeorm_1.Column)({ comment: '用户违规记录次数', default: 0 }),
+    (0, typeorm_1.Column)({ comment: '用戶違規記錄次數', default: 0 }),
     __metadata("design:type", Number)
 ], UserEntity.prototype, "violationCount", void 0);
 __decorate([
-    (0, typeorm_1.Column)({ comment: '真实姓名', nullable: true }),
+    (0, typeorm_1.Column)({ comment: '真實姓名', nullable: true }),
     __metadata("design:type", String)
 ], UserEntity.prototype, "realName", void 0);
 __decorate([
-    (0, typeorm_1.Column)({ comment: '身份证号', nullable: true }),
+    (0, typeorm_1.Column)({ comment: '身份證號', nullable: true }),
     __metadata("design:type", String)
 ], UserEntity.prototype, "idCard", void 0);
 UserEntity = __decorate([

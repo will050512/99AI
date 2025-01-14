@@ -1,6 +1,6 @@
 <route lang="yaml">
 meta:
-  title: 绘画管理
+  title: 繪畫管理
 </route>
 
 <script lang="ts" setup>
@@ -82,26 +82,26 @@ onMounted(() => {
   <div>
     <PageHeader>
       <template #title>
-        <div class="flex items-center gap-4">绘画记录</div>
+        <div class="flex items-center gap-4">繪畫記錄</div>
       </template>
       <!-- <template #content>
         <div class="text-sm/6">
           <div>
-            所有工单只可审核一次，请谨慎操作，打款请人工打款，确定打款后点击审核通过即可。
+            所有工單隻可審核一次，請謹慎操作，打款請人工打款，確定打款後點擊審核通過即可。
           </div>
         </div>
       </template> -->
     </PageHeader>
     <page-main>
       <el-form ref="formRef" :inline="true" :model="formInline">
-        <el-form-item label="用户名称" prop="userId">
+        <el-form-item label="用戶名稱" prop="userId">
           <el-select
             v-model="formInline.userId"
             filterable
             clearable
             remote
             reserve-keyword
-            placeholder="用户姓名[模糊搜索]"
+            placeholder="用戶姓名[模糊搜索]"
             remote-show-suffix
             :remote-method="handlerSearchUser"
             style="width: 160px"
@@ -114,10 +114,10 @@ onMounted(() => {
             />
           </el-select>
         </el-form-item>
-        <!-- <el-form-item label="图片状态" prop="rec">
+        <!-- <el-form-item label="圖片狀態" prop="rec">
           <el-select
             v-model="formInline.rec"
-            placeholder="请选择图片状态"
+            placeholder="請選擇圖片狀態"
             clearable
             style="width: 160px"
           >
@@ -129,10 +129,10 @@ onMounted(() => {
             />
           </el-select>
         </el-form-item> -->
-        <el-form-item label="绘画模型" prop="model">
+        <el-form-item label="繪畫模型" prop="model">
           <el-select
             v-model="formInline.model"
-            placeholder="请选择绘画模型"
+            placeholder="請選擇繪畫模型"
             clearable
             style="width: 160px"
           >
@@ -145,7 +145,7 @@ onMounted(() => {
           </el-select>
         </el-form-item>
         <el-form-item>
-          <el-button type="primary" @click="queryAllDrawLog"> 查询 </el-button>
+          <el-button type="primary" @click="queryAllDrawLog"> 查詢 </el-button>
           <el-button @click="handlerReset(formRef)"> 重置 </el-button>
         </el-form-item>
       </el-form>
@@ -163,19 +163,19 @@ onMounted(() => {
         <el-table-column
           prop="userInfo.username"
           align="center"
-          label="用户名"
+          label="用戶名"
           width="120"
         />
         <el-table-column
           prop="userInfo.email"
           align="center"
-          label="用户邮箱"
+          label="用戶郵箱"
           width="200"
         />
         <el-table-column
           prop="drawUrl"
           align="center"
-          label="绘图结果"
+          label="繪圖結果"
           width="200"
         >
           <template #default="scope">
@@ -194,16 +194,16 @@ onMounted(() => {
         <!-- <el-table-column
           prop="fileInfo.thumbImg"
           align="center"
-          label="推荐状态"
+          label="推薦狀態"
           width="90"
         >
           <template #default="scope">
             <el-tag :type="scope.row.rec === 1 ? 'success' : 'info'">
-              {{ scope.row.rec === 1 ? '已推荐' : '未推荐' }}
+              {{ scope.row.rec === 1 ? '已推薦' : '未推薦' }}
             </el-tag>
           </template>
         </el-table-column> -->
-        <el-table-column prop="model" label="种类" width="180" align="center">
+        <el-table-column prop="model" label="種類" width="180" align="center">
           <template #default="scope">
             <el-tag type="success">
               {{ scope.row.model }}
@@ -213,7 +213,7 @@ onMounted(() => {
         <!-- <el-table-column
           prop="status"
           align="center"
-          label="绘图状态"
+          label="繪圖狀態"
           width="105"
         >
           <template #default="scope">
@@ -224,7 +224,7 @@ onMounted(() => {
         </el-table-column> -->
         <el-table-column
           prop="prompt"
-          label="绘图指令"
+          label="繪圖指令"
           align="center"
           width="250"
         >
@@ -244,12 +244,12 @@ onMounted(() => {
         <el-table-column
           prop="progress"
           align="center"
-          label="绘图进度"
+          label="繪圖進度"
           width="90"
         />
         <el-table-column
           prop="createdAt"
-          label="绘图时间"
+          label="繪圖時間"
           align="center"
           width="200"
         >
@@ -261,9 +261,9 @@ onMounted(() => {
         <!-- <el-table-column fixed="right" label="操作" width="200" align="center">
           <template #default="scope">
             <el-popconfirm
-              :title="`确认${
-                scope.row.rec === 1 ? '取消推荐' : '推荐'
-              }图片吗！`"
+              :title="`確認${
+                scope.row.rec === 1 ? '取消推薦' : '推薦'
+              }圖片嗎！`"
               width="260"
               icon-color="red"
               @confirm="recommendDrawImg(scope.row.id)"
@@ -274,18 +274,18 @@ onMounted(() => {
                   :type="scope.row.rec === 1 ? 'success' : ''"
                   size="small"
                 >
-                  推荐图片
+                  推薦圖片
                 </el-button>
               </template>
             </el-popconfirm>
             <el-popconfirm
-              title="`确认删除此条记录么！"
+              title="`確認刪除此條記錄麼！"
               width="260"
               icon-color="red"
               @confirm="handleDelChatLog(scope.row.id)"
             >
               <template #reference>
-                <el-button type="warning" size="small"> 删除记录 </el-button>
+                <el-button type="warning" size="small"> 刪除記錄 </el-button>
               </template>
             </el-popconfirm>
           </template>
@@ -325,7 +325,7 @@ onMounted(() => {
           </div>
           <div class="draw_footer mt-3 flex items-center justify-between">
             <el-tag class="ml-2" :type="item.rec ? 'success' : 'info'">
-              {{ item.rec ? '已推荐' : '未推荐' }}
+              {{ item.rec ? '已推薦' : '未推薦' }}
             </el-tag>
             <el-button
               type="warning"
@@ -333,7 +333,7 @@ onMounted(() => {
               size="small"
               @click="recommendDrawImg(item.id)"
             >
-              {{ item.rec ? '取消推荐' : '加入推荐' }}
+              {{ item.rec ? '取消推薦' : '加入推薦' }}
               <el-icon v-if="!item.rec">
                 <Plus />
               </el-icon>

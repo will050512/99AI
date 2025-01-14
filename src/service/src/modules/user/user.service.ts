@@ -52,13 +52,13 @@ export class UserService {
   ): Promise<UserEntity> {
     const { username, email, password, client = 0 } = user;
 
-    /* 用户是否已经在系统中 */
+    /* 用戶是否已經在系統中 */
     const where = [{ username }, { email }];
     const u: UserEntity = await this.userEntity.findOne({ where: where });
 
     if (u && u.status !== UserStatusEnum.PENDING) {
       throw new HttpException(
-        '用户名或者邮箱已被注册！',
+        '用戶名或者郵箱已被註冊！',
         HttpStatus.BAD_REQUEST
       );
     }
@@ -72,7 +72,7 @@ export class UserService {
       userInput.client = client;
 
       let n: UserEntity;
-      /* 如果没有注册用户则首次注册记录 如果注册了覆盖发送验证码即可 无需记录用户 */
+      /* 如果沒有註冊用戶則首次註冊記錄 如果註冊了覆蓋發送驗證碼即可 無需記錄用戶 */
       if (!u) {
         const userDefautlAvatar = await this.globalConfigService.getConfigs([
           'userDefautlAvatar',
@@ -117,14 +117,14 @@ export class UserService {
         const { registerVerifyEmailFrom } = configMap;
         console.log('configMap: ', configMap);
 
-        console.log(`尝试发送邮件到: ${email}`); // 在尝试发送邮件之前打印日志
+        console.log(`嘗試發送郵件到: ${email}`); // 在嘗試發送郵件之前打印日誌
 
         // try {
         //   await this.mailerService.sendMail({
         //     to: email,
-        //     subject: `来自${registerVerifyEmailFrom}的账号激活`,
+        //     subject: `來自${registerVerifyEmailFrom}的賬號激活`,
         //     context: {
-        //       // 这里传入模板中使用的变量和数据
+        //       // 這裡傳入模板中使用的變量和數據
         //       registerVerifyEmailTitle: configMap['registerVerifyEmailTitle'],
         //       registerVerifyEmailDesc: configMap['registerVerifyEmailDesc'],
         //       baseUrl: configMap['registerBaseUrl'],
@@ -134,13 +134,13 @@ export class UserService {
         //     },
         //   });
 
-        //   console.log('邮件发送成功'); // 如果邮件发送成功，打印成功的消息
+        //   console.log('郵件發送成功'); // 如果郵件發送成功，打印成功的消息
         // } catch (error) {
-        //   console.error('邮件发送失败', error); // 捕获并处理异常
-        //   // 在这里可以进一步处理错误，比如重试发送、记录错误详情到日志系统、通知管理员等
+        //   console.error('郵件發送失敗', error); // 捕獲並處理異常
+        //   // 在這裡可以進一步處理錯誤，比如重試發送、記錄錯誤詳情到日誌系統、通知管理員等
         // }
       } else {
-        /* 如果没有邮箱验证则 则直接主动注册验证通过逻辑 */
+        /* 如果沒有郵箱驗證則 則直接主動註冊驗證通過邏輯 */
         const { id } = n;
         await this.updateUserStatus(id, UserStatusEnum.ACTIVE);
         await this.userBalanceService.addBalanceToNewUser(id);
@@ -157,23 +157,23 @@ export class UserService {
     return user;
   }
 
-  /* 账号登录验证密码 扫码登录则不用 */
+  /* 賬號登錄驗證密碼 掃碼登錄則不用 */
   async verifyUserCredentials(user): Promise<UserEntity> {
     const { username, password, uid = 0, phone } = user;
     let u = null;
 
-    /* 三方登录的 */
+    /* 三方登錄的 */
     if (uid > 0) {
       u = await this.userEntity.findOne({ where: { id: uid } });
       if (!u) {
-        throw new HttpException('当前账户不存在！', HttpStatus.BAD_REQUEST);
+        throw new HttpException('當前賬戶不存在！', HttpStatus.BAD_REQUEST);
       }
       if (!bcrypt.compareSync(password, u.password)) {
-        throw new HttpException('当前密码错误！', HttpStatus.BAD_REQUEST);
+        throw new HttpException('當前密碼錯誤！', HttpStatus.BAD_REQUEST);
       }
     }
 
-    /* 普通登录 */
+    /* 普通登錄 */
     if (username && password) {
       const where: any = [
         { username },
@@ -182,15 +182,15 @@ export class UserService {
       ];
       u = await this.userEntity.findOne({ where: where });
       if (!u) {
-        throw new HttpException('当前账户不存在！', HttpStatus.BAD_REQUEST);
+        throw new HttpException('當前賬戶不存在！', HttpStatus.BAD_REQUEST);
       }
       if (!bcrypt.compareSync(password, u.password)) {
-        throw new HttpException('当前密码错误！', HttpStatus.BAD_REQUEST);
+        throw new HttpException('當前密碼錯誤！', HttpStatus.BAD_REQUEST);
       }
     }
 
     if (!u) {
-      throw new HttpException('当前账户不存在！', HttpStatus.BAD_REQUEST);
+      throw new HttpException('當前賬戶不存在！', HttpStatus.BAD_REQUEST);
     }
     if (u.status !== UserStatusEnum.ACTIVE) {
       throw new HttpException(
@@ -225,32 +225,32 @@ export class UserService {
     return await this.userEntity.findOne({ where: { id: userId } });
   }
 
-  /* 检查用户状态 */
+  /* 檢查用戶狀態 */
   async checkUserStatus(user) {
     const { id: userId, role } = user;
     if (role === 'visitor') return true;
     const u = await this.userEntity.findOne({ where: { id: userId } });
     if (!u) {
       throw new HttpException(
-        '当前用户信息失效、请重新登录！',
+        '當前用戶資訊失效、請重新登錄！',
         HttpStatus.UNAUTHORIZED
       );
     }
     if (u.status === UserStatusEnum.BLACKLISTED) {
       throw new HttpException(
-        '您的账户已被永久加入黑名单、如有疑问、请联系管理员！',
+        '您的賬戶已被永久加入黑名單、如有疑問、請聯繫管理員！',
         HttpStatus.BAD_REQUEST
       );
     }
     if (u.status === UserStatusEnum.LOCKED) {
       throw new HttpException(
-        '您的账户已被封禁、如有疑问、请联系管理员！',
+        '您的賬戶已被封禁、如有疑問、請聯繫管理員！',
         HttpStatus.BAD_REQUEST
       );
     }
   }
 
-  /* 获取用户基础信息 */
+  /* 獲取用戶基礎資訊 */
   async getUserInfo(userId: number) {
     const userInfo: any = await this.userEntity.findOne({
       where: { id: userId },
@@ -267,7 +267,7 @@ export class UserService {
 
     if (!userInfo) {
       throw new HttpException(
-        '当前用户信息失效、请重新登录！',
+        '當前用戶資訊失效、請重新登錄！',
         HttpStatus.UNAUTHORIZED
       );
     }
@@ -277,55 +277,55 @@ export class UserService {
 
     const userBalance = await this.userBalanceService.queryUserBalance(userId);
 
-    // 对id进行处理
+    // 對id進行處理
     const processedId = (userId * 123 + 100000000)
       .toString(36)
       .toUpperCase()
       .slice(-6);
 
-    // 将处理后的id放入userInfo对象中
+    // 將處理後的id放入userInfo對象中
     userInfo.id = processedId;
 
     return { userInfo, userBalance: { ...userBalance } };
   }
 
-  /* 获取用户信息 */
+  /* 獲取用戶資訊 */
   async getUserById(id: number) {
     return await this.userEntity.findOne({ where: { id } });
   }
 
-  /* 通过openId获取用户信息 */
+  /* 通過openId獲取用戶資訊 */
   async getUserOpenId(openId: string) {
     return await this.userEntity.findOne({ where: { openId } });
   }
 
-  /* 修改用户信息 */
+  /* 修改用戶資訊 */
   async updateInfo(body: UpdateUserDto, req: Request) {
     const { id } = req.user;
 
     const u = await this.userEntity.findOne({ where: { id } });
     if (!u) {
-      throw new HttpException('当前用户不存在！', HttpStatus.BAD_REQUEST);
+      throw new HttpException('當前用戶不存在！', HttpStatus.BAD_REQUEST);
     }
     if (body.username && u.username === body.username) {
-      throw new HttpException('没有变更，无需更改！', HttpStatus.BAD_REQUEST);
+      throw new HttpException('沒有變更，無需更改！', HttpStatus.BAD_REQUEST);
     }
 
     if (body.username) {
       const usernameTaken = await this.isUsernameTaken(body.username, id);
       if (usernameTaken) {
-        throw new HttpException('用户名已存在！', HttpStatus.BAD_REQUEST);
+        throw new HttpException('用戶名已存在！', HttpStatus.BAD_REQUEST);
       }
     }
 
     const r = await this.userEntity.update({ id }, body);
     if (r.affected <= 0) {
-      throw new HttpException('修改用户信息失败！', HttpStatus.BAD_REQUEST);
+      throw new HttpException('修改用戶資訊失敗！', HttpStatus.BAD_REQUEST);
     }
-    return '修改用户信息成功！';
+    return '修改用戶資訊成功！';
   }
 
-  /* 检查用户名是否已存在 */
+  /* 檢查用戶名是否已存在 */
   async isUsernameTaken(
     username: string,
     excludeUserId?: number
@@ -338,7 +338,7 @@ export class UserService {
     return !!user;
   }
 
-  /* 修改用户密码 */
+  /* 修改用戶密碼 */
   async updateUserPassword(userId: number, password: string) {
     const hashedPassword = bcrypt.hashSync(password, 10);
     const r = await this.userEntity.update(
@@ -347,13 +347,13 @@ export class UserService {
     );
     if (r.affected <= 0) {
       throw new HttpException(
-        '修改密码失败、请重新试试吧。',
+        '修改密碼失敗、請重新試試吧。',
         HttpStatus.BAD_REQUEST
       );
     }
   }
 
-  /* 给用户充值 */
+  /* 給用戶充值 */
   async userRecharge(body: UserRechargeDto) {
     const { userId, model3Count = 0, model4Count = 0, drawMjCount = 0 } = body;
     await this.userBalanceService.addBalanceToUser(userId, {
@@ -372,7 +372,7 @@ export class UserService {
     return res;
   }
 
-  /* 查询所有用户 */
+  /* 查詢所有用戶 */
   async queryAll(query: QueryAllUserDto, req: Request) {
     const {
       page = 1,
@@ -430,7 +430,7 @@ export class UserService {
     return { rows, count };
   }
 
-  /* 查询单个用户详情 */
+  /* 查詢單個用戶詳情 */
   async queryOne({ id }) {
     return await this.userEntity.findOne({
       where: { id },
@@ -438,38 +438,38 @@ export class UserService {
     });
   }
 
-  /* 修改用户状态 */
+  /* 修改用戶狀態 */
   async updateStatus(body: UpdateUserStatusDto) {
     const { id, status } = body;
     const n = await this.userEntity.findOne({ where: { id } });
     if (!n) {
-      throw new HttpException('用户不存在！', HttpStatus.BAD_REQUEST);
+      throw new HttpException('用戶不存在！', HttpStatus.BAD_REQUEST);
     }
     if (n.role === 'super') {
-      throw new HttpException('超级管理员不可被操作！', HttpStatus.BAD_REQUEST);
+      throw new HttpException('超級管理員不可被操作！', HttpStatus.BAD_REQUEST);
     }
     // if (n.status === UserStatusEnum.PENDING) {
-    //   throw new HttpException('未激活用户不可手动变更状态！', HttpStatus.BAD_REQUEST);
+    //   throw new HttpException('未激活用戶不可手動變更狀態！', HttpStatus.BAD_REQUEST);
     // }
     if (n.role === 'super') {
-      throw new HttpException('超级管理员不可被操作！', HttpStatus.BAD_REQUEST);
+      throw new HttpException('超級管理員不可被操作！', HttpStatus.BAD_REQUEST);
     }
     // if (status === UserStatusEnum.PENDING) {
-    //   throw new HttpException('不可将用户置为未激活状态！', HttpStatus.BAD_REQUEST);
+    //   throw new HttpException('不可將用戶置為未激活狀態！', HttpStatus.BAD_REQUEST);
     // }
     const r = await this.userEntity.update({ id }, { status });
     if (r.affected <= 0) {
-      throw new HttpException('修改用户状态失败！', HttpStatus.BAD_REQUEST);
+      throw new HttpException('修改用戶狀態失敗！', HttpStatus.BAD_REQUEST);
     }
-    return '修改用户状态成功！';
+    return '修改用戶狀態成功！';
   }
 
-  /* 重置用户密码 */
+  /* 重置用戶密碼 */
   async resetUserPass(body: ResetUserPassDto) {
     const { id } = body;
     const u = await this.userEntity.findOne({ where: { id } });
     if (!u) {
-      throw new HttpException('用户不存在！', HttpStatus.BAD_REQUEST);
+      throw new HttpException('用戶不存在！', HttpStatus.BAD_REQUEST);
     }
     const defaultPassword = '123456';
     const hashPassword = bcrypt.hashSync(defaultPassword, 10);
@@ -478,17 +478,17 @@ export class UserService {
       { password: hashPassword }
     );
     if (raw.affected <= 0) {
-      throw new HttpException('重置密码失败！', HttpStatus.BAD_REQUEST);
+      throw new HttpException('重置密碼失敗！', HttpStatus.BAD_REQUEST);
     }
-    return `密码重置为[${defaultPassword}]成功!`;
+    return `密碼重置為[${defaultPassword}]成功!`;
   }
 
-  /* 记录登录ip */
+  /* 記錄登錄ip */
   async savaLoginIp(userId: number, ip: string) {
     return await this.userEntity.update({ id: userId }, { lastLoginIp: ip });
   }
 
-  /* 通过openId 拿到或创建 */
+  /* 通過openId 拿到或創建 */
   async getUserFromOpenId(openId: string, sceneStr?: string) {
     const user = await this.userEntity.findOne({ where: { openId } });
     if (!user) {
@@ -499,14 +499,14 @@ export class UserService {
     return user;
   }
 
-  /* 通过openId创建一个用户, 传入邀请码 是邀请人的不是自己的 */
+  /* 通過openId創建一個用戶, 傳入邀請碼 是邀請人的不是自己的 */
   async createUserFromOpenId(openId: string) {
     const userDefautlAvatar = await this.globalConfigService.getConfigs([
       'userDefautlAvatar',
     ]);
     const userInfo = {
       avatar: userDefautlAvatar,
-      username: `用户${createRandomUid()}`,
+      username: `用戶${createRandomUid()}`,
       status: UserStatusEnum.ACTIVE,
       sex: 0,
       email: `${createRandomUid()}@default.com`,
@@ -516,16 +516,16 @@ export class UserService {
     return user;
   }
 
-  /* 通过openId创建一个用户, 传入邀请码 是邀请人的不是自己的 */
+  /* 通過openId創建一個用戶, 傳入邀請碼 是邀請人的不是自己的 */
   async createUserFromContact(params: any) {
     const { username, email, phone } = params;
     const userDefautlAvatar = await this.globalConfigService.getConfigs([
       'userDefautlAvatar',
     ]);
-    // 创建 userInfo 对象时条件性地添加 email 和 phone
+    // 創建 userInfo 對象時條件性地添加 email 和 phone
     const userInfo: any = {
       avatar: userDefautlAvatar,
-      username: `用户${createRandomUid()}`,
+      username: `用戶${createRandomUid()}`,
       status: UserStatusEnum.ACTIVE,
       sex: 0,
     };
@@ -564,53 +564,53 @@ export class UserService {
   async bindWx(openId, userId) {
     try {
       const user = await this.userEntity.findOne({ where: { id: userId } });
-      if (!user) return { status: false, msg: '当前绑定用户不存在！' };
+      if (!user) return { status: false, msg: '當前綁定用戶不存在！' };
       const bindU = await this.userEntity.findOne({ where: { openId } });
-      if (bindU) return { status: false, msg: '该微信已绑定其他账号！' };
+      if (bindU) return { status: false, msg: '該微信已綁定其他賬號！' };
       const res = await this.userEntity.update({ id: userId }, { openId });
       if (res.affected <= 0)
-        return { status: false, msg: '绑定微信失败、请联系管理员！' };
-      return { status: true, msg: '恭喜您绑定成功、后续可直接扫码登录了！' };
+        return { status: false, msg: '綁定微信失敗、請聯繫管理員！' };
+      return { status: true, msg: '恭喜您綁定成功、後續可直接掃碼登錄了！' };
     } catch (error) {
-      return { status: false, msg: '绑定微信失败、请联系管理员！' };
+      return { status: false, msg: '綁定微信失敗、請聯繫管理員！' };
     }
   }
 
-  /* 通过userId获取用户的openId */
+  /* 通過userId獲取用戶的openId */
   async getOpenIdByUserId(userId: number) {
     const user = await this.userEntity.findOne({ where: { id: userId } });
     return user?.openId;
   }
 
-  /* 校验手机号/邮箱号注册 */
+  /* 校驗手機號/郵箱號註冊 */
   async verifyUserRegister(params: any): Promise<boolean> {
     const { username, phone, email } = params;
 
-    // 如果提供了手机号，就验证手机号
+    // 如果提供了手機號，就驗證手機號
     if (phone) {
       const userByPhone = await this.userEntity.findOne({ where: { phone } });
       if (userByPhone) {
-        // 手机号已注册，返回 false
+        // 手機號已註冊，返回 false
         return false;
       }
     }
 
-    // 如果提供了邮箱，就验证邮箱
+    // 如果提供了郵箱，就驗證郵箱
     if (email) {
       const userByEmail = await this.userEntity.findOne({ where: { email } });
       if (userByEmail) {
-        // 邮箱已注册，返回 false
+        // 郵箱已註冊，返回 false
         return false;
       }
     }
 
-    // 验证用户名是否已存在
+    // 驗證用戶名是否已存在
     if (username) {
       const userByUsername = await this.userEntity.findOne({
         where: { username },
       });
       if (userByUsername) {
-        // 用户名已存在，返回 false
+        // 用戶名已存在，返回 false
         return false;
       }
     }
@@ -619,11 +619,11 @@ export class UserService {
       return false;
     }
 
-    // 所有检查都通过，没有发现重复的注册信息，返回 true
+    // 所有檢查都通過，沒有發現重複的註冊資訊，返回 true
     return true;
   }
 
-  /* 校验手机号注册 */
+  /* 校驗手機號註冊 */
   async verifyUserRegisterByPhone(params: any) {
     const { username, password, phone, phoneCode } = params;
     const user = await this.userEntity.findOne({
@@ -631,68 +631,68 @@ export class UserService {
     });
     if (user && user.username === username) {
       throw new HttpException(
-        '用户名已存在、请更换用户名！',
+        '用戶名已存在、請更換用戶名！',
         HttpStatus.BAD_REQUEST
       );
     }
     if (user && user.phone === phone) {
       throw new HttpException(
-        '当前手机号已注册、请勿重复注册！',
+        '當前手機號已註冊、請勿重複註冊！',
         HttpStatus.BAD_REQUEST
       );
     }
   }
 
-  /* 校验邮箱注册 */
+  /* 校驗郵箱註冊 */
   async verifyUserRegisterByEmail(params: any) {
     const { username, email } = params;
-    console.log(`校验邮箱注册: 开始 - 用户名: ${username}, 邮箱: ${email}`);
+    console.log(`校驗郵箱註冊: 開始 - 用戶名: ${username}, 郵箱: ${email}`);
 
-    // 查找数据库中是否存在该用户名或邮箱
+    // 查找數據庫中是否存在該用戶名或郵箱
     const user = await this.userEntity.findOne({
       where: [{ username }, { email }],
     });
 
-    // 校验用户名是否已存在
+    // 校驗用戶名是否已存在
     if (user && user.username === username) {
-      console.error(`校验失败: 用户名 "${username}" 已存在`);
+      console.error(`校驗失敗: 用戶名 "${username}" 已存在`);
       throw new HttpException(
-        '用户名已存在、请更换用户名！',
+        '用戶名已存在、請更換用戶名！',
         HttpStatus.BAD_REQUEST
       );
     }
 
-    // 校验邮箱是否已被注册
-    // 注意：这里应检查user.email而不是user.phone，除非你的数据模型是这样设计的
+    // 校驗郵箱是否已被註冊
+    // 注意：這裡應檢查user.email而不是user.phone，除非你的數據模型是這樣設計的
     if (user && user.email === email) {
-      console.error(`校验失败: 邮箱 "${email}" 已被注册`);
+      console.error(`校驗失敗: 郵箱 "${email}" 已被註冊`);
       throw new HttpException(
-        '当前邮箱已注册、请勿重复注册！',
+        '當前郵箱已註冊、請勿重複註冊！',
         HttpStatus.BAD_REQUEST
       );
     }
 
     console.log(
-      `校验邮箱注册: 成功 - 用户名: ${username}, 邮箱: ${email} 未被占用`
+      `校驗郵箱註冊: 成功 - 用戶名: ${username}, 郵箱: ${email} 未被佔用`
     );
   }
 
-  /* 创建基础用户 */
+  /* 創建基礎用戶 */
   async createUser(userInfo) {
     return await this.userEntity.save(userInfo);
   }
 
-  /* 存储实名信息 */
+  /* 儲存實名資訊 */
   async saveRealNameInfo(userId: number, realName: string, idCard: string) {
     const user = await this.userEntity.findOne({ where: { id: userId } });
     if (!user) {
-      Logger.error('用户不存在');
+      Logger.error('用戶不存在');
     }
     await this.userEntity.update({ id: userId }, { realName, idCard });
     return;
   }
 
-  /* 更新用户手机号，用户名，密码 */
+  /* 更新用戶手機號，用戶名，密碼 */
   async updateUserPhone(
     userId: number,
     phone: string,
@@ -702,10 +702,10 @@ export class UserService {
     const user = await this.userEntity.findOne({ where: { id: userId } });
     const hashedPassword = bcrypt.hashSync(password, 10);
     if (!user) {
-      Logger.error('用户不存在');
+      Logger.error('用戶不存在');
     }
     if (!phone || !username || !hashedPassword) {
-      throw new HttpException('参数错误！', HttpStatus.BAD_REQUEST);
+      throw new HttpException('參數錯誤！', HttpStatus.BAD_REQUEST);
     }
     await this.userEntity.update(
       { id: userId },

@@ -1,6 +1,6 @@
 <route lang="yaml">
 meta:
-  title: 敏感词预设
+  title: 敏感詞預設
 </route>
 
 <script lang="ts" setup>
@@ -56,7 +56,7 @@ const InputRef = ref<InstanceType<typeof ElInput>>();
 
 async function handleDel(id: number) {
   await ApiBadWords.delBadWords({ id });
-  ElMessage.success('删除敏感词成功');
+  ElMessage.success('刪除敏感詞成功');
   await queryBadWordList();
 }
 
@@ -70,7 +70,7 @@ function showInput() {
 async function handleInputConfirm() {
   if (inputValue.value) {
     await ApiBadWords.addBadWords({ word: inputValue.value });
-    ElMessage.success('添加敏感词成功');
+    ElMessage.success('添加敏感詞成功');
     formInline.status = '';
     await queryBadWordList();
   }
@@ -83,12 +83,12 @@ async function handleInputConfirm() {
   <div>
     <PageHeader>
       <template #title>
-        <div class="flex items-center gap-4">自定义敏感词</div>
+        <div class="flex items-center gap-4">自定義敏感詞</div>
       </template>
       <!-- <template #content>
         <div class="text-sm/6">
           <div>
-            触发敏感词将自动拦截，如配置过三方平台、自定义检测将在三方平台通过后最后进行检测！
+            觸發敏感詞將自動攔截，如配置過三方平臺、自定義檢測將在三方平臺通過後最後進行檢測！
           </div>
         </div>
       </template> -->
@@ -96,18 +96,18 @@ async function handleInputConfirm() {
 
     <page-main>
       <el-form ref="formRef" :inline="true" :model="formInline">
-        <el-form-item label="敏感词" prop="word">
+        <el-form-item label="敏感詞" prop="word">
           <ElInput
             v-model="formInline.word"
-            placeholder="敏感词[模糊搜索]"
+            placeholder="敏感詞[模糊搜索]"
             @keydown.enter.prevent="queryBadWordList"
           />
         </el-form-item>
 
-        <el-form-item label="敏感词状态" prop="status">
+        <el-form-item label="敏感詞狀態" prop="status">
           <el-select
             v-model="formInline.status"
-            placeholder="请选择敏感词状态"
+            placeholder="請選擇敏感詞狀態"
             clearable
             style="width: 160px"
           >
@@ -120,7 +120,7 @@ async function handleInputConfirm() {
           </el-select>
         </el-form-item>
         <el-form-item>
-          <el-button type="primary" @click="queryBadWordList"> 查询 </el-button>
+          <el-button type="primary" @click="queryBadWordList"> 查詢 </el-button>
           <el-button @click="handlerReset(formRef)"> 重置 </el-button>
         </el-form-item>
       </el-form>

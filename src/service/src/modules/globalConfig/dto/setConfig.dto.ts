@@ -10,7 +10,7 @@ interface KeyValue {
 export class SetConfigDto {
   @ApiProperty({
     example: [{ configKey: 'siteName', configVal: 'AIWeb' }],
-    description: '设置配置信息',
+    description: '設置配置資訊',
   })
   @IsArray()
   @ArrayNotEmpty()

@@ -10,13 +10,13 @@ export class PluginController {
   constructor(private readonly pluginService: PluginService) {}
 
   @Get('pluginList')
-  @ApiOperation({ summary: '获取Plugin' })
+  @ApiOperation({ summary: '獲取Plugin' })
   pluginList(@Req() req: Request) {
     return this.pluginService.pluginList(req);
   }
 
   @Post('createPlugin')
-  @ApiOperation({ summary: '创建Plugin' })
+  @ApiOperation({ summary: '創建Plugin' })
   @UseGuards(SuperAuthGuard)
   @ApiBearerAuth()
   createPlugin(@Body() body: any) {
@@ -24,7 +24,7 @@ export class PluginController {
   }
 
   @Post('updatePlugin')
-  @ApiOperation({ summary: '修改插件' })
+  @ApiOperation({ summary: '修改外掛' })
   @UseGuards(SuperAuthGuard)
   @ApiBearerAuth()
   updatePlugin(@Body() body: any) {
@@ -32,7 +32,7 @@ export class PluginController {
   }
 
   @Post('delPlugin')
-  @ApiOperation({ summary: '删除插件' })
+  @ApiOperation({ summary: '刪除外掛' })
   @UseGuards(SuperAuthGuard)
   @ApiBearerAuth()
   delPlugin(@Body() body: any) {

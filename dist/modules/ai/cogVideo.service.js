@@ -43,21 +43,21 @@ let CogVideoService = class CogVideoService {
         if (fileInfo) {
             payloadJson['image_url'] = fileInfo;
         }
-        common_1.Logger.log(`正在准备发送请求到 ${url}，payload: ${JSON.stringify(payloadJson)}, headers: ${JSON.stringify(headers)}`, 'CogService');
+        common_1.Logger.log(`正在準備發送請求到 ${url}，payload: ${JSON.stringify(payloadJson)}, headers: ${JSON.stringify(headers)}`, 'CogService');
         try {
             response = await axios_1.default.post(url, payloadJson, { headers });
-            common_1.Logger.debug(`任务提交结果，状态码: ${response.status}, 状态消息: ${response.statusText}, 数据: ${JSON.stringify(response.data)}`);
+            common_1.Logger.debug(`任務遞交結果，狀態碼: ${response.status}, 狀態消息: ${response.statusText}, 數據: ${JSON.stringify(response.data)}`);
         }
         catch (error) {
-            common_1.Logger.error(`任务提交失败: ${error.message}`, 'CogService');
-            throw new Error('任务提交失败');
+            common_1.Logger.error(`任務遞交失敗: ${error.message}`, 'CogService');
+            throw new Error('任務遞交失敗');
         }
         if ((_a = response === null || response === void 0 ? void 0 : response.data) === null || _a === void 0 ? void 0 : _a.id) {
             result.taskId = (_b = response === null || response === void 0 ? void 0 : response.data) === null || _b === void 0 ? void 0 : _b.id;
-            common_1.Logger.log(`任务提交成功, 任务ID: ${(_c = response === null || response === void 0 ? void 0 : response.data) === null || _c === void 0 ? void 0 : _c.id}`, 'CogService');
+            common_1.Logger.log(`任務遞交成功, 任務ID: ${(_c = response === null || response === void 0 ? void 0 : response.data) === null || _c === void 0 ? void 0 : _c.id}`, 'CogService');
         }
         else {
-            throw new Error('未能获取结果数据, 即将重试');
+            throw new Error('未能獲取結果數據, 即將重試');
         }
         try {
             await this.pollCogVideoResult({
@@ -78,10 +78,10 @@ let CogVideoService = class CogVideoService {
                             taskId: data === null || data === void 0 ? void 0 : data.taskId,
                             taskData: data === null || data === void 0 ? void 0 : data.taskData,
                         });
-                        common_1.Logger.log('视频任务已完成', 'CogService');
+                        common_1.Logger.log('視頻任務已完成', 'CogService');
                     }
                     catch (error) {
-                        common_1.Logger.error(`更新日志失败: ${error.message}`, 'CogService');
+                        common_1.Logger.error(`更新日誌失敗: ${error.message}`, 'CogService');
                     }
                 },
                 onGenerating: async (data) => {
@@ -90,33 +90,33 @@ let CogVideoService = class CogVideoService {
                             videoUrl: data === null || data === void 0 ? void 0 : data.videoUrl,
                             audioUrl: data === null || data === void 0 ? void 0 : data.audioUrl,
                             fileInfo: data === null || data === void 0 ? void 0 : data.fileInfo,
-                            answer: (data === null || data === void 0 ? void 0 : data.answer) || '视频生成中...',
+                            answer: (data === null || data === void 0 ? void 0 : data.answer) || '視頻生成中...',
                             progress: data === null || data === void 0 ? void 0 : data.progress,
                             status: data.status,
                         });
-                        common_1.Logger.log('视频生成中...', 'CogService');
+                        common_1.Logger.log('視頻生成中...', 'CogService');
                     }
                     catch (error) {
-                        common_1.Logger.error(`更新日志失败: ${error.message}`, 'CogService');
+                        common_1.Logger.error(`更新日誌失敗: ${error.message}`, 'CogService');
                     }
                 },
                 onFailure: async (data) => {
                     try {
                         await this.chatLogService.updateChatLog(assistantLogId, {
-                            answer: '视频生成失败',
+                            answer: '視頻生成失敗',
                             status: data.status,
                         });
-                        common_1.Logger.log('生成失败', 'Lum aService');
+                        common_1.Logger.log('生成失敗', 'Lum aService');
                     }
                     catch (error) {
-                        common_1.Logger.error(`更新日志失败: ${error.message}`, 'CogService');
+                        common_1.Logger.error(`更新日誌失敗: ${error.message}`, 'CogService');
                     }
                 },
             });
         }
         catch (error) {
-            common_1.Logger.error('查询生成结果时发生错误:', error.message, 'CogService');
-            throw new Error('查询生成结果时发生错误');
+            common_1.Logger.error('查詢生成結果時發生錯誤:', error.message, 'CogService');
+            throw new Error('查詢生成結果時發生錯誤');
         }
         return result;
     }
@@ -148,14 +148,14 @@ let CogVideoService = class CogVideoService {
                         let percentage = Math.floor((elapsed / totalDuration) * 100);
                         if (percentage >= 99)
                             percentage = 99;
-                        result.answer = `视频生成中 （${percentage}%）`;
+                        result.answer = `視頻生成中 （${percentage}%）`;
                     }, 1000);
                     const responses = res.data;
-                    common_1.Logger.debug(`轮询结果: ${JSON.stringify(responses)}`, 'CogService');
+                    common_1.Logger.debug(`輪詢結果: ${JSON.stringify(responses)}`, 'CogService');
                     if (responses.task_status === 'SUCCESS') {
                         result.taskId = responses.request_id;
                         result.taskData = JSON.stringify(responses);
-                        common_1.Logger.log('视频生成成功', 'CogService');
+                        common_1.Logger.log('視頻生成成功', 'CogService');
                         result.fileInfo = responses.video_result[0].url;
                         common_1.Logger.log(result.fileInfo, 'CogService');
                         try {
@@ -175,9 +175,9 @@ let CogVideoService = class CogVideoService {
                             }
                         }
                         catch (error) {
-                            common_1.Logger.error(`上传文件失败: ${error.message}`, 'CogService');
+                            common_1.Logger.error(`上傳文件失敗: ${error.message}`, 'CogService');
                         }
-                        result.answer = `提示词: "${prompt}"`;
+                        result.answer = `提示詞: "${prompt}"`;
                         onSuccess(result);
                         clearInterval(interval);
                         return;
@@ -190,16 +190,16 @@ let CogVideoService = class CogVideoService {
                 }
                 catch (error) {
                     retryCount++;
-                    common_1.Logger.error(`轮询失败，重试次数: ${retryCount}`, 'CogService');
+                    common_1.Logger.error(`輪詢失敗，重試次數: ${retryCount}`, 'CogService');
                 }
             }
-            common_1.Logger.error('轮询超时，请稍后再试！', 'CogService');
+            common_1.Logger.error('輪詢超時，請稍後再試！', 'CogService');
             result.status = 4;
             onFailure(result);
-            throw new Error('查询超时，请稍后再试！');
+            throw new Error('查詢超時，請稍後再試！');
         }
         catch (error) {
-            common_1.Logger.error(`轮询过程中发生错误: ${error}`, 'CogService');
+            common_1.Logger.error(`輪詢過程中發生錯誤: ${error}`, 'CogService');
             result.status = 5;
             onFailure(result);
         }

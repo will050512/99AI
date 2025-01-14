@@ -17,7 +17,7 @@ class UpdatePackageDto extends createPackage_dto_1.CreatePackageDto {
 }
 __decorate([
     (0, swagger_1.ApiProperty)({ example: 1, description: '要修改的套餐Id', required: true }),
-    (0, class_validator_1.IsNumber)({}, { message: '套餐ID必须是Number' }),
+    (0, class_validator_1.IsNumber)({}, { message: '套餐ID必須是Number' }),
     __metadata("design:type", Number)
 ], UpdatePackageDto.prototype, "id", void 0);
 exports.UpdatePackageDto = UpdatePackageDto;

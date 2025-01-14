@@ -25,7 +25,7 @@ export default defineComponent({
 		}
   },
   setup(props, { slots }) {
-    // 使用 setup 函数的参数来访问 props 和 slots
+    // 使用 setup 函數的參數來訪問 props 和 slots
     return () => {
       const motion = resolveDirective("motion");
       return withDirectives(

@@ -15,15 +15,15 @@ const swagger_1 = require("@nestjs/swagger");
 class UpdateUserStatusDto {
 }
 __decorate([
-    (0, swagger_1.ApiProperty)({ example: 2, description: '用户状态', required: false }),
-    (0, class_validator_1.IsNotEmpty)({ message: '用户状态不能为空！' }),
-    (0, class_validator_1.IsDefined)({ message: '用户状态是必传参数' }),
-    (0, class_validator_1.IsIn)([0, 1, 2, 3], { message: '非法参数、用户状态非法！' }),
+    (0, swagger_1.ApiProperty)({ example: 2, description: '用戶狀態', required: false }),
+    (0, class_validator_1.IsNotEmpty)({ message: '用戶狀態不能為空！' }),
+    (0, class_validator_1.IsDefined)({ message: '用戶狀態是必傳參數' }),
+    (0, class_validator_1.IsIn)([0, 1, 2, 3], { message: '非法參數、用戶狀態非法！' }),
     __metadata("design:type", Number)
 ], UpdateUserStatusDto.prototype, "status", void 0);
 __decorate([
-    (0, swagger_1.ApiProperty)({ example: 1, description: '修改的用户id', required: false }),
-    (0, class_validator_1.IsDefined)({ message: '用户id是必传参数' }),
+    (0, swagger_1.ApiProperty)({ example: 1, description: '修改的用戶id', required: false }),
+    (0, class_validator_1.IsDefined)({ message: '用戶id是必傳參數' }),
     __metadata("design:type", Number)
 ], UpdateUserStatusDto.prototype, "id", void 0);
 exports.UpdateUserStatusDto = UpdateUserStatusDto;

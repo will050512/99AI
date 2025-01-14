@@ -15,63 +15,63 @@ const baseEntity_1 = require("../../common/entity/baseEntity");
 let UserBalanceEntity = class UserBalanceEntity extends baseEntity_1.BaseEntity {
 };
 __decorate([
-    (0, typeorm_1.Column)({ comment: '用户ID' }),
+    (0, typeorm_1.Column)({ comment: '用戶ID' }),
     __metadata("design:type", Number)
 ], UserBalanceEntity.prototype, "userId", void 0);
 __decorate([
-    (0, typeorm_1.Column)({ comment: '充值的套餐包含的模型3次数', nullable: true }),
+    (0, typeorm_1.Column)({ comment: '充值的套餐包含的模型3次數', nullable: true }),
     __metadata("design:type", Number)
 ], UserBalanceEntity.prototype, "model3Count", void 0);
 __decorate([
-    (0, typeorm_1.Column)({ comment: '充值的套餐包含的模型4次数', nullable: true }),
+    (0, typeorm_1.Column)({ comment: '充值的套餐包含的模型4次數', nullable: true }),
     __metadata("design:type", Number)
 ], UserBalanceEntity.prototype, "model4Count", void 0);
 __decorate([
-    (0, typeorm_1.Column)({ comment: '充值的套餐包含的MJ绘画次数', nullable: true }),
+    (0, typeorm_1.Column)({ comment: '充值的套餐包含的MJ繪畫次數', nullable: true }),
     __metadata("design:type", Number)
 ], UserBalanceEntity.prototype, "drawMjCount", void 0);
 __decorate([
-    (0, typeorm_1.Column)({ comment: '当前使用的套餐ID', default: 0, nullable: true }),
+    (0, typeorm_1.Column)({ comment: '當前使用的套餐ID', default: 0, nullable: true }),
     __metadata("design:type", Number)
 ], UserBalanceEntity.prototype, "packageId", void 0);
 __decorate([
-    (0, typeorm_1.Column)({ comment: '会员模型3额度', default: 0, nullable: true }),
+    (0, typeorm_1.Column)({ comment: '會員模型3額度', default: 0, nullable: true }),
     __metadata("design:type", Number)
 ], UserBalanceEntity.prototype, "memberModel3Count", void 0);
 __decorate([
-    (0, typeorm_1.Column)({ comment: '会员模型4额度', default: 0, nullable: true }),
+    (0, typeorm_1.Column)({ comment: '會員模型4額度', default: 0, nullable: true }),
     __metadata("design:type", Number)
 ], UserBalanceEntity.prototype, "memberModel4Count", void 0);
 __decorate([
-    (0, typeorm_1.Column)({ comment: '会员MJ绘画额度', default: 0, nullable: true }),
+    (0, typeorm_1.Column)({ comment: '會員MJ繪畫額度', default: 0, nullable: true }),
     __metadata("design:type", Number)
 ], UserBalanceEntity.prototype, "memberDrawMjCount", void 0);
 __decorate([
-    (0, typeorm_1.Column)({ comment: '已经使用的对话3的模型次数', nullable: true }),
+    (0, typeorm_1.Column)({ comment: '已經使用的對話3的模型次數', nullable: true }),
     __metadata("design:type", Number)
 ], UserBalanceEntity.prototype, "useModel3Count", void 0);
 __decorate([
-    (0, typeorm_1.Column)({ comment: '已经使用的对话4的模型次数', nullable: true }),
+    (0, typeorm_1.Column)({ comment: '已經使用的對話4的模型次數', nullable: true }),
     __metadata("design:type", Number)
 ], UserBalanceEntity.prototype, "useModel4Count", void 0);
 __decorate([
-    (0, typeorm_1.Column)({ comment: '已经使用的对话3的模型Token', nullable: true }),
+    (0, typeorm_1.Column)({ comment: '已經使用的對話3的模型Token', nullable: true }),
     __metadata("design:type", Number)
 ], UserBalanceEntity.prototype, "useModel3Token", void 0);
 __decorate([
-    (0, typeorm_1.Column)({ comment: '已经使用的对话4的模型Token', nullable: true }),
+    (0, typeorm_1.Column)({ comment: '已經使用的對話4的模型Token', nullable: true }),
     __metadata("design:type", Number)
 ], UserBalanceEntity.prototype, "useModel4Token", void 0);
 __decorate([
-    (0, typeorm_1.Column)({ comment: '已经使用的MJ绘画Token', nullable: true }),
+    (0, typeorm_1.Column)({ comment: '已經使用的MJ繪畫Token', nullable: true }),
     __metadata("design:type", Number)
 ], UserBalanceEntity.prototype, "useDrawMjToken", void 0);
 __decorate([
-    (0, typeorm_1.Column)({ comment: '扩展字段', nullable: true }),
+    (0, typeorm_1.Column)({ comment: '擴展字段', nullable: true }),
     __metadata("design:type", String)
 ], UserBalanceEntity.prototype, "extent", void 0);
 __decorate([
-    (0, typeorm_1.Column)({ comment: '会员到期时间', nullable: true }),
+    (0, typeorm_1.Column)({ comment: '會員到期時間', nullable: true }),
     __metadata("design:type", Date)
 ], UserBalanceEntity.prototype, "expirationTime", void 0);
 UserBalanceEntity = __decorate([

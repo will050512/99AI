@@ -6,10 +6,10 @@ function Layout() {
 
 const routes: RouteRecordRaw = {
   path: '/github',
-  component: () => import('@/views/ai/github-redirect.vue'), // 创建一个新的视图文件用于处理跳转逻辑
+  component: () => import('@/views/ai/github-redirect.vue'), // 創建一個新的視圖文件用於處理跳轉邏輯
   name: 'ProjectAddressMenu',
   meta: {
-    title: '开源地址', // 更改标题为 "GitHub应用"
+    title: '開源地址', // 更改標題為 "GitHub應用"
     icon: 'mdi:github',
   },
 };

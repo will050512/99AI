@@ -16,7 +16,7 @@ const swagger_1 = require("@nestjs/swagger");
 class QueryConfigDto {
 }
 __decorate([
-    (0, swagger_1.ApiProperty)({ example: ['siteName', 'qqNumber'], description: '想要查询的配置key' }),
+    (0, swagger_1.ApiProperty)({ example: ['siteName', 'qqNumber'], description: '想要查詢的配置key' }),
     (0, class_validator_1.IsArray)(),
     (0, class_validator_1.ArrayNotEmpty)(),
     (0, class_transformer_1.Type)(() => String),

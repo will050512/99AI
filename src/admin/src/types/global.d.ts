@@ -10,213 +10,213 @@ type RecursivePartial<T> = {
 declare namespace Settings {
   interface app {
     /**
-     * 颜色方案
-     * @默认值 `''` 跟随系统
-     * @可选值 `'light'` 明亮模式
-     * @可选值 `'dark'` 暗黑模式
+     * 顏色方案
+     * @默認值 `''` 跟隨系統
+     * @可選值 `'light'` 明亮模式
+     * @可選值 `'dark'` 暗黑模式
      */
     colorScheme?: '' | 'light' | 'dark'
     /**
-     * 是否开启权限功能
-     * @默认值 `false`
+     * 是否開啟權限功能
+     * @默認值 `false`
      */
     enablePermission?: boolean
     /**
-     * 是否开启载入进度条
-     * @默认值 `true`
+     * 是否開啟載入進度條
+     * @默認值 `true`
      */
     enableProgress?: boolean
     /**
-     * 是否开启动态标题
-     * @默认值 `false`
+     * 是否開啟動態標題
+     * @默認值 `false`
      */
     enableDynamicTitle?: boolean
     /**
-     * 路由数据来源
-     * @默认值 `'frontend'` 前端
-     * @可选值 `'backend'` 后端
-     * @可选值 `'filesystem'` 文件系统
+     * 路由數據來源
+     * @默認值 `'frontend'` 前端
+     * @可選值 `'backend'` 後端
+     * @可選值 `'filesystem'` 文件系統
      */
     routeBaseOn?: 'frontend' | 'backend' | 'filesystem'
   }
   interface home {
     /**
-     * 是否开启主页
-     * @默认值 `true`
+     * 是否開啟主頁
+     * @默認值 `true`
      */
     enable?: boolean
     /**
-     * 主页名称
-     * @默认值 `'主页'`
+     * 主頁名稱
+     * @默認值 `'主頁'`
      */
     title?: string
     /**
-     * 主页完整路径
-     * @默认值 `'/'`
+     * 主頁完整路徑
+     * @默認值 `'/'`
      */
     fullPath?: string
   }
   interface layout {
     /**
-     * 是否开启移动端适配，开启后当页面宽度小于 992px 时自动切换为移动端展示
-     * @默认值 `false`
+     * 是否開啟移動端適配，開啟後當頁面寬度小於 992px 時自動切換為移動端展示
+     * @默認值 `false`
      */
     enableMobileAdaptation?: boolean
   }
   interface menu {
     /**
-     * 导航栏数据来源，当 `app.routeBaseOn: 'filesystem'` 时生效
-     * @默认值 `'frontend'` 前端
-     * @可选值 `'backend'` 后端
+     * 導航欄數據來源，當 `app.routeBaseOn: 'filesystem'` 時生效
+     * @默認值 `'frontend'` 前端
+     * @可選值 `'backend'` 後端
      */
     baseOn?: 'frontend' | 'backend'
     /**
-     * 导航栏模式
-     * @默认值 `'side'` 侧边栏模式（有主导航）
-     * @可选值 `'head'` 顶部模式
-     * @可选值 `'single'` 侧边栏模式（无主导航）
+     * 導航欄模式
+     * @默認值 `'side'` 側邊欄模式（有主導航）
+     * @可選值 `'head'` 頂部模式
+     * @可選值 `'single'` 側邊欄模式（無主導航）
      */
     menuMode?: 'side' | 'head' | 'single'
     /**
-     * 切换主导航是否跳转页面
-     * @默认值 `false`
+     * 切換主導航是否跳轉頁面
+     * @默認值 `false`
      */
     switchMainMenuAndPageJump?: boolean
     /**
-     * 次导航是否只保持一个子项的展开
-     * @默认值 `true`
+     * 次導航是否只保持一個子項的展開
+     * @默認值 `true`
      */
     subMenuUniqueOpened?: boolean
     /**
-     * 次导航是否收起
-     * @默认值 `false`
+     * 次導航是否收起
+     * @默認值 `false`
      */
     subMenuCollapse?: boolean
     /**
-     * 是否开启次导航的展开/收起按钮
-     * @默认值 `false`
+     * 是否開啟次導航的展開/收起按鈕
+     * @默認值 `false`
      */
     enableSubMenuCollapseButton?: boolean
     /**
-     * 是否开启主导航切换快捷键
-     * @默认值 `false`
+     * 是否開啟主導航切換快捷鍵
+     * @默認值 `false`
      */
     enableHotkeys?: boolean
   }
   interface topbar {
     /**
      * 模式
-     * @默认值 `'static'` 静止，跟随页面滚动
-     * @可选值 `'fixed'` 固定，不跟随页面滚动，始终固定在顶部
-     * @可选值 `'sticky'` 粘性，页面往下滚动时隐藏，往上滚动时显示
+     * @默認值 `'static'` 靜止，跟隨頁面滾動
+     * @可選值 `'fixed'` 固定，不跟隨頁面滾動，始終固定在頂部
+     * @可選值 `'sticky'` 粘性，頁面往下滾動時隱藏，往上滾動時顯示
      */
     mode?: 'static' | 'fixed' | 'sticky'
   }
   interface tabbar {
     /**
-     * 是否开启标签栏
-     * @默认值 `false`
+     * 是否開啟標籤欄
+     * @默認值 `false`
      */
     enable?: boolean
     /**
-     * 是否开启标签栏图标显示
-     * @默认值 `false`
+     * 是否開啟標籤欄圖標顯示
+     * @默認值 `false`
      */
     enableIcon?: boolean
     /**
-     * 是否开启标签栏快捷键
-     * @默认值 `false`
+     * 是否開啟標籤欄快捷鍵
+     * @默認值 `false`
      */
     enableHotkeys?: boolean
   }
   interface toolbar {
     /**
-     * 是否开启面包屑导航
-     * @默认值 `true`
+     * 是否開啟麵包屑導航
+     * @默認值 `true`
      */
     breadcrumb?: boolean
     /**
-     * 是否开启导航搜索
-     * @默认值 `true`
+     * 是否開啟導航搜索
+     * @默認值 `true`
      */
     navSearch?: boolean
     /**
-     * 是否开启全屏
-     * @默认值 `false`
+     * 是否開啟全屏
+     * @默認值 `false`
      */
     fullscreen?: boolean
     /**
-     * 是否开启页面刷新
-     * @默认值 `false`
+     * 是否開啟頁面刷新
+     * @默認值 `false`
      */
     pageReload?: boolean
     /**
-     * 是否开启颜色主题
-     * @默认值 `false`
+     * 是否開啟顏色主題
+     * @默認值 `false`
      */
     colorScheme?: boolean
   }
   interface mainPage {
     /**
-     * 是否开启页面快捷键
-     * @默认值 `true`
+     * 是否開啟頁面快捷鍵
+     * @默認值 `true`
      */
     enableHotkeys?: boolean
   }
   interface navSearch {
     /**
-     * 是否开启导航搜索快捷键
-     * @默认值 `true`
+     * 是否開啟導航搜索快捷鍵
+     * @默認值 `true`
      */
     enableHotkeys?: boolean
   }
   interface copyright {
     /**
-     * 是否开启底部版权，同时在路由 meta 对象里可以单独设置某个路由是否显示底部版权信息
-     * @默认值 `false`
+     * 是否開啟底部版權，同時在路由 meta 對象裡可以單獨設置某個路由是否顯示底部版權資訊
+     * @默認值 `false`
      */
     enable?: boolean
     /**
-     * 网站运行日期
-     * @默认值 `''`
+     * 網站運行日期
+     * @默認值 `''`
      */
     dates?: string
     /**
-     * 公司名称
-     * @默认值 `''`
+     * 公司名稱
+     * @默認值 `''`
      */
     company?: string
     /**
-     * 网站地址
-     * @默认值 `''`
+     * 網站地址
+     * @默認值 `''`
      */
     website?: string
     /**
-     * 网站备案号
-     * @默认值 `''`
+     * 網站備案號
+     * @默認值 `''`
      */
     beian?: string
   }
   interface all {
-    /** 应用设置 */
+    /** 應用設置 */
     app?: app
-    /** 主页设置 */
+    /** 主頁設置 */
     home?: home
-    /** 布局设置 */
+    /** 佈局設置 */
     layout?: layout
-    /** 导航栏设置 */
+    /** 導航欄設置 */
     menu?: menu
-    /** 顶栏设置 */
+    /** 頂欄設置 */
     topbar?: topbar
-    /** 标签栏设置 */
+    /** 標籤欄設置 */
     tabbar?: tabbar
-    /** 工具栏设置 */
+    /** 工具欄設置 */
     toolbar?: toolbar
-    /** 页面设置 */
+    /** 頁面設置 */
     mainPage?: mainPage
-    /** 导航搜索设置 */
+    /** 導航搜索設置 */
     navSearch?: navSearch
-    /** 底部版权设置 */
+    /** 底部版權設置 */
     copyright?: copyright
   }
 }
@@ -269,7 +269,7 @@ declare namespace Menu {
     }
     children?: recordRaw[]
   }
-  /** 主导航 */
+  /** 主導航 */
   interface recordMainRaw {
     meta?: {
       title?: string | (() => string)

@@ -15,22 +15,22 @@ const swagger_1 = require("@nestjs/swagger");
 class QuerAllChatLogDto {
 }
 __decorate([
-    (0, swagger_1.ApiProperty)({ example: 1, description: '查询页数', required: false }),
+    (0, swagger_1.ApiProperty)({ example: 1, description: '查詢頁數', required: false }),
     (0, class_validator_1.IsOptional)(),
     __metadata("design:type", Number)
 ], QuerAllChatLogDto.prototype, "page", void 0);
 __decorate([
-    (0, swagger_1.ApiProperty)({ example: 10, description: '每页数量', required: false }),
+    (0, swagger_1.ApiProperty)({ example: 10, description: '每頁數量', required: false }),
     (0, class_validator_1.IsOptional)(),
     __metadata("design:type", Number)
 ], QuerAllChatLogDto.prototype, "size", void 0);
 __decorate([
-    (0, swagger_1.ApiProperty)({ example: 99, description: '对话的用户id', required: false }),
+    (0, swagger_1.ApiProperty)({ example: 99, description: '對話的用戶id', required: false }),
     (0, class_validator_1.IsOptional)(),
     __metadata("design:type", Number)
 ], QuerAllChatLogDto.prototype, "userId", void 0);
 __decorate([
-    (0, swagger_1.ApiProperty)({ example: '您好', description: '用户询问的问题', required: false }),
+    (0, swagger_1.ApiProperty)({ example: '您好', description: '用戶詢問的問題', required: false }),
     (0, class_validator_1.IsOptional)(),
     __metadata("design:type", String)
 ], QuerAllChatLogDto.prototype, "prompt", void 0);
