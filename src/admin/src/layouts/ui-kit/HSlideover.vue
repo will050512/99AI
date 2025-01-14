@@ -26,7 +26,7 @@ const isOpen = defineModel<boolean>({
   default: false,
 })
 
-const slots = useSlots()
+const slots = useSlots() as any
 
 const overlayTransitionClass = ref({
   enter: 'ease-in-out duration-500',
