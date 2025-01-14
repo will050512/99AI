@@ -57,7 +57,7 @@ const formPackage: Package = reactive({
   coverImg: null,
   price: null,
   order: null,
-  status: 0, // 修改為默認值 0
+  status: 0 as number, // 修改類型定義
   weight: null,
   days: null,
   model3Count: null,

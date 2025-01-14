@@ -39,12 +39,17 @@ defineExpose({
 
 <template>
   <div
-    ref="itemRef" class="menu-item relative transition-all" :class="{
-      active: isItemActive,
-    }"
+    ref="itemRef" 
+    class="menu-item relative transition-all" 
+    :class="{ active: isItemActive }"
   >
     <router-link v-slot="{ href, navigate }" custom :to="uniqueKey.at(-1) ?? ''">
-      <HTooltip :enable="rootMenu.isMenuPopup && level === 0 && !subMenu" :text="typeof item.meta?.title === 'function' ? item.meta?.title() : item.meta?.title" placement="right" class="h-full w-full">
+      <HTooltip 
+        :enable="rootMenu.isMenuPopup && level === 0 && !subMenu" 
+        :text="(typeof item.meta?.title === 'function' ? item.meta?.title() : item.meta?.title) ?? ''" 
+        placement="right" 
+        class="h-full w-full"
+      >
         <component
           :is="subMenu ? 'div' : 'a'" v-bind="{
             ...(!subMenu && {
