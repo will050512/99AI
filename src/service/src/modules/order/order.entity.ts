@@ -37,12 +37,3 @@ export class OrderEntity extends BaseEntity {
   @Column({ comment: '支付渠道）', length: 32, nullable: true })
   channel: string;
 }
-
-export enum PayPlatformEnum {
-  WECHAT = 'wechat',
-  EPAY = 'epay',
-  MPAY = 'mpay',
-  HUPI = 'hupi',
-  LTZF = 'ltzf',
-  ECPAY = 'ecpay' // 添加 ECPAY
-}

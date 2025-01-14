@@ -1,10 +1,12 @@
 export default function useViewTransition(callback: () => void) {
   function startViewTransition() {
-    if (!('startViewTransition' in document) || window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    // @ts-expect-error: View Transition API
+    if (!document.startViewTransition || window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
       callback()
       return
     }
-    return (document as any).startViewTransition(async () => {
+    // @ts-expect-error: View Transition API
+    return document.startViewTransition(async () => {
       await Promise.resolve(callback())
     })
   }

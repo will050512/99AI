@@ -1,5 +1,5 @@
 # 編譯階段
-FROM node:20-alpine AS build
+FROM node:20.17.0-alpine AS build
 
 WORKDIR /app
 
@@ -19,7 +19,7 @@ RUN apk add --no-cache --virtual .build-deps git && \
   rm -rf /var/cache/apk/* /tmp/*
 
 # 運行階段
-FROM node:18-alpine AS runner
+FROM node:20.17.0-alpine AS runner
 
 ENV TZ="Asia/Shanghai" \
   NODE_ENV=production

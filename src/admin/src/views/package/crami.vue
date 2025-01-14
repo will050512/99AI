@@ -35,7 +35,7 @@ const selects = ref([]);
 const selectCramiList = ref<any[]>([]);
 
 const form = reactive({
-  packageId: '' as string | number, // 修改類型定義
+  packageId: null,
   count: 1,
   drawMjCount: 0,
   model3Count: 0,

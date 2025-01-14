@@ -385,40 +385,44 @@ export class GlobalConfigService implements OnModuleInit {
 
   /* 開啟多個支付規則的時候 按順序只使用一個 */
   async queryPayType() {
-    try {
-      // 獲取所有支付配置
-      const configs = await this.getConfigs([
-        'payEcpayStatus',
-        'payEcpayMerchantId',
-        'payEcpayHashKey',
-        'payEcpayHashIV',
-        'payWechatStatus',
-        'payEpayStatus',
-        'payMpayStatus',
-        'payHupiStatus',
-        'payLtzfStatus'
-      ]);
-
-      // 檢查綠界支付配置是否完整且啟用
-      if (configs.payEcpayStatus === '1' &&
-          configs.payEcpayMerchantId &&
-          configs.payEcpayHashKey &&
-          configs.payEcpayHashIV) {
-        Logger.log('使用綠界支付');
-        return 'ecpay';
-      }
-
-      // 其他支付方式檢查
-      if (configs.payWechatStatus === '1') return 'wechat';
-      if (configs.payEpayStatus === '1') return 'epay';
-      if (configs.payMpayStatus === '1') return 'mpay';
-      if (configs.payHupiStatus === '1') return 'hupi';
-      if (configs.payLtzfStatus === '1') return 'ltzf';
-
+    const {
+      payHupiStatus = 0,
+      payEpayStatus = 0,
+      payWechatStatus = 0,
+      payMpayStatus = 0,
+      payLtzfStatus = 0,
+    } = await this.getConfigs([
+      'payHupiStatus',
+      'payEpayStatus',
+      'payMpayStatus',
+      'payWechatStatus',
+      'payLtzfStatus',
+    ]);
+    if (
+      [
+        payHupiStatus,
+        payEpayStatus,
+        payWechatStatus,
+        payMpayStatus,
+        payLtzfStatus,
+      ].every((status) => status === 0)
+    ) {
       throw new HttpException('支付功能暫未開放!', HttpStatus.BAD_REQUEST);
-    } catch (error) {
-      Logger.error('查詢支付類型錯誤:', error);
-      throw new HttpException('支付功能暫未開放!', HttpStatus.BAD_REQUEST);
+    }
+    if (Number(payWechatStatus) === 1) {
+      return 'wechat';
+    }
+    if (Number(payEpayStatus) === 1) {
+      return 'epay';
+    }
+    if (Number(payMpayStatus) === 1) {
+      return 'mpay';
+    }
+    if (Number(payHupiStatus) === 1) {
+      return 'hupi';
+    }
+    if (Number(payLtzfStatus) === 1) {
+      return 'ltzf';
     }
   }
 

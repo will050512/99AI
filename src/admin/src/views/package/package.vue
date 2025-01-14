@@ -40,7 +40,7 @@ interface Package {
   coverImg?: string | null;
   price?: number | null;
   order?: number | null;
-  status: number; // 修改為必填的 number 型別
+  status?: number | null;
   weight?: number | null;
   days?: number | null;
   model3Count: number | null;
@@ -51,13 +51,13 @@ interface Package {
   deletedAt?: Date | null;
 }
 
-const formPackage = reactive<Package>({
+const formPackage: Package = reactive({
   name: null,
   des: null,
   coverImg: null,
   price: null,
   order: null,
-  status: 0, // 確保初始值為數字
+  status: null,
   weight: null,
   days: null,
   model3Count: null,

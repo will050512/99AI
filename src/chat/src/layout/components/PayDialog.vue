@@ -6,7 +6,7 @@ import { useAuthStore, useGlobalStore } from '@/store';
 import { Close } from '@icon-park/vue-next';
 import type { CountdownInst } from 'naive-ui';
 import { NButton, NCountdown, NSkeleton, NSpin, useMessage } from 'naive-ui';
-import { computed, onMounted, onUnmounted, ref, watch, nextTick } from 'vue';
+import { computed, onMounted, onUnmounted, ref, watch } from 'vue';
 
 import type { ResData } from '@/api/types';
 import alipay from '@/assets/alipay.png';
@@ -53,31 +53,23 @@ const payPlatform = computed(() => {
     payMpayStatus,
     payWechatStatus,
     payLtzfStatus,
-    payEcpayStatus
   } = authStore.globalConfig;
+  if (Number(payWechatStatus) === 1) return 'wechat';
 
-  // 創建一個包含所有開啍的支付平台的數組
-  const enabledPlatforms = [];
+  if (Number(payEpayStatus) === 1) return 'epay';
 
-  // 檢查每個支付平台的狀態並添加到數組中
-  if (Number(payEcpayStatus) === 1) enabledPlatforms.push('ecpay');
-  if (Number(payWechatStatus) === 1) enabledPlatforms.push('wechat');
-  if (Number(payEpayStatus) === 1) enabledPlatforms.push('epay');
-  if (Number(payMpayStatus) === 1) enabledPlatforms.push('mpay');
-  if (Number(payHupiStatus) === 1) enabledPlatforms.push('hupi');
-  if (Number(payLtzfStatus) === 1) enabledPlatforms.push('ltzf');
+  if (Number(payMpayStatus) === 1) return 'mpay';
 
-  // 如果沒有啟用任何支付平台，返回null
-  if (enabledPlatforms.length === 0) return null;
+  if (Number(payHupiStatus) === 1) return 'hupi';
 
-  // 返回啟用的支付平台
-  return enabledPlatforms[0];
+  if (Number(payLtzfStatus) === 1) return 'ltzf';
+
+  return null;
 });
 
 /* 支付平臺開啟的支付渠道 */
 const payChannel = computed(() => {
-  const { payEpayChannel, payMpayChannel, payEcpayChannel } = authStore.globalConfig;
-
+  const { payEpayChannel, payMpayChannel } = authStore.globalConfig;
   if (payPlatform.value === 'mpay')
     return payMpayChannel ? JSON.parse(payMpayChannel) : [];
 
@@ -89,9 +81,6 @@ const payChannel = computed(() => {
   if (payPlatform.value === 'hupi') return ['wxpay'];
 
   if (payPlatform.value === 'ltzf') return ['wxpay'];
-
-  if (payPlatform.value === 'ecpay')
-    return payEcpayChannel ? JSON.parse(payEcpayChannel) : ['credit'];
 
   return [];
 });
@@ -156,8 +145,6 @@ const url_qrcode = ref('');
 const qrCodeloading = ref(true);
 const redirectloading = ref(true);
 const redirectUrl = ref('');
-const formHtml = ref('');
-const isForm = ref(false);
 
 function handleCloseDialog() {
   useGlobal.updateOrderInfo({});
@@ -165,60 +152,35 @@ function handleCloseDialog() {
   useGlobal.updatePayDialog(false);
 }
 
-/* 請求支付 */
+/* 請求二維碼 */
 async function getQrCode() {
+  !isRedirectPay.value && (qrCodeloading.value = true);
+  isRedirectPay.value && (redirectloading.value = true);
+  let qsPayType = null;
+  qsPayType = payType.value;
+  if (payPlatform.value === 'wechat')
+    qsPayType = isWxEnv.value ? 'jsapi' : 'native';
+
   try {
-    if (!orderInfo.value?.pkgInfo?.id) {
-      throw new Error('訂單資訊不完整');
-    }
-
-    qrCodeloading.value = true;
-    redirectloading.value = true;
-
     const res: ResData = await fetchOrderBuyAPI({
       goodsId: orderInfo.value.pkgInfo.id,
-      payType: 'ALL'
+      payType: qsPayType,
     });
-
-    if (!res.success) {
-      throw new Error(res.message || '支付請求失敗');
+    const { data, success, message } = res;
+    if (!success) {
+      return ms.error(message);
     }
 
-    const { orderId: oid, formHtml: html } = res.data;
-    orderId.value = oid;
-    formHtml.value = html;
-
-    if (payPlatform.value === 'ecpay' && html) {
-      console.log('正在導向綠界支付...');
-      const div = document.createElement('div');
-      div.innerHTML = html;
-      document.body.appendChild(div);
-
-      const form = div.querySelector('form');
-      if (form) {
-        setTimeout(() => form.submit(), 100); // 給予一點延遲確保DOM已完全渲染
-      } else {
-        throw new Error('支付表單生成失敗');
-      }
-      document.body.removeChild(div);
-      return;
-    }
-
-    // 其他支付方式...
+    const { url_qrcode: code, orderId: id, redirectUrl: url } = data;
+    redirectUrl.value = url;
+    orderId.value = id;
+    url_qrcode.value = code;
     qrCodeloading.value = false;
     redirectloading.value = false;
-
-    // 啟動輪詢
-    if (!timer) {
-      timer = setInterval(queryOrderStatus, POLL_INTERVAL);
-    }
-
   } catch (error) {
-    console.error('支付初始化失敗:', error);
-    ms.error(error.message || '支付初始化失敗');
+    useGlobal.updatePayDialog(false);
     qrCodeloading.value = false;
     redirectloading.value = false;
-    useGlobal.updatePayDialog(false);
   }
 }
 
@@ -264,33 +226,6 @@ onUnmounted(() => {
   stopPolling();
   handleCloseDialog();
 });
-
-watch(() => visible, (val) => {
-  if (val && payPlatform.value === 'ecpay' && formHtml.value) {
-    nextTick(() => {
-      const div = document.createElement('div');
-      div.innerHTML = formHtml.value;
-      document.body.appendChild(div);
-
-      const form = div.querySelector('form');
-      if (form) {
-        // 加入 loading 提示
-        ms.info(t('pay.redirectingToEcpay'));
-        // 增加延遲確保提示訊息能夠顯示
-        setTimeout(() => {
-          form.submit();
-        }, 500);
-      } else {
-        ms.error('支付表單生成失敗');
-      }
-
-      // 清理 DOM
-      setTimeout(() => {
-        document.body.removeChild(div);
-      }, 1000);
-    });
-  }
-}, { immediate: true });
 </script>
 
 <template>
@@ -390,12 +325,6 @@ watch(() => visible, (val) => {
                   :value="url_qrcode"
                   :size="240"
                 />
-
-                <!-- 綠界自動跳轉 -->
-                <div v-if="payPlatform === 'ecpay' && formHtml">
-                  <!-- 創建一個不可見的div來執行表單提交 -->
-                  <div style="display: none" v-html="formHtml"></div>
-                </div>
 
                 <div
                   v-if="isRedirectPay"
@@ -509,7 +438,6 @@ watch(() => visible, (val) => {
 .modal-fade-enter-from,
 .modal-fade-leave-to {
   opacity: 0;
-
 }
 
 .fade-enter-active,

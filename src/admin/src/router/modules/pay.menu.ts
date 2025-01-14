@@ -59,15 +59,6 @@ const routes: RouteRecordRaw = {
         icon: 'ph:rabbit',
       },
     },
-    {
-      path: 'ecpay',
-      name: 'EcpayConfig',
-      component: () => import('@/views/pay/ecpay.vue'),
-      meta: {
-        title: '綠界支付',
-        icon: 'ph:currency-dollar',
-      },
-    },
   ],
 }
 

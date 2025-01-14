@@ -9,7 +9,6 @@ import { GlobalConfigService } from '../globalConfig/globalConfig.service';
 import { OrderEntity } from '../order/order.entity';
 import { UserService } from '../user/user.service';
 import { UserBalanceService } from '../userBalance/userBalance.service';
-import ecpay_payment from 'ecpay_aio_nodejs';
 
 @Injectable()
 export class PayService {
@@ -40,9 +39,6 @@ export class PayService {
     }
     if (params['attach'] == 'ltzf') {
       return this.notifyLtzf(params);
-    }
-    if (params['param'] == 'ecpay') {
-      return this.notifyEcpay(params);
     }
     if (typeof params['resource'] == 'object') {
       return this.notifyWeChat(params);
@@ -78,9 +74,6 @@ export class PayService {
       }
       if (order.payPlatform == 'ltzf') {
         return this.payLtzf(userId, orderId, payType);
-      }
-      if (order.payPlatform == 'ecpay') {
-        return this.payEcpay(userId, orderId);
       }
     } catch (error) {
       Logger.log('支付請求失敗: ', error);
@@ -793,114 +786,5 @@ export class PayService {
     );
     if (result.affected != 1) return 'FAIL';
     return 'SUCCESS';
-  }
-
-  /* 綠界支付 */
-  async payEcpay(userId: number, orderId: string) {
-    try {
-      const order = await this.orderEntity.findOne({ where: { userId, orderId } });
-      if (!order) throw new HttpException('訂單不存在!', HttpStatus.BAD_REQUEST);
-
-      const goods = await this.cramiPackageEntity.findOne({
-        where: { id: order.goodsId }
-      });
-      if (!goods) throw new HttpException('套餐不存在!', HttpStatus.BAD_REQUEST);
-
-      const configs = await this.globalConfigService.getConfigs([
-        'payEcpayMerchantId',
-        'payEcpayHashKey',
-        'payEcpayHashIV',
-        'payEcpayNotifyUrl',
-        'payEcpayReturnUrl',
-        'payEcpayTestMode'
-      ]);
-
-      if (!configs.payEcpayMerchantId || !configs.payEcpayHashKey || !configs.payEcpayHashIV) {
-        throw new HttpException('綠界支付配置不完整', HttpStatus.BAD_REQUEST);
-      }
-
-      const now = new Date();
-      const merchantTradeDate = `${now.getFullYear()}/${String(now.getMonth() + 1).padStart(2, '0')}/${String(now.getDate()).padStart(2, '0')} ${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}:${String(now.getSeconds()).padStart(2, '0')}`;
-
-      const baseParam = {
-        MerchantID: configs.payEcpayMerchantId,
-        MerchantTradeNo: orderId,
-        MerchantTradeDate: merchantTradeDate,
-        PaymentType: 'aio',
-        TotalAmount: Math.round(order.total),
-        TradeDesc: 'AI Chat Credits Purchase',
-        ItemName: goods.name,
-        ReturnURL: configs.payEcpayNotifyUrl,
-        OrderResultURL: configs.payEcpayReturnUrl,
-        ClientBackURL: configs.payEcpayReturnUrl,
-        ChoosePayment: 'ALL',
-        EncryptType: 1
-      };
-
-      Logger.log(`ECPay Environment: ${configs.payEcpayTestMode === '1' ? 'Test' : 'Production'}`);
-
-      const payment = new ecpay_payment({
-        OperationMode: configs.payEcpayTestMode === '1' ? 'Test' : 'Production',
-        MerchantID: configs.payEcpayMerchantId,
-        HashKey: configs.payEcpayHashKey,
-        HashIV: configs.payEcpayHashIV,
-        PaymentGateWay: configs.payEcpayTestMode === '1'
-          ? 'https://payment-stage.ecpay.com.tw/Cashier/AioCheckOut/V5'
-          : 'https://payment.ecpay.com.tw/Cashier/AioCheckOut/V5'
-      });
-
-      const html = payment.payment_client.aio_check_out_all(baseParam);
-
-      return {
-        orderId,
-        formHtml: html,
-        isRedirect: true,
-        isForm: true
-      };
-
-    } catch (error) {
-      Logger.error('ECPay payment error:', error);
-      throw new HttpException(error.message || '支付請求失敗!', HttpStatus.BAD_REQUEST);
-    }
-  }
-
-  /* 綠界支付通知處理 */
-  async notifyEcpay(params: object) {
-    const configs = await this.globalConfigService.getConfigs([
-      'payEcpayHashKey',
-      'payEcpayHashIV'
-    ]);
-
-    try {
-      // 驗證 CheckMacValue
-      const payment = new ecpay_payment({
-        HashKey: configs.payEcpayHashKey,
-        HashIV: configs.payEcpayHashIV
-      });
-      const checkValue = payment.CheckMacValue(params);
-
-      if (params['CheckMacValue'] !== checkValue) {
-        return '0|ERROR';
-      }
-
-      // 處理訂單
-      if (params['RtnCode'] === '1') {
-        const order = await this.orderEntity.findOne({
-          where: { orderId: params['MerchantTradeNo'] }
-        });
-        if (!order) return '0|ERROR';
-
-        await this.userBalanceService.addBalanceToOrder(order);
-        await this.orderEntity.update(
-          { orderId: params['MerchantTradeNo'] },
-          { status: 1, paydAt: new Date() }
-        );
-      }
-      return '1|OK';
-
-    } catch (error) {
-      Logger.error('ECPay notify error:', error);
-      return '0|ERROR';
-    }
   }
 }

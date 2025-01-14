@@ -33,7 +33,7 @@ const bulkVisible = ref(false);
 const formInline = reactive({
   keyType: '',
   model: '',
-  status: '' as string, // 修改類型定義
+  status: null,
   page: 1,
   size: 10,
 });

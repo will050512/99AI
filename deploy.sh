@@ -263,15 +263,15 @@ NAMESPACE=AIWEB
 EOF
 
   declare -a NPM_MIRRORS=(
-      "NPM Official" "https://registry.npmjs.org"
-      "Yarn" "https://registry.yarnpkg.com"
-      "GitHub" "https://npm.pkg.github.com"
-      "CloudFlare" "https://registry.npmjs.cf"
-      "Google" "https://storage.googleapis.com/npm-registry"
-      "Azure China" "https://registry.npmjs.azure.cn"
-      "JSDelivr" "https://cdn.jsdelivr.net/npm"
+    "淘寶鏡像" "https://registry.npmmirror.com"
+    "阿里雲鏡像" "https://npm.aliyun.com"
+    "騰訊雲鏡像" "https://mirrors.cloud.tencent.com/npm/"
+    "華為雲鏡像" "https://mirrors.huaweicloud.com/repository/npm/"
+    "網易鏡像" "https://mirrors.163.com/npm/"
+    "中科院大學開源鏡像站" "http://mirrors.ustc.edu.cn/"
+    "清華大學開源鏡像站" "https://mirrors.tuna.tsinghua.edu.cn/"
   )
-  
+
   echo -e "${green}請選擇要使用的npm源：${plain}"
 
   for ((i=0; i<${#NPM_MIRRORS[@]}; i+=2)); do

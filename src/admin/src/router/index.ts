@@ -198,24 +198,4 @@ router.afterEach((to, from) => {
   document.documentElement.scrollTop = 0;
 });
 
-export const menus = [
-  {
-    path: '/pay',
-    meta: {
-      title: '支付管理',
-      icon: 'i-ep:money',
-    },
-    children: [
-      {
-        path: '/pay/ecpay',
-        name: 'PayEcpay',
-        component: () => import('@/views/pay/ecpay.vue'),
-        meta: {
-          title: '綠界支付設置',
-        },
-      },
-    ],
-  },
-];
-
 export default router;

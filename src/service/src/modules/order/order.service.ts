@@ -31,20 +31,11 @@ export class OrderService {
     try {
       const { goodsId, count = 1, payType } = params;
       const { id: userId } = req.user;
-
       if(userId > 1000000){
         throw new HttpException('請先註冊賬號後購買商品！', HttpStatus.UNAUTHORIZED)
       }
-
-      // 檢查支付平台是否開啟
-      const payPlatform = await this.globalConfigService.queryPayType();
-      if (!payPlatform) {
-        throw new HttpException('管理員還未開啟支付功能！', HttpStatus.BAD_REQUEST);
-      }
-
       const order = await this.create(userId, goodsId, count, payType);
       const res = await this.payService.pay(userId, order.orderId, payType);
-
       return {
         ...res,
         orderId: order.orderId,
@@ -52,9 +43,10 @@ export class OrderService {
         total: order.total,
       };
     } catch (error) {
-      if(error.status === 401) {
+      if( error.status === 401){
         throw new HttpException(error.message, HttpStatus.UNAUTHORIZED)
       }
+      
       throw new HttpException(error.message || '購買失敗!', HttpStatus.BAD_REQUEST);
     }
   }
@@ -71,9 +63,6 @@ export class OrderService {
   /* 創建工單 */
   async create(userId: number, goodsId: number, count: number, payType: string) {
     const payPlatform = await this.globalConfigService.queryPayType();
-    if (!payPlatform) {
-      throw new HttpException('管理員還未開啟支付功能！', HttpStatus.BAD_REQUEST);
-    }
     // query goods
     const goods = await this.cramiPackageEntity.findOne({ where: { id: goodsId } });
     if (!goods) throw new HttpException('套餐不存在!', HttpStatus.BAD_REQUEST);
