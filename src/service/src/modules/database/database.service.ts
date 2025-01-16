@@ -102,8 +102,8 @@ export class DatabaseService implements OnModuleInit {
       const code = ``;
 
       const noticeInfo = `
-#### AIWeb 歡迎您
- - 歡迎使用 AIWeb
+#### AiFunSchool一站式平台 歡迎您
+ - 歡迎使用 AiFunSchool一站式平台
  - 初始管理員賬號密碼  super  123456 【前臺後臺登錄都可以修改】
  - 初始預覽賬號密碼  admin  123456 【為後臺查看賬號 僅可查看部分非敏感數據】
 `;

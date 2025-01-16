@@ -24,6 +24,13 @@ export class PayController {
     return this.payService.notify(body);
   }
 
+  @Post('notify/ecpay')
+  @ApiOperation({ summary: '綠界支付結果通知' })
+  notifyEcpay(@Body() body) {
+    console.log('ecpay ->body: ', body);
+    return this.payService.notify(body);
+  }
+
   @Get('notify')
   @ApiOperation({ summary: 'Epay支付結果通知' })
   notifyEpay(@Query() query) {

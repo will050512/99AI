@@ -243,6 +243,8 @@ export class GlobalConfigService implements OnModuleInit {
       'isAutoOpenAgreement',
       'agreementInfo',
       'agreementTitle',
+      'payEcpayStatus', // 綠界支付開關
+      'payEcpayApiUrl', // 綠界支付API地址
     ];
     const data = await this.configEntity.find({
       where: { configKey: In(allowKeys) },
@@ -467,7 +469,7 @@ export class GlobalConfigService implements OnModuleInit {
 
   /* get namespace */
   getNamespace() {
-    return process.env.NAMESPACE || 'AIWeb';
+    return process.env.NAMESPACE || 'AiFunSchool一站式平台';
   }
 
   /* 獲取簽名贈送額度 */
@@ -499,7 +501,7 @@ export class GlobalConfigService implements OnModuleInit {
     const responseData: any = await response.json();
     const { success = true, message } = responseData;
 
-    Logger.debug('感謝您使用AIWeb，祝您使用愉快~');
+    Logger.debug('感謝您使用AiFunSchool一站式平台，祝您使用愉快~');
   }
 
   /* 拿到敏感次配置 都開啟優先使用百度雲 */

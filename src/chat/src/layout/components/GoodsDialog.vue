@@ -52,22 +52,23 @@ const payPlatform = computed(() => {
     payMpayStatus,
     payWechatStatus,
     payLtzfStatus,
+    payEcpayStatus, // 新增綠界支付狀態
   } = authStore.globalConfig;
+
   if (Number(payWechatStatus) === 1) return 'wechat';
-
-  if (Number(payMpayStatus) === 1) return 'mpay';
-
-  if (Number(payHupiStatus) === 1) return 'hupi';
-
   if (Number(payEpayStatus) === 1) return 'epay';
-
+  if (Number(payMpayStatus) === 1) return 'mpay';
+  if (Number(payHupiStatus) === 1) return 'hupi';
   if (Number(payLtzfStatus) === 1) return 'ltzf';
+  if (Number(payEcpayStatus) === 1) return 'ecpay'; // 新增綠界支付判斷
 
   return null;
 });
 
+/* 支付平臺開啟的支付渠道 */
 const payChannel = computed(() => {
   const { payEpayChannel, payMpayChannel } = authStore.globalConfig;
+
   if (payPlatform.value === 'mpay')
     return payMpayChannel ? JSON.parse(payMpayChannel) : [];
 
@@ -79,6 +80,8 @@ const payChannel = computed(() => {
   if (payPlatform.value === 'hupi') return ['wxpay'];
 
   if (payPlatform.value === 'ltzf') return ['wxpay'];
+
+  if (payPlatform.value === 'ecpay') return ['ecpay']; // 新增綠界支付渠道
 
   return [];
 });
@@ -163,82 +166,55 @@ function onBridgeReady(data: {
   );
 }
 
-// async function handleBuyGoods(pkg: Pkg) {
-//   if (dialogLoading.value) return;
-
-//   // 如果是微信環境判斷有沒有開啟微信支付,開啟了則直接調用jsapi支付即可
-//   if (
-//     isWxEnv.value &&
-//     payPlatform.value === 'wechat' &&
-//     Number(authStore.globalConfig.payWechatStatus) === 1
-//   ) {
-//     if (typeof WeixinJSBridge == 'undefined') {
-//       if (document.addEventListener) {
-//         document.addEventListener('WeixinJSBridgeReady', onBridgeReady, false);
-//       } else if (document.attachEvent) {
-//         document.attachEvent('WeixinJSBridgeReady', onBridgeReady);
-//         document.attachEvent('onWeixinJSBridgeReady', onBridgeReady);
-//       }
-//     } else {
-//       const res: ResData = await fetchOrderBuyAPI({
-//         goodsId: pkg.id,
-//         payType: 'jsapi',
-//       });
-//       const { success, data } = res;
-//       success && onBridgeReady(data);
-//     }
-//     return;
-//   }
-
-//   /* 其他場景打開支付視窗 */
-//   useGlobalStore.updateOrderInfo({ pkgInfo: pkg });
-//   useGlobalStore.updateGoodsDialog(false);
-//   useGlobalStore.updatePayDialog(true);
-//   // dialogLoading.value = true
-//   // const { id: goodsId, name, des } = pkg
-//   // try {
-//   //   /* 如果在微信環境 則微信官方支付渠道為jsapi支付 */
-//   //   if (payPlatform.value === 'wechat')
-//   //     payType = isWxEnv.value ? 'jsapi' : 'native'
-
-//   //   const res: ResData = await fetchOrderBuyAPI({ goodsId, payType })
-//   //   dialogLoading.value = false
-//   //   const { success, data } = res
-//   //   if (success) {
-//   //     /* 如果是微信環境並且開啟了微信登錄則調用jsapi支付 */
-//   //     if (isWxEnv.value && payPlatform.value === 'wechat') {
-//   //       if (typeof WeixinJSBridge == 'undefined') {
-//   //         if (document.addEventListener) {
-//   //           document.addEventListener('WeixinJSBridgeReady', onBridgeReady, false)
-//   //         }
-//   //         else if (document.attachEvent) {
-//   //           document.attachEvent('WeixinJSBridgeReady', onBridgeReady)
-//   //           document.attachEvent('onWeixinJSBridgeReady', onBridgeReady)
-//   //         }
-//   //       }
-//   //       else {
-//   //         onBridgeReady(data)
-//   //       }
-//   //       return
-//   //     }
-
-//   //     useGlobalStore.updateOrderInfo({ ...data, pkgInfo: pkg })
-//   //     useGlobalStore.updateGoodsDialog(false)
-//   //     const { isRedirect, redirectUrl } = data
-//   //     if (isRedirect)
-//   //       window.open(redirectUrl)
-
-//   //     else
-//   //       useGlobalStore.updatePayDialog(true)
-//   //   }
-//   // }
-//   // catch (error) {
-//   //   dialogLoading.value = false
-//   // }
-// }
-
 async function handleBuyGoods(pkg: Pkg) {
   if (dialogLoading.value) return;
+
+  // 檢查支付渠道是否啟用
+  if (!payChannel.value.length) {
+    message.warning(t('goods.paymentNotEnabled'));
+    return;
+  }
+
+  // 如果是綠界支付
+  if (payPlatform.value === 'ecpay') {
+    try {
+      const res: ResData = await fetchOrderBuyAPI({
+        goodsId: pkg.id,
+        payType: 'ecpay',
+      });
+
+      if (res.success) {
+        const { url, params } = res.data;
+
+        // 創建並提交表單到綠界
+        const form = document.createElement('form');
+        form.method = 'post';
+        form.action = url;
+        form.target = '_blank'; // 在新分頁開啟
+
+        // 加入所有參數
+        for (const key in params) {
+          const input = document.createElement('input');
+          input.type = 'hidden';
+          input.name = key;
+          input.value = params[key];
+          form.appendChild(input);
+        }
+
+        // 提交表單
+        document.body.appendChild(form);
+        form.submit();
+        document.body.removeChild(form);
+
+        // 關閉對話框
+        useGlobalStore.updateGoodsDialog(false);
+        return;
+      }
+    } catch (error) {
+      message.error(t('goods.paymentFailed'));
+      return;
+    }
+  }
 
   // 判斷是否是微信移動端環境
   function isWxMobileEnv() {
@@ -296,22 +272,6 @@ const selectName = ref('');
 const handleSelect = (item) => {
   selectName.value = item.name;
 };
-
-// function handleSuccess(pkg: Pkg) {
-//   const { name } = pkg;
-//   dialog.success({
-//     title: t('goods.orderConfirmationTitle'),
-//     content: t('goods.orderConfirmationContent') + name,
-//     negativeText: t('goods.thinkAgain'),
-//     positiveText: t('goods.confirmPurchase'),
-//     onPositiveClick: () => {
-//       if (!payChannel.value.length)
-//         message.warning(t('goods.paymentNotEnabled'));
-
-//       handleBuyGoods(pkg);
-//     },
-//   });
-// }
 
 function handleSuccess(pkg: Pkg) {
   // 檢查支付渠道是否啟用

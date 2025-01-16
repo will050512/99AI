@@ -9,6 +9,9 @@ import { GlobalConfigService } from '../globalConfig/globalConfig.service';
 import { OrderEntity } from '../order/order.entity';
 import { UserService } from '../user/user.service';
 import { UserBalanceService } from '../userBalance/userBalance.service';
+import { createHash } from 'crypto'; // 從 crypto 解構引入 createHash
+import * as dayjs from 'dayjs';      // 引入 dayjs
+import config from '@/api/modules/config'; // 引入 config 模組
 
 @Injectable()
 export class PayService {
@@ -90,7 +93,6 @@ export class PayService {
 
   /* 虎皮椒支付通知 */
   async notifyHupi(params: object) {
-    const payHupiSecret = await this.globalConfigService.getConfigs([
       'payHupiSecret',
     ]);
     const hash = params['hash'];
@@ -786,5 +788,125 @@ export class PayService {
     );
     if (result.affected != 1) return 'FAIL';
     return 'SUCCESS';
+  }
+
+  /* 綠界支付 */
+  async payEcpay(userId: number, orderId: string) {
+    const order = await this.orderEntity.findOne({
+      where: { userId, orderId },
+    });
+    if (!order) throw new HttpException('訂單不存在!', HttpStatus.BAD_REQUEST);
+
+    const goods = await this.cramiPackageEntity.findOne({
+      where: { id: order.goodsId },
+    });
+    if (!goods) throw new HttpException('套餐不存在!', HttpStatus.BAD_REQUEST);
+
+    const {
+      payEcpayMerchantID,
+      payEcpayHashKey,
+      payEcpayHashIV,
+      payEcpayApiUrl,
+      payEcpayNotifyUrl,
+      payEcpayReturnUrl
+    } = await this.globalConfigService.getConfigs([
+      'payEcpayMerchantID',
+      'payEcpayHashKey',
+      'payEcpayHashIV',
+      'payEcpayApiUrl',
+      'payEcpayNotifyUrl',
+      'payEcpayReturnUrl'
+    ]);
+
+    if (!payEcpayMerchantID || !payEcpayHashKey || !payEcpayHashIV) {
+      throw new HttpException('綠界支付配置不完整', HttpStatus.BAD_REQUEST);
+    }
+
+    // 組裝綠界支付參數
+    const params = {
+      MerchantID: payEcpayMerchantID,
+      MerchantTradeNo: orderId,
+      MerchantTradeDate: dayjs().format('YYYY/MM/DD HH:mm:ss'),
+      PaymentType: 'aio',
+      TotalAmount: Math.round(order.total),
+      TradeDesc: goods.name,
+      ItemName: goods.name,
+      ReturnURL: payEcpayNotifyUrl,
+      ClientBackURL: payEcpayReturnUrl,
+      ChoosePayment: 'Credit',
+      EncryptType: 1
+    };
+
+    // 產生檢查碼
+    const checkMacValue = this.createEcpayMacValue(params, payEcpayHashKey, payEcpayHashIV);
+    params['CheckMacValue'] = checkMacValue;
+
+    // 回傳表單需要的資料
+    return {
+      url: payEcpayApiUrl,
+      params
+    };
+  }
+
+  /* 綠界支付通知 */
+  async notifyEcpay(params: any) {
+    const configs = await this.globalConfigService.getConfigs([
+      'payEcpayHashKey',
+      'payEcpayHashIV'
+    ]);
+
+    // 驗證檢查碼
+    const checkMacValue = params.CheckMacValue;
+    delete params.CheckMacValue;
+
+    const computedMacValue = this.createEcpayMacValue(params, configs.payEcpayHashKey, configs.payEcpayHashIV);
+    if (checkMacValue !== computedMacValue) {
+      return 'fail';
+    }
+
+    // 更新訂單狀態
+    const orderId = params.MerchantTradeNo;
+    const order = await this.orderEntity.findOne({
+      where: { orderId, status: 0 },
+    });
+
+    if (!order) return 'fail';
+
+    const result = await this.orderEntity.update(
+      { orderId },
+      { status: 1, paydAt: new Date() }
+    );
+
+    if (result.affected === 1) {
+      // 增加用戶餘額
+      await this.userBalanceService.addBalanceToOrder(order);
+      return '1|OK';
+    }
+
+    return 'fail';
+  }
+
+  /* 產生 MAC 檢查碼 */
+  private createEcpayMacValue(params: any, hashKey: string, hashIV: string) {
+    // 依照綠界規範排序並產生 MAC 值
+    const sortedParams = {};
+    Object.keys(params).sort().forEach(key => {
+      sortedParams[key] = params[key];
+    });
+
+    // 組成查詢字串
+    const queryString = new URLSearchParams(sortedParams).toString();
+
+    // 加上 HashKey 和 HashIV
+    const rawString = `HashKey=${hashKey}&${queryString}&HashIV=${hashIV}`;
+
+    // URL encode
+    const encodedString = encodeURIComponent(rawString).toLowerCase();
+
+    // SHA256 雜湊
+    return createHash('sha256')
+      .update(encodedString)
+      .digest('hex')
+      .toUpperCase();
   }
 }

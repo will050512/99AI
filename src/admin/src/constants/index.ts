@@ -271,6 +271,7 @@ export const PAY_PLATFORM_LIST = [
   { value: 'wechat', label: '微信支付' },
   { value: 'mpay', label: '碼支付' },
   { value: 'ltzf', label: '藍兔支付' },
+  { value: 'ecpay', label: '綠界支付' },
 ];
 
 // 支付對應
@@ -280,6 +281,7 @@ export const PAY_PLATFORM_MAP = {
   wechat: '微信支付',
   mpay: '碼支付',
   ltzf: '藍兔支付',
+  ecpay: '綠界支付',
 };
 
 //  繪畫狀態  1: 等待中 2: 繪製中 3: 繪製完成 4: 繪製失敗 5: 繪製超時

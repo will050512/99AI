@@ -5,7 +5,7 @@ export class AddAutoReplyDto {
   prompt: string;
 
   @ApiProperty({
-    example: '我是AIWeb提供的Ai服務機器人',
+    example: '我是AiFunSchool一站式平台提供的Ai服務機器人',
     description: '回答的答案',
     required: true,
   })

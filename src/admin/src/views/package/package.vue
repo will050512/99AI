@@ -40,7 +40,7 @@ interface Package {
   coverImg?: string | null;
   price?: number | null;
   order?: number | null;
-  status?: number | null;
+  status?: number;
   weight?: number | null;
   days?: number | null;
   model3Count: number | null;
@@ -57,7 +57,7 @@ const formPackage: Package = reactive({
   coverImg: null,
   price: null,
   order: null,
-  status: 0 as number, // 修改類型定義
+  status: 0, // 修改類型定義
   weight: null,
   days: null,
   model3Count: null,

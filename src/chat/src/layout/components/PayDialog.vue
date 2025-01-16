@@ -99,14 +99,18 @@ const isRedirectPay = computed(() => {
 });
 
 watch(payType, () => {
-  getQrCode();
+  if(payType.value === 'ecpay') {
+    handleEcpaySubmit();
+  } else {
+    getQrCode();
+  }
   countdownRef.value?.reset();
 });
 
 const orderId = ref('');
 let timer: any;
 const payTypes = computed(() => {
-  return [
+  const types = [
     {
       label: t('pay.wechatPay'),
       value: 'wxpay',
@@ -119,7 +123,14 @@ const payTypes = computed(() => {
       icon: alipay,
       payChannel: 'alipay',
     },
-  ].filter((item) => payChannel.value.includes(item.payChannel));
+    {
+      label: t('pay.ecpay'),
+      value: 'ecpay',
+      icon: ecpayIcon,
+      payChannel: 'ecpay'
+    }
+  ].filter(item => payChannel.value.includes(item.payChannel));
+  return types;
 });
 
 const queryOrderStatus = async () => {
@@ -212,6 +223,27 @@ function handleFinish() {
   stopPolling();
   useGlobal.updatePayDialog(false);
   useGlobal.updateGoodsDialog(true);
+}
+
+async function handleEcpaySubmit() {
+  const { url, params } = await payService.payEcpay(userId, orderId);
+
+  // 創建表單並提交到綠界
+  const form = document.createElement('form');
+  form.method = 'post';
+  form.action = url;
+
+  for (const key in params) {
+    const input = document.createElement('input');
+    input.type = 'hidden';
+    input.name = key;
+    input.value = params[key];
+    form.appendChild(input);
+  }
+
+  document.body.appendChild(form);
+  form.submit();
+  document.body.removeChild(form);
 }
 
 onMounted(async () => {
@@ -422,6 +454,7 @@ onUnmounted(() => {
                   </label>
                 </div>
               </div>
+              <el-button @click="handleEcpaySubmit">提交</el-button>
             </div>
           </div>
         </div>
